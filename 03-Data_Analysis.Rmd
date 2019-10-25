@@ -64,14 +64,21 @@ ihs <- function(x) {
 This section imports the data cleaned in the "Step I: Data Cleaning" document to begin analyzing the data. 
 
 ```{r Data Import, tidy = TRUE}
-
+members.2018.data.raw <- read_xlsx("Data/Raw Data/OpenSecrets.org _ No Corp PAC Members.xlsx", 
+                                   skip = 1,
+                                   sheet = "All Cands 2018")
+members.2018.data <- 
+  members.2018.data.raw %>%
+  mutate(NoCorpPACs = as_factor(NoCorpPACs),
+         Party = as_factor(Party),
+         Party = relevel(Party, ref = "D"))
 ```
 
 
 # Model FItting
 
 ```{r Modelling, tidy = TRUE}
-
+summary(lm(VotePercent ~ NoCorpPACs * Party + `Net Receipts` + `New Member?`, data = members.2018.data))
 ```
 
 
