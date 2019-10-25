@@ -1,0 +1,71 @@
+---
+title: "Step I: Data Cleaning"
+subtitle: "Project.title"
+author:
+  - name: Nicholas R. Jenkins 
+    affiliation: University of California, Riverside
+    affiliation_url: https://www.ucr.edu
+description: |
+  This document shows all the code used to clean the data for this project. 
+  Each step has been carefully documented and will replicate the data set used
+  in the study. For any questions about this code, please contact 
+  Nick Jenkins at [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu).
+abstract: |
+  This document shows all the code used to clean the data for this project. 
+  Each step has been carefully documented and will replicate the data set used
+  in the study. For any questions about this code, please contact 
+  Nick Jenkins at [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu).
+date: "`r Sys.Date()`"
+output: 
+  radix: radix::radix_article
+  html_notebook: 
+    highlight: monochrome
+    theme: simplex
+    toc: yes
+    code_folding: 
+  html_document:
+    highlight: monochrome
+    theme: simplex
+    toc: yes
+    code_folding:
+  pdf_document:
+    toc: yes
+  github_document:
+    toc: yes
+#bibliography: /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
+---
+
+# Environment Preperation
+
+This section clears the current working environment and loads the packages used to clean the data. I also create the function `comma()` to format any in-line output values to have thousands separators and only two digits. 
+
+```{r setup, warning = FALSE, message = FALSE, results = "hide", echo = TRUE}
+# Clear Environment -----------------------------------------------------------
+rm(list = ls())
+
+# Load Packages ---------------------------------------------------------------
+packages <- c("tidyverse", "stargazer", "foreign", "sqldf")
+lapply(packages, require, character.only = TRUE)
+
+# Inline Formatting -----------------------------------------------------------
+comma <- function(x) format(x, digits = 2, big.mark = ",")
+```
+
+# Import Data
+
+
+
+
+# Final Data Set Summary Statistics 
+
+```{r Summary Statistics, echo = TRUE}
+
+```
+
+## Acknowledgements {.appendix}
+
+All data cleaning was done using RStudio running **R** version 
+`r R.version$major`.`r R.version$minor` "`r R.version$nickname`".
+
+
+

@@ -1,0 +1,43 @@
+---
+title: "Data Appendix"
+subtitle: 'Project.title'
+author:
+  - Nicholas R. Jenkins^[University of California, Riverside]
+abstract: |
+  This document describes the final data set used in this project. The data
+  sources, variable names, and variable descriptions are all outlined. 
+  
+  For any questions about this data, please contact Nick Jenkins
+  at [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu).
+output:
+  html_notebook: 
+    highlight: monochrome
+    theme: simplex
+    toc: yes
+    code_folding: 
+  html_document:
+    highlight: monochrome
+    theme: simplex
+    toc: yes
+    code_folding:
+  pdf_document:
+    toc: yes
+  github_document:
+    toc: yes
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+bibliography: /Users/nick/Documents/Research/Articles/biblatex.bib
+---
+
+# Citation
+
+Publications and research reports that use this data must cite it appropriately by including the following information:
+
+
+# Data Dictionary
+
+
+# Summary Statistics
+
+```{r Summary Statistics, tidy = TRUE}
+
+```

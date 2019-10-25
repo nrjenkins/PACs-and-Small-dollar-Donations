@@ -1,0 +1,82 @@
+---
+title: "Step III: Data Analysis"
+subtitle: 'Project.title'
+author:
+  - Nicholas R. Jenkins^[University of California, Riverside]
+abstract: |
+  This document shows all the code used to analyze the data for this project. 
+  All analyses were done using RStudio running **R** version 
+  `r R.version$major`.`r R.version$minor` "`r R.version$nickname`". 
+  
+  Each step has been carefully documented and will replicate the results in the 
+  manuscript. The code for this document can be downloaded using the button 
+  in the top right corner. For any questions about this code, please contact 
+  Nick Jenkins at 
+  [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu).
+output:
+  html_notebook: 
+    highlight: monochrome
+    theme: simplex
+    toc: yes
+    code_folding: 
+  html_document:
+    highlight: monochrome
+    theme: simplex
+    toc: yes
+    code_folding:
+  pdf_document:
+    toc: yes
+  github_document:
+    toc: yes
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+bibliography: /Users/nick/Documents/Research/Articles/biblatex.bib
+---
+
+# Environment Preperation
+
+This section clears the current working environment and loads the packages used to visualize the data. I also create the function `comma()` to format any in-line output values to have thousands separators and only two digits. 
+
+```{r setup, warning = FALSE, tidy = TRUE, message = FALSE, results = "hide"}
+# Clear Environment -----------------------------------------------------------
+rm(list = ls())
+
+# Load Packages ---------------------------------------------------------------
+packages <- c("tidyverse", "foreign", "stargazer", "lme4", "nlme", 
+              "multilevel", "lfe", "lmtest", "bife",  "survival", "mfx", 
+              "multcomp", "lmerTest", "R2jags", "ggmcmc", "ggridges",
+              "arm", "AER", "rstanarm", "rstan")
+lapply(packages, require, character.only = TRUE)
+
+# Functions -------------------------------------------------------------------
+# Inline Formatting
+comma <- function(x) format(x, digits = 2, big.mark = ",")
+
+# Inverse Hyperbolic Sin Transformation Function
+ihs <- function(x) {
+    y <- log(x + sqrt(x ^ 2 + 1))
+    return(y)
+}
+```
+
+
+# Import Data
+
+This section imports the data cleaned in the "Step I: Data Cleaning" document to begin analyzing the data. 
+
+```{r Data Import, tidy = TRUE}
+
+```
+
+
+# Model FItting
+
+```{r Modelling, tidy = TRUE}
+
+```
+
+
+# Model Diagnostics
+
+```{r Diagnostics, tidy = TRUE}
+
+```
