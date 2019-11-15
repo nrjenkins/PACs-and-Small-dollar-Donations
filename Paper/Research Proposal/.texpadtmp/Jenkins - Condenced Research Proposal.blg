@@ -1,19 +1,19 @@
 [0] Config.pm:302> INFO - This is Biber 2.11
 [0] Config.pm:305> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.blg'
-[49] biber-darwin:313> INFO - === Fri Oct 25, 2019, 13:36:29
-[85] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.bcf'
-[261] Biber.pm:857> INFO - Found 26 citekeys in bib section 0
-[274] Biber.pm:3976> INFO - Processing section 0
-[283] Biber.pm:4136> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
-[386] bibtex.pm:1500> INFO - LaTeX decoding ...
-[3263] bibtex.pm:1316> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
-[3516] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page_rational_1992' is invalid - run biber with '--validate_datamodel' for details.
-[3538] Utils.pm:193> WARN - Entry 'gambino_not_2019' (/Users/nick/Documents/Research/References/BibTeX/biblatex.bib): Invalid format '2019-03-10T06:00:35.000Z' of date field 'date' - ignoring
-[3581] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[3581] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
-[3581] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[3581] Biber.pm:3804> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
-[3581] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[3610] bbl.pm:617> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.bbl' with encoding 'UTF-8'
-[3628] bbl.pm:720> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.bbl
-[3628] Biber.pm:110> INFO - WARNINGS: 2
+[54] biber-darwin:313> INFO - === Fri Oct 25, 2019, 16:10:51
+[88] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.bcf'
+[224] Biber.pm:857> INFO - Found 27 citekeys in bib section 0
+[236] Biber.pm:3976> INFO - Processing section 0
+[247] Biber.pm:4136> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[344] bibtex.pm:1500> INFO - LaTeX decoding ...
+[2923] bibtex.pm:1316> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
+[3186] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page_rational_1992' is invalid - run biber with '--validate_datamodel' for details.
+[3204] Utils.pm:193> WARN - Entry 'gambino_not_2019' (/Users/nick/Documents/Research/References/BibTeX/biblatex.bib): Invalid format '2019-03-10T06:00:35.000Z' of date field 'date' - ignoring
+[3245] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[3245] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
+[3245] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[3245] Biber.pm:3804> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
+[3245] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[3279] bbl.pm:617> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.bbl' with encoding 'UTF-8'
+[3296] bbl.pm:720> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.bbl
+[3297] Biber.pm:110> INFO - WARNINGS: 2

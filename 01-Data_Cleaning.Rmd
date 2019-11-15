@@ -33,6 +33,8 @@ output:
   github_document:
     toc: yes
 #bibliography: /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Environment Preperation
@@ -44,22 +46,96 @@ This section clears the current working environment and loads the packages used 
 rm(list = ls())
 
 # Load Packages ---------------------------------------------------------------
-packages <- c("tidyverse", "stargazer", "foreign", "sqldf")
+packages <- c("tidyverse", "stargazer", "foreign", "sqldf", "readxl")
 lapply(packages, require, character.only = TRUE)
 
 # Inline Formatting -----------------------------------------------------------
 comma <- function(x) format(x, digits = 2, big.mark = ",")
 ```
 
-# Import Data
 
+# Legislator Data
+
+```{r}
+members.2018.data.raw <- read_xlsx("Data/Raw Data/OpenSecrets.org _ No Corp PAC Members.xlsx", 
+                                   skip = 1,
+                                   sheet = "All Cands 2018")
+members.2018.data <- 
+  members.2018.data.raw %>%
+  mutate(NoCorpPACs = as_factor(NoCorpPACs),
+         Party = as_factor(Party),
+         Party = relevel(Party, ref = "I")) %>%
+  rename(new_member = `New Member?`,
+         no_corp_pacs = NoCorpPACs,
+         opensecrets_id = `Candidate ID`,
+         candidae_name = CRPName,
+         party = Party,
+         district = District,
+         gen_election_result = `General Elec Result`,
+         vote_pct = VotePercent,
+         tot_pac_money = `Total PAC Money`,
+         num_pac_contribs = `Number of PAC Contributions`,
+         business_pacs = `Business PACs`,
+         labor_pacs = `Labor PACs`,
+         ideological_pacs = `Ideological PACs`,
+         leadership_pacs = `Lead PACs`,
+         other_pacs = `Other PACs`,
+         net_receipts = `Net Receipts`,
+         net_indiv_total = `Net Individual Total`,
+         candidate_contribs = `Candidate Contributions`,
+         large_indiv = `Large Indivs`,
+         small_indiv = `Small Indivs`,
+         net_spent = `Net Spent`)
+```
+
+
+# Demographic Data
+
+```{r}
+demo.data.raw <- read_excel("Data/Raw Data/Demographic Data/115th Congress Members Guide with Elections and Demographic Data by District.xlsx",
+                            sheet = "House - Working")
+
+demo.data <- 
+  demo.data.raw %>%
+  mutate(district_code = str_replace(district_code, pattern = "-", replacement = ""))
+```
+
+## Merge legislator data with demographics
+
+```{r}
+sum(duplicated(members.2018.data[ , c("district")]))
+sum(duplicated(demo.data[ , c("district")]))
+
+member.data <- left_join(
+  members.2018.data,
+  demo.data,
+  by = c("district" = "district_code")
+)
+```
+
+
+# Select Final Data Set
+
+```{r}
+estimation.data <- 
+  member.data %>%
+  select(district, no_corp_pacs, new_member, party, gen_election_result, 
+         vote_pct, tot_pac_money, num_pac_contribs, business_pacs, labor_pacs,
+         ideological_pacs, leadership_pacs, other_pacs, net_receipts,
+         candidate_contribs,
+         net_indiv_total, large_indiv, small_indiv, net_spent, pct_clinton_16,
+         pct_dem_house_16, pct_white, pct_black, pct_latino, pct_bachelors,
+         median_hh_income)
+
+save(estimation.data, file = "Data/Clean Data/estimation_data.RDa")
+```
 
 
 
 # Final Data Set Summary Statistics 
 
 ```{r Summary Statistics, echo = TRUE}
-
+psych::describeBy(estimation.data, group = estimation.data$no_corp_pacs)
 ```
 
 ## Acknowledgements {.appendix}

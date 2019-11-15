@@ -1,0 +1,19 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[1] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small Donations.blg'
+[44] biber-darwin:315> INFO - === Wed Nov  6, 2019, 10:39:07
+[76] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small Donations.bcf'
+[229] Biber.pm:889> INFO - Found 27 citekeys in bib section 0
+[243] Biber.pm:4093> INFO - Processing section 0
+[257] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[364] bibtex.pm:1523> INFO - LaTeX decoding ...
+[3555] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
+[3862] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page_rational_1992' is invalid - run biber with '--validate_datamodel' for details.
+[3888] Utils.pm:193> WARN - Entry 'gambino_not_2019' (/Users/nick/Documents/Research/References/BibTeX/biblatex.bib): Invalid format '2019-03-10T06:00:35.000Z' of date field 'date' - ignoring
+[3940] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
+[3940] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[3940] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[3940] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
+[3941] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[3980] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small Donations.bbl' with encoding 'UTF-8'
+[4000] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small Donations.bbl
+[4001] Biber.pm:110> INFO - WARNINGS: 2

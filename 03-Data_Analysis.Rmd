@@ -36,7 +36,7 @@ bibliography: /Users/nick/Documents/Research/Articles/biblatex.bib
 
 This section clears the current working environment and loads the packages used to visualize the data. I also create the function `comma()` to format any in-line output values to have thousands separators and only two digits. 
 
-```{r setup, warning = FALSE, tidy = TRUE, message = FALSE, results = "hide"}
+```{r setup, warning = FALSE, message = FALSE, results = "hide"}
 # Clear Environment -----------------------------------------------------------
 rm(list = ls())
 
@@ -63,22 +63,49 @@ ihs <- function(x) {
 
 This section imports the data cleaned in the "Step I: Data Cleaning" document to begin analyzing the data. 
 
-```{r Data Import, tidy = TRUE}
-members.2018.data.raw <- read_xlsx("Data/Raw Data/OpenSecrets.org _ No Corp PAC Members.xlsx", 
-                                   skip = 1,
-                                   sheet = "All Cands 2018")
-members.2018.data <- 
-  members.2018.data.raw %>%
-  mutate(NoCorpPACs = as_factor(NoCorpPACs),
-         Party = as_factor(Party),
-         Party = relevel(Party, ref = "D"))
+```{r Data Import}
+load("Data/Clean Data/estimation_data.RDa")
 ```
 
 
 # Model FItting
 
-```{r Modelling, tidy = TRUE}
-summary(lm(VotePercent ~ NoCorpPACs * Party + `Net Receipts` + `New Member?`, data = members.2018.data))
+```{r Modelling}
+vote.01 <- lm(vote_pct ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+              data = estimation.data)
+
+small.01 <- lm(small_indiv ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+               data = estimation.data)
+
+large.01 <- lm(large_indiv ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+               data = estimation.data)
+
+pac.money.01 <- lm(tot_pac_money ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                   data = estimation.data)
+
+buz.pacs.01 <- lm(business_pacs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                  data = estimation.data)
+
+labor.pacs.01 <- lm(labor_pacs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                    data = estimation.data)
+
+ideol.pacs.01 <- lm(ideological_pacs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                    data = estimation.data)
+
+leader.pacs.01 <- lm(leadership_pacs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                     data = estimation.data)
+
+cand.contribs.01 <- lm(candidate_contribs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                       data = estimation.data)
+
+indiv.tot.01 <- lm(net_indiv_total ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                   data = estimation.data)
+
+num.pacs.01 <- lm(num_pac_contribs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                  data = estimation.data)
+
+stargazer(vote.01, small.01, large.01, pac.money.01, buz.pacs.01, labor.pacs.01, ideol.pacs.01, leader.pacs.01, cand.contribs.01, indiv.tot.01, num.pacs.01,
+          type = "text")
 ```
 
 

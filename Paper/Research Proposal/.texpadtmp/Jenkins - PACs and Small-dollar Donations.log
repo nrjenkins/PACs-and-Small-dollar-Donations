@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  25 OCT 2019 16:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  25 OCT 2019 16:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"Jenkins - Condenced Research Proposal.tex"
-(./Jenkins - Condenced Research Proposal.tex
+**"Jenkins - PACs and Small-dollar Donations.tex"
+(./Jenkins - PACs and Small-dollar Donations.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
@@ -808,8 +808,30 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 
 \@quotelevel=\count334
 \@quotereset=\count335
-(/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.aux)
-\openout1 = `"Jenkins - Condenced Research Proposal.aux"'.
+(/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small-dollar Donations.aux
+
+/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small-dollar Donations.aux:190: LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 0
+       16}{cms/global//global/global}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small-dollar Donations.aux:190: Extra }, or forgotten \endgroup.
+l.190 016}
+          {cms/global//global/global}
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+)
+\openout1 = `"Jenkins - PACs and Small-dollar Donations.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
 LaTeX Font Info:    ... okay on input line 101.
@@ -900,11 +922,11 @@ ABD: EveryShipout initializing macros
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout5 = `"Jenkins - Condenced Research Proposal.bcf"'.
+\openout5 = `"Jenkins - PACs and Small-dollar Donations.bcf"'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file '"Jenkins - Condenced Research Proposal".bbl' found.
- (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.bbl
+Package biblatex Info: ... file '"Jenkins - PACs and Small-dollar Donations".bbl' found.
+ (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small-dollar Donations.bbl
 
 Package biblatex Warning: Biber reported the following issues
 (biblatex)                with 'gambino_not_2019':
@@ -913,6 +935,9 @@ Package biblatex Warning: Biber reported the following issues
 )
 Package biblatex Info: Reference section=0 on input line 101.
 Package biblatex Info: Reference segment=0 on input line 101.
+ [1
+
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 105.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -921,9 +946,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 105.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 105.
- [1
-
-{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+ [2]pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.132 
@@ -933,37 +956,41 @@ l.132
 
 Package biblatex-chicago Warning: Empty Ibidem citation on input line 142.
 
-[2]
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.145 
+       [2]
 
 Package biblatex-chicago Warning: Empty Ibidem citation on input line 148.
 
 [3] [4] [5]
 \tf@thm=\write6
-\openout6 = `"Jenkins - Condenced Research Proposal.thm"'.
+\openout6 = `"Jenkins - PACs and Small-dollar Donations.thm"'.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 172.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 172.
- (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.aux)
+ (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small-dollar Donations.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 172.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 172.
-Package logreq Info: Writing requests to '"Jenkins - Condenced Research Proposal".run.xml'.
-\openout1 = `"Jenkins - Condenced Research Proposal.run.xml"'.
+Package logreq Info: Writing requests to '"Jenkins - PACs and Small-dollar Donations".run.xml'.
+\openout1 = `"Jenkins - PACs and Small-dollar Donations.run.xml"'.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 172.
  ) 
 Here is how much of TeX's memory you used:
  28092 strings out of 492649
- 554904 string characters out of 6129622
- 1266260 words of memory out of 5000000
+ 554956 string characters out of 6129622
+ 1266383 words of memory out of 5000000
  31505 multiletter control sequences out of 15000+600000
  16815 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,11n,78p,1626b,3900s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,11n,78p,1630b,3900s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - Condenced Research Proposal.pdf" (6 pages, 115872 bytes).
+Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small-dollar Donations.pdf" (7 pages, 116241 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 157 compressed objects within 2 object streams
+ 195 PDF objects out of 1000 (max. 8388607)
+ 161 compressed objects within 2 object streams
  37 named destinations out of 1000 (max. 500000)
  133 words of extra memory for PDF output out of 10000 (max. 10000000)
 

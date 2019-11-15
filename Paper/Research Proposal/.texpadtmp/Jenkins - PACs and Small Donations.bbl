@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 2.9 $
+% $ biblatex bbl format version 3.0 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -21,19 +21,19 @@
   \datalist[entry]{cms/global//global/global}
     \entry{abramowitz_explaining_1988}{article}{}
       \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=cc56b0c4482bca419da6e41ed7ffb81a}{%
+        {{uniquename=0,uniquepart=base,hash=60887e81e48b2e49c96e74beb3961c25}{%
            family={Abramowitz},
            familyi={A\bibinitperiod},
            given={Alan\bibnamedelima I.},
            giveni={A\bibinitperiod\bibinitdelim I\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{cc56b0c4482bca419da6e41ed7ffb81a}
-      \strng{fullhash}{cc56b0c4482bca419da6e41ed7ffb81a}
-      \strng{bibnamehash}{cc56b0c4482bca419da6e41ed7ffb81a}
-      \strng{authorbibnamehash}{cc56b0c4482bca419da6e41ed7ffb81a}
-      \strng{authornamehash}{cc56b0c4482bca419da6e41ed7ffb81a}
-      \strng{authorfullhash}{cc56b0c4482bca419da6e41ed7ffb81a}
+      \strng{namehash}{60887e81e48b2e49c96e74beb3961c25}
+      \strng{fullhash}{60887e81e48b2e49c96e74beb3961c25}
+      \strng{bibnamehash}{60887e81e48b2e49c96e74beb3961c25}
+      \strng{authorbibnamehash}{60887e81e48b2e49c96e74beb3961c25}
+      \strng{authornamehash}{60887e81e48b2e49c96e74beb3961c25}
+      \strng{authorfullhash}{60887e81e48b2e49c96e74beb3961c25}
       \field{sortinit}{A}
       \field{sortinithash}{d77c7cdd82ff690d4c3ef13216f92f0b}
       \field{extradatescope}{labelyear}
@@ -221,7 +221,7 @@
     \endentry
     \entry{carpini_what_1997}{book}{}
       \name{author}{2}{}{%
-        {{uniquename=0,uniquepart=base,hash=52aa3b6c805436a6defe6b45c007e727}{%
+        {{uniquename=0,uniquepart=base,hash=95426f706578ff2381960cd559b8d91c}{%
            family={Carpini},
            familyi={C\bibinitperiod},
            given={Michael\bibnamedelimb X.\bibnamedelimi Delli},
@@ -240,12 +240,12 @@
       \list{publisher}{1}{%
         {Yale University Press}%
       }
-      \strng{namehash}{6aa52b9969d42a3d694ba2219d1e6e9b}
-      \strng{fullhash}{6aa52b9969d42a3d694ba2219d1e6e9b}
-      \strng{bibnamehash}{6aa52b9969d42a3d694ba2219d1e6e9b}
-      \strng{authorbibnamehash}{6aa52b9969d42a3d694ba2219d1e6e9b}
-      \strng{authornamehash}{6aa52b9969d42a3d694ba2219d1e6e9b}
-      \strng{authorfullhash}{6aa52b9969d42a3d694ba2219d1e6e9b}
+      \strng{namehash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{fullhash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{bibnamehash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{authorbibnamehash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{authornamehash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{authorfullhash}{7a470f70a373104b4433dd6f4a6c617d}
       \field{sortinit}{C}
       \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
       \field{extradatescope}{labelyear}
@@ -270,25 +270,25 @@
            given={Tyler},
            giveni={T\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=6c0b3609d0c888334c040a0662143be9}{%
+        {{uniquename=0,uniquepart=base,hash=3fc0caecd444fdca5f57aac1b9bfd31a}{%
            family={McDonald},
            familyi={M\bibinitperiod},
            given={Michael\bibnamedelima P.},
            giveni={M\bibinitperiod\bibinitdelim P\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=fab3f83de218db71d5738e2bd8d4cf93}{%
+        {{uniquename=0,uniquepart=base,hash=2da6fc22f1ef96409ec4ab4210d0b602}{%
            family={Robbins},
            familyi={R\bibinitperiod},
            given={Suzanne\bibnamedelima M.},
            giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{9581498505a9ddd90ae0ec5111f6a028}
-      \strng{fullhash}{9581498505a9ddd90ae0ec5111f6a028}
-      \strng{bibnamehash}{9581498505a9ddd90ae0ec5111f6a028}
-      \strng{authorbibnamehash}{9581498505a9ddd90ae0ec5111f6a028}
-      \strng{authornamehash}{9581498505a9ddd90ae0ec5111f6a028}
-      \strng{authorfullhash}{9581498505a9ddd90ae0ec5111f6a028}
+      \strng{namehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{fullhash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{bibnamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authorbibnamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authornamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authorfullhash}{9ba83d0150c468fe869e03fa1a085db2}
       \field{sortinit}{C}
       \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
       \field{extradatescope}{labelyear}
@@ -319,19 +319,19 @@
     \endentry
     \entry{dalton_social_2005}{article}{}
       \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=9fe19932ee1680af82e2dfe0742f219e}{%
+        {{uniquename=0,uniquepart=base,hash=84632f7414f0ebd1e9055a20e294b550}{%
            family={Dalton},
            familyi={D\bibinitperiod},
            given={Russell\bibnamedelima J.},
            giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{9fe19932ee1680af82e2dfe0742f219e}
-      \strng{fullhash}{9fe19932ee1680af82e2dfe0742f219e}
-      \strng{bibnamehash}{9fe19932ee1680af82e2dfe0742f219e}
-      \strng{authorbibnamehash}{9fe19932ee1680af82e2dfe0742f219e}
-      \strng{authornamehash}{9fe19932ee1680af82e2dfe0742f219e}
-      \strng{authorfullhash}{9fe19932ee1680af82e2dfe0742f219e}
+      \strng{namehash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{fullhash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{bibnamehash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{authorbibnamehash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{authornamehash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{authorfullhash}{84632f7414f0ebd1e9055a20e294b550}
       \field{sortinit}{D}
       \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
       \field{extradatescope}{labelyear}
@@ -369,19 +369,19 @@
     \endentry
     \entry{dowling_super_2014}{book}{}
       \name{author}{3}{}{%
-        {{uniquename=0,uniquepart=base,hash=963ea034e0ffa73b6a0f62c7ab26bec8}{%
+        {{uniquename=0,uniquepart=base,hash=1bf4da7f67ec9c1569553dc66b0a85cc}{%
            family={Dowling},
            familyi={D\bibinitperiod},
            given={Conor\bibnamedelima M.},
            giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=eba9e499255b0d5f2efa9c0e2ad91010}{%
+        {{uniquename=0,uniquepart=base,hash=e007fc45acba4fdc0af771e70bffb4a7}{%
            family={Miller},
            familyi={M\bibinitperiod},
            given={Michael\bibnamedelima G.},
            giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=eba9e499255b0d5f2efa9c0e2ad91010}{%
+        {{uniquename=0,uniquepart=base,hash=e007fc45acba4fdc0af771e70bffb4a7}{%
            family={Miller},
            familyi={M\bibinitperiod},
            given={Michael\bibnamedelima G.},
@@ -391,12 +391,12 @@
       \list{publisher}{1}{%
         {Routledge}%
       }
-      \strng{namehash}{cd83e55c33e56bb5a6c5c0000dcce6c5}
-      \strng{fullhash}{cd83e55c33e56bb5a6c5c0000dcce6c5}
-      \strng{bibnamehash}{cd83e55c33e56bb5a6c5c0000dcce6c5}
-      \strng{authorbibnamehash}{cd83e55c33e56bb5a6c5c0000dcce6c5}
-      \strng{authornamehash}{cd83e55c33e56bb5a6c5c0000dcce6c5}
-      \strng{authorfullhash}{cd83e55c33e56bb5a6c5c0000dcce6c5}
+      \strng{namehash}{84d8ec04a01ffef9af5391781db0e964}
+      \strng{fullhash}{84d8ec04a01ffef9af5391781db0e964}
+      \strng{bibnamehash}{84d8ec04a01ffef9af5391781db0e964}
+      \strng{authorbibnamehash}{84d8ec04a01ffef9af5391781db0e964}
+      \strng{authornamehash}{84d8ec04a01ffef9af5391781db0e964}
+      \strng{authorfullhash}{84d8ec04a01ffef9af5391781db0e964}
       \field{sortinit}{D}
       \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
       \field{extradatescope}{labelyear}
@@ -479,19 +479,19 @@
     \endentry
     \entry{francia_financiers_2003}{book}{}
       \name{author}{5}{}{%
-        {{uniquename=0,uniquepart=base,hash=09099394c75734c744becbe168e8f371}{%
+        {{uniquename=0,uniquepart=base,hash=d34da01bc8084f1f14b4569b7cafb31e}{%
            family={Francia},
            familyi={F\bibinitperiod},
            given={Peter\bibnamedelima L.},
            giveni={P\bibinitperiod\bibinitdelim L\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=048b9c4d194d3b8e52ba0773e071f2d3}{%
+        {{uniquename=0,uniquepart=base,hash=c806fc2f226d82c52f8b0297a7d38ed4}{%
            family={Green},
            familyi={G\bibinitperiod},
            given={John\bibnamedelima C.},
            giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=ee649f383d734bbc17c7353c05c2d7e2}{%
+        {{uniquename=0,uniquepart=base,hash=90227074297877797a2c7f3c17373043}{%
            family={Herrnson},
            familyi={H\bibinitperiod},
            given={Paul\bibnamedelima S.},
@@ -503,7 +503,7 @@
            given={Clyde},
            giveni={C\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=c270dce620658528bbd44f11d6e4385c}{%
+        {{uniquename=0,uniquepart=base,hash=7ceeb8519503c9126b8c2e34dd9f3ad9}{%
            family={Powell},
            familyi={P\bibinitperiod},
            given={Lynda\bibnamedelima W.},
@@ -513,12 +513,12 @@
       \list{publisher}{1}{%
         {Columbia University Press}%
       }
-      \strng{namehash}{66970e42e42ae11ecbe86caf174aaba4}
-      \strng{fullhash}{4c442e2958430fee2784437c08b24aeb}
-      \strng{bibnamehash}{4c442e2958430fee2784437c08b24aeb}
-      \strng{authorbibnamehash}{4c442e2958430fee2784437c08b24aeb}
-      \strng{authornamehash}{66970e42e42ae11ecbe86caf174aaba4}
-      \strng{authorfullhash}{4c442e2958430fee2784437c08b24aeb}
+      \strng{namehash}{a77743e44f89089e93479221ca2b5629}
+      \strng{fullhash}{70d8591462ee81799ffba7a682de06ab}
+      \strng{bibnamehash}{70d8591462ee81799ffba7a682de06ab}
+      \strng{authorbibnamehash}{70d8591462ee81799ffba7a682de06ab}
+      \strng{authornamehash}{a77743e44f89089e93479221ca2b5629}
+      \strng{authorfullhash}{70d8591462ee81799ffba7a682de06ab}
       \field{sortinit}{F}
       \field{sortinithash}{669c706c6f1fbf3b5a83d26f1d9e9e72}
       \field{extradatescope}{labelyear}
@@ -534,6 +534,9 @@
       \field{title}{The {{Financiers}} of {{Congressional Elections}}: {{Investors}}, {{Ideologues}}, and {{Intimates}}}
       \field{year}{2003}
       \field{dateera}{ce}
+      \verb{eprint}
+      \verb R286Ht9vZWUC
+      \endverb
       \keyw{Political Science / Political Process / General,Political Science / American Government / Legislative Branch,Political Science / Political Process / Campaigns & Elections,Political Science / American Government / National}
     \endentry
     \entry{gambino_not_2019}{article}{}
@@ -632,7 +635,7 @@
            given={Shanto},
            giveni={S\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=b38cc88b6f1cff608028cc038ab2774f}{%
+        {{uniquename=0,uniquepart=base,hash=a0e579a898c93cd13011548f021030ef}{%
            family={Kinder},
            familyi={K\bibinitperiod},
            given={Donald\bibnamedelima R.},
@@ -645,12 +648,12 @@
       \list{publisher}{1}{%
         {University Of Chicago Press}%
       }
-      \strng{namehash}{f7b2bec11201dcbac0efcdc2e186ab16}
-      \strng{fullhash}{f7b2bec11201dcbac0efcdc2e186ab16}
-      \strng{bibnamehash}{f7b2bec11201dcbac0efcdc2e186ab16}
-      \strng{authorbibnamehash}{f7b2bec11201dcbac0efcdc2e186ab16}
-      \strng{authornamehash}{f7b2bec11201dcbac0efcdc2e186ab16}
-      \strng{authorfullhash}{f7b2bec11201dcbac0efcdc2e186ab16}
+      \strng{namehash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{fullhash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{bibnamehash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{authorbibnamehash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{authornamehash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{authorfullhash}{fe3d13de12889ac85fce72486af1bff1}
       \field{sortinit}{I}
       \field{sortinithash}{320bc8fe8101b9376f9f21cd507de0e8}
       \field{extradatescope}{labelyear}
@@ -671,13 +674,13 @@
     \endentry
     \entry{magleby_money_2010}{book}{}
       \name{author}{2}{}{%
-        {{uniquename=0,uniquepart=base,hash=edabb43e1dffb361a78c5a69ae2adbd8}{%
+        {{uniquename=0,uniquepart=base,hash=0bdf3d3303a8f9c1abc3bb27b3c8b3af}{%
            family={Magleby},
            familyi={M\bibinitperiod},
            given={David\bibnamedelima B.},
            giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=487970c52825dfd3f82d0c12a02def8c}{%
+        {{uniquename=0,uniquepart=base,hash=42e28eb4052dce1bfa228c65c232f037}{%
            family={Nelson},
            familyi={N\bibinitperiod},
            given={Candice\bibnamedelima J.},
@@ -687,12 +690,12 @@
       \list{publisher}{1}{%
         {Brookings Institution Press}%
       }
-      \strng{namehash}{46d43b6f3528efb5a0e9d2a634735943}
-      \strng{fullhash}{46d43b6f3528efb5a0e9d2a634735943}
-      \strng{bibnamehash}{46d43b6f3528efb5a0e9d2a634735943}
-      \strng{authorbibnamehash}{46d43b6f3528efb5a0e9d2a634735943}
-      \strng{authornamehash}{46d43b6f3528efb5a0e9d2a634735943}
-      \strng{authorfullhash}{46d43b6f3528efb5a0e9d2a634735943}
+      \strng{namehash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{fullhash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{bibnamehash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{authorbibnamehash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{authornamehash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{authorfullhash}{4e6c05465e4f76b64f274a67ca68f446}
       \field{sortinit}{M}
       \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
       \field{extradatescope}{labelyear}
@@ -710,11 +713,14 @@
       \field{title}{The {{Money Chase}}: {{Congressional Campaign Finance Reform}}}
       \field{year}{2010}
       \field{dateera}{ce}
+      \verb{eprint}
+      \verb HDBdFBkFC6QC
+      \endverb
       \keyw{Political Science / General,Political Science / American Government / Legislative Branch,Political Science / Political Process / Campaigns & Elections}
     \endentry
     \entry{mayer_public_2001}{incollection}{}
       \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=53cbef34b048163c14662784efe6a744}{%
+        {{uniquename=0,uniquepart=base,hash=0ad08a2a5f3561daa4dc672c3adb3e2b}{%
            family={Mayer},
            familyi={M\bibinitperiod},
            given={William\bibnamedelima G.},
@@ -724,12 +730,12 @@
       \list{publisher}{1}{%
         {Rowman \& Littlefield}%
       }
-      \strng{namehash}{53cbef34b048163c14662784efe6a744}
-      \strng{fullhash}{53cbef34b048163c14662784efe6a744}
-      \strng{bibnamehash}{53cbef34b048163c14662784efe6a744}
-      \strng{authorbibnamehash}{53cbef34b048163c14662784efe6a744}
-      \strng{authornamehash}{53cbef34b048163c14662784efe6a744}
-      \strng{authorfullhash}{53cbef34b048163c14662784efe6a744}
+      \strng{namehash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{fullhash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{bibnamehash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{authorbibnamehash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{authornamehash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{authorfullhash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
       \field{sortinit}{M}
       \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
       \field{extradatescope}{labelyear}
@@ -753,19 +759,19 @@
            given={Richard},
            giveni={R\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=43e5b28923c1354deb8d82a13f75be02}{%
+        {{uniquename=0,uniquepart=base,hash=231cfe1697dee24192ed8cb747333eee}{%
            family={Lewis-Beck},
            familyi={L\bibinithyphendelim B\bibinitperiod},
            given={Michael\bibnamedelima S.},
            giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{60701da6c75fcc2d66f1156a30425cbd}
-      \strng{fullhash}{60701da6c75fcc2d66f1156a30425cbd}
-      \strng{bibnamehash}{60701da6c75fcc2d66f1156a30425cbd}
-      \strng{authorbibnamehash}{60701da6c75fcc2d66f1156a30425cbd}
-      \strng{authornamehash}{60701da6c75fcc2d66f1156a30425cbd}
-      \strng{authorfullhash}{60701da6c75fcc2d66f1156a30425cbd}
+      \strng{namehash}{fe08c6ad3c9f6df73172dd63f32337b4}
+      \strng{fullhash}{fe08c6ad3c9f6df73172dd63f32337b4}
+      \strng{bibnamehash}{fe08c6ad3c9f6df73172dd63f32337b4}
+      \strng{authorbibnamehash}{fe08c6ad3c9f6df73172dd63f32337b4}
+      \strng{authornamehash}{fe08c6ad3c9f6df73172dd63f32337b4}
+      \strng{authorfullhash}{fe08c6ad3c9f6df73172dd63f32337b4}
       \field{sortinit}{N}
       \field{sortinithash}{f7242c3ed3dc50029fca1be76c497c7c}
       \field{extradatescope}{labelyear}
@@ -848,13 +854,13 @@
     \endentry
     \entry{page_rational_1992}{book}{}
       \name{author}{2}{}{%
-        {{uniquename=0,uniquepart=base,hash=714324b6d4b0788be3879be8892d7301}{%
+        {{uniquename=0,uniquepart=base,hash=7102137e4c15f07f8f8e0d01275d02dd}{%
            family={Page},
            familyi={P\bibinitperiod},
            given={Benjamin\bibnamedelima I.},
            giveni={B\bibinitperiod\bibinitdelim I\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=3d7bc60f9b649044ce748d7811b55ec9}{%
+        {{uniquename=0,uniquepart=base,hash=221767dcb1b451bd1be561af46ff8d47}{%
            family={Shapiro},
            familyi={S\bibinitperiod},
            given={Robert\bibnamedelima Y.},
@@ -867,12 +873,12 @@
       \list{publisher}{1}{%
         {University of Chicago Press}%
       }
-      \strng{namehash}{a2f7bc8f54fae5d380d35cb0dcefb40e}
-      \strng{fullhash}{a2f7bc8f54fae5d380d35cb0dcefb40e}
-      \strng{bibnamehash}{a2f7bc8f54fae5d380d35cb0dcefb40e}
-      \strng{authorbibnamehash}{a2f7bc8f54fae5d380d35cb0dcefb40e}
-      \strng{authornamehash}{a2f7bc8f54fae5d380d35cb0dcefb40e}
-      \strng{authorfullhash}{a2f7bc8f54fae5d380d35cb0dcefb40e}
+      \strng{namehash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{fullhash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{bibnamehash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{authorbibnamehash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{authornamehash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{authorfullhash}{3845f5dee0e4c4ea31d511741efc96f9}
       \field{sortinit}{P}
       \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
       \field{extradatescope}{labelyear}
@@ -946,19 +952,19 @@
     \endentry
     \entry{petrocik_issue_1996}{article}{}
       \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=942888f4ed5ca6e6c765597297237d78}{%
+        {{uniquename=0,uniquepart=base,hash=66b3c509d3f902b7b3b2c05fa8f5fcca}{%
            family={Petrocik},
            familyi={P\bibinitperiod},
            given={John\bibnamedelima R.},
            giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{942888f4ed5ca6e6c765597297237d78}
-      \strng{fullhash}{942888f4ed5ca6e6c765597297237d78}
-      \strng{bibnamehash}{942888f4ed5ca6e6c765597297237d78}
-      \strng{authorbibnamehash}{942888f4ed5ca6e6c765597297237d78}
-      \strng{authornamehash}{942888f4ed5ca6e6c765597297237d78}
-      \strng{authorfullhash}{942888f4ed5ca6e6c765597297237d78}
+      \strng{namehash}{66b3c509d3f902b7b3b2c05fa8f5fcca}
+      \strng{fullhash}{66b3c509d3f902b7b3b2c05fa8f5fcca}
+      \strng{bibnamehash}{66b3c509d3f902b7b3b2c05fa8f5fcca}
+      \strng{authorbibnamehash}{66b3c509d3f902b7b3b2c05fa8f5fcca}
+      \strng{authornamehash}{66b3c509d3f902b7b3b2c05fa8f5fcca}
+      \strng{authorfullhash}{66b3c509d3f902b7b3b2c05fa8f5fcca}
       \field{sortinit}{P}
       \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
       \field{extradatescope}{labelyear}
@@ -989,16 +995,16 @@
     \endentry
     \entry{pew_research_center_public_2014}{online}{}
       \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=a23efa785ab9ff66db355bb66f385934}{%
+        {{uniquename=0,uniquepart=base,hash=83778ea1c38ca19c82fc35bb68b48c1b}{%
            family={{Pew Research Center}},
            familyi={P\bibinitperiod}}}%
       }
-      \strng{namehash}{a23efa785ab9ff66db355bb66f385934}
-      \strng{fullhash}{a23efa785ab9ff66db355bb66f385934}
-      \strng{bibnamehash}{a23efa785ab9ff66db355bb66f385934}
-      \strng{authorbibnamehash}{a23efa785ab9ff66db355bb66f385934}
-      \strng{authornamehash}{a23efa785ab9ff66db355bb66f385934}
-      \strng{authorfullhash}{a23efa785ab9ff66db355bb66f385934}
+      \strng{namehash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{fullhash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{bibnamehash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{authorbibnamehash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{authornamehash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{authorfullhash}{83778ea1c38ca19c82fc35bb68b48c1b}
       \field{sortinit}{P}
       \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
       \field{extradatescope}{labelyear}
@@ -1029,7 +1035,7 @@
     \endentry
     \entry{polsby_landmarks_2002}{article}{}
       \name{author}{2}{}{%
-        {{uniquename=0,uniquepart=base,hash=a2510aa828d64f43cf3d4abd397c00b8}{%
+        {{uniquename=0,uniquepart=base,hash=c1a7dbe0ffd453f25ce0293a9b646235}{%
            family={Polsby},
            familyi={P\bibinitperiod},
            given={Nelson\bibnamedelima W.},
@@ -1042,12 +1048,12 @@
            giveni={E\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{b0b5dbe7a10bd7a7049d70d0ca233c8d}
-      \strng{fullhash}{b0b5dbe7a10bd7a7049d70d0ca233c8d}
-      \strng{bibnamehash}{b0b5dbe7a10bd7a7049d70d0ca233c8d}
-      \strng{authorbibnamehash}{b0b5dbe7a10bd7a7049d70d0ca233c8d}
-      \strng{authornamehash}{b0b5dbe7a10bd7a7049d70d0ca233c8d}
-      \strng{authorfullhash}{b0b5dbe7a10bd7a7049d70d0ca233c8d}
+      \strng{namehash}{3cc6105ec1c84c01bb7194446a32f1ad}
+      \strng{fullhash}{3cc6105ec1c84c01bb7194446a32f1ad}
+      \strng{bibnamehash}{3cc6105ec1c84c01bb7194446a32f1ad}
+      \strng{authorbibnamehash}{3cc6105ec1c84c01bb7194446a32f1ad}
+      \strng{authornamehash}{3cc6105ec1c84c01bb7194446a32f1ad}
+      \strng{authorfullhash}{3cc6105ec1c84c01bb7194446a32f1ad}
       \field{sortinit}{P}
       \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
       \field{extradatescope}{labelyear}
@@ -1086,7 +1092,7 @@
     \endentry
     \entry{raja_small_2008}{book}{}
       \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=a03c14b1551ee5002bb33613a2cb9e05}{%
+        {{uniquename=0,uniquepart=base,hash=3802aceb8557bceba023674e7f221ff2}{%
            family={Raja},
            familyi={R\bibinitperiod},
            given={Raymond\bibnamedelimb J.\bibnamedelimi La},
@@ -1096,12 +1102,12 @@
       \list{publisher}{1}{%
         {University of Michigan Press}%
       }
-      \strng{namehash}{a03c14b1551ee5002bb33613a2cb9e05}
-      \strng{fullhash}{a03c14b1551ee5002bb33613a2cb9e05}
-      \strng{bibnamehash}{a03c14b1551ee5002bb33613a2cb9e05}
-      \strng{authorbibnamehash}{a03c14b1551ee5002bb33613a2cb9e05}
-      \strng{authornamehash}{a03c14b1551ee5002bb33613a2cb9e05}
-      \strng{authorfullhash}{a03c14b1551ee5002bb33613a2cb9e05}
+      \strng{namehash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{fullhash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{bibnamehash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{authorbibnamehash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{authornamehash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{authorfullhash}{3802aceb8557bceba023674e7f221ff2}
       \field{sortinit}{R}
       \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
       \field{extradatescope}{labelyear}
@@ -1119,6 +1125,9 @@
       \field{title}{Small {{Change}}: {{Money}}, {{Political Parties}}, and {{Campaign Finance Reform}}}
       \field{year}{2008}
       \field{dateera}{ce}
+      \verb{eprint}
+      \verb Nkc_DwAAQBAJ
+      \endverb
       \keyw{Political Science / General,Law / General,Political Science / Political Process / Campaigns & Elections}
     \endentry
     \entry{seitz-wald_promise_2015}{online}{}
@@ -1237,19 +1246,19 @@
            given={Susan},
            giveni={S\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=317bfc0d82fb203a11bb80a7e31df25e}{%
+        {{uniquename=0,uniquepart=base,hash=c0876d220d29e8fb167daceaf73a5e05}{%
            family={Hibbing},
            familyi={H\bibinitperiod},
            given={John\bibnamedelima R.},
            giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{3cc9ed32ff06e6753d6f623dbe465256}
-      \strng{fullhash}{3cc9ed32ff06e6753d6f623dbe465256}
-      \strng{bibnamehash}{3cc9ed32ff06e6753d6f623dbe465256}
-      \strng{authorbibnamehash}{3cc9ed32ff06e6753d6f623dbe465256}
-      \strng{authornamehash}{3cc9ed32ff06e6753d6f623dbe465256}
-      \strng{authorfullhash}{3cc9ed32ff06e6753d6f623dbe465256}
+      \strng{namehash}{42e8811d78d5e251e9fb4a8e1b4a32d7}
+      \strng{fullhash}{42e8811d78d5e251e9fb4a8e1b4a32d7}
+      \strng{bibnamehash}{42e8811d78d5e251e9fb4a8e1b4a32d7}
+      \strng{authorbibnamehash}{42e8811d78d5e251e9fb4a8e1b4a32d7}
+      \strng{authornamehash}{42e8811d78d5e251e9fb4a8e1b4a32d7}
+      \strng{authorfullhash}{42e8811d78d5e251e9fb4a8e1b4a32d7}
       \field{sortinit}{W}
       \field{sortinithash}{ecb89ff85896a47dc313960773ac311d}
       \field{extradatescope}{labelyear}
@@ -1288,19 +1297,19 @@
     \endentry
     \entry{ye_hee_lee_sanderss_2016}{online}{}
       \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=21f906cabb58b7cef4465012ca0770d4}{%
+        {{uniquename=0,uniquepart=base,hash=7af8692c80813147d1b93ec226572fc4}{%
            family={Ye\bibnamedelima Hee\bibnamedelima Lee},
            familyi={Y\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim L\bibinitperiod},
            given={Michelle},
            giveni={M\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{21f906cabb58b7cef4465012ca0770d4}
-      \strng{fullhash}{21f906cabb58b7cef4465012ca0770d4}
-      \strng{bibnamehash}{21f906cabb58b7cef4465012ca0770d4}
-      \strng{authorbibnamehash}{21f906cabb58b7cef4465012ca0770d4}
-      \strng{authornamehash}{21f906cabb58b7cef4465012ca0770d4}
-      \strng{authorfullhash}{21f906cabb58b7cef4465012ca0770d4}
+      \strng{namehash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{fullhash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{bibnamehash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{authorbibnamehash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{authornamehash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{authorfullhash}{7af8692c80813147d1b93ec226572fc4}
       \field{sortinit}{Y}
       \field{sortinithash}{b8d711a035f7be9840c721c82920477e}
       \field{extradatescope}{labelyear}
