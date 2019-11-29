@@ -108,6 +108,89 @@ stargazer(vote.01, small.01, large.01, pac.money.01, buz.pacs.01, labor.pacs.01,
           type = "text")
 ```
 
+## Propensity Score Matching
+
+```{r}
+library(MatchIt)
+
+estimation.data %>%
+  group_by(no_corp_pacs) %>%
+  dplyr::select(party, new_member, pct_white, pct_black, pct_latino, pct_bachelors, 
+         median_hh_income, pct_clinton_16, pct_dem_house_16) %>%
+  summarise_all(funs(mean(., na.rm = TRUE)))
+
+m.pc <- glm(no_corp_pacs ~ party + new_member + pct_white + pct_black + 
+              pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + 
+              pct_dem_house_16,
+            family = binomial(link = "probit"),
+            data = estimation.data)
+summary(m.pc)
+
+propensity.scores <- data_frame(pr_score = predict(m.pc, type = "response"),
+                                no_corp_pacs = m.pc$model$no_corp_pacs)
+head(propensity.scores)
+
+ggplot(data = propensity.scores, aes(x = pr_score)) +
+  geom_histogram() +
+  facet_wrap(~ no_corp_pacs)
+
+match.data <- 
+  estimation.data %>%
+  dplyr::select(no_corp_pacs, party, new_member, pct_white, pct_black, pct_latino, 
+         pct_bachelors, median_hh_income, pct_clinton_16, pct_dem_house_16,
+         small_indiv, large_indiv, net_indiv_total, vote_pct, tot_pac_money,
+         business_pacs, labor_pacs, ideological_pacs, leadership_pacs,
+         candidate_contribs, num_pac_contribs) %>%
+  na.omit() %>%
+  mutate(no_corp_pacs = ifelse(no_corp_pacs == "YES", 1, 0))
+
+mod.match <- matchit(no_corp_pacs ~ party + new_member + pct_white + pct_black + 
+                       pct_latino + pct_bachelors + median_hh_income + 
+                       pct_clinton_16 + pct_dem_house_16,
+                     method = "nearest",
+                     data = match.data)
+data.match <- match.data(mod.match)
+
+plot(mod.match, type = "hist")
+
+matched.vote.01 <- lm(vote_pct ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+              data = data.match)
+
+matched.small.01 <- lm(small_indiv ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+               data = data.match)
+
+matched.large.01 <- lm(large_indiv ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+               data = data.match)
+
+matched.pac.money.01 <- lm(tot_pac_money ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                   data = data.match)
+
+matched.buz.pacs.01 <- lm(business_pacs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                  data = data.match)
+
+matched.labor.pacs.01 <- lm(labor_pacs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                    data = data.match)
+
+matched.ideol.pacs.01 <- lm(ideological_pacs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                    data = data.match)
+
+matched.leader.pacs.01 <- lm(leadership_pacs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                     data = data.match)
+
+matched.cand.contribs.01 <- lm(candidate_contribs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                       data = data.match)
+
+matched.indiv.tot.01 <- lm(net_indiv_total ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                   data = data.match)
+
+matched.num.pacs.01 <- lm(num_pac_contribs ~ no_corp_pacs + party + new_member + pct_white + pct_black + pct_latino + pct_bachelors + median_hh_income + pct_clinton_16 + pct_dem_house_16,
+                  data = data.match)
+
+stargazer(matched.vote.01, matched.small.01, matched.large.01, matched.pac.money.01, matched.buz.pacs.01, matched.labor.pacs.01, matched.ideol.pacs.01, matched.leader.pacs.01, matched.cand.contribs.01, matched.indiv.tot.01, matched.num.pacs.01,
+          type = "text")
+```
+
+
 
 # Model Diagnostics
 
