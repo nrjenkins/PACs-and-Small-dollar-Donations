@@ -46,7 +46,8 @@ This section clears the current working environment and loads the packages used 
 rm(list = ls())
 
 # Load Packages ---------------------------------------------------------------
-packages <- c("tidyverse", "stargazer", "foreign", "sqldf", "readxl")
+packages <- c("tidyverse", "stargazer", "foreign", "sqldf", "readxl", 
+              "openintro")
 lapply(packages, require, character.only = TRUE)
 
 # Inline Formatting -----------------------------------------------------------
@@ -85,7 +86,10 @@ members.2018.data <-
          candidate_contribs = `Candidate Contributions`,
          large_indiv = `Large Indivs`,
          small_indiv = `Small Indivs`,
-         net_spent = `Net Spent`)
+         net_spent = `Net Spent`) %>%
+  separate(candidae_name, into = c("first_name", "last_name"), extra = "drop") %>%
+  mutate(first_initial = str_sub(first_name, start = 1L, end = 1L),
+         last_stub = str_sub(last_name, start = 1L, end = 3L))
 ```
 
 
@@ -97,7 +101,44 @@ demo.data.raw <- read_excel("Data/Raw Data/Demographic Data/115th Congress Membe
 
 demo.data <- 
   demo.data.raw %>%
-  mutate(district_code = str_replace(district_code, pattern = "-", replacement = ""))
+  mutate(district_code = str_replace(district_code, pattern = "-", replacement = ""),
+         district_code = ifelse(district == "Alaska At-Large", "AK01", district_code),
+         district_code = ifelse(district == "Delaware At-Large", "DE01", district_code),
+         district_code = ifelse(district == "Montana At-Large", "MT01", district_code),
+         district_code = ifelse(district == "North Dakota At-Large", "ND01", district_code),
+         district_code = ifelse(district == "South Dakota At-Large", "SD01", district_code),
+         district_code = ifelse(district == "Vermont At-Large", "VT01", district_code),
+         district_code = ifelse(district == "Wyoming At-Large", "WY01", district_code)) %>%
+  rename(state_dist = district_code)
+
+# total voting age pop
+library(tidycensus)
+census_api_key("b52b951af88427dcca3cee53db4fb1f76da8009d", install = TRUE)
+
+v18 <- load_variables(year = 2017, dataset = "acs5/subject", cache = TRUE)
+	
+voting.age <- get_acs(geography = "congressional district", variables = "S0101_C01_026")
+voting_age <- 
+  voting.age %>%
+  rename(tot_voting_age = estimate) %>%
+  separate(NAME,
+           into = c("district", "state"),
+           sep = ",",
+           extra = "merge") %>%
+  mutate(district = str_replace(district, "\\(115th Congress\\)", ""),
+         district = str_replace(district, "Congressional District ", ""),
+         district = str_trim(district, side = "both"),
+         district = str_pad(district, width = 2, side = "left", pad = "0"),
+         state = str_trim(state, side = "both"),
+         state_dist = paste(state2abbr(state), district, sep = ""),
+         state_dist = str_replace(state_dist, pattern = "\\(at Large\\)", "01")) %>%
+  dplyr::select(-variable, -moe, -GEOID, -district, -state)
+
+demo.data <- left_join(
+  demo.data,
+  voting_age,
+  by = c("state_dist")
+)
 ```
 
 ## Merge legislator data with demographics
@@ -109,23 +150,77 @@ sum(duplicated(demo.data[ , c("district")]))
 member.data <- left_join(
   members.2018.data,
   demo.data,
-  by = c("district" = "district_code")
+  by = c("district" = "state_dist")
 )
+```
+
+# Election Data
+
+```{r}
+election.data.raw <- read_csv("/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Data/Raw Data/Election Data/1976-2018-house.csv") %>% filter(year == 2018) %>% filter(stage == "gen")
+
+election.data <- 
+  election.data.raw %>%
+  mutate(district = str_pad(district, width = 2, side = "left", pad = "0"),
+         vote_pct = candidatevotes / totalvotes,
+         first_initial = str_sub(candidate, start = 1L, end = 1L)) %>%
+  filter(!is.na(candidate)) %>%
+  separate(candidate, into = c("first_name", "last_name"), extra = "drop") %>%
+  mutate(last_stub = str_sub(last_name, start = 1L, end = 3L),
+         state_dist = paste(state_po, district, sep = ""),
+         party = case_when(party == "democrat" ~ "D",
+                           party == "republican" ~ "R")) %>%
+  filter(!is.na(party)) %>%
+  dplyr::select(state_dist, party, first_initial, first_name, last_name, last_stub,
+         candidatevotes, totalvotes, office)
+
+election.data <- 
+  election.data %>%
+  mutate(state_dist = ifelse(state_dist == "AK00", "AK01", state_dist),
+         state_dist = ifelse(state_dist == "DE00", "DE01", state_dist),
+         state_dist = ifelse(state_dist == "MT00", "MT01", state_dist),
+         state_dist = ifelse(state_dist == "ND00", "ND01", state_dist),
+         state_dist = ifelse(state_dist == "SD00", "SD01", state_dist),
+         state_dist = ifelse(state_dist == "VT00", "VT01", state_dist),
+         state_dist = ifelse(state_dist == "WY00", "WY01", state_dist))
+```
+
+## Merge Election Data with Contribution Data
+
+```{r}
+sum(duplicated(election.data[ , c("state_dist", "party", "first_initial", "last_stub")]))
+sum(duplicated(member.data[ , c("district", "party", "first_initial", "last_stub")]))
+
+member.data <- left_join(
+  member.data,
+  election.data,
+  by = c("district" = "state_dist", "party", "first_initial", "last_stub")
+)
+
+member.data <- 
+  member.data %>%
+  mutate(new_member = as_factor(new_member),
+         party = as_factor(party),
+         vap_turnout = candidatevotes / tot_voting_age) %>%
+  dplyr::select(opensecrets_id, first_name.x, last_name.x, district, party, 
+                new_member, no_corp_pacs, tot_pac_money, num_pac_contribs, 
+                business_pacs, labor_pacs, ideological_pacs, leadership_pacs, 
+                other_pacs, net_receipts, net_indiv_total, candidate_contribs, 
+                large_indiv, small_indiv, net_spent, vote_pct, vap_turnout, 
+                median_hh_income, pct_clinton_16, pct_obama_12, 
+                pct_dem_house_16,pct_dem_house_14, pct_asian, pct_white, 
+                pct_black, pct_latino, pct_bachelors, tot_voting_age, office) %>%
+  filter(!is.na(office)) %>%
+  dplyr::select(-office) %>%
+  rename(first_name = first_name.x,
+         last_name = last_name.x)
 ```
 
 
 # Select Final Data Set
 
 ```{r}
-estimation.data <- 
-  member.data %>%
-  select(district, no_corp_pacs, new_member, party, gen_election_result, 
-         vote_pct, tot_pac_money, num_pac_contribs, business_pacs, labor_pacs,
-         ideological_pacs, leadership_pacs, other_pacs, net_receipts,
-         candidate_contribs,
-         net_indiv_total, large_indiv, small_indiv, net_spent, pct_clinton_16,
-         pct_dem_house_16, pct_white, pct_black, pct_latino, pct_bachelors,
-         median_hh_income)
+estimation.data <- member.data
 
 save(estimation.data, file = "Data/Clean Data/estimation_data.RDa")
 ```
