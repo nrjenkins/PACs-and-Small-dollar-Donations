@@ -47,7 +47,7 @@ rm(list = ls())
 
 # Load Packages ---------------------------------------------------------------
 packages <- c("tidyverse", "stargazer", "foreign", "sqldf", "readxl", 
-              "openintro")
+              "openintro", "lubridate")
 lapply(packages, require, character.only = TRUE)
 
 # Inline Formatting -----------------------------------------------------------
@@ -58,7 +58,7 @@ comma <- function(x) format(x, digits = 2, big.mark = ",")
 # Legislator Data
 
 ```{r}
-members.2018.data.raw <- read_xlsx("Data/Raw Data/OpenSecrets.org _ No Corp PAC Members.xlsx", 
+members.2018.data.raw <- read_xlsx("Data/Raw Data/OpenSecrets.org | No Corp PAC Members.xlsx", 
                                    skip = 1,
                                    sheet = "All Cands 2018")
 members.2018.data <- 
@@ -183,6 +183,12 @@ election.data <-
          state_dist = ifelse(state_dist == "SD00", "SD01", state_dist),
          state_dist = ifelse(state_dist == "VT00", "VT01", state_dist),
          state_dist = ifelse(state_dist == "WY00", "WY01", state_dist))
+
+challenger.races <- 
+  election.data %>%
+  group_by(state_dist) %>%
+  mutate(n = n()) %>%
+  filter(n >= 2)
 ```
 
 ## Merge Election Data with Contribution Data
@@ -190,6 +196,12 @@ election.data <-
 ```{r}
 sum(duplicated(election.data[ , c("state_dist", "party", "first_initial", "last_stub")]))
 sum(duplicated(member.data[ , c("district", "party", "first_initial", "last_stub")]))
+
+test <- left_join(
+  challenger.races,
+  member.data,
+  by = c("state_dist" = "district", "party", "first_initial", "last_stub")
+)
 
 member.data <- left_join(
   member.data,
@@ -215,6 +227,520 @@ member.data <-
   rename(first_name = first_name.x,
          last_name = last_name.x)
 ```
+
+
+# Contribution Data
+
+```{r}
+# Opensecrets Roster
+## 2018 - Congress 116 Roster
+cands.18 <- read_delim("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/Contribution Data/CampaignFin18/cands18.txt", 
+                       delim = "|, |",
+                       col_names = FALSE) %>%
+  rename(year = X2,
+         fec_trans_id = X4,
+         opensecrets_id = X6,
+         first_last_party = X8,
+         party = X10,
+         district = X12,
+         candidate_type = X20,
+         party_outcome_codes = X22,
+         no_pacs = X24) %>%
+  select(opensecrets_id, first_last_party, party, district, candidate_type, 
+         party_outcome_codes, no_pacs) %>%
+  filter(str_detect(party_outcome_codes, "N", negate = TRUE)) %>%
+  filter(str_detect(district, "PRES", negate = TRUE)) %>%
+  mutate(congress = 116)
+sum(duplicated(cands.10[ , c("opensecrets_id")]))
+cands.18 <- cands.18[!duplicated(cands.18[ , c("opensecrets_id")]), ]
+sum(duplicated(cands.18[ , c("congress", "district")]))
+
+# Individual Cntributions
+contrib.data.raw <- read_delim("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/Contribution Data/CampaignFin18/indivs18.txt", 
+                               delim = "|, |",
+                               col_names = FALSE) %>%
+  rename(year = X2,
+         fec_trans_id = X4,
+         donor_id = X6,
+         contrib_name = X8,
+         receipt_id = X10,
+         donor_org_name = X12,
+         standard_org = X14,
+         industry_code = X16,
+         contrib_date = X17,
+         contrib_city = X20,
+         contrib_state = X22, 
+         contrib_zip = X24) %>%
+  select(year, fec_trans_id, donor_id, contrib_name, receipt_id, 
+         donor_org_name, standard_org, industry_code, contrib_date) %>%
+  separate(contrib_date, into = c("drop", "contrib_date", "contrib_amount"), sep = ",") %>%
+  mutate(fec_trans_id = as.character(fec_trans_id),
+         contrib_amount = as.numeric(contrib_amount),
+         contrib_date = mdy(contrib_date),
+         small_donation = ifelse(contrib_amount <= 200, 1, 0)) %>%
+  group_by(receipt_id, small_donation) %>%
+  summarise(contrib_amount = sum(contrib_amount))
+
+indv.contribution.data <- 
+  contrib.data.raw %>%
+  spread(key = small_donation, value = contrib_amount) %>%
+  rename(indiv_large = `0`,
+         indiv_small = `1`) %>%
+  mutate(indiv_tot = sum(indiv_large, indiv_small, na.rm = TRUE))
+
+# PAC Contributions
+pacs.18 <- 
+  read_delim("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/Contribution Data/CampaignFin18/pacs18.txt", 
+                       delim = "|, |",
+                       col_names = FALSE) %>%
+  rename(year = X2,
+         fec_trans_id = X4,
+         pac_id = X6,
+         receipt_id = X8,
+         industry_code = X10,
+         trans_type = X12,
+         direct_indirect = X14,
+         contrib_date = X9) %>%
+  select(year, fec_trans_id, pac_id, receipt_id, industry_code, trans_type, 
+         direct_indirect, contrib_date) %>%
+  separate(contrib_date, into = c("drop", "contrib_amount", "contrib_date"), sep = ",") %>%
+  mutate(fec_trans_id = as.character(fec_trans_id),
+         contrib_amount = as.numeric(contrib_amount),
+         contrib_date = mdy(contrib_date),
+         trans_type = factor(trans_type, 
+                             levels = c("24A", "24C", "24E", "24F", "24K", "24N", "24Z"),
+                             labels = c("independent expenditure against the candidate",
+                                        "coordinated expenditure",
+                                        "independent expenditure for the candidate",
+                                        "communication cost for the candidate",
+                                        "direct contribution",
+                                        "communication cost against the candidate",
+                                        "in kind contribution")),
+         direct_indirect = factor(direct_indirect,
+                                  levels = c("D", "I"),
+                                  labels = c("Direct", "Indirect"))) %>%
+  filter(trans_type != "independent expenditure against the candidate") %>%
+  filter(str_detect(industry_code, "Z9", negate = TRUE)) %>%
+  filter(str_detect(industry_code, "z9", negate = TRUE))
+
+pac.contribution.data <- 
+  pacs.18 %>%
+  mutate(industry_letter = str_sub(industry_code, start = 1L, end = 1L),
+         industry_letter = ifelse(industry_letter == "j", "J", industry_letter),
+         industry_letter = ifelse(industry_letter == "z", "Z", industry_letter)) %>%
+  group_by(receipt_id, industry_letter, direct_indirect) %>%
+  summarise(contrib_amount = sum(contrib_amount)) %>%
+  arrange(receipt_id, industry_letter)
+
+## Industry Categories
+industry.cats <- read_excel("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/CRP_industry_codes.xlsx")
+industry.cats <- 
+  industry.cats %>%
+  filter(str_detect(Catcode, "0000")) %>%
+  mutate(industry_letter = str_sub(Catcode, start = 1L, end = 1L)) %>%
+  select(-Catcode, -Catorder)
+
+## Merge with contribution data
+pac.contribution.data <- left_join(
+  pac.contribution.data,
+  industry.cats,
+  by = c("industry_letter")
+)
+
+pac.contribution.data <- 
+  pac.contribution.data %>%
+  mutate(Catname = ifelse(industry_letter == "Z", "Party Committees", Catname)) %>%
+  rename(industry_name = Catname,
+         industry = Industry,
+         sector = Sector,
+         sector_long = `Sector Long`)
+
+pac.contribution.data <- 
+  pac.contribution.data %>%
+  ungroup() %>%
+  mutate(code = paste(industry_letter, direct_indirect, sep = "")) %>%
+  select(receipt_id, contrib_amount, code) %>%
+  spread(key = code, value = contrib_amount) %>%
+  rename(pac_ag = ADirect,
+         pac_cmtes = ZDirect,
+         pac_comms_electric = CDirect,
+         pac_const_pub_wrks = BDirect,
+         pac_defense = DDirect,
+         pac_engy_res_envrmt = EDirect,
+         pac_fncs_ins_real = FDirect,
+         pac_commerce = GDirect,
+         pac_hlth_edu_human = HDirect,
+         pac_ideological = JDirect,
+         pac_labor = LDirect,
+         pac_legal = KDirect,
+         pac_manu = MDirect,
+         pac_other = XDirect,
+         pac_trans = TDirect,
+         pac_unknown = YDirect,
+         superpac_cmte = ZIndirect,
+         superpac_engy_res_envrmt = EIndirect,
+         superpac_fncs_ins_real = FIndirect,
+         superpac_commerce = GIndirect,
+         superpac_hlth_edu_human = HIndirect,
+         superpac_ideological = JIndirect,
+         superpac_labor = LIndirect,
+         superpac_manu = MIndirect,
+         superpac_unknown = YIndirect) %>%
+  mutate_at(vars(pac_ag:superpac_unknown), funs(ifelse(is.na(.), 0, .))) %>%
+  select(receipt_id, pac_ag, pac_comms_electric, pac_const_pub_wrks, 
+         pac_defense, pac_engy_res_envrmt, pac_fncs_ins_real, pac_commerce,
+         pac_hlth_edu_human, pac_legal, pac_manu, pac_trans, pac_cmtes,
+         pac_labor, pac_ideological, pac_other, pac_unknown, 
+         superpac_engy_res_envrmt, superpac_fncs_ins_real, superpac_commerce,
+         superpac_hlth_edu_human, superpac_manu, superpac_cmte, superpac_labor,
+         superpac_ideological, superpac_unknown) %>%
+  arrange(receipt_id)
+
+
+pac.contribution.data <- 
+  pac.contribution.data %>%
+  mutate(pac_business = pac_ag + pac_commerce + pac_defense + 
+           pac_comms_electric + pac_engy_res_envrmt + pac_const_pub_wrks +
+           pac_fncs_ins_real + pac_hlth_edu_human + pac_legal + pac_manu +
+           pac_trans,
+         superpact_business = superpac_engy_res_envrmt +
+           superpac_fncs_ins_real + superpac_commerce + 
+           superpac_hlth_edu_human + superpac_manu) %>%
+  mutate_at(vars(pac_ag:superpac_unknown), funs(ifelse(is.na(.), 0, .)))
+
+contribution.data <- left_join(
+  indv.contribution.data,
+  pac.contribution.data,
+  by = c("receipt_id")
+)
+
+contribution.data <- 
+  contribution.data %>%
+  mutate_at(vars(indiv_large:superpac_unknown), funs(ifelse(is.na(.), 0, .)))
+
+leg.contrib.data <- left_join(
+  cands.18,
+  contribution.data,
+  by = c("opensecrets_id" = "receipt_id")
+)
+```
+
+
+## Merge Contribution Data with Member data
+
+```{r}
+estimation.data <- left_join(
+  members.2018.data, 
+  leg.contrib.data,
+  by = c("opensecrets_id")
+)
+```
+
+
+
+# Twitter Data
+
+```{r}
+house.tweets <- read_csv("Data/Raw Data/Twitter/house_tweets.csv")
+
+house.tweets <- 
+  house.tweets %>%
+  mutate(chamber = "house")
+
+senate.tweets <- read_csv("Data/Raw Data/Twitter/senate_tweets.csv")
+
+senate.tweets <- 
+  senate.tweets %>%
+  mutate(chamber = "senate")
+
+candidate.tweets <- bind_rows(house.tweets, senate.tweets)
+candidate.tweets <- 
+  candidate.tweets %>%
+  select(hashtags, source, text, user_screen_name, user_description, 
+         created_at, chamber, retweet_count, favorite_count) %>%
+  mutate(text = str_to_lower(text),
+         hashtags = str_to_lower(hashtags),
+         pac_tweet = ifelse(str_detect(text, " pac ") |
+                              str_detect(text, " pacs"), 1, 0),
+         no_accept = ifelse((str_detect(text, "accept contributions") & str_detect(text, "pac")) |
+                              str_detect(text, "not accept pac") |
+                              str_detect(text, "pac contributions") |
+                              str_detect(text, "pac money") |
+                              (str_detect(text, "accept money from") & str_detect(text, "pac")) |
+                              (str_detect(text, "accept donations from") & str_detect(text, "pac")) |
+                              str_detect(text, "no pac") |
+                              (str_detect(text, "no donations from") & str_detect(text, "pac")) |
+                              (str_detect(text, "no contributions from") & str_detect(text, "pac")) |
+                              (str_detect(text, "not taking money from") & str_detect(text, "pac")) |
+                              str_detect(text, "not taking pac") |
+                              str_detect(text, "no corporate pac") |
+                              str_detect(text, "zero pac") |
+                              str_detect(text, "zero corporate pac") |
+                              (str_detect(text, "taking a dime from") & str_detect(text, "pac")) |
+                              (str_detect(text, "taking a cent from") & str_detect(text, "pac")) |
+                              (str_detect(text, "taking a penny from") & str_detect(text, "pac")) |
+                              (str_detect(text, "taking a dollar from") & str_detect(text, "pac")) |
+                              (str_detect(text, "taking money from") & str_detect(text, "pac")) |
+                              (str_detect(text, "taking contributions from") & str_detect(text, "pac")) |
+                              (str_detect(text, "taking donations from") & str_detect(text, "pac")) |
+                              str_detect(text, "not accepting corporate pac") |
+                              (str_detect(text, "not accepting donations from") & str_detect(text, "pac")) |
+                              (str_detect(text, "not accepting money from") & str_detect(text, "pac")) |
+                              (str_detect(text, "does not accept") & str_detect(text, "pac")) |
+                              (str_detect(text, "not taken one") & str_detect(text, "pac")) |
+                              (str_detect(text, "no-corporate") & str_detect(text, "pac")) |
+                              (str_detect(text, "doesn’t take a dime from") & str_detect(text, "pac")) |
+                              (str_detect(text, "without a dime") & str_detect(text, "pac")) |
+                              (str_detect(text, "taken any") & str_detect(text, "pac")) |
+                              (str_detect(text, "accepted any") & str_detect(text, "pac")) |
+                              str_detect(text, "nocorporatepac") |
+                              str_detect(text, "corporate dollar") |
+                              str_detect(text, "corporate pacs"), 1, 0))
+
+pac.tweets <- 
+  candidate.tweets %>%
+  filter(pac_tweet == 1 | no_accept == 1) %>%
+  separate(created_at, into = c("day", "month", "date", "time", "drop", "year"), sep = " ") %>%
+  select(-drop)
+
+A <- array(month.abb)
+U <- list(month = A, num = 1:12)
+month.df <- data.frame(month_abb = U$month, month_num = U$num)
+
+pac.tweets <- left_join(
+  pac.tweets,
+  month.df,
+  by = c("month" = "month_abb")
+)
+
+pac.tweets <- 
+  pac.tweets %>%
+  mutate(month_num = str_pad(month_num, width = 2, side = "left", pad = "0"),
+         tweet_date = paste(year, month_num, date, sep = "-"),
+         tweet_date_time = paste(tweet_date, time, sep = " "),
+         tweet_date = ymd(tweet_date),
+         tweet_date_time = ymd_hms(tweet_date_time)) %>%
+  select(-day, -time, -year, -source, -month, -date)
+
+# Analyze words ---------------------------------------------------------------
+library(tidytext)
+reject.tweets <- 
+  pac.tweets %>%
+  select(text) %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+
+# Word Count
+reject.tweets %>%
+  count(word, sort = TRUE) %>%
+  mutate(word = reorder(word, n)) %>%
+  slice(1:100) %>%
+  ggplot(aes(x = word, y = n)) +
+  geom_col() +
+  coord_flip()
+
+# Sentament Word Count
+reject.tweets %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  ungroup() %>%
+  group_by(sentiment) %>%
+  top_n(20) %>%
+  ungroup() %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(y = "Contribution to sentiment",
+       x = NULL) +
+  coord_flip()
+
+# Sentament Word Cloud
+library(reshape2)
+library(wordcloud)
+reject.tweets %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
+  comparison.cloud(colors = c("gray20", "gray80"),
+                   max.words = 100)
+
+
+# Analyze Word Pairs ----------------------------------------------------------
+reject.tweets.pairs <- 
+  pac.tweets %>%
+  select(text) %>%
+  mutate(text = str_replace(text, "https", replacement = ""),
+         text = str_replace(text, "http", replacement = ""),
+         text = str_replace(text, "t.co", replacement = ""),
+         text = str_replace(text, "fbr", replacement = ""),
+         text = str_replace(text, "fbrparty", replacement = "")) %>%
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) %>%
+  filter(bigram != "https t.co") %>%
+  filter(bigram != "http t.co")
+
+## remove stop words
+bigrams_separated <- reject.tweets.pairs %>%
+  separate(bigram, c("word1", "word2"), sep = " ")
+
+bigrams_filtered <- bigrams_separated %>%
+  filter(!word1 %in% stop_words$word) %>%
+  filter(!word2 %in% stop_words$word)
+
+bigrams_united <- bigrams_filtered %>%
+  unite(bigram, word1, word2, sep = " ")
+
+# Bigram Count
+bigrams_united %>%
+  count(bigram, sort = TRUE) %>%
+  mutate(bigram = reorder(bigram, n)) %>%
+  slice(1:100) %>%
+  ggplot(aes(x = bigram, y = n)) +
+  geom_col() +
+  coord_flip()
+
+# Bigram Sentament
+AFINN <- get_sentiments("afinn")
+
+## not words
+not_words <- bigrams_separated %>%
+  filter(word1 == "not") %>%
+  inner_join(AFINN, by = c(word2 = "word")) %>%
+  count(word2, value, sort = TRUE)
+
+not_words %>%
+  mutate(contribution = n * value) %>%
+  arrange(desc(abs(contribution))) %>%
+  head(50) %>%
+  mutate(word2 = reorder(word2, contribution)) %>%
+  ggplot(aes(word2, n * value, fill = n * value > 0)) +
+  geom_col(show.legend = FALSE) +
+  xlab("Words preceded by \"not\"") +
+  ylab("Sentiment value * number of occurrences") +
+  coord_flip()
+
+## pac words
+pac_words <- bigrams_separated %>%
+  filter(word1 == "pac") %>%
+  inner_join(AFINN, by = c(word2 = "word")) %>%
+  count(word2, value, sort = TRUE)
+
+pac_words %>%
+  mutate(contribution = n * value) %>%
+  arrange(desc(abs(contribution))) %>%
+  slice(1:50) %>%
+  mutate(word2 = reorder(word2, contribution)) %>%
+  ggplot(aes(word2, n * value, fill = n * value > 0)) +
+  geom_col(show.legend = FALSE) +
+  xlab("Words preceded by \"pac\"") +
+  ylab("Sentiment value * number of occurrences") +
+  coord_flip()
+
+## individual words
+individual_words <- bigrams_separated %>%
+  filter(word1 == "individual") %>%
+  inner_join(AFINN, by = c(word2 = "word")) %>%
+  count(word2, value, sort = TRUE)
+
+individual_words %>%
+  mutate(contribution = n * value) %>%
+  arrange(desc(abs(contribution))) %>%
+  slice(1:50) %>%
+  mutate(word2 = reorder(word2, contribution)) %>%
+  ggplot(aes(word2, n * value, fill = n * value > 0)) +
+  geom_col(show.legend = FALSE) +
+  xlab("Words preceded by \"individual\"") +
+  ylab("Sentiment value * number of occurrences") +
+  coord_flip()
+
+# Bigram word cloud
+bigrams_united %>%
+  count(bigram) %>%
+  with(wordcloud(bigram, n, max.words = 200))
+
+# Network diagram
+library(ggraph)
+library(igraph)
+
+bigram_counts <- bigrams_filtered %>% 
+  count(word1, word2, sort = TRUE)
+
+bigram_graph <- bigram_counts %>%
+  head(50) %>%
+  filter(!str_detect(word1, "\\d"),
+         !str_detect(word2, "\\d")) %>%
+  graph_from_data_frame()
+
+
+set.seed(2017)
+
+ggraph(bigram_graph, layout = "fr") +
+  geom_edge_link() +
+  geom_node_point() +
+  geom_node_text(aes(label = name), vjust = 1, hjust = 1)
+
+a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
+
+ggraph(bigram_graph, layout = "fr") +
+  geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
+                 arrow = a, end_cap = circle(.07, 'inches')) +
+  geom_node_point(color = "lightblue", size = 5) +
+  geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
+  theme_void()
+
+
+
+
+
+pac.tag.tweets <- 
+  candidate.tweets %>%
+  filter(str_detect(hashtags, "pac") | str_detect(hashtags, "money"))
+
+no.pac.tweets <- 
+  pac.tweets %>%
+  filter(no_accept == 1)
+
+aoc.tweets <- 
+  no.pac.tweets %>%
+  filter(user_screen_name == "AOC")
+
+ggplot(data = no.pac.tweets.agg %>% filter(tweet_date >= "2017-01-01"), aes(x = tweet_date, y = count)) +
+  geom_line(color = "red") +
+  geom_line(data = contrib.agg.data, aes(x = contrib_date, y = amount), color = "blue") +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b-%y") +
+  ylim(0, 20000) +
+  theme_pubr() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+```
+
+
+# Actblue Contribution Data
+
+```{r}
+actblue.data <- read_csv("Data/Raw Data/actblue-analysis-master/data/actblue_contribs_by_day.csv")
+
+actblue.data <- 
+  actblue.data %>%
+  filter(contribution_date >= "2017-01-01") %>%
+  select(contribution_date, sum)
+
+actblue.plot.data <- 
+  actblue.data %>%
+  mutate(sum = sum / 1000)
+
+test <- left_join(
+  actblue.data,
+  no.pac.tweets.agg,
+  by = c("contribution_date" = "tweet_date")
+)
+
+test <- 
+  test %>%
+  filter(!is.na(count))
+
+summary(lm(sum ~ count, data = test))
+```
+
 
 
 # Select Final Data Set
