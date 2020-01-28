@@ -377,12 +377,12 @@ pac.contrib.data.raw <-
          direct_indirect = factor(direct_indirect,
                                   levels = c("D", "I"),
                                   labels = c("Direct", "Indirect"))) %>%
-  filter(trans_type == "coordinated expenditure" | 
-           trans_type == "direct contribution" |
-           trans_type == "in kind contribution") %>%
-  filter(direct_indirect == "Direct") %>%
   mutate(contrib_type = "PAC") %>%
-  arrange(receipt_id, industry_code, year)
+  filter(trans_type == "independent expenditure for the candidate" | 
+           trans_type == "direct contribution" | 
+           trans_type == "in kind contribution" |
+           trans_type == "coordinated expenditure") %>%
+  arrange(receipt_id, industry_code, year) 
 
 pac.contrib.data <- 
   pac.contrib.data.raw %>%
@@ -409,7 +409,7 @@ pac.contrib.data <-
                                     industry_code == "Z5200" |
                                     industry_code == "Z5300", "pac_party_committee", industry_letter),
          industry_letter = ifelse(industry_code == "Z9000", "Self-finance", industry_letter)) %>%
-  group_by(receipt_id, industry_letter) %>%
+  group_by(receipt_id, industry_letter, trans_type) %>%
   summarise(contrib_amount = sum(contrib_amount)) %>%
   arrange(receipt_id, industry_letter)
 
@@ -427,32 +427,88 @@ pac.contrib.data <-
          sector = Sector,
          sector_long = `Sector Long`)
 
-sum(duplicated(pac.contrib.data[ , c("receipt_id", "industry_letter")]))
+sum(duplicated(pac.contrib.data[ , c("receipt_id", "industry_letter", "trans_type")]))
 
 pac.contrib.data <- 
   pac.contrib.data %>%
   filter(!is.na(industry_letter)) %>%
-  select(receipt_id, contrib_amount, industry_letter) %>%
-  spread(key = industry_letter, value = contrib_amount) %>%
-  rename(pac_ag = A,
-         pac_comms_electric = C,
-         pac_const_pub_wrks = B,
-         pac_defense = D,
-         pac_engy_res_envrmt = E,
-         pac_fncs_ins_real = `F`,
-         pac_commerce = G,
-         pac_hlth_edu_human = H,
-         pac_ideological = J,
-         pac_labor = L,
-         pac_legal = K,
-         pac_manu = M,
-         pac_other = X,
-         pac_trans = `T`,
-         pac_unknown = Y) %>%
-  mutate_at(vars(pac_ag:pac_unknown), funs(ifelse(is.na(.), 0, .))) %>%
+  select(receipt_id, contrib_amount, industry_letter, trans_type) %>%
+  unite(col = "group", trans_type, industry_letter, sep = "-") %>%
+  spread(key = group, value = contrib_amount) %>%
+  rename(dir_pac_ag = `direct contribution-A`,
+         dir_pac_comms_electric = `direct contribution-C`,
+         dir_pac_const_pub_wrks = `direct contribution-B`,
+         dir_pac_defense = `direct contribution-D`,
+         dir_pac_engy_res_envrmt = `direct contribution-E`,
+         dir_pac_fncs_ins_real = `direct contribution-F`,
+         dir_pac_commerce = `direct contribution-G`,
+         dir_pac_hlth_edu_human = `direct contribution-H`,
+         dir_pac_ideological = `direct contribution-J`,
+         dir_pac_labor = `direct contribution-L`,
+         dir_pac_legal = `direct contribution-K`,
+         dir_pac_manu = `direct contribution-M`,
+         dir_pac_other = `direct contribution-X`,
+         dir_pac_trans = `direct contribution-T`,
+         dir_pac_unknown = `direct contribution-Y`,
+         dir_pac_cand_committee = `direct contribution-pac_cand_committee`,
+         dir_pac_party_committee = `direct contribution-pac_party_committee`,
+         ik_pac_ag = `in kind contribution-A`,
+         ik_pac_comms_electric = `in kind contribution-C`,
+         ik_pac_const_pub_wrks = `in kind contribution-B`,
+         ik_pac_defense = `in kind contribution-D`,
+         ik_pac_engy_res_envrmt = `in kind contribution-E`,
+         ik_pac_fncs_ins_real = `in kind contribution-F`,
+         ik_pac_commerce = `in kind contribution-G`,
+         ik_pac_hlth_edu_human = `in kind contribution-H`,
+         ik_pac_ideological = `in kind contribution-J`,
+         ik_pac_labor = `in kind contribution-L`,
+         ik_pac_legal = `in kind contribution-K`,
+         ik_pac_manu = `in kind contribution-M`,
+         ik_pac_other = `in kind contribution-X`,
+         ik_pac_trans = `in kind contribution-T`,
+         ik_pac_cand_committee = `in kind contribution-pac_cand_committee`,
+         ik_pac_party_committee = `in kind contribution-pac_party_committee`,
+         ind_pac_engy_res_envrmt = `independent expenditure for the candidate-E`,
+         ind_pac_fncs_ins_real = `independent expenditure for the candidate-F`,
+         ind_pac_commerce = `independent expenditure for the candidate-G`,
+         ind_pac_hlth_edu_human = `independent expenditure for the candidate-H`,
+         ind_pac_ideological = `independent expenditure for the candidate-J`,
+         ind_pac_labor = `independent expenditure for the candidate-L`,
+         ind_pac_manu = `independent expenditure for the candidate-M`,
+         ind_pac_unknown = `independent expenditure for the candidate-Y`,
+         ind_pac_party_committee = `independent expenditure for the candidate-pac_party_committee`,
+         ce_pac_ideological= `coordinated expenditure-J`,
+         ce_pac_legal = `coordinated expenditure-L`,
+         ce_pac_party_committee = `coordinated expenditure-pac_party_committee`) %>%
+  mutate_at(vars(ce_pac_ideological:ind_pac_unknown), funs(ifelse(is.na(.), 0, .))) %>%
   arrange(receipt_id)
 
-pac.contrib.data$pac_total <- rowSums(pac.contrib.data[ , 2:18], na.rm = TRUE)
+pac.contrib.data <- 
+  pac.contrib.data %>%
+  mutate(dir_business_pacs = sum(dir_pac_ag, dir_pac_comms_electric, 
+                                 dir_pac_const_pub_wrks, dir_pac_defense,
+                                 dir_pac_engy_res_envrmt, dir_pac_fncs_ins_real,
+                                 dir_pac_commerce, dir_pac_hlth_edu_human,
+                                 dir_pac_legal, dir_pac_manu, dir_pac_other,
+                                 dir_pac_trans, dir_pac_unknown,
+                                 na.rm = TRUE),
+         in_kind_business_pacs = sum(ik_pac_ag, ik_pac_commerce, 
+                                     ik_pac_const_pub_wrks, ik_pac_defense,
+                                     ik_pac_engy_res_envrmt, 
+                                     ik_pac_fncs_ins_real, ik_pac_commerce, 
+                                     ik_pac_hlth_edu_human, ik_pac_legal,
+                                     ik_pac_manu, ik_pac_other, ik_pac_trans,
+                                     na.rm = TRUE),
+         ind_business_pacs = sum(ind_pac_engy_res_envrmt, ind_pac_fncs_ins_real,
+                                  ind_pac_commerce, ind_pac_hlth_edu_human, 
+                                  ind_pac_manu, ind_pac_unknown,
+                                  na.rm = TRUE)) %>%
+  select(receipt_id, dir_business_pacs, in_kind_business_pacs, 
+         ind_business_pacs, dir_pac_cand_committee, dir_pac_party_committee,
+         ik_pac_party_committee, ind_pac_party_committee, 
+         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
+         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
+         ce_pac_ideological, ce_pac_legal)
 
 # Combine data
 contrib.data <- left_join(
@@ -480,16 +536,24 @@ estimation.data <-
   member.data %>%
   select(opensecrets_id, first_name, last_name, district, party, no_corp_pacs,
          new_member, tot_pac_money, num_pac_contribs, business_pacs,
-         ideological_pacs, labor_pacs, pac_cand_committee, pac_party_committee, 
+         dir_business_pacs, in_kind_business_pacs, ind_business_pacs, 
+         dir_pac_cand_committee, dir_pac_party_committee, 
+         ik_pac_party_committee, ind_pac_party_committee, 
+         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
+         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
+         ce_pac_ideological, ideological_pacs, labor_pacs, leadership_pacs,
          net_indiv_total, large_indiv, small_indiv, candidate_contribs, 
          indiv_ideological, indiv_cand_committee, indiv_jnt_cand_committee, 
          indiv_party_committee, indiv_self_finance, net_spent, net_receipts, 
          vote_pct, vap_turnout, median_hh_income, pct_clinton_16, pct_obama_12, 
          pct_dem_house_16, pct_dem_house_14, pct_asian, pct_white, pct_black, 
-         pct_latino, pct_bachelors, tot_voting_age, indiv_total, pac_total) %>%
+         pct_latino, pct_bachelors, tot_voting_age) %>%
   mutate(vote_pct = vote_pct * 100,
          vap_turnout = vap_turnout * 100,
-         pct_dem_house_14 = as.numeric(pct_dem_house_14))
+         pct_dem_house_14 = as.numeric(pct_dem_house_14),
+         log_median_hh_income = log(median_hh_income),
+         log_tot_voting_age = log(tot_voting_age)) %>%
+  filter(party == "D")
 
 save(estimation.data, file = "Data/Clean Data/estimation_data.RDa")
 ```

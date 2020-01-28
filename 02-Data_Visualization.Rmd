@@ -36,13 +36,14 @@ bibliography: /Users/nick/Documents/Research/Articles/biblatex.bib
 
 This section clears the current working environment and loads the packages used to visualize the data. I also create the function `comma()` to format any in-line output values to have thousands separators and only two digits. 
 
-```{r setup, warning = FALSE, tidy = TRUE, message = FALSE, results = FALSE}
+```{r setup, warning = FALSE, message = FALSE, results = FALSE}
 # Clear Environment -----------------------------------------------------------
 rm(list = ls())
 
 # Load Packages ---------------------------------------------------------------
 packages <- c("tidyverse", "foreign", "stargazer", "maps", "mapdata", 
-              "maptools", "ggmap")
+              "maptools", "ggmap", "DataExplorer", "ggpubr", "ggthemes", 
+              "scales")
 lapply(packages, require, character.only = TRUE)
 
 # Inline Formatting -----------------------------------------------------------
@@ -53,16 +54,69 @@ comma <- function(x) format(x, digits = 2, big.mark = ",")
 
 This section imports the data cleaned in the "Step I: Data Cleaning" document to begin visualizing the data. 
 
-```{r Data Import, tidy = TRUE}
+```{r Data Import}
+load("Data/Clean Data/estimation_data.RDa")
 
+estimation.data <- 
+  estimation.data %>%
+  filter(party == "D")
 ```
 
 
 # Data Visulization
 
-```{r Visulization, tidy = TRUE, fig.height = 20, fig.width = 12}
-ggplot(data = gather(., factor_key = TRUE), aes(x = factor(value))) + 
-  geom_bar() + 
-  facet_wrap(~ key, scales = "free", as.table = TRUE, nrow = 3) + xlab("") + 
-  theme_bw()
+```{r Visulization}
+plot_intro(estimation.data)
+
+plot_density(estimation.data)
 ```
+
+
+# Plot Campaign Spending
+
+```{r fig.width = 7}
+ggplot(data = estimation.data, aes(x = no_corp_pacs, y = net_spent)) +
+  geom_col() +
+  scale_y_continuous(labels = dollar_format(), breaks = pretty_breaks(n = 8)) +
+  theme_pubr()
+
+estimation.data %>%
+  select(no_corp_pacs, new_member, tot_pac_money, business_pacs,
+         dir_business_pacs, in_kind_business_pacs, ind_business_pacs, 
+         dir_pac_cand_committee, dir_pac_party_committee, 
+         ik_pac_party_committee, ind_pac_party_committee, 
+         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
+         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
+         ce_pac_ideological, ideological_pacs, labor_pacs, leadership_pacs,
+         net_indiv_total, large_indiv, small_indiv, candidate_contribs, 
+         indiv_ideological, indiv_cand_committee, indiv_jnt_cand_committee, 
+         indiv_party_committee, indiv_self_finance) %>%
+  gather(tot_pac_money, business_pacs,
+         dir_business_pacs, in_kind_business_pacs, ind_business_pacs, 
+         dir_pac_cand_committee, dir_pac_party_committee, 
+         ik_pac_party_committee, ind_pac_party_committee, 
+         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
+         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
+         ce_pac_ideological, ideological_pacs, labor_pacs, leadership_pacs,
+         net_indiv_total, large_indiv, small_indiv, candidate_contribs, 
+         indiv_ideological, indiv_cand_committee, indiv_jnt_cand_committee, 
+         indiv_party_committee, indiv_self_finance,
+         key = "group", value = "value") %>%
+  mutate(no_corp_pacs = factor(no_corp_pacs,
+                               levels = c("NO", "YES"),
+                               labels = c("Yes to Corporate PAC Donations", 
+                                          "No to Corporate PAC Donations"))) %>%
+  group_by(group, no_corp_pacs) %>%
+  summarise(sum = sum(value)) %>%
+ggplot(aes(x = group, y = sum)) +
+  geom_col() +
+  facet_wrap(~ no_corp_pacs) + 
+  scale_y_continuous(labels = dollar_format(), 
+                     breaks = pretty_breaks(n = 5),
+                     limits = c(0, 150000000)) +
+  labs(x = "", y = "") +
+  theme_pubr() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/contribs.pdf", width = 15, height = 8)
+```
+
