@@ -31,7 +31,7 @@ output:
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 bibliography: /Users/nick/Documents/Research/Articles/biblatex.bib
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 # Environment Preperation
@@ -46,7 +46,8 @@ rm(list = ls())
 packages <- c("tidyverse", "foreign", "stargazer", "lme4", "multcomp", 
               "lmerTest", "ggmcmc", "ggridges", "rstan", "rstanarm", "brms",
               "rethinking", "patchwork", "tidybayes", "sjstats", "sjPlot",
-              "bayesplot", "sjmisc", "ggpubr", "broom", "scales")
+              "bayesplot", "sjmisc", "ggpubr", "broom", "scales", "ggthemes",
+              "ggrepel")
 lapply(packages, require, character.only = TRUE)
 
 # Functions -------------------------------------------------------------------
@@ -67,8 +68,9 @@ This section imports the data cleaned in the "Step I: Data Cleaning" document to
 
 ```{r Data Import}
 load("Data/Clean Data/estimation_data.RDa")
+#load("E:/Project/Data/Clean Data/estimation_data.RDa")
 
-psych::describeBy(estimation.data, group = estimation.data$no_corp_pacs)
+#psych::describeBy(estimation.data, group = estimation.data$no_corp_pacs)
 ```
 
 
@@ -1607,7 +1609,7 @@ traceplot(int_ideopac.fit,
                    "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
                    "b_mhh", "scale"))
 
-\precis(int_ideopac.fit, prob = 0.89, digits = 3)
+precis(int_ideopac.fit, prob = 0.89, digits = 3)
 
 post <- spread_draws(int_ideopac.fit, mu[i]) %>% median_hdi()
 ggplot(data = estimation.data, aes(x = ideological_pacs)) +
@@ -3370,16 +3372,16 @@ stan.data <-
 
 # model estimation ------------------------------------------------------------
 ## Frequentist
-self.contribs.01 <- glm(indiv_self_finance ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
-                     family = Gamma(link = "log"),
-                     data = as.data.frame(stan.data) %>% filter(indiv_self_finance != 0) %>% mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center))
+# self.contribs.01 <- glm(indiv_self_finance ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
+#                      family = Gamma(link = "log"),
+#                      data = as.data.frame(stan.data) %>% filter(indiv_self_finance != 0) %>% mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center))
 
 ## Bayesian
 slffin.fit <- sampling(slffin.model,
                        chains = 4,
                        cores = 4,
-                       iter = 12000,
-                       warmup = 6000,
+                       iter = 25000,
+                       warmup = 12000,
                        data = stan.data)
 
 traceplot(slffin.fit, 
@@ -3400,8 +3402,8 @@ ggplot(data = estimation.data, aes(x = indiv_self_finance)) +
 int_slffin.fit <- sampling(int_slffin.model,
                            chains = 4,
                            cores = 4,
-                           iter = 12000,
-                           warmup = 6000,
+                           iter = 25000,
+                           warmup = 12000,
                            data = stan.data)
 
 traceplot(int_slffin.fit, 
@@ -3680,8 +3682,8 @@ stan.data <-
 candcontribs.fit <- sampling(candcontribs.model,
                              chains = 4,
                              cores = 4,
-                             iter = 20000,
-                             warmup = 10000,
+                             iter = 25000,
+                             warmup = 12000,
                              data = stan.data)
 
 traceplot(candcontribs.fit, 
@@ -3702,8 +3704,8 @@ ggplot(data = estimation.data, aes(x = candidate_contribs)) +
 int_candcontribs.fit <- sampling(int_candcontribs.model,
                                  chains = 4,
                                  cores = 4,
-                                 iter = 20000,
-                                 warmup = 10000,
+                                 iter = 25000,
+                                 warmup = 12000,
                                  data = stan.data)
 
 traceplot(int_candcontribs.fit, 
@@ -4481,10 +4483,9 @@ ggplot(data = estimation.data, aes(x = indiv_ideological)) +
 ```
 
 
-
-
-
 # Results Summary
+
+## Load Models and Extract Posteriors 
 
 ```{r}
 # Save models
@@ -4494,14 +4495,23 @@ ggplot(data = estimation.data, aes(x = indiv_ideological)) +
 # save(numpac.fit, file = "E:/Project/numpac_fit.Rda")
 # save(bizpac.fit, file = "E:/Project/bizpac_fit.Rda")
 # save(laborpac.fit, file = "E:/Project/labor_fit.Rda")
+# save(int_laborpac.fit, file = "E:/Project/int_labor_fit.Rda")
 # save(ideopac.fit, file = "E:/Project/ideopac_fit.Rda")
+# save(int_ideopac.fit, file = "E:/Project/int_ideopac_fit.Rda")
 # save(indideopac.fit, file = "E:/Project/indideopac_fit.Rda")
+# save(int_indideopac.fit, file = "E:/Project/int_indideopac_fit.Rda")
 # save(dirideopac.fit, file = "E:/Project/dirideopac_fit.Rda")
+# save(ind_dirideopac.fit, file = "E:/Project/ind_dirideopac_fit.Rda")
 # save(ldrpac.fit, file = "E:/Project/ldrpac_fit.Rda")
+# save(int_ldrpac.fit, file = "E:/Project/int_ldrpac_fit.Rda")
 # save(cmtpac.fit, file = "E:/Project/cmtpac_fit.Rda")
+# save(int_cmtpac.fit, file = "E:/Project/int_cmtpac_fit.Rda")
 # save(prtypac.fit, file = "E:/Project/prtypac_fit.Rda")
+# save(int_prtypac.fit, file = "E:/Project/int_prtypac_fit.Rda")
 # save(slffin.fit, file = "E:/Project/slffin_fit.Rda")
+# save(int_slffin.fit, file = "E:/Project/int_slffin_fit.Rda")
 # save(candcontribs.fit, file = "E:/Project/candcontribs_fit.Rda")
+# save(int_candcontribs.fit, file = "E:/Project/int_candcontribs_fit.Rda")
 # save(smlindv.fit, file = "E:/Project/smlindv_fit.Rda")
 # save(lrgindv.fit, file = "E:/Project/lrgindv_fit.Rda")
 # save(totindv.fit, file = "E:/Project/totindiv_fit.Rda")
@@ -4514,14 +4524,23 @@ load(file = "Models/totpac_fit.Rda")
 load(file = "Models/numpac_fit.Rda")
 load(file = "Models/bizpac_fit.Rda")
 load(file = "Models/labor_fit.Rda")
+load(file = "Models/int_labor_fit.Rda")
 load(file = "Models/ideopac_fit.Rda")
 load(file = "Models/indideopac_fit.Rda")
 load(file = "Models/dirideopac_fit.Rda")
+load(file = "Models/int_ideopac_fit.Rda")
+load(file = "Models/int_indideopac_fit.Rda")
+load(file = "Models/ind_dirideopac_fit.Rda")
 load(file = "Models/ldrpac_fit.Rda")
 load(file = "Models/cmtpac_fit.Rda")
 load(file = "Models/prtypac_fit.Rda")
 load(file = "Models/slffin_fit.Rda")
 load(file = "Models/candcontribs_fit.Rda")
+load(file = "Models/int_ldrpac_fit.Rda")
+load(file = "Models/int_cmtpac_fit.Rda")
+load(file = "Models/int_prtypac_fit.Rda")
+load(file = "Models/int_slffin_fit.Rda")
+load(file = "Models/int_candcontribs_fit.Rda")
 load(file = "Models/smlindv_fit.Rda")
 load(file = "Models/lrgindv_fit.Rda")
 load(file = "Models/totindiv_fit.Rda")
@@ -4545,109 +4564,219 @@ post.4 <- ideopac.fit %>% spread_draws(a, b_np) %>% mutate(model = "ideopac.fit"
 post.5 <- indideopac.fit %>% spread_draws(a, b_np) %>% mutate(model = "indideopac.fit")
 post.6 <- dirideopac.fit %>% spread_draws(a, b_np) %>% mutate(model = "dirideopac.fit")
 post.7 <- numpac.fit %>% spread_draws(a, b_np) %>% mutate(model = "numpac.fit")
-post.pac <- bind_rows(post.1, post.2, post.3, post.4, post.5, post.6, post.7)
+post.8 <- int_laborpac.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_laborpac.fit")
+post.9 <- int_ideopac.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_ideopac.fit")
+post.10 <- int_indideopac.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_indideopac.fit")
+post.11 <- ind_dirideopac.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_dirideopac.fit")
+post.pac <- bind_rows(post.1, post.2, post.3, post.4, post.5, post.6, post.7, 
+                      post.8, post.9, post.10, post.11)
 
 ## party contributions
-post.7 <- as.data.frame(ldrpac.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "ldrpac.fit")
-post.8 <- as.data.frame(cmtpac.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "cmtpac.fit")
-post.9 <- as.data.frame(prtypac.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "prtypac.fit")
-post.10 <- as.data.frame(slffin.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "slffin.fit")
-post.11 <- as.data.frame(candcontribs.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "candcontribs.fit")
-post.party <- bind_rows(post.7, post.8, post.9, post.10, post.11)
+post.12 <- ldrpac.fit %>% spread_draws(a, b_np) %>% mutate(model = "ldrpac.fit")
+post.13 <- cmtpac.fit %>% spread_draws(a, b_np) %>% mutate(model = "cmtpac.fit")
+post.14 <- prtypac.fit %>% spread_draws(a, b_np) %>% mutate(model = "prtypac.fit")
+post.15 <- slffin.fit %>% spread_draws(a, b_np) %>% mutate(model = "slffin.fit")
+post.16 <- candcontribs.fit %>% spread_draws(a, b_np) %>% mutate(model = "candcontribs.fit")
+post.17 <- int_ldrpac.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_ldrpac.fit")
+post.18 <- int_cmtpac.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_cmtpac.fit")
+post.19 <- int_prtypac.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_prtypac.fit")
+post.20 <- int_slffin.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_slffin.fit")
+post.21 <- int_candcontribs.fit %>% spread_draws(a, b_np, b_int) %>% mutate(model = "int_candcontribs.fit")
+post.party <- bind_rows(post.12, post.13, post.14, post.15, post.16, post.17, 
+                        post.18, post.19, post.20, post.21)
 
 ## individual contributions
-post.12 <- as.data.frame(smlindv.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "smlindv.fit")
-post.13 <- as.data.frame(lrgindv.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "lrgindv.fit")
-post.14 <- as.data.frame(totindv.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "totindv.fit")
-post.15 <- as.data.frame(individeopac.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "individeopac.fit")
-post.indv <- bind_rows(post.12, post.13, post.14, post.15)
+post.22 <- smlindv.fit %>% spread_draws(a, b_np) %>% mutate(model = "smlindv.fit")
+post.23 <- lrgindv.fit %>% spread_draws(a, b_np) %>% mutate(model = "lrgindv.fit")
+post.24 <- totindv.fit %>% spread_draws(a, b_np) %>% mutate(model = "totindv.fit")
+post.25 <- individeopac.fit %>% spread_draws(a, b_np) %>% mutate(model = "individeopac.fit")
+post.indv <- bind_rows(post.22, post.23, post.24, post.25)
 
 ## voting
-post.16 <- as.data.frame(voting.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "voting.fit")
-post.17 <- as.data.frame(turnout.fit) %>% dplyr::select(a, b_np) %>% mutate(model = "turnout.fit")
-post.vote <- bind_rows(post.16, post.17)
+post.26 <- voting.fit %>% spread_draws(a, b_np) %>% mutate(model = "voting.fit")
+post.27 <- turnout.fit %>% spread_draws(a, b_np) %>% mutate(model = "turnout.fit")
+post.vote <- bind_rows(post.26, post.27)
+```
 
+## PAC Results
 
+```{r}
 # PAC results -----------------------------------------------------------------
-## Coefficient plot
+## quick plots
+plot(totpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(numpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(bizpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(laborpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(int_laborpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(ideopac.fit, show_density = TRUE, ci_level = 0.89)
+plot(int_ideopac.fit, show_density = TRUE, ci_level = 0.89)
+plot(indideopac.fit, show_density = TRUE, ci_level = 0.89)
+plot(int_indideopac.fit, show_density = TRUE, ci_level = 0.89)
+plot(dirideopac.fit, show_density = TRUE, ci_level = 0.89)
+plot(ind_dirideopac.fit, show_density = TRUE, ci_level = 0.89)
+
+## main effects
 post.pac %>%
+  filter(str_detect(model, pattern = "int_", negate = TRUE)) %>%
   mutate(b_np = exp(b_np) - 1) %>%
-  #group_by(model) %>%
-  #median_hdi(exp(b_np) - 1, .width = c(0.89)) %>%
-  #filter(prediction == 1) %>%
   ggplot() +
-  #geom_pointintervalh() +
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
                 .width = c(0.89, 0.5), 
                 point_interval = median_hdi) +
-  # geom_text(aes(label = median_hdi(b_np)),
-  #           hjust = 0.5,
-  #           vjust = -1.5) +
   geom_vline(aes(xintercept = 0), linetype = "dashed") +
   scale_x_continuous(labels = percent_format(),
-                     breaks = pretty_breaks(n = 8)) +
+                     breaks = pretty_breaks(n = 6)) +
   scale_y_discrete(labels = c("Business PACs", "Indirect Ideological PACs",
                               "Total PACs", "Labor PACs", "Number of PACs",
                               "Direct Ideological PACs", "Ideological PACs")) +
-  labs(x = "% Decrease", y = "") +
+  labs(x = "% Decrease in Contributions", y = "") +
   theme_pubr()
-ggsave("Figures/Results/pac_coef.pdf", height = 4, width = 7)
+ggsave("Figures/Results/pac_coef.pdf", height = 4, width = 7) 
+
+## interaction effects
+post.pac %>%
+  filter(str_detect(model, pattern = "int_")) %>%
+  mutate(int = exp(b_np + b_int) - 1) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, int), x = int), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 8)) +
+  scale_y_discrete(labels = c("Indirect Ideological PACs", "Labor PACs",
+                              "Direct Ideological PACs", "Ideological PACs")) +
+  labs(x = "% Decrease in Contributions", y = "") +
+  theme_pubr()
+ggsave("Figures/Results/pac_int_eff.pdf", height = 4, width = 7)
 
 ## predicted values
 pred.pac <- 
   post.pac %>%
   group_by(model) %>%
-  mutate(a = exp(a),
-         b_np = exp(b_np),
-         no_pac_pred = a * b_np,
-         pac_pred = a) %>%
-  dplyr::select(model, no_pac_pred, pac_pred) %>%
-  #gather(no_pac_pred, pac_pred, key = "prediction", value = "predicted_val") %>%
-  # mutate(prediction = factor(prediction, 
-  #                            levels = c("no_pac_pred", "pac_pred"),
-  #                            labels = c("No to Corp. PACs Donations", "Yes to Corp. PAC Donations"))) %>%
-  group_by(model) %>%
-  median_hdi(.width = 0.89)
+  mutate(no_pac_pred = exp(a + b_np),
+         pac_pred = exp(a),
+         int_pac_pred = exp(a + b_np + b_int)) %>%
+  dplyr::select(model, no_pac_pred, pac_pred, int_pac_pred) %>%
+  gather(no_pac_pred, pac_pred, int_pac_pred, 
+         key = "type", value = "prediction") %>%
+  group_by(model, type) %>%
+  median_hdi(.width = 0.89) %>%
+  mutate(prediction = ifelse(is.na(prediction) & model == "dirideopac.fit",
+                               21591.521401, prediction),
+         .lower = ifelse(is.na(.lower) & model == "dirideopac.fit",
+                                     19846.953839, .lower),
+         .upper = ifelse(is.na(.upper) & model == "dirideopac.fit",
+                                     23470.762642, .upper),
+         prediction = ifelse(is.na(prediction) & model == "ideopac.fit",
+                               24555.763997, prediction),
+         .lower = ifelse(is.na(.lower) & model == "ideopac.fit",
+                                     22847.342783, .lower),
+         .upper = ifelse(is.na(.upper) & model == "ideopac.fit",
+                                     26378.895814, .upper),
+         prediction = ifelse(is.na(prediction) & model == "indideopac.fit",
+                               1.982314, prediction),
+         .lower = ifelse(is.na(.lower) & model == "indideopac.fit",
+                                     1.229519, .lower),
+         .upper = ifelse(is.na(.upper) & model == "indideopac.fit",
+                                     2.832138, .upper),
+         prediction = ifelse(is.na(prediction) & model == "laborpac.fit",
+                               62005.571356, prediction),
+         .lower = ifelse(is.na(.lower) & model == "laborpac.fit",
+                                     57692.078014, .lower),
+         .upper = ifelse(is.na(.upper) & model == "laborpac.fit",
+                                     66220.086108, .upper)) %>%
+  filter(str_detect(model, pattern = "int_", negate = TRUE))
 
-ggplot() +
-  geom_pointintervalh(data = pred.pac,
-                      aes(y = fct_rev(model), x = no_pac_pred, xmin = no_pac_pred.lower, xmax = no_pac_pred.upper, size = 100),
-                      color = "black") +
-  geom_pointintervalh(data = pred.pac, 
-                      aes(y = fct_rev(model), x = pac_pred, xmin = pac_pred.lower, xmax = pac_pred.upper, size = 100),
-                      position = "dodge",
-                      color = "blue") +
-  #facet_wrap(~ prediction) +
-  coord_flip() +
-  #geom_text(aes(label = comma(round(predicted_val, digits = 2))), hjust = 0.5, vjust = -1.5) +
-  scale_x_continuous(labels = dollar_format(),
-                     breaks = pretty_breaks(n = 6),
-                     limits = c(0, 100000)) +
-  scale_y_discrete(labels = c("Total PACs", "Number of PACs", "Labor PACs","Indirect Ideological PACs", "Ideological PACs", "Direct Ideological PACs", "Business PACs")) +
-  labs(x = "", y = "") +
-  theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-ggsave("Figures/Results/pac_preds.pdf", height = 4)
+## total, labor, and business predictions
+ggplot(data = pred.pac %>% filter(model == "totpac.fit" |
+                                    model == "laborpac.fit" |
+                                    model == "bizpac.fit" |
+                                    model == "ideopac.fit"), 
+       aes(x = fct_rev(model),
+           y = prediction, 
+           ymin = .lower, 
+           ymax = .upper,
+           color = type,
+           label = comma(round(prediction, digits = 0)))) +
+  geom_point(position = position_dodge(.1), size = 2) +
+  geom_errorbar(position = position_dodge(), width = 0.1) +
+  geom_text_repel(mapping = aes(group = type),
+                  position = position_dodge(0.1),
+                  vjust = -0.5,
+                  hjust = -0.4,
+                  alpha = 0.9,
+                  segment.size = 0,
+                  segment.alpha = 0,
+                  show.legend = FALSE) +
+  scale_y_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_x_discrete(labels = c("Total PACs", "Labor PACs", "Ideological PACs", 
+                              "Business PACs")) +
+  labs(x = "", y = "", color = "Prediction:") +
+  scale_color_colorblind(labels = c("No to PACs & New Member", "No to PACs", 
+                                  "Yes to PACs")) +
+  theme_pubr()
+ggsave("Figures/Results/pac_preds.pdf", height = 4, width = 7)
 
+## limited predictions
+ggplot(data = pred.pac %>% filter(model == "ideopac.fit"), 
+       aes(x = fct_rev(model),
+           y = prediction, 
+           ymin = .lower, 
+           ymax = .upper,
+           color = type,
+           label = comma(round(prediction, digits = 0)))) +
+  geom_point(position = position_dodge(.1), size = 2) +
+  geom_errorbar(position = position_dodge(), width = 0.1) +
+  geom_text_repel(mapping = aes(group = type),
+                  position = position_dodge(0.1),
+                  vjust = -0.5,
+                  hjust = -0.4,
+                  alpha = 0.9,
+                  segment.size = 0,
+                  segment.alpha = 0,
+                  show.legend = FALSE) +
+  scale_y_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_x_discrete(labels = c("Ideological PACs")) +
+  labs(x = "", y = "", color = "Prediction:") +
+  scale_color_colorblind(labels = c("No to PACs & New Member", "No to PACs", 
+                                  "Yes to PACs")) +
+  theme_pubr()
+ggsave("Figures/Results/pac_preds_ideo.pdf", height = 4, width = 7)
+
+# Tables ----------------------------------------------------------------------
+mcmcReg(totpac.fit)
+```
+
+## Individual Results 
+
+```{r}
 # Individual Results ----------------------------------------------------------
-## Coefficient plot
+## quick plots
+plot(smlindv.fit, show_density = TRUE, ci_level = 0.89)
+plot(lrgindv.fit, show_density = TRUE, ci_level = 0.89)
+plot(totindv.fit, show_density = TRUE, ci_level = 0.89)
+plot(individeopac.fit, show_density = TRUE, ci_level = 0.89)
+
+## main effects
 post.indv %>%
-  mutate(b_np = exp(b_np)) %>%
-  #group_by(model) %>%
-  #median_hdi(exp(b_np) - 1, .width = c(0.89)) %>%
-  #filter(prediction == 1) %>%
+  filter(str_detect(model, pattern = "int_", negate = TRUE)) %>%
+  mutate(b_np = exp(b_np) - 1) %>%
   ggplot() +
-  #geom_pointintervalh() +
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
                 .width = c(0.89, 0.5), 
                 point_interval = median_hdi) +
   geom_vline(aes(xintercept = 0), linetype = "dashed") +
-  scale_x_continuous(labels = percent_format()) +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
   scale_y_discrete(labels = c("Large Individual",
                               "Individual Ideological",
                               "Total Individual",
                               "Small Individual")) +
   labs(x = "% Increase in Contributions", y = "") +
+  scale_color_colorblind() +
   theme_pubr()
 ggsave("Figures/Results/indv_coef.pdf", height = 4, width = 7)
 
@@ -4655,98 +4784,279 @@ ggsave("Figures/Results/indv_coef.pdf", height = 4, width = 7)
 pred.indv <- 
   post.indv %>%
   group_by(model) %>%
-  mutate(a = exp(a),
-         b_np = exp(b_np),
-         no_pac_pred = a * b_np,
-         pac_pred = a) %>%
+  mutate(no_pac_pred = exp(a + b_np),
+         pac_pred = exp(a)) %>%
   dplyr::select(model, no_pac_pred, pac_pred) %>%
-  gather(no_pac_pred, pac_pred, key = "prediction", value = "predicted_val") %>%
-  mutate(prediction = factor(prediction, 
-                             levels = c("no_pac_pred", "pac_pred"),
-                             labels = c("No Corp. PACs Donations", "PAC Donations"))) %>%
-  group_by(model, prediction) %>%
-  median_hdi(predicted_val, .width = 0.89)
+  gather(no_pac_pred, pac_pred, 
+         key = "type", value = "prediction") %>%
+  group_by(model, type) %>%
+  median_hdi(.width = 0.89)
 
-ggplot(data = pred.indv, aes(y = fct_rev(model), x = predicted_val, xmin = .lower, xmax = .upper)) +
-  geom_pointintervalh() +
-  facet_wrap(~ prediction) +
-  coord_flip() +
-  geom_text(aes(label = comma(round(predicted_val, digits = 2))), hjust = 0.5, vjust = -1.5) +
-  scale_x_continuous(labels = scales::dollar_format(),
-                     breaks = scales::pretty_breaks(n = 6),
-                     limits = c(0, 900000)) +
-  scale_y_discrete(labels = c("Total", 
-                              "Small", 
-                              "Large")) +
-  labs(x = "",
-       y = "") +
-  theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+## all predictions
+ggplot(data = pred.indv, 
+       aes(x = fct_rev(model),
+           y = prediction, 
+           ymin = .lower, 
+           ymax = .upper,
+           color = type,
+           label = comma(round(prediction, digits = 2)))) +
+  geom_point(position = position_dodge(.1), size = 2) +
+  geom_errorbar(position = position_dodge(), width = 0.1) +
+  geom_text_repel(mapping = aes(group = type),
+                  position = position_dodge(0.1),
+                  vjust = -1,
+                  hjust = -0.2,
+                  alpha = 0.9,
+                  segment.size = 0,
+                  segment.alpha = 0,
+                  show.legend = FALSE) +
+  scale_y_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_x_discrete(labels = c("Total Individual", "Small Individual", 
+                              "Large Individual", "Ideological Individual")) +
+  labs(x = "", y = "", color = "Prediction:") +
+  scale_color_colorblind(labels = c("No to PACs", "Yes to PACs")) +
+  theme_pubr()
 ggsave("Figures/Results/indv_preds.pdf", height = 4)
 
+## minus total
+ggplot(data = pred.indv %>% filter(model != "individeopac.fit"), 
+       aes(x = fct_rev(model),
+           y = prediction, 
+           ymin = .lower, 
+           ymax = .upper,
+           color = type,
+           label = comma(round(prediction, digits = 2)))) +
+  geom_point(position = position_dodge(.1), size = 2) +
+  geom_errorbar(position = position_dodge(), width = 0.1) +
+  geom_text_repel(mapping = aes(group = type),
+                  position = position_dodge(0.1),
+                  vjust = -1,
+                  hjust = -0.2,
+                  alpha = 0.9,
+                  segment.size = 0,
+                  segment.alpha = 0,
+                  show.legend = FALSE) +
+  scale_y_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 8)) +
+  scale_x_discrete(labels = c("Total Individual", "Small Individual", 
+                              "Large Individual")) +
+  labs(x = "", y = "", color = "Prediction:") +
+  scale_color_colorblind(labels = c("No to PACs", "Yes to PACs")) +
+  theme_pubr()
+ggsave("Figures/Results/indv_preds.pdf", height = 4)
+```
+
+## Party Results
+
+```{r}
 # Party Results ---------------------------------------------------------------
-## Coefficient plot
+## quick plots
+plot(ldrpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(int_ldrpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(cmtpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(int_cmtpac.fit, show_density = TRUE, ci_level = 0.89)
+plot(prtypac.fit, show_density = TRUE, ci_level = 0.89)
+plot(int_prtypac.fit, show_density = TRUE, ci_level = 0.89)
+plot(slffin.fit, show_density = TRUE, ci_level = 0.89)
+plot(int_slffin.fit, show_density = TRUE, ci_level = 0.89)
+plot(candcontribs.fit, show_density = TRUE, ci_level = 0.89)
+plot(int_candcontribs.fit, show_density = TRUE, ci_level = 0.89)
+
+## minus self-finance
 post.party %>%
-  group_by(model) %>%
-  median_hdi(exp(b_np) - 1, .width = c(0.89)) %>%
-  #filter(prediction == 1) %>%
-  ggplot(aes(y = fct_rev(model), x = `exp(b_np) - 1`, xmin = .lower, xmax = .upper)) +
-  geom_pointintervalh() +
-  #stat_halfeyeh(.width = c(0.89, 0.5), point_interval = median_hdi) +
-  geom_text(aes(label = round(`exp(b_np) - 1`, digits = 2)), hjust = 0.5, vjust = -1.5) +
+  filter(model != "candcontribs.fit") %>%
+  filter(str_detect(model, pattern = "int_", negate = TRUE)) %>%
+  filter(model != "slffin.fit") %>%
+  mutate(b_np = exp(b_np) - 1) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi) +
   geom_vline(aes(xintercept = 0), linetype = "dashed") +
-  scale_x_continuous(labels = scales::percent_format()) +
-  scale_y_discrete(labels = c("Self-Financing", "Party Committees", "Party Candidate Committees", "Candidate Contributions")) +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_y_discrete(labels = c("Leadership PAC", "Party Committee", "Party Candidate Committees")) +
   labs(x = "% Change in Contributions",
        y = "") +
   theme_pubr()
 ggsave("Figures/Results/party_coef.pdf", height = 4)
 
+## self-finance
+post.party %>%
+  filter(str_detect(model, pattern = "int_", negate = TRUE)) %>%
+  filter(model == "slffin.fit") %>%
+  mutate(b_np = exp(b_np) - 1) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed") +
+  scale_x_continuous(breaks = pretty_breaks(n = 8)) +
+  scale_y_discrete(labels = c("Self-finance")) +
+  labs(x = "exp(no_corp_pac) Change in Contributions",
+       y = "") +
+  theme_pubr()
+ggsave("Figures/Results/slffin_coef.pdf", height = 4)
+
+## interaction effects
+post.party %>%
+  filter(str_detect(model, pattern = "int_")) %>%
+  filter(model != "int_slffin.fit") %>%
+  mutate(int = exp(b_np + b_int) - 1) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, int), x = int), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 8)) +
+  scale_y_discrete(labels = c("Candidate Contributions", "Leadership PACs",
+                              "Party Committee", "Party Candidate Committees")) +
+  labs(x = "% Change in Contributions", y = "") +
+  theme_pubr()
+ggsave("Figures/Results/prty_int_eff.pdf", height = 4, width = 7)
+
+post.party %>%
+  filter(str_detect(model, pattern = "int_")) %>%
+  filter(model == "int_slffin.fit") %>%
+  mutate(int = exp(b_np + b_int) - 1) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, int), x = int), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed") +
+  scale_x_continuous(breaks = pretty_breaks(n = 8)) +
+  scale_y_discrete(labels = c("Self-finance")) +
+  labs(x = "exp(no_corp_pac * new_member) Change in Contributions", y = "") +
+  theme_pubr()
+ggsave("Figures/Results/slffin_int_eff.pdf", height = 4, width = 7)
+
 ## predicted values
 pred.party <- 
   post.party %>%
   group_by(model) %>%
-  mutate(a = exp(a),
-         b_np = exp(b_np),
-         no_pac_pred = a * b_np,
-         pac_pred = a) %>%
-  dplyr::select(model, no_pac_pred, pac_pred) %>%
-  gather(no_pac_pred, pac_pred, key = "prediction", value = "predicted_val") %>%
-  mutate(prediction = factor(prediction, 
-                             levels = c("no_pac_pred", "pac_pred"),
-                             labels = c("No Corp. PACs Donations", "PAC Donations"))) %>%
-  group_by(model, prediction) %>%
-  median_hdi(predicted_val, .width = 0.89)
+  mutate(no_pac_pred = exp(a + b_np),
+         pac_pred = exp(a),
+         int_pac_pred = exp(a + b_np + b_int)) %>%
+  dplyr::select(model, no_pac_pred, pac_pred, int_pac_pred) %>%
+  gather(no_pac_pred, pac_pred, int_pac_pred, 
+         key = "type", value = "prediction") %>%
+  group_by(model, type) %>%
+  median_hdi(.width = 0.89) %>%
+  mutate(prediction = ifelse(is.na(prediction) & model == "candcontribs.fit",
+                               1.091555e-01, prediction),
+         .lower = ifelse(is.na(.lower) & model == "candcontribs.fit",
+                                     7.994220e-02, .lower),
+         .upper = ifelse(is.na(.upper) & model == "candcontribs.fit",
+                                     1.392588e-01, .upper),
+         prediction = ifelse(is.na(prediction) & model == "cmtpac.fit",
+                               6662.788, prediction),
+         .lower = ifelse(is.na(.lower) & model == "cmtpac.fit",
+                                     5.881739e+03, .lower),
+         .upper = ifelse(is.na(.upper) & model == "cmtpac.fit",
+                                     7.460927e+03, .upper),
+         prediction = ifelse(is.na(prediction) & model == "ldrpac.fit",
+                               8.897677e+03, prediction),
+         .lower = ifelse(is.na(.lower) & model == "ldrpac.fit",
+                                     8.082995e+03, .lower),
+         .upper = ifelse(is.na(.upper) & model == "ldrpac.fit",
+                                     9.707225e+03, .upper),
+         prediction = ifelse(is.na(prediction) & model == "prtypac.fit",
+                               6.843796e+02, prediction),
+         .lower = ifelse(is.na(.lower) & model == "prtypac.fit",
+                                     5.401951e+02, .lower),
+         .upper = ifelse(is.na(.upper) & model == "prtypac.fit",
+                                     8.416762e+02, .upper),
+         prediction = ifelse(is.na(prediction) & model == "slffin.fit",
+                               2.009642e+05, prediction),
+         .lower = ifelse(is.na(.lower) & model == "slffin.fit",
+                                     1.009270e+05, .lower),
+         .upper = ifelse(is.na(.upper) & model == "slffin.fit",
+                                     3.249538e+05, .upper)) %>%
+  filter(str_detect(model, pattern = "int_", negate = TRUE))
 
-ggplot(data = pred.party, aes(y = fct_rev(model), x = predicted_val, xmin = .lower, xmax = .upper)) +
-  geom_pointintervalh() +
-  facet_wrap(~ prediction) +
-  coord_flip() +
-  geom_text(aes(label = comma(round(predicted_val, digits = 2))), hjust = 0.5, vjust = -2.2) +
-  scale_x_continuous(labels = scales::dollar_format(),
-                     breaks = scales::pretty_breaks(n = 6),
-                     limits = c(0, 3000)) +
-  scale_y_discrete(labels = c("Self-Financing", "Party Committees", 
-                              "Party Candidate Committees", 
-                              "Candidate Contributions")) +
-  labs(x = "",
-       y = "") +
+## all predictions
+ggplot(data = pred.party %>% filter(model != "candcontribs.fit"), 
+       aes(x = fct_rev(model),
+           y = prediction, 
+           ymin = .lower, 
+           ymax = .upper,
+           color = type,
+           label = comma(round(prediction, digits = 0)))) +
+  geom_point(position = position_dodge(.1), size = 2) +
+  geom_errorbar(position = position_dodge(), width = 0.1) +
+  geom_text_repel(mapping = aes(group = type),
+                  position = position_dodge(0.1),
+                  vjust = -0.5,
+                  hjust = -0.2,
+                  alpha = 0.9,
+                  segment.size = 0,
+                  segment.alpha = 0,
+                  show.legend = FALSE) +
+  scale_y_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_x_discrete(labels = c("Self-Financing", "Party Committees", 
+                              "Leadership PACs", "Party Candidate Committees")) +
+  labs(x = "", y = "", color = "Prediction:") +
+  scale_color_colorblind(labels = c("No to PACs & New Member", "No to PACs", 
+                                  "Yes to PACs")) +
   theme_pubr() +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ggsave("Figures/Results/party_preds.pdf", height = 5)
 
+## minus slef-finance
+ggplot(data = pred.party %>% 
+         filter(model != "slffin.fit") %>% 
+         filter(model != "candcontribs.fit"), 
+       aes(x = fct_rev(model),
+           y = prediction, 
+           ymin = .lower, 
+           ymax = .upper,
+           color = type,
+           label = comma(round(prediction, digits = 0)))) +
+  geom_point(position = position_dodge(.1), size = 2) +
+  geom_errorbar(position = position_dodge(), width = 0.1) +
+  geom_text_repel(mapping = aes(group = type),
+                  position = position_dodge(0.1),
+                  vjust = -0.5,
+                  hjust = -0.5,
+                  alpha = 0.9,
+                  segment.size = 0,
+                  segment.alpha = 0,
+                  show.legend = FALSE) +
+  scale_y_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_x_discrete(labels = c("Party Committees", "Leadership PACs", 
+                              "Party Candidate Committees", 
+                              "Candidate Contributions")) +
+  labs(x = "", y = "", color = "Prediction:") +
+  scale_color_colorblind(labels = c("No to PACs & New Member", "No to PACs", 
+                                  "Yes to PACs")) +
+  theme_pubr() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Results/party_preds_restricted.pdf", height = 5)
+```
+
+## Vote Results
+
+```{r}
 # Vote Results ----------------------------------------------------------------
+## quick plots
+plot(voting.fit, show_density = TRUE, ci_level = 0.89)
+plot(turnout.fit, show_density = TRUE, ci_level = 0.89)
+
 ## Coefficient plot
 post.vote %>%
-  group_by(model) %>%
-  median_hdi(exp(b_np) - 1, .width = c(0.89)) %>%
-  #filter(prediction == 1) %>%
-  ggplot(aes(y = fct_rev(model), x = `exp(b_np) - 1`, xmin = .lower, xmax = .upper)) +
-  geom_pointintervalh() +
-  #stat_halfeyeh(.width = c(0.89, 0.5), point_interval = median_hdi) +
-  geom_text(aes(label = round(`exp(b_np) - 1`, digits = 2)), hjust = 0.5, vjust = -1.5) +
+  filter(str_detect(model, pattern = "int_", negate = TRUE)) %>%
+  mutate(b_np = exp(b_np) - 1) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi) +
   geom_vline(aes(xintercept = 0), linetype = "dashed") +
-  scale_x_continuous(labels = scales::percent_format()) +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
   scale_y_discrete(labels = c("Vote Share", "V.A.P. Turnout")) +
   labs(x = "% Change",
        y = "") +
@@ -4757,30 +5067,37 @@ ggsave("Figures/Results/vote_coef.pdf", height = 4)
 pred.vote <- 
   post.vote %>%
   group_by(model) %>%
-  mutate(a = exp(a),
-         b_np = exp(b_np),
-         no_pac_pred = a * b_np,
-         pac_pred = a) %>%
+  mutate(no_pac_pred = exp(a + b_np),
+         pac_pred = exp(a)) %>%
   dplyr::select(model, no_pac_pred, pac_pred) %>%
-  gather(no_pac_pred, pac_pred, key = "prediction", value = "predicted_val") %>%
-  mutate(prediction = factor(prediction, 
-                             levels = c("no_pac_pred", "pac_pred"),
-                             labels = c("No Corp. PACs Donations", "PAC Donations"))) %>%
-  group_by(model, prediction) %>%
-  median_hdi(predicted_val, .width = 0.89)
+  gather(no_pac_pred, pac_pred, 
+         key = "type", value = "prediction") %>%
+  group_by(model, type) %>%
+  median_hdi(.width = 0.89)
 
-ggplot(data = pred.vote, aes(y = fct_rev(model), x = predicted_val, xmin = .lower, xmax = .upper)) +
-  geom_pointintervalh() +
-  facet_wrap(~ prediction) +
-  coord_flip() +
-  geom_text(aes(label = comma(round(predicted_val, digits = 2))), hjust = -0.75, vjust = -1) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 6),
-                     limits = c(0, 100)) +
-  scale_y_discrete(labels = c("Vote Share", "V.A.P. Turnout")) +
-  labs(x = "",
-       y = "") +
-  theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+## all predictions
+ggplot(data = pred.vote, 
+       aes(x = fct_rev(model),
+           y = prediction, 
+           ymin = .lower, 
+           ymax = .upper,
+           color = type,
+           label = comma(round(prediction, digits = 2)))) +
+  geom_point(position = position_dodge(.1), size = 2) +
+  geom_errorbar(position = position_dodge(), width = 0.1) +
+  geom_text_repel(mapping = aes(group = type),
+                  position = position_dodge(0.1),
+                  vjust = -1,
+                  hjust = -0.7,
+                  alpha = 0.9,
+                  segment.size = 0,
+                  segment.alpha = 0,
+                  show.legend = FALSE) +
+  scale_y_continuous(breaks = pretty_breaks(n = 6)) +
+  scale_x_discrete(labels = c("Vote Share", "V.A.P. Turnout")) +
+  labs(x = "", y = "", color = "Prediction:") +
+  scale_color_colorblind(labels = c("No to PACs", "Yes to PACs")) +
+  theme_pubr()
 ggsave("Figures/Results/vote_preds.pdf", height = 4)
 ```
 
