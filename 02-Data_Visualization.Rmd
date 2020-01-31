@@ -56,10 +56,7 @@ This section imports the data cleaned in the "Step I: Data Cleaning" document to
 
 ```{r Data Import}
 load("Data/Clean Data/estimation_data.RDa")
-
-estimation.data <- 
-  estimation.data %>%
-  filter(party == "D")
+load("Data/Clean Data/contribution_data.Rda")
 ```
 
 

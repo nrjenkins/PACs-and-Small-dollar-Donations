@@ -34,7 +34,7 @@ output:
     toc: yes
 #bibliography: /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 # Environment Preperation
@@ -221,9 +221,36 @@ member.data <-
 
 # Contribution Data
 
+## Individual Contributions
+
 ```{r}
+## ZIP codes to ZCTA
+zip.areas <- read_excel("Data/Raw Data/zip_to_zcta_2016.xlsx") %>%
+  select(ZIP, ZCTA_USE)
+sum(duplicated(zip.areas[ , "ZIP"]))
+
+## ZIP to Congressional district
+cd <- read_delim("Data/Raw Data/natl_zccd_delim.txt", delim = ",", skip = 1) %>%
+  mutate(ZCTA = as.character(ZCTA))
+
+## count ZCTAs that span multiple CDs
+cd <- 
+  cd %>%
+  group_by(ZCTA) %>%
+  mutate(weight = 1 / n())
+
+sum(duplicated(cd[ , c("State", "Congressional District", "ZCTA")]))
+
+zip.to.cd <- left_join(
+  zip.areas,
+  cd,
+  by = c("ZCTA_USE" = "ZCTA")
+) %>% drop_na(`Congressional District`)
+sum(duplicated(zip.to.cd[ , "ZIP"]))
+
 ## Industry Categories
 industry.cats <- read_excel("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/CRP_industry_codes.xlsx")
+
 industry.cats <- 
   industry.cats %>%
   filter(str_detect(Catcode, "0000")) %>%
@@ -246,21 +273,67 @@ indiv.contrib.data.raw <-
          contrib_date = X17,
          contrib_city = X20,
          contrib_state = X22, 
-         contrib_zip = X24) %>%
+         contrib_zip = X24)  %>%
   select(year, fec_trans_id, donor_id, contrib_name, receipt_id, 
-         donor_org_name, standard_org, industry_code, contrib_date) %>%
+         donor_org_name, standard_org, industry_code, contrib_date, contrib_zip, 
+         contrib_state) 
+
+## merge individual contributions with ZIP code to CD data
+indiv.contrib.data <- left_join(
+  indiv.contrib.data.raw,
+  zip.to.cd,
+  by = c("contrib_zip" = "ZIP")
+)
+
+# Load Opensecrets Roster
+candidate.roster.raw <- read_delim("Data/Raw Data/Candidate Data/cands18.txt", delim = "|, |", col_names = FALSE)
+
+## rename variables and remove duplicates
+candidate.roster <- 
+  candidate.roster.raw %>%
+  rename(year = X2,
+         fec_trans_id = X4,
+         receipt_id = X6,
+         first_last_party = X8,
+         party = X10,
+         running_district = X12,
+         current_district = X14,
+         current_cand = X16,
+         cycle_cand = X18,
+         cand_type = X20,
+         party_result = X22,
+         no_pacs = X24) %>%
+  select(receipt_id, first_last_party, party, running_district, 
+         current_cand, cycle_cand, cand_type, party_result, no_pacs) %>%
+  distinct(receipt_id, .keep_all = TRUE)
+
+indiv.contrib.data <- left_join(
+  indiv.contrib.data,
+  candidate.roster,
+  by = c("receipt_id")
+)
+
+
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
   separate(contrib_date, into = c("drop", "contrib_date", "contrib_amount"), sep = ",") %>%
   mutate(fec_trans_id = as.character(fec_trans_id),
          contrib_amount = as.numeric(contrib_amount),
-         contrib_date = mdy(contrib_date)) %>%
+         contrib_date = mdy(contrib_date),
+         cand_district = paste(contrib_state, `Congressional District`, sep = ""))
+
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
   group_by(receipt_id, industry_code) %>%
   summarise(year = first(year),
             contrib_amount = sum(contrib_amount)) %>%
   mutate(contrib_type = "Individual") %>%
   arrange(receipt_id, industry_code, year)
 
+
+
 indiv.contrib.data <- 
-  indiv.contrib.data.raw %>%
+  indiv.contrib.data %>%
   mutate(industry_code = str_to_upper(industry_code),
          industry_letter = str_sub(industry_code, start = 1L, end = 1L)) %>%
   filter(industry_code != "Z9100") %>%
@@ -343,9 +416,21 @@ indiv.contrib.data <-
   mutate_at(vars(indiv_ag:indiv_unknown), funs(ifelse(is.na(.), 0, .))) %>%
   arrange(receipt_id)
 
-indiv.contrib.data$indiv_total <- rowSums(indiv.contrib.data[ , 3:20], na.rm = TRUE)
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
+  mutate(indiv_biz = sum(indiv_ag, indiv_comms_electric, indiv_const_pub_wrks,
+                         indiv_defense, indiv_engy_res_envrmt, 
+                         indiv_fncs_ins_real, indiv_commerce, 
+                         indiv_hlth_edu_human, indiv_legal, indiv_manu,
+                         indiv_other, indiv_trans)) %>%
+  select(receipt_id, indiv_biz, indiv_labor, indiv_ideological, 
+         indiv_self_finance, indiv_cand_committee, indiv_jnt_cand_committee,
+         indiv_party_committee)
+```
 
-# PAC Contributions
+## PAC Contributions
+
+```{r}
 ## 2018 - Congress 116
 pac.contrib.data.raw <- 
   read_delim("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/Contribution Data/CampaignFin18/pacs18.txt", 
@@ -516,6 +601,8 @@ contrib.data <- left_join(
   pac.contrib.data,
   by = c("receipt_id")
 )
+
+save(contrib.data, file = "Data/Clean Data/contribution_data.Rda")
 ```
 
 ## Merge with Legislator Data
@@ -544,7 +631,8 @@ estimation.data <-
          ce_pac_ideological, ideological_pacs, labor_pacs, leadership_pacs,
          net_indiv_total, large_indiv, small_indiv, candidate_contribs, 
          indiv_ideological, indiv_cand_committee, indiv_jnt_cand_committee, 
-         indiv_party_committee, indiv_self_finance, net_spent, net_receipts, 
+         indiv_party_committee, indiv_self_finance, indiv_biz, indiv_labor, 
+         net_spent, net_receipts, 
          vote_pct, vap_turnout, median_hh_income, pct_clinton_16, pct_obama_12, 
          pct_dem_house_16, pct_dem_house_14, pct_asian, pct_white, pct_black, 
          pct_latino, pct_bachelors, tot_voting_age) %>%
@@ -555,7 +643,7 @@ estimation.data <-
          log_tot_voting_age = log(tot_voting_age)) %>%
   filter(party == "D")
 
-save(estimation.data, file = "Data/Clean Data/estimation_data.RDa")
+save(estimation.data, file = "Data/Clean Data/estimation_data.Rda")
 ```
 
 
