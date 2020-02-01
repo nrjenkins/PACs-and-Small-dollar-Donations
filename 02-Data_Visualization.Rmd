@@ -1,11 +1,13 @@
 ---
 title: "Step II: Data Visualization"
-subtitle: "Project.title"
+subtitle: "PACs and Small-dollar Donations"
 author:
-  - Nicholas R. Jenkins^[University of California, Riverside]
+  - name: Nicholas R. Jenkins 
+    affiliation: University of California, Riverside
+    affiliation_url: https://www.ucr.edu
 abstract: |
   This document shows all the code used to visualize the data for this project. 
-  All graphs and figures were created using RStudio running **R** version 
+  All graphs and figures were created using RStudio running R version 
   `r R.version$major`.`r R.version$minor` "`r R.version$nickname`". 
   
   Each step has been carefully documented and will replicate the graphs and
@@ -13,30 +15,24 @@ abstract: |
   using the button in the top right corner. For any questions about this code, 
   please contact Nick Jenkins at 
   [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu).
-output:
+date: "`r Sys.Date()`"
+output: 
   html_notebook: 
-    highlight: monochrome
-    theme: simplex
+    highlight: pygments
+    theme: paper
     toc: yes
     code_folding: 
-  html_document:
-    highlight: monochrome
-    theme: simplex
-    toc: yes
-    code_folding:
-  pdf_document:
-    toc: yes
-  github_document:
-    toc: yes
-date: "`r format(Sys.time(), '%B %d, %Y')`"
-bibliography: /Users/nick/Documents/Research/Articles/biblatex.bib
+    toc_float: true
+bibliography: /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
+editor_options: 
+  chunk_output_type: inline
 ---
 
 # Environment Preperation
 
 This section clears the current working environment and loads the packages used to visualize the data. I also create the function `comma()` to format any in-line output values to have thousands separators and only two digits. 
 
-```{r setup, warning = FALSE, message = FALSE, results = FALSE}
+```{r setup, warning = FALSE, message = FALSE, echo = TRUE, results = "hide"}
 # Clear Environment -----------------------------------------------------------
 rm(list = ls())
 
@@ -48,6 +44,15 @@ lapply(packages, require, character.only = TRUE)
 
 # Inline Formatting -----------------------------------------------------------
 comma <- function(x) format(x, digits = 2, big.mark = ",")
+
+# Set Global Chunk Options ----------------------------------------------------
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "##",
+  R.options = list(width = 70)
+)
 ```
 
 # Import Data
@@ -56,7 +61,6 @@ This section imports the data cleaned in the "Step I: Data Cleaning" document to
 
 ```{r Data Import}
 load("Data/Clean Data/estimation_data.RDa")
-load("Data/Clean Data/contribution_data.Rda")
 ```
 
 
@@ -71,49 +75,177 @@ plot_density(estimation.data)
 
 # Plot Campaign Spending
 
-```{r fig.width = 7}
+```{r fig.width = 15}
 ggplot(data = estimation.data, aes(x = no_corp_pacs, y = net_spent)) +
   geom_col() +
   scale_y_continuous(labels = dollar_format(), breaks = pretty_breaks(n = 8)) +
   theme_pubr()
 
-estimation.data %>%
-  select(no_corp_pacs, new_member, tot_pac_money, business_pacs,
-         dir_business_pacs, in_kind_business_pacs, ind_business_pacs, 
+plot.data <- 
+  estimation.data %>%
+  filter(candidate_contribs < 10000000) %>% # drop outlier
+  select(no_corp_pacs, new_member, tot_pac_money, num_pac_contribs, 
+         business_pacs, dir_business_pacs, in_kind_business_pacs, 
+         ind_business_pacs, candidate_contribs, dir_pac_cand_committee, 
+         dir_pac_party_committee, ik_pac_party_committee, 
+         ind_pac_party_committee, ce_pac_party_committee, labor_pacs, 
+         dir_pac_labor, ik_pac_labor, ind_pac_labor, ideological_pacs, 
+         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
+         ce_pac_ideological, leadership_pacs, net_indiv_total, large_indiv, 
+         small_indiv, indiv_ideological, indiv_cand_committee, 
+         indiv_party_committee, indiv_self_finance, indiv_biz, indiv_labor, 
+         net_spent, net_receipts) %>%
+  gather(tot_pac_money, num_pac_contribs, business_pacs, dir_business_pacs, 
+         in_kind_business_pacs, ind_business_pacs, candidate_contribs, 
          dir_pac_cand_committee, dir_pac_party_committee, 
          ik_pac_party_committee, ind_pac_party_committee, 
-         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
-         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
-         ce_pac_ideological, ideological_pacs, labor_pacs, leadership_pacs,
-         net_indiv_total, large_indiv, small_indiv, candidate_contribs, 
-         indiv_ideological, indiv_cand_committee, indiv_jnt_cand_committee, 
-         indiv_party_committee, indiv_self_finance) %>%
-  gather(tot_pac_money, business_pacs,
-         dir_business_pacs, in_kind_business_pacs, ind_business_pacs, 
-         dir_pac_cand_committee, dir_pac_party_committee, 
-         ik_pac_party_committee, ind_pac_party_committee, 
-         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
-         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
-         ce_pac_ideological, ideological_pacs, labor_pacs, leadership_pacs,
-         net_indiv_total, large_indiv, small_indiv, candidate_contribs, 
-         indiv_ideological, indiv_cand_committee, indiv_jnt_cand_committee, 
-         indiv_party_committee, indiv_self_finance,
+         ce_pac_party_committee, labor_pacs, dir_pac_labor, ik_pac_labor, 
+         ind_pac_labor, ideological_pacs, dir_pac_ideological, 
+         ik_pac_ideological, ind_pac_ideological, ce_pac_ideological, 
+         leadership_pacs, net_indiv_total, large_indiv, small_indiv, 
+         indiv_ideological, indiv_cand_committee, indiv_party_committee, 
+         indiv_self_finance, indiv_biz, indiv_labor, net_spent, net_receipts,
          key = "group", value = "value") %>%
   mutate(no_corp_pacs = factor(no_corp_pacs,
                                levels = c("NO", "YES"),
                                labels = c("Yes to Corporate PAC Donations", 
-                                          "No to Corporate PAC Donations"))) %>%
-  group_by(group, no_corp_pacs) %>%
-  summarise(sum = sum(value)) %>%
-ggplot(aes(x = group, y = sum)) +
+                                          "No to Corporate PAC Donations")),
+         new_member = factor(new_member,
+                             levels = c("NO", "YES"),
+                             labels = c("Incumbent", "New Member")),
+         group = factor(group,
+                        levels = c("tot_pac_money", "num_pac_contribs", 
+                                   "business_pacs", "dir_business_pacs", 
+                                   "in_kind_business_pacs", "ind_business_pacs", 
+                                   "candidate_contribs", "dir_pac_cand_committee", 
+                                   "dir_pac_party_committee", 
+                                   "ik_pac_party_committee", 
+                                   "ind_pac_party_committee", 
+                                   "ce_pac_party_committee", "labor_pacs", 
+                                   "dir_pac_labor", "ik_pac_labor", 
+                                   "ind_pac_labor", "ideological_pacs", 
+                                   "dir_pac_ideological", 
+                                   "ik_pac_ideological", "ind_pac_ideological", 
+                                   "ce_pac_ideological", 
+                                   "leadership_pacs", "net_indiv_total", 
+                                   "large_indiv", "small_indiv", 
+                                   "indiv_ideological", "indiv_cand_committee", 
+                                   "indiv_party_committee", 
+                                   "indiv_self_finance", "indiv_biz", 
+                                   "indiv_labor", "net_spent", "net_receipts"),
+                        labels = c("Total PAC Money", 
+                                   "Number of PAC Contributors", "Business PACs",
+                                   "Direct Business PACs", 
+                                   "In-kind Business PACs", 
+                                   "Indirect Business PACs", 
+                                   "Candidate Contributions", 
+                                   "Direct Candidate Committee Contributions",
+                                   "Direct Party Contributions", 
+                                   "In-kind Party Contributions", 
+                                   "Indp. Party Expendatures",
+                                   "Coordinated Party Exp.",
+                                   "Labor PACs", "Direct Labor PACs",
+                                   "In-kind Labor PACs",
+                                   "Indp. Labor PAC Exp.",
+                                   "Ideological PACs", 
+                                   "Direct Ideological PACs",
+                                   "In-kind Ideological PACs",
+                                   "Indp. Ideological PA C Exp.",
+                                   "Coordinated Ideological PAC Exp.",
+                                   "Leadership PACs", "Total Individual",
+                                   "Large Individual", "Small Individual",
+                                   "Ideological Individual", 
+                                   "Candidate Individual",
+                                   "Party Individual", "Self-finance",
+                                   "Business Individual", "Labor Individual",
+                                   "Net Spent", "Net Receipts"))) %>%
+  group_by(group, no_corp_pacs, new_member) %>%
+  summarise(sum = mean(value))
+
+# Business PAC plot
+plot.data %>%
+  filter(str_detect(group, pattern = "Business PACs")) %>%
+ggplot(aes(x = reorder(group, sum), y = sum)) +
   geom_col() +
-  facet_wrap(~ no_corp_pacs) + 
+  geom_text(aes(label = comma(round(sum, digits = 0))),
+            vjust = -1) +
+  facet_wrap(new_member ~ no_corp_pacs) + 
   scale_y_continuous(labels = dollar_format(), 
                      breaks = pretty_breaks(n = 5),
-                     limits = c(0, 150000000)) +
+                     limits = c(0, 550000)) +
   labs(x = "", y = "") +
   theme_pubr() +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-ggsave("Figures/contribs.pdf", width = 15, height = 8)
+ggsave("Figures/biz_contribs.pdf", width = 15, height = 8)
+
+# Ideological PAC plot
+plot.data %>%
+  filter(str_detect(group, pattern = "Ideological") & 
+           str_detect(group, pattern = "Individual", negate = TRUE)) %>%
+ggplot(aes(x = reorder(group, sum), y = sum)) +
+  geom_col() +
+  geom_text(aes(label = comma(round(sum, digits = 0))),
+            vjust = -1) +
+  facet_wrap(new_member ~ no_corp_pacs) + 
+  scale_y_continuous(labels = dollar_format(), 
+                     breaks = pretty_breaks(n = 5),
+                     limits = c(0, 180000)) +
+  labs(x = "", y = "") +
+  theme_pubr() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/ideo_contribs.pdf", width = 15, height = 8)
+
+# Labor PAC plot
+plot.data %>%
+  filter(str_detect(group, pattern = "Labor") &
+           str_detect(group, pattern = "Individual", negate = TRUE)) %>%
+ggplot(aes(x = reorder(group, sum), y = sum)) +
+  geom_col() +
+  geom_text(aes(label = comma(round(sum, digits = 0))),
+            vjust = -1) +
+  facet_wrap(new_member ~ no_corp_pacs) + 
+  scale_y_continuous(labels = dollar_format(), 
+                     breaks = pretty_breaks(n = 6),
+                     limits = c(0, 140000)) +
+  labs(x = "", y = "") +
+  theme_pubr() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/labor_contribs.pdf", width = 15, height = 8)
+
+# Party PAC plot
+plot.data %>%
+  filter((str_detect(group, pattern = "Party") | 
+           str_detect(group, pattern = "Leadership") |
+           str_detect(group, pattern = "Candidate")) &
+           str_detect(group, pattern = "Individual", negate = TRUE)) %>%
+ggplot(aes(x = reorder(group, sum), y = sum)) +
+  geom_col() +
+  geom_text(aes(label = comma(round(sum, digits = 0))),
+            vjust = -1) +
+  facet_wrap(new_member ~ no_corp_pacs) + 
+  scale_y_continuous(labels = dollar_format(), 
+                     breaks = pretty_breaks(n = 5),
+                     limits = c(0, 500000)) +
+  labs(x = "", y = "") +
+  theme_pubr() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/party_contribs.pdf", width = 15, height = 8)
+
+# Individual Contributions plot
+plot.data %>%
+  filter(str_detect(group, pattern = "Individual") | 
+           str_detect(group, pattern = "Self-finance")) %>%
+ggplot(aes(x = reorder(group, sum), y = sum)) +
+  geom_col() +
+  geom_text(aes(label = comma(round(sum, digits = 0))),
+            vjust = -1) +
+  facet_wrap(new_member ~ no_corp_pacs) + 
+  scale_y_continuous(labels = dollar_format(), 
+                     breaks = pretty_breaks(n = 6),
+                     limits = c(0, 3800000)) +
+  labs(x = "", y = "") +
+  theme_pubr() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/indiv_contribs.pdf", width = 15, height = 8)
 ```
 

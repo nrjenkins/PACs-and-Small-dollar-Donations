@@ -425,68 +425,6 @@
       \verb https://doi.org/10.1080/03906700500038819
       \endverb
     \endentry
-    \entry{dowling_super_2014}{book}{}
-      \name{author}{3}{}{%
-        {{uniquename=0,uniquepart=base,hash=1bf4da7f67ec9c1569553dc66b0a85cc}{%
-           family={Dowling},
-           familyi={D\bibinitperiod},
-           given={Conor\bibnamedelima M.},
-           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=e007fc45acba4fdc0af771e70bffb4a7}{%
-           family={Miller},
-           familyi={M\bibinitperiod},
-           given={Michael\bibnamedelima G.},
-           giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=e007fc45acba4fdc0af771e70bffb4a7}{%
-           family={Miller},
-           familyi={M\bibinitperiod},
-           given={Michael\bibnamedelima G.},
-           giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Routledge}%
-      }
-      \strng{namehash}{84d8ec04a01ffef9af5391781db0e964}
-      \strng{fullhash}{84d8ec04a01ffef9af5391781db0e964}
-      \strng{bibnamehash}{84d8ec04a01ffef9af5391781db0e964}
-      \strng{authorbibnamehash}{84d8ec04a01ffef9af5391781db0e964}
-      \strng{authornamehash}{84d8ec04a01ffef9af5391781db0e964}
-      \strng{authorfullhash}{84d8ec04a01ffef9af5391781db0e964}
-      \field{sortinit}{D}
-      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{Recent federal court activity has dramatically changed the regulatory environment of campaign finance in the United States. Since 2010, the judiciary has}
-      \field{day}{21}
-      \field{isbn}{978-0-203-50907-4}
-      \field{langid}{english}
-      \field{month}{3}
-      \field{shorttitle}{Super {{PAC}}!}
-      \field{title}{Super {{PAC}}! : {{Money}}, {{Elections}}, and {{Voters}} after {{Citizens United}}}
-      \field{urlday}{12}
-      \field{urlmonth}{6}
-      \field{urlyear}{2019}
-      \field{year}{2014}
-      \field{dateera}{ce}
-      \field{urldateera}{ce}
-      \verb{doi}
-      \verb 10.4324/9780203509074
-      \endverb
-      \verb{file}
-      \verb /Users/nick/Documents/Research/References/Articles/storage/VHRY763G/9780203509074.html
-      \endverb
-      \verb{urlraw}
-      \verb https://www.taylorfrancis.com/books/9780203509074
-      \endverb
-      \verb{url}
-      \verb https://www.taylorfrancis.com/books/9780203509074
-      \endverb
-    \endentry
     \entry{evers-hillstrom_democrats_2018}{online}{}
       \name{author}{1}{}{%
         {{uniquename=0,uniquepart=base,hash=031eb633676a831f7e4d5c5cb9c6fb1a}{%

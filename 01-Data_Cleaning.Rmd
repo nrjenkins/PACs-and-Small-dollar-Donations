@@ -1,47 +1,36 @@
 ---
 title: "Step I: Data Cleaning"
-subtitle: "Project.title"
+subtitle: "PACs and Small-dollar Donations"
 author:
   - name: Nicholas R. Jenkins 
     affiliation: University of California, Riverside
     affiliation_url: https://www.ucr.edu
-description: |
-  This document shows all the code used to clean the data for this project. 
-  Each step has been carefully documented and will replicate the data set used
-  in the study. For any questions about this code, please contact 
-  Nick Jenkins at [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu).
 abstract: |
-  This document shows all the code used to clean the data for this project. 
+  This document shows all the code used to clean the data for this project.  
   Each step has been carefully documented and will replicate the data set used
-  in the study. For any questions about this code, please contact 
-  Nick Jenkins at [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu).
+  in the study. All data cleaning was done using RStudio running R version 
+  `r R.version$major` .`r R.version$minor` "`r R.version$nickname`".
+  
+  For any questions about this code, please contact 
+  Nick Jenkins at [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu). 
 date: "`r Sys.Date()`"
 output: 
-  radix: radix::radix_article
   html_notebook: 
-    highlight: monochrome
-    theme: simplex
+    highlight: pygments
+    theme: paper
     toc: yes
     code_folding: 
-  html_document:
-    highlight: monochrome
-    theme: simplex
-    toc: yes
-    code_folding:
-  pdf_document:
-    toc: yes
-  github_document:
-    toc: yes
-#bibliography: /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
+    toc_float: true
+bibliography: /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
 editor_options: 
   chunk_output_type: inline
 ---
 
 # Environment Preperation
 
-This section clears the current working environment and loads the packages used to clean the data. I also create the function `comma()` to format any in-line output values to have thousands separators and only two digits. 
+This section clears the current working environment and loads the packages used to visualize the data. I also create the function `comma()` to format any in-line output values to have thousands separators and only two digits. 
 
-```{r setup, warning = FALSE, message = FALSE, results = "hide", echo = TRUE}
+```{r setup, warning = FALSE, message = FALSE, echo = TRUE, results = "hide"}
 # Clear Environment -----------------------------------------------------------
 rm(list = ls())
 
@@ -52,10 +41,21 @@ lapply(packages, require, character.only = TRUE)
 
 # Inline Formatting -----------------------------------------------------------
 comma <- function(x) format(x, digits = 2, big.mark = ",")
+
+# Set Global Chunk Options ----------------------------------------------------
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "##",
+  R.options = list(width = 70)
+)
 ```
 
 
 # Legislator Data
+
+Data on the 2018 Congressional candidates, whether or not they pledged to reject PAC money, and their contribution totals was compiled by OpenSecrets.org and is availbe on Google Drive [here](https://docs.google.com/spreadsheets/d/1T2yvwu9clk5eeETE90SgPeX0ouDXEeAEIDl_KTCtBhs/edit#gid=545136858).
 
 ```{r}
 members.2018.data.raw <- read_xlsx("Data/Raw Data/OpenSecrets.org _ No Corp PAC Members.xlsx", 
@@ -95,7 +95,9 @@ members.2018.data <-
 
 # Demographic Data
 
-```{r}
+The majority of demographic data used was compiled by [Daily Kos Elections](https://www.dailykos.com/stories/2017/1/3/1616470/-Check-out-our-comprehensive-115th-Congress-guide-with-election-data-demographics-and-member-stats) and is posted on Googe Drive [here](https://docs.google.com/spreadsheets/d/1oRl7vxEJUUDWJCyrjo62cELJD2ONIVl-D9TSUKiK9jk/edit#gid=1178631925). Data on the total voting age population was collected from the US Census using the R package `tidycensus`. 
+
+```{r results = "hide"}
 demo.data.raw <- read_excel("Data/Raw Data/Demographic Data/115th Congress Members Guide with Elections and Demographic Data by District.xlsx",
                             sheet = "House - Working")
 
@@ -143,7 +145,7 @@ demo.data <- left_join(
 )
 ```
 
-## Merge legislator data with demographics
+## Merge Legislator Data with Demographic Data
 
 ```{r}
 sum(duplicated(members.2018.data[ , c("district")]))
@@ -157,6 +159,8 @@ member.data <- left_join(
 ```
 
 # Election Data
+
+Data on each candidates' total number of votes for the 2018 midterm election was collected from the [MIT Election Data + Science Lab](https://electionlab.mit.edu/data).
 
 ```{r}
 election.data.raw <- read_csv("/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Data/Raw Data/Election Data/1976-2018-house.csv") %>% filter(year == 2018) %>% filter(stage == "gen")
@@ -221,34 +225,12 @@ member.data <-
 
 # Contribution Data
 
+This contribution data come from [OpenSecrets.org](https://www.opensecrets.org/resources/). 
+
 ## Individual Contributions
 
 ```{r}
-## ZIP codes to ZCTA
-zip.areas <- read_excel("Data/Raw Data/zip_to_zcta_2016.xlsx") %>%
-  select(ZIP, ZCTA_USE)
-sum(duplicated(zip.areas[ , "ZIP"]))
-
-## ZIP to Congressional district
-cd <- read_delim("Data/Raw Data/natl_zccd_delim.txt", delim = ",", skip = 1) %>%
-  mutate(ZCTA = as.character(ZCTA))
-
-## count ZCTAs that span multiple CDs
-cd <- 
-  cd %>%
-  group_by(ZCTA) %>%
-  mutate(weight = 1 / n())
-
-sum(duplicated(cd[ , c("State", "Congressional District", "ZCTA")]))
-
-zip.to.cd <- left_join(
-  zip.areas,
-  cd,
-  by = c("ZCTA_USE" = "ZCTA")
-) %>% drop_na(`Congressional District`)
-sum(duplicated(zip.to.cd[ , "ZIP"]))
-
-## Industry Categories
+# Industry Categories
 industry.cats <- read_excel("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/CRP_industry_codes.xlsx")
 
 industry.cats <- 
@@ -257,7 +239,7 @@ industry.cats <-
   mutate(industry_letter = str_sub(Catcode, start = 1L, end = 1L)) %>%
   select(-Catcode, -Catorder)
 
-# Individual Contributions
+# Individual Contribution data
 indiv.contrib.data.raw <- 
   read_delim("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/Contribution Data/CampaignFin18/indivs18.txt", 
                        delim = "|, |",
@@ -276,62 +258,27 @@ indiv.contrib.data.raw <-
          contrib_zip = X24)  %>%
   select(year, fec_trans_id, donor_id, contrib_name, receipt_id, 
          donor_org_name, standard_org, industry_code, contrib_date, contrib_zip, 
-         contrib_state) 
+         contrib_state) %>%
+  separate(contrib_date, into = c("drop", "contrib_date", "contrib_amount"), sep = ",")
 
-## merge individual contributions with ZIP code to CD data
-indiv.contrib.data <- left_join(
-  indiv.contrib.data.raw,
-  zip.to.cd,
-  by = c("contrib_zip" = "ZIP")
-)
+# filter out non-individual recipients
+indiv.contrib.data <- 
+  indiv.contrib.data.raw %>%
+  filter(str_detect(receipt_id, "^N"))
 
-# Load Opensecrets Roster
-candidate.roster.raw <- read_delim("Data/Raw Data/Candidate Data/cands18.txt", delim = "|, |", col_names = FALSE)
-
-## rename variables and remove duplicates
-candidate.roster <- 
-  candidate.roster.raw %>%
-  rename(year = X2,
-         fec_trans_id = X4,
-         receipt_id = X6,
-         first_last_party = X8,
-         party = X10,
-         running_district = X12,
-         current_district = X14,
-         current_cand = X16,
-         cycle_cand = X18,
-         cand_type = X20,
-         party_result = X22,
-         no_pacs = X24) %>%
-  select(receipt_id, first_last_party, party, running_district, 
-         current_cand, cycle_cand, cand_type, party_result, no_pacs) %>%
-  distinct(receipt_id, .keep_all = TRUE)
-
-indiv.contrib.data <- left_join(
-  indiv.contrib.data,
-  candidate.roster,
-  by = c("receipt_id")
-)
-
-
+# aggregate data to recepient-level
 indiv.contrib.data <- 
   indiv.contrib.data %>%
-  separate(contrib_date, into = c("drop", "contrib_date", "contrib_amount"), sep = ",") %>%
   mutate(fec_trans_id = as.character(fec_trans_id),
          contrib_amount = as.numeric(contrib_amount),
-         contrib_date = mdy(contrib_date),
-         cand_district = paste(contrib_state, `Congressional District`, sep = ""))
-
-indiv.contrib.data <- 
-  indiv.contrib.data %>%
+         contrib_date = mdy(contrib_date)) %>%
   group_by(receipt_id, industry_code) %>%
   summarise(year = first(year),
             contrib_amount = sum(contrib_amount)) %>%
   mutate(contrib_type = "Individual") %>%
   arrange(receipt_id, industry_code, year)
 
-
-
+# remove non-contributions
 indiv.contrib.data <- 
   indiv.contrib.data %>%
   mutate(industry_code = str_to_upper(industry_code),
@@ -424,8 +371,7 @@ indiv.contrib.data <-
                          indiv_hlth_edu_human, indiv_legal, indiv_manu,
                          indiv_other, indiv_trans)) %>%
   select(receipt_id, indiv_biz, indiv_labor, indiv_ideological, 
-         indiv_self_finance, indiv_cand_committee, indiv_jnt_cand_committee,
-         indiv_party_committee)
+         indiv_self_finance, indiv_cand_committee, indiv_party_committee)
 ```
 
 ## PAC Contributions
@@ -468,6 +414,11 @@ pac.contrib.data.raw <-
            trans_type == "in kind contribution" |
            trans_type == "coordinated expenditure") %>%
   arrange(receipt_id, industry_code, year) 
+
+# filter out non-individual recipients
+pac.contrib.data <- 
+  pac.contrib.data.raw %>%
+  filter(str_detect(receipt_id, "^N"))
 
 pac.contrib.data <- 
   pac.contrib.data.raw %>%
@@ -593,8 +544,12 @@ pac.contrib.data <-
          ik_pac_party_committee, ind_pac_party_committee, 
          ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
          dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
-         ce_pac_ideological, ce_pac_legal)
+         ce_pac_ideological)
+```
 
+## Combine Contribution Data
+
+```{r}
 # Combine data
 contrib.data <- left_join(
   indiv.contrib.data,
@@ -621,27 +576,24 @@ member.data <- left_join(
 ```{r}
 estimation.data <- 
   member.data %>%
-  select(opensecrets_id, first_name, last_name, district, party, no_corp_pacs,
-         new_member, tot_pac_money, num_pac_contribs, business_pacs,
-         dir_business_pacs, in_kind_business_pacs, ind_business_pacs, 
-         dir_pac_cand_committee, dir_pac_party_committee, 
-         ik_pac_party_committee, ind_pac_party_committee, 
-         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
+  filter(party == "D") %>%
+  select(district, no_corp_pacs, new_member, tot_pac_money, num_pac_contribs, 
+         business_pacs, dir_business_pacs, in_kind_business_pacs, 
+         ind_business_pacs, candidate_contribs, dir_pac_cand_committee, 
+         dir_pac_party_committee, ik_pac_party_committee, 
+         ind_pac_party_committee, ce_pac_party_committee, labor_pacs, 
+         dir_pac_labor, ik_pac_labor, ind_pac_labor, ideological_pacs, 
          dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
-         ce_pac_ideological, ideological_pacs, labor_pacs, leadership_pacs,
-         net_indiv_total, large_indiv, small_indiv, candidate_contribs, 
-         indiv_ideological, indiv_cand_committee, indiv_jnt_cand_committee, 
+         ce_pac_ideological, leadership_pacs, net_indiv_total, large_indiv, 
+         small_indiv, indiv_ideological, indiv_cand_committee, 
          indiv_party_committee, indiv_self_finance, indiv_biz, indiv_labor, 
-         net_spent, net_receipts, 
-         vote_pct, vap_turnout, median_hh_income, pct_clinton_16, pct_obama_12, 
-         pct_dem_house_16, pct_dem_house_14, pct_asian, pct_white, pct_black, 
+         net_spent, net_receipts, vote_pct, vap_turnout, median_hh_income, 
+         pct_clinton_16, pct_dem_house_16, pct_asian, pct_white, pct_black, 
          pct_latino, pct_bachelors, tot_voting_age) %>%
   mutate(vote_pct = vote_pct * 100,
          vap_turnout = vap_turnout * 100,
-         pct_dem_house_14 = as.numeric(pct_dem_house_14),
          log_median_hh_income = log(median_hh_income),
-         log_tot_voting_age = log(tot_voting_age)) %>%
-  filter(party == "D")
+         log_tot_voting_age = log(tot_voting_age))
 
 save(estimation.data, file = "Data/Clean Data/estimation_data.Rda")
 ```
@@ -651,12 +603,64 @@ save(estimation.data, file = "Data/Clean Data/estimation_data.Rda")
 
 ```{r Summary Statistics, echo = TRUE}
 psych::describeBy(estimation.data, group = estimation.data$no_corp_pacs)
+# no_pacs <- c("YES", "NO")
+# titles <- c("Summary Statistics for Candidates who Reject PACs",
+#             "Summary Statistics for States who do not Reject PACs")
+# 
+# for (i in 1:2) {
+#   estimation.data %>%
+#     filter(no_corp_pacs == no_pacs[i]) %>%
+#     fastDummies::dummy_cols(select_columns= c("party", "new_member")) %>%
+#   as.data.frame() %>%
+#   stargazer(., 
+#             type = "text", 
+#             style = "apsr", 
+#             title = titles[i],
+#             covariate.labels = c("Total PAC Money", 
+#                                  "Number of PAC Contributors",
+#                                  "Business PAC Contributions", 
+#                                  "Direct Business PAC Contributions",
+#                                  "In-kind Business PAC Contributions",
+#                                  "Independent Business PAC Expendatures",
+#                                  "Contributions from Candidates",
+#                                  "Direct Candidate Contributions",
+#                                  "Direct Party Contributions",
+#                                  "In-kind Party Contributions",
+#                                  "Independent Party Expendatures",
+#                                  "Coordinated Party Expendatures",
+#                                  "Labor PAC Contributions",
+#                                  "Direct Labor PAC Contributions",
+#                                  "In-kind Labor PAC Contributions",
+#                                  "Independent Labor PAC Expendatures",
+#                                  "Ideological PAC Contributions",
+#                                  "Direct Ideological PAC Contributions",
+#                                  "In-kind Ideological PAC Contributions",
+#                                  "Independent Ideological PAC Expendatures",
+#                                  "Coordinated Ideological PAC Expendautres",
+#                                  "Leadership PAC Contributions",
+#                                  "Total Individual Contributions",
+#                                  "Large Individual Contributions",
+#                                  "Small Individual Contributions",
+#                                  "Individual Ideological Contributions",
+#                                  "Individual Candidate Contributions",
+#                                  "Individual Party Contributions",
+#                                  "Self-financing", 
+#                                  "Individual Business Contributions",
+#                                  "Individual Labor Contributions",
+#                                  "Net Spent", "Net Receipts", "Vote Percentage",
+#                                  "Voting Age Pop. Turnout", 
+#                                  "Median Household Income",
+#                                  "% District Vote Share for Clinton in 2016",
+#                                  "% District Democratic Vote Share in 2016 Congressional Elections",
+#                                  "% Asian Pop. in District", 
+#                                  "% White Pop. in District",
+#                                  "% Black Pop. in District",
+#                                  "% Latino Pop. in District",
+#                                  "% District Pop. with Bachelors Degree",
+#                                  "Total Voting Age District Pop.",
+#                                  "Log(Median Household Income)",
+#                                  "Log(Total Voting Age District Pop.)",
+#                                  "New Member",
+#                                  "Incumbent"))
+# }
 ```
-
-## Acknowledgements {.appendix}
-
-All data cleaning was done using RStudio running **R** version 
-`r R.version$major`.`r R.version$minor` "`r R.version$nickname`".
-
-
-
