@@ -3618,10 +3618,10 @@ sink()
 ```{r}
 # extract posterior predictions
 ## individual contributions
-indiv.models <- c(bizindv.fit, smlindv.fit, lrgindv.fit, totindv.fit, 
-                  individeopac.fit)
-names(indiv.models) <- c("bizindv.fit", "smlindv.fit", "lrgindv.fit", 
-                         "totindv.fit", "individeopac.fit")
+indiv.models <- c(laborindv.fit, individeopac.fit, bizindv.fit, smlindv.fit, 
+                  lrgindv.fit, totindv.fit)
+names(indiv.models) <- c("laborindv.fit", "individeopac.fit", "bizindv.fit", 
+                         "smlindv.fit", "lrgindv.fit", "totindv.fit")
 post.indiv <- 
   indiv.models %>%
   map_dfr(~ spread_draws(., a, b_np, p, p_np), .id = "model")

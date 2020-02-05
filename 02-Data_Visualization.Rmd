@@ -232,3 +232,28 @@ ggplot(aes(x = reorder(group, sum), y = sum)) +
 ggsave("Figures/indiv_contribs.pdf", width = 15, height = 8)
 ```
 
+# Plot Zeros
+
+```{r}
+zeros <- 
+   estimation.data %>% 
+   dplyr::select(num_pac_contribs, tot_pac_money, business_pacs, ideological_pacs, 
+          labor_pacs, dir_pac_cand_committee, dir_pac_party_committee,
+          leadership_pacs, small_indiv, large_indiv, indiv_ideological,
+          indiv_biz, indiv_labor) %>%
+   summarise(num_pac = sum(num_pac_contribs == 0),
+             tot_pac_money = sum(tot_pac_money == 0),
+             business_pacs = sum(business_pacs == 0),
+             ideological_pacs = sum(ideological_pacs == 0),
+             labor_pacs = sum(labor_pacs == 0),
+             dir_pac_cand_committee = sum(dir_pac_cand_committee == 0),
+             dir_pac_party_committee = sum(dir_pac_party_committee == 0),
+             leadership_pacs = sum(leadership_pacs == 0),
+             small_indiv = sum(small_indiv == 0),
+             large_indiv = sum(large_indiv == 0),
+             indiv_ideological = sum(indiv_ideological == 0),
+             indiv_biz = sum(indiv_biz == 0),
+             indiv_labor = sum(indiv_labor == 0))
+```
+
+
