@@ -74,6 +74,25 @@ load("Data/Clean Data/estimation_data.RDa")
 #load("E:/Project/Data/Clean Data/estimation_data.RDa")
 
 #psych::describeBy(estimation.data, group = estimation.data$no_corp_pacs)
+zeros <- 
+   estimation.data %>% 
+   dplyr::select(num_pac_contribs, tot_pac_money, business_pacs, ideological_pacs, 
+          labor_pacs, dir_pac_cand_committee, dir_pac_party_committee,
+          leadership_pacs, small_indiv, large_indiv, indiv_ideological,
+          indiv_biz, indiv_labor) %>%
+   summarise(num_pac = sum(num_pac_contribs == 0),
+             tot_pac_money = sum(tot_pac_money == 0),
+             business_pacs = sum(business_pacs == 0),
+             ideological_pacs = sum(ideological_pacs == 0),
+             labor_pacs = sum(labor_pacs == 0),
+             dir_pac_cand_committee = sum(dir_pac_cand_committee == 0),
+             dir_pac_party_committee = sum(dir_pac_party_committee == 0),
+             leadership_pacs = sum(leadership_pacs == 0),
+             small_indiv = sum(small_indiv == 0),
+             large_indiv = sum(large_indiv == 0),
+             indiv_ideological = sum(indiv_ideological == 0),
+             indiv_biz = sum(indiv_biz == 0),
+             indiv_labor = sum(indiv_labor == 0))
 ```
 
 
@@ -489,6 +508,14 @@ ggplot() +
   scale_x_continuous(labels = dollar_format()) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 
+ggplot() +
+  geom_density(data = as_tibble(rnorm(1e4, logistic(0), logistic(1))),
+               aes(x = value, fill = "Normal")) +
+  theme_classic() +
+  labs(x = "Mean and SD of Intercept") +
+  scale_x_continuous(labels = dollar_format()) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+
 ## Slope Parameters
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(14))),
@@ -541,6 +568,9 @@ data {
 }
 
 parameters {
+  real p;
+  real p_np;
+  real p_new;
   real<lower = 0> a;
   real b_np;
   real b_new;
@@ -554,13 +584,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -571,6 +608,13 @@ model {
   }
   
   // priors
+  
+  // Binomial model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(13, 15);
   b_np ~ normal(0, 14);
   b_new ~ normal(0, 14);
@@ -584,20 +628,25 @@ model {
   b_vpop ~ normal(0, 14);
   b_mhh ~ normal(0, 14);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
     if (tot_pac_money[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
+      target += (bernoulli_lpmf(1 | prob[i]));
     else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(tot_pac_money[i]| mu[i]/scale, 1/scale));
+      target += (bernoulli_lpmf(0 | prob[i]) + gamma_lpdf(tot_pac_money[i]| mu[i]/scale, 1/scale));
     }//i
 }
 
 generated quantities {
+  vector[n] prob;
   vector[n] mu;
   
+  for (i in 1:n) {
+        prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i];
+        prob[i] = inv_logit(prob[i]);
+    }
+    
   for (i in 1:n) {
   mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
@@ -634,8 +683,8 @@ pac.money.01 <- glm(tot_pac_money ~ no_corp_pacs + new_member + pct_white + pct_
 totpac.fit <- sampling(totpac.model,
                        chains = 4,
                        cores = 4,
-                       iter = 8000,
-                       warmup = 4000,
+                       iter = 10000,
+                       warmup = 5000,
                        data = stan.data)
 
 traceplot(totpac.fit, 
@@ -651,6 +700,18 @@ post <- spread_draws(totpac.fit, mu[i]) %>% median_hdi()
 ggplot(data = estimation.data, aes(x = tot_pac_money)) +
   geom_density(fill = "gray") +
   geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
+
+test <- map2stan(
+  alist(tot_pac_money ~ dzagamma2(prob, mu, scale),
+        log(mu) <- a + b_np * no_corp_pacs,
+        logit(prob) <- p + p_np * no_corp_pacs,
+        a ~ dnorm(0, 100),
+        b_np ~ dnorm(0, 100),
+        p ~ dnorm(0, 100),
+        p_np ~ dnorm(0, 100),
+        scale ~ dexp(2)),
+  data = stan.data
+)
 ```
 
 
@@ -740,23 +801,24 @@ parameters {
   real b_clint;
   real b_house;
   real b_vpop;
-  real<lower = 0> scale; // the over-dispersion parameter
 }
 
 model {
   // linear model
-  vector[n] mu;
+  vector[n] lambda;
+  
   for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
+    lambda[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
       b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
       b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
       b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse log-link
+    lambda[i] = exp(lambda[i]); // inverse log-link
   }
   
   // priors
+  // Poisson model
   a ~ normal(6, 12);
   b_np ~ normal(0, 12);
   b_new ~ normal(0, 12);
@@ -769,27 +831,25 @@ model {
   b_house ~ normal(0, 12);
   b_vpop ~ normal(0, 12);
   b_mhh ~ normal(0, 12);
-  scale ~ cauchy(0, 2);
   
   // likelihood
-  num_pac_contribs ~ neg_binomial_2(mu, scale);
+  for (i in 1:n) {
+    num_pac_contribs[i] ~ poisson(lambda[i]);
+    }
 }
 
+
 generated quantities {
-  vector[n] mu;
-  //vector[n] y_rep;
+  vector[n] lambda;
   
   for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
+  lambda[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
       b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
       b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
       b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse log-link
-  
-  //posterior draws to get posterior predictive checks
-  //y_rep[i] = neg_binomial_2_rng(exp(mu[i]), scale); 
+  lambda[i] = exp(lambda[i]); // inverse log-link
   }
 }
 ```
@@ -819,23 +879,23 @@ num.pacs.01 <- glm(num_pac_contribs ~ no_corp_pacs + new_member + pct_white + pc
 numpac.fit <- sampling(numpac.model,
                        chains = 4,
                        cores = 4,
-                       iter = 8000,
-                       warmup = 4000,
+                       iter = 10000,
+                       warmup = 5000,
                        data = stan.data)
 
 traceplot(numpac.fit, 
           inc_warmup = TRUE, 
           pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
                    "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
+                   "b_mhh"))
 
 tidy(num.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
 precis(numpac.fit, prob = 0.89, digits = 3)
 
-post <- spread_draws(numpac.fit, mu[i]) %>% median_hdi()
+post <- spread_draws(numpac.fit, lambda[i]) %>% median_hdi()
 ggplot(data = estimation.data, aes(x = num_pac_contribs)) +
   geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
+  geom_density(data = post, aes(x = lambda), fill = "skyblue", alpha = 0.7)
 ```
 
 
@@ -914,7 +974,10 @@ data {
 }
 
 parameters {
-  real a;
+  real p;
+  real p_np;
+  real p_new;
+  real<lower = 0> a;
   real b_np;
   real b_new;
   real b_white;
@@ -927,13 +990,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -944,6 +1014,13 @@ model {
   }
   
   // priors
+  
+  // Binomial model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(12.5, 14);
   b_np ~ normal(0, 13);
   b_new ~ normal(0, 13);
@@ -957,19 +1034,25 @@ model {
   b_vpop ~ normal(0, 13);
   b_mhh ~ normal(0, 13);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
     if (business_pacs[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
+      target += (bernoulli_lpmf(1| prob[i]));
     else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(business_pacs[i]| mu[i]/scale, 1/scale));
+      target += (bernoulli_lpmf(0| prob[i]) + gamma_lpdf(business_pacs[i]| mu[i]/scale, 1/scale));
     }//i
 }
 
 generated quantities {
+  vector[n] prob;
   vector[n] mu;
+  
+  for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
   
   for (i in 1:n) {
   mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
@@ -1008,8 +1091,8 @@ biz.pacs.01 <- glm(business_pacs ~ no_corp_pacs + new_member + pct_white + pct_b
 bizpac.fit <- sampling(bizpac.model,
                        chains = 4,
                        cores = 4,
-                       iter = 8000,
-                       warmup = 4000,
+                       iter = 10000,
+                       warmup = 5000,
                        data = stan.data)
 
 traceplot(bizpac.fit, 
@@ -1105,6 +1188,9 @@ data {
 }
 
 parameters {
+  real p;
+  real p_np;
+  real p_new;
   real<lower = 0> a;
   real b_np;
   real b_new;
@@ -1118,13 +1204,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -1135,6 +1228,13 @@ model {
   }
   
   // priors
+  
+  // Binomial model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(10.5, 13);
   b_np ~ normal(0, 12);
   b_new ~ normal(0, 12);
@@ -1148,115 +1248,28 @@ model {
   b_vpop ~ normal(0, 12);
   b_mhh ~ normal(0, 12);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
     if (ideological_pacs[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
+      target += (bernoulli_lpmf(1| prob[i]));
     else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(ideological_pacs[i]| mu[i]/scale, 1/scale));
+      target += (bernoulli_lpmf(0| prob[i]) + gamma_lpdf(ideological_pacs[i]| mu[i]/scale, 1/scale));
     }//i
 }
 
 generated quantities {
+  vector[n] prob;
   vector[n] mu;
+  
+  for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
   
   for (i in 1:n) {
   mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_ideopac.model"}
-data {
-  int<lower = 1> n;
-  real ideological_pacs[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_int ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (ideological_pacs[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(ideological_pacs[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
       b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
@@ -1292,8 +1305,8 @@ ideol.pacs.01 <- glm(ideological_pacs ~ no_corp_pacs + new_member + pct_white + 
 ideopac.fit <- sampling(ideopac.model,
                         chains = 4,
                         cores = 4,
-                        iter = 8000,
-                        warmup = 4000,
+                        iter = 10000,
+                        warmup = 5000,
                         data = stan.data)
 
 traceplot(ideopac.fit, 
@@ -1307,933 +1320,6 @@ precis(ideopac.fit, prob = 0.89, digits = 3)
 
 post <- spread_draws(ideopac.fit, mu[i]) %>% median_hdi()
 ggplot(data = estimation.data, aes(x = ideological_pacs)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-int_ideopac.fit <- sampling(int_ideopac.model,
-                            chains = 4,
-                            cores = 4,
-                            iter = 8000,
-                            warmup = 4000,
-                            data = stan.data)
-
-traceplot(int_ideopac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(int_ideopac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_ideopac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = ideological_pacs)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-```
-
-
-## Model of Independent Ideological PAC Contributions
-
-### Simulating Priors
-
-```{r}
-# likelihood simulation
-ggplot() +
-  geom_density(data = as_tibble(rgamma(1e4, shape = 20, rate = 100)), 
-               aes(x = value)) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
-
-# prior simulation
-## Intercept
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(10.5), exp(13))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-
-## Slope Parameters
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(12))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
-
-## Scale Parameter
-ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
-  geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
-```
-
-### Model 
-
-```{stan output.var = "indideopac.model"}
-data {
-  int<lower = 1> n;
-  real ind_pac_ideological[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (ind_pac_ideological[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(ind_pac_ideological[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_indideopac.model"}
-data {
-  int<lower = 1> n;
-  real ind_pac_ideological[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_int ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (ind_pac_ideological[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(ind_pac_ideological[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-    b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-### Estimation
-
-```{r}
-# compose data
-stan.data <- 
-  estimation.data %>%
-  dplyr::select(ind_pac_ideological, no_corp_pacs, new_member, pct_white, pct_black, 
-                pct_latino, pct_asian, pct_bachelors, pct_clinton_16,
-                pct_dem_house_16, log_tot_voting_age, log_median_hh_income) %>%
-  mutate(no_corp_pacs = ifelse(no_corp_pacs == "YES", 1, 0),
-         new_member = ifelse(new_member == "YES", 1, 0)) %>%
-  drop_na() %>%
-  mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center) %>%
-  compose_data()
-
-# model estimation ------------------------------------------------------------
-## Frequentist
-# indideol.pacs.01 <- glm(ind_pac_ideological ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
-#                      family = Gamma(link = "log"),
-#                      data = as.data.frame(stan.data) %>% filter(ind_pac_ideological != 0) %>% mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center))
-
-## Bayesian
-indideopac.fit <- sampling(indideopac.model,
-                        chains = 4,
-                        cores = 4,
-                        iter = 8000,
-                        warmup = 4000,
-                        data = stan.data)
-
-traceplot(indideopac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-#tidy(indideol.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(indideopac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(indideopac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = ind_pac_ideological)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-int_indideopac.fit <- sampling(int_indideopac.model,
-                               chains = 4,
-                               cores = 4,
-                               iter = 8000,
-                               warmup = 4000,
-                               data = stan.data)
-
-traceplot(int_indideopac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-#tidy(indideol.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(int_indideopac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_indideopac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = ind_pac_ideological)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-```
-
-
-## Model of Direct Ideological PAC Contributions
-
-### Simulating Priors
-
-```{r}
-# likelihood simulation
-ggplot() +
-  geom_density(data = as_tibble(rgamma(1e4, shape = 20, rate = 100)), 
-               aes(x = value)) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
-
-# prior simulation
-## Intercept
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(10.5), exp(13))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-
-## Slope Parameters
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(12))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
-
-## Scale Parameter
-ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
-  geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
-```
-
-### Model 
-
-```{stan output.var = "dirideopac.model"}
-data {
-  int<lower = 1> n;
-  real dir_pac_ideological[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (dir_pac_ideological[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(dir_pac_ideological[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_dirideopac.model"}
-data {
-  int<lower = 1> n;
-  real dir_pac_ideological[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_int ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (dir_pac_ideological[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(dir_pac_ideological[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-### Estimation
-
-```{r}
-# compose data
-stan.data <- 
-  estimation.data %>%
-  dplyr::select(dir_pac_ideological, no_corp_pacs, new_member, pct_white, pct_black, 
-                pct_latino, pct_asian, pct_bachelors, pct_clinton_16,
-                pct_dem_house_16, log_tot_voting_age, log_median_hh_income) %>%
-  mutate(no_corp_pacs = ifelse(no_corp_pacs == "YES", 1, 0),
-         new_member = ifelse(new_member == "YES", 1, 0)) %>%
-  drop_na() %>%
-  mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center) %>%
-  compose_data()
-
-# model estimation ------------------------------------------------------------
-## Frequentist
-dirideol.pacs.01 <- glm(dir_pac_ideological ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
-                     family = Gamma(link = "log"),
-                     data = as.data.frame(stan.data) %>% filter(dir_pac_ideological != 0) %>% mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center))
-
-## Bayesian
-dirideopac.fit <- sampling(dirideopac.model,
-                        chains = 4,
-                        cores = 4,
-                        iter = 8000,
-                        warmup = 4000,
-                        data = stan.data)
-
-traceplot(dirideopac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-tidy(dirideol.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(dirideopac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(dirideopac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = dir_pac_ideological)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-ind_dirideopac.fit <- sampling(int_dirideopac.model,
-                               chains = 4,
-                               cores = 4,
-                               iter = 8000,
-                               warmup = 4000,
-                               data = stan.data)
-
-traceplot(ind_dirideopac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(ind_dirideopac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(ind_dirideopac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = dir_pac_ideological)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-```
-
-
-## Model of In-kind Ideological PAC Contributions
-
-### Simulating Priors
-
-```{r}
-# likelihood simulation
-ggplot() +
-  geom_density(data = as_tibble(rgamma(1e4, shape = 20, rate = 100)), 
-               aes(x = value)) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
-
-# prior simulation
-## Intercept
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(10.5), exp(13))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-
-## Slope Parameters
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(12))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
-
-## Scale Parameter
-ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
-  geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
-```
-
-### Model 
-
-```{stan output.var = "ikideopac.model"}
-data {
-  int<lower = 1> n;
-  real ik_pac_ideological[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (ik_pac_ideological[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(ik_pac_ideological[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_ikideopac.model"}
-data {
-  int<lower = 1> n;
-  real ik_pac_ideological[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_int ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (ik_pac_ideological[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(ik_pac_ideological[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-### Estimation
-
-```{r}
-# compose data
-stan.data <- 
-  estimation.data %>%
-  dplyr::select(ik_pac_ideological, no_corp_pacs, new_member, pct_white, pct_black, 
-                pct_latino, pct_asian, pct_bachelors, pct_clinton_16,
-                pct_dem_house_16, log_tot_voting_age, log_median_hh_income) %>%
-  mutate(no_corp_pacs = ifelse(no_corp_pacs == "YES", 1, 0),
-         new_member = ifelse(new_member == "YES", 1, 0)) %>%
-  drop_na() %>%
-  mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center) %>%
-  compose_data()
-
-# model estimation ------------------------------------------------------------
-## Frequentist
-ikideol.pacs.01 <- glm(ik_pac_ideological ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
-                     family = Gamma(link = "log"),
-                     data = as.data.frame(stan.data) %>% filter(ik_pac_ideological != 0) %>% mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center))
-
-## Bayesian
-ikideopac.fit <- sampling(ikideopac.model,
-                          chains = 4,
-                          cores = 4,
-                          iter = 8000,
-                          warmup = 4000,
-                          data = stan.data)
-
-traceplot(ikideopac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-tidy(ikideol.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(ikideopac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(ikideopac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = ik_pac_ideological)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-ind_ikideopac.fit <- sampling(int_ikideopac.model,
-                               chains = 4,
-                               cores = 4,
-                               iter = 8000,
-                               warmup = 4000,
-                               data = stan.data)
-
-traceplot(ind_ikideopac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(ind_ikideopac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(ind_ikideopac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = ik_pac_ideological)) +
   geom_density(fill = "gray") +
   geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
 ```
@@ -2316,6 +1402,9 @@ data {
 }
 
 parameters {
+  real p;
+  real p_np;
+  real p_new;
   real<lower = 0> a;
   real b_np;
   real b_new;
@@ -2329,13 +1418,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -2346,6 +1442,13 @@ model {
   }
   
   // priors
+  
+  // Probability model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(10.5, 13);
   b_np ~ normal(0, 12);
   b_new ~ normal(0, 12);
@@ -2359,7 +1462,6 @@ model {
   b_vpop ~ normal(0, 12);
   b_mhh ~ normal(0, 12);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
@@ -2380,99 +1482,6 @@ generated quantities {
       b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
       b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
       b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_laborpac.model"}
-data {
-  int<lower = 1> n;
-  real labor_pacs[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_int ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (labor_pacs[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(labor_pacs[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-    b_int * (no_corp_pacs[i] * new_member[i]) +
-    b_white * pct_white[i] + b_black * pct_black[i] + 
-    b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-    b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-    b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-    b_vpop * log_tot_voting_age[i];
   mu[i] = exp(mu[i]); // inverse link function
   }
 }
@@ -2503,8 +1512,8 @@ labor.pacs.01 <- glm(labor_pacs ~ no_corp_pacs + new_member + pct_white + pct_bl
 laborpac.fit <- sampling(laborpac.model,
                          chains = 4,
                          cores = 4,
-                         iter = 8000,
-                         warmup = 4000,
+                         iter = 10000,
+                         warmup = 5000,
                          data = stan.data)
 
 traceplot(laborpac.fit, 
@@ -2517,27 +1526,6 @@ tidy(labor.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
 precis(laborpac.fit, prob = 0.89, digits = 3)
 
 post <- spread_draws(laborpac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = labor_pacs)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-
-int_laborpac.fit <- sampling(int_laborpac.model,
-                             chains = 4,
-                             cores = 4,
-                             iter = 8000,
-                             warmup = 4000,
-                             data = stan.data)
-
-traceplot(int_laborpac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(int_laborpac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_laborpac.fit, mu[i]) %>% median_hdi()
 ggplot(data = estimation.data, aes(x = labor_pacs)) +
   geom_density(fill = "gray") +
   geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
@@ -2621,6 +1609,9 @@ data {
 }
 
 parameters {
+  real p;
+  real p_np;
+  real p_new;
   real<lower = 0> a;
   real b_np;
   real b_new;
@@ -2634,13 +1625,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -2651,6 +1649,13 @@ model {
   }
   
   // priors
+  
+  // Probability model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(10.5, 13);
   b_np ~ normal(0, 12);
   b_new ~ normal(0, 12);
@@ -2664,115 +1669,28 @@ model {
   b_vpop ~ normal(0, 12);
   b_mhh ~ normal(0, 12);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
     if (leadership_pacs[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
+      target += (bernoulli_lpmf(1| prob[i]));
     else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(leadership_pacs[i]| mu[i]/scale, 1/scale));
-    }//i
+      target += (bernoulli_lpmf(0| prob[i]) + gamma_lpdf(leadership_pacs[i]| mu[i]/scale, 1/scale));
+    }
 }
 
 generated quantities {
+  vector[n] prob;
   vector[n] mu;
+  
+  for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
   
   for (i in 1:n) {
   mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_ldrpac.model"}
-data {
-  int<lower = 1> n;
-  real leadership_pacs[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_int ~ normal(0, 12); 
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (leadership_pacs[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(leadership_pacs[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_int * (no_corp_pacs[i] * new_member[i]) +
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
       b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
@@ -2808,8 +1726,8 @@ ldr.pacs.01 <- glm(leadership_pacs ~ no_corp_pacs + new_member + pct_white + pct
 ldrpac.fit <- sampling(ldrpac.model,
                        chains = 4,
                        cores = 4,
-                       iter = 8000,
-                       warmup = 4000,
+                       iter = 10000,
+                       warmup = 5000,
                        data = stan.data)
 
 traceplot(ldrpac.fit, 
@@ -2822,26 +1740,6 @@ tidy(ldr.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
 precis(ldrpac.fit, prob = 0.89, digits = 3)
 
 post <- spread_draws(ldrpac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = leadership_pacs)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-int_ldrpac.fit <- sampling(int_ldrpac.model,
-                           chains = 4,
-                           cores = 4,
-                           iter = 8000,
-                           warmup = 4000,
-                           data = stan.data)
-
-traceplot(int_ldrpac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(int_ldrpac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_ldrpac.fit, mu[i]) %>% median_hdi()
 ggplot(data = estimation.data, aes(x = leadership_pacs)) +
   geom_density(fill = "gray") +
   geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
@@ -2923,6 +1821,9 @@ data {
 }
 
 parameters {
+  real p;
+  real p_np;
+  real p_new;
   real<lower = 0> a;
   real b_np;
   real b_new;
@@ -2936,13 +1837,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -2953,6 +1861,13 @@ model {
   }
   
   // priors
+  
+  // Binomial model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(10.5, 13);
   b_np ~ normal(0, 12);
   b_new ~ normal(0, 12);
@@ -2966,115 +1881,28 @@ model {
   b_vpop ~ normal(0, 12);
   b_mhh ~ normal(0, 12);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
     if (dir_pac_cand_committee[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
+      target += (bernoulli_lpmf(1| prob[i]));
     else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(dir_pac_cand_committee[i]| mu[i]/scale, 1/scale));
+      target += (bernoulli_lpmf(0| prob[i]) + gamma_lpdf(dir_pac_cand_committee[i]| mu[i]/scale, 1/scale));
     }//i
 }
 
 generated quantities {
+  vector[n] prob;
   vector[n] mu;
+  
+  for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
   
   for (i in 1:n) {
   mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_cmtpac.model"}
-data {
-  int<lower = 1> n;
-  real dir_pac_cand_committee[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10.5, 13);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_int ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (dir_pac_cand_committee[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(dir_pac_cand_committee[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
       b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
@@ -3110,8 +1938,8 @@ cmte.pacs.01 <- glm(dir_pac_cand_committee ~ no_corp_pacs + new_member + pct_whi
 cmtpac.fit <- sampling(cmtpac.model,
                        chains = 4,
                        cores = 4,
-                       iter = 8000,
-                       warmup = 4000,
+                       iter = 10000,
+                       warmup = 5000,
                        data = stan.data)
 
 traceplot(cmtpac.fit, 
@@ -3124,26 +1952,6 @@ tidy(cmte.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
 precis(cmtpac.fit, prob = 0.89, digits = 3)
 
 post <- spread_draws(cmtpac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = dir_pac_cand_committee)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-int_cmtpac.fit <- sampling(int_cmtpac.model,
-                           chains = 4,
-                           cores = 4,
-                           iter = 8000,
-                           warmup = 4000,
-                           data = stan.data)
-
-traceplot(int_cmtpac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(int_cmtpac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_cmtpac.fit, mu[i]) %>% median_hdi()
 ggplot(data = estimation.data, aes(x = dir_pac_cand_committee)) +
   geom_density(fill = "gray") +
   geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
@@ -3224,6 +2032,9 @@ data {
 }
 
 parameters {
+  real p;
+  real p_np;
+  real p_new;
   real<lower = 0> a;
   real b_np;
   real b_new;
@@ -3237,13 +2048,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -3254,6 +2072,13 @@ model {
   }
   
   // priors
+  
+  // Binomial model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(12, 14);
   b_np ~ normal(0, 13);
   b_new ~ normal(0, 13);
@@ -3267,115 +2092,28 @@ model {
   b_vpop ~ normal(0, 13);
   b_mhh ~ normal(0, 13);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
     if (dir_pac_party_committee[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
+      target += (bernoulli_lpmf(1| prob[i]));
     else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(dir_pac_party_committee[i]| mu[i]/scale, 1/scale));
+      target += (bernoulli_lpmf(0| prob[i]) + gamma_lpdf(dir_pac_party_committee[i]| mu[i]/scale, 1/scale));
     }//i
 }
 
 generated quantities {
+  vector[n] prob;
   vector[n] mu;
+  
+  for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
   
   for (i in 1:n) {
   mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_prtypac.model"}
-data {
-  int<lower = 1> n;
-  real dir_pac_party_committee[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(12, 14);
-  b_np ~ normal(0, 13);
-  b_new ~ normal(0, 13);
-  b_int ~ normal(0, 13);
-  b_white ~ normal(0, 13);
-  b_black ~ normal(0, 13);
-  b_latino ~ normal(0, 13);
-  b_asian ~ normal(0, 13);
-  b_bach ~ normal(0, 13);
-  b_clint ~ normal(0, 13);
-  b_house ~ normal(0, 13);
-  b_vpop ~ normal(0, 13);
-  b_mhh ~ normal(0, 13);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (dir_pac_party_committee[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(dir_pac_party_committee[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
       b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
@@ -3411,8 +2149,8 @@ party.contribs.01 <- glm(dir_pac_party_committee ~ no_corp_pacs + new_member + p
 prtypac.fit <- sampling(prtypac.model,
                         chains = 4,
                         cores = 4,
-                        iter = 8000,
-                        warmup = 4000,
+                        iter = 10000,
+                        warmup = 5000,
                         data = stan.data)
 
 traceplot(prtypac.fit, 
@@ -3428,631 +2166,6 @@ post <- spread_draws(prtypac.fit, mu[i]) %>% median_hdi()
 ggplot(data = estimation.data, aes(x = dir_pac_party_committee)) +
   geom_density(fill = "gray") +
   geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-int_prtypac.fit <- sampling(int_prtypac.model,
-                            chains = 4,
-                            cores = 4,
-                            iter = 8000,
-                            warmup = 4000,
-                            data = stan.data)
-
-traceplot(int_prtypac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(int_prtypac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_prtypac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = dir_pac_party_committee)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-```
-
-## Model of In-kind Party Contributions
-
-### Simulating Priors
-
-```{r}
-# likelihood simulation
-ggplot() +
-  geom_density(data = as_tibble(rgamma(1e4, shape = 20, rate = 100)), 
-               aes(x = value)) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
-
-# prior simulation
-## Intercept
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(12), exp(14))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-
-## Slope Parameters
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(13))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
-
-## Scale Parameter
-ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
-  geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
-```
-
-### Model 
-
-```{stan output.var = "ikprtypac.model"}
-data {
-  int<lower = 1> n;
-  real ik_pac_party_committee[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(12, 14);
-  b_np ~ normal(0, 13);
-  b_new ~ normal(0, 13);
-  b_white ~ normal(0, 13);
-  b_black ~ normal(0, 13);
-  b_latino ~ normal(0, 13);
-  b_asian ~ normal(0, 13);
-  b_bach ~ normal(0, 13);
-  b_clint ~ normal(0, 13);
-  b_house ~ normal(0, 13);
-  b_vpop ~ normal(0, 13);
-  b_mhh ~ normal(0, 13);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (ik_pac_party_committee[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(ik_pac_party_committee[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_ikprtypac.model"}
-data {
-  int<lower = 1> n;
-  real ik_pac_party_committee[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(12, 14);
-  b_np ~ normal(0, 13);
-  b_new ~ normal(0, 13);
-  b_int ~ normal(0, 13);
-  b_white ~ normal(0, 13);
-  b_black ~ normal(0, 13);
-  b_latino ~ normal(0, 13);
-  b_asian ~ normal(0, 13);
-  b_bach ~ normal(0, 13);
-  b_clint ~ normal(0, 13);
-  b_house ~ normal(0, 13);
-  b_vpop ~ normal(0, 13);
-  b_mhh ~ normal(0, 13);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (ik_pac_party_committee[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(ik_pac_party_committee[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-### Estimation
-
-```{r}
-# compose data
-stan.data <- 
-  estimation.data %>%
-  dplyr::select(ik_pac_party_committee, no_corp_pacs, new_member, pct_white, pct_black, 
-                pct_latino, pct_asian, pct_bachelors, pct_clinton_16,
-                pct_dem_house_16, log_tot_voting_age, log_median_hh_income) %>%
-  mutate(no_corp_pacs = ifelse(no_corp_pacs == "YES", 1, 0),
-         new_member = ifelse(new_member == "YES", 1, 0)) %>%
-  drop_na() %>%
-  mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center) %>%
-  compose_data()
-
-# model estimation ------------------------------------------------------------
-## Frequentist
-ikparty.contribs.01 <- glm(ik_pac_party_committee ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
-                           family = Gamma(link = "log"),
-                           data = as.data.frame(stan.data) %>% filter(ik_pac_party_committee != 0) %>% mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center))
-
-## Bayesian
-ikprtypac.fit <- sampling(ikprtypac.model,
-                          chains = 4,
-                          cores = 4,
-                          iter = 8000,
-                          warmup = 4000,
-                          data = stan.data)
-
-traceplot(ikprtypac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-tidy(ikparty.contribs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(ikprtypac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(ikprtypac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = ik_pac_party_committee)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-
-int_ikprtypac.fit <- sampling(int_ikprtypac.model,
-                            chains = 4,
-                            cores = 4,
-                            iter = 8000,
-                            warmup = 4000,
-                            data = stan.data)
-
-traceplot(int_ikprtypac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(int_ikprtypac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_ikprtypac.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = ik_pac_party_committee)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
-```
-
-## Model of Contributions from other Candidates
-
-### Simulating Priors
-
-```{r}
-# likelihood simulation
-ggplot() +
-  geom_density(data = as_tibble(rgamma(1e4, shape = 20, rate = 100)), 
-               aes(x = value)) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
-
-# prior simulation
-## Intercept
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(8), exp(10))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-
-## Slope Parameters
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(10))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
-
-## Scale Parameter
-ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
-  geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 1, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
-```
-
-### Model 
-
-```{stan output.var = "candcontribs.model"}
-data {
-  int<lower = 1> n;
-  real candidate_contribs[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(8, 10);
-  b_np ~ normal(0, 10);
-  b_new ~ normal(0, 10);
-  b_white ~ normal(0, 10);
-  b_black ~ normal(0, 10);
-  b_latino ~ normal(0, 10);
-  b_asian ~ normal(0, 10);
-  b_bach ~ normal(0, 10);
-  b_clint ~ normal(0, 10);
-  b_house ~ normal(0, 10);
-  b_vpop ~ normal(0, 10);
-  b_mhh ~ normal(0, 10);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (candidate_contribs[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(candidate_contribs[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-#### Model With Interaction
-
-```{stan output.var = "int_candcontribs.model"}
-data {
-  int<lower = 1> n;
-  real candidate_contribs[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(8, 10);
-  b_np ~ normal(0, 10);
-  b_new ~ normal(0, 10);
-  b_int ~ normal(0, 10);
-  b_white ~ normal(0, 10);
-  b_black ~ normal(0, 10);
-  b_latino ~ normal(0, 10);
-  b_asian ~ normal(0, 10);
-  b_bach ~ normal(0, 10);
-  b_clint ~ normal(0, 10);
-  b_house ~ normal(0, 10);
-  b_vpop ~ normal(0, 10);
-  b_mhh ~ normal(0, 10);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (candidate_contribs[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(candidate_contribs[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-### Estimation
-
-```{r}
-# compose data
-stan.data <- 
-  estimation.data %>%
-  dplyr::select(candidate_contribs, no_corp_pacs, new_member, pct_white, pct_black, 
-                pct_latino, pct_asian, pct_bachelors, pct_clinton_16,
-                pct_dem_house_16, log_tot_voting_age, log_median_hh_income) %>%
-  mutate(no_corp_pacs = ifelse(no_corp_pacs == "YES", 1, 0),
-         new_member = ifelse(new_member == "YES", 1, 0)) %>%
-  drop_na() %>%
-  mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center) %>%
-  compose_data()
-
-# model estimation ------------------------------------------------------------
-## Frequentist
-# cand.contribs.01 <- glm(candidate_contribs ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
-#                         family = Gamma(link = "log"),
-#                         data = as.data.frame(stan.data) %>% filter(candidate_contribs != 0) %>% mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center))
-
-## Bayesian
-candcontribs.fit <- sampling(candcontribs.model,
-                             chains = 4,
-                             cores = 4,
-                             iter = 25000,
-                             warmup = 12000,
-                             data = stan.data)
-
-traceplot(candcontribs.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-#tidy(cand.contribs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(candcontribs.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(candcontribs.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = candidate_contribs)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7) +
-  xlim(0, 100)
-
-int_candcontribs.fit <- sampling(int_candcontribs.model,
-                                 chains = 4,
-                                 cores = 4,
-                                 iter = 25000,
-                                 warmup = 12000,
-                                 data = stan.data)
-
-traceplot(int_candcontribs.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-#tidy(cand.contribs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(int_candcontribs.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_candcontribs.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = candidate_contribs)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7) +
-  xlim(0, 100)
 ```
 
 
@@ -4146,13 +2259,13 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -4163,6 +2276,7 @@ model {
   }
   
   // priors
+  // Gamma model
   a ~ normal(10, 14);
   b_np ~ normal(0, 13);
   b_new ~ normal(0, 13);
@@ -4176,15 +2290,11 @@ model {
   b_vpop ~ normal(0, 13);
   b_mhh ~ normal(0, 13);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
-    if (small_indiv[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(small_indiv[i]| mu[i]/scale, 1/scale));
-    }//i
+    small_indiv[i] ~ gamma(mu[i]/scale, 1/scale);
+    }
 }
 
 generated quantities {
@@ -4227,8 +2337,8 @@ small.01 <- glm(small_indiv ~ no_corp_pacs + new_member + pct_white + pct_black 
 smlindv.fit <- sampling(smlindv.model,
                         chains = 4,
                         cores = 4,
-                        iter = 8000,
-                        warmup = 4000,
+                        iter = 10000,
+                        warmup = 5000,
                         data = stan.data)
 
 traceplot(smlindv.fit, 
@@ -4335,13 +2445,13 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -4352,6 +2462,7 @@ model {
   }
   
   // priors
+  // Gamma model
   a ~ normal(11, 14);
   b_np ~ normal(0, 13);
   b_new ~ normal(0, 13);
@@ -4365,14 +2476,10 @@ model {
   b_vpop ~ normal(0, 13);
   b_mhh ~ normal(0, 13);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
-    if (large_indiv[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(large_indiv[i]| mu[i]/scale, 1/scale));
+    large_indiv[i] ~ gamma(mu[i]/scale, 1/scale);
     }//i
 }
 
@@ -4416,8 +2523,8 @@ large.01 <- glm(large_indiv ~ no_corp_pacs + new_member + pct_white + pct_black 
 lrgindv.fit <- sampling(lrgindv.model,
                         chains = 4,
                         cores = 4,
-                        iter = 8000,
-                        warmup = 4000,
+                        iter = 10000,
+                        warmup = 5000,
                         data = stan.data)
 
 traceplot(lrgindv.fit, 
@@ -4523,13 +2630,13 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real prob;
 }
 
 model {
-  // linear model
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -4540,6 +2647,7 @@ model {
   }
   
   // priors
+  // Gamma model
   a ~ normal(12, 14);
   b_np ~ normal(0, 14);
   b_new ~ normal(0, 14);
@@ -4553,14 +2661,10 @@ model {
   b_vpop ~ normal(0, 14);
   b_mhh ~ normal(0, 14);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
-    if (net_indiv_total[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(net_indiv_total[i]| mu[i]/scale, 1/scale));
+    net_indiv_total[i] ~ gamma(mu[i]/scale, 1/scale);
     }//i
 }
 
@@ -4604,8 +2708,8 @@ indiv.tot.01 <- glm(net_indiv_total ~ no_corp_pacs + new_member + pct_white + pc
 totindv.fit <- sampling(totindv.model,
                         chains = 4,
                         cores = 4,
-                        iter = 8000,
-                        warmup = 4000,
+                        iter = 10000,
+                        warmup = 5000,
                         data = stan.data)
 
 traceplot(totindv.fit, 
@@ -4699,6 +2803,9 @@ data {
 }
 
 parameters {
+  real p;
+  real p_np;
+  real p_new;
   real<lower = 0> a;
   real b_np;
   real b_new;
@@ -4712,13 +2819,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -4729,6 +2843,13 @@ model {
   }
   
   // priors
+  
+  // Binomial model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(10.5, 13);
   b_np ~ normal(0, 12);
   b_new ~ normal(0, 12);
@@ -4742,19 +2863,25 @@ model {
   b_vpop ~ normal(0, 12);
   b_mhh ~ normal(0, 12);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
     if (indiv_ideological[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
+      target += (bernoulli_lpmf(1| prob[i]));
     else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(indiv_ideological[i]| mu[i]/scale, 1/scale));
+      target += (bernoulli_lpmf(0| prob[i]) + gamma_lpdf(indiv_ideological[i]| mu[i]/scale, 1/scale));
     }//i
 }
 
 generated quantities {
+  vector[n] prob;
   vector[n] mu;
+  
+  for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
   
   for (i in 1:n) {
   mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
@@ -4793,8 +2920,8 @@ individeol.pacs.01 <- glm(indiv_ideological ~ no_corp_pacs + new_member + pct_wh
 individeopac.fit <- sampling(individeopac.model,
                         chains = 4,
                         cores = 4,
-                        iter = 8000,
-                        warmup = 4000,
+                        iter = 10000,
+                        warmup = 5000,
                         data = stan.data)
 
 traceplot(ideopac.fit, 
@@ -4900,13 +3027,13 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
 }
 
 model {
-  // linear model
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -4917,6 +3044,7 @@ model {
   }
   
   // priors
+  // Gamma model
   a ~ normal(11, 14);
   b_np ~ normal(0, 13);
   b_new ~ normal(0, 13);
@@ -4930,15 +3058,11 @@ model {
   b_vpop ~ normal(0, 13);
   b_mhh ~ normal(0, 13);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
-    if (indiv_biz[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(indiv_biz[i]| mu[i]/scale, 1/scale));
-    }//i
+    indiv_biz[i] ~ gamma(mu[i]/scale, 1/scale);
+    }
 }
 
 generated quantities {
@@ -4981,8 +3105,8 @@ indivbiz.01 <- glm(indiv_biz ~ no_corp_pacs + new_member + pct_white + pct_black
 bizindv.fit <- sampling(bizindv.model,
                         chains = 4,
                         cores = 4,
-                        iter = 16000,
-                        warmup = 8000,
+                        iter = 10000,
+                        warmup = 5000,
                         data = stan.data)
 
 traceplot(bizindv.fit, 
@@ -5075,6 +3199,9 @@ data {
 }
 
 parameters {
+  real p;
+  real p_np;
+  real p_new;
   real<lower = 0> a;
   real b_np;
   real b_new;
@@ -5088,13 +3215,20 @@ parameters {
   real b_house;
   real b_vpop;
   real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
 }
 
 model {
-  // linear model
+  vector[n] prob;
   vector[n] mu;
+  
   for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
+  
+  for (i in 1:n) {
+    // linear model
     mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
       b_white * pct_white[i] + b_black * pct_black[i] + 
       b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
@@ -5105,6 +3239,13 @@ model {
   }
   
   // priors
+  
+  // Binomial model
+  p ~ normal(0, 1);
+  p_np ~ normal(0, 1);
+  p_new ~ normal(0, 1);
+  
+  // Gamma model
   a ~ normal(11, 14);
   b_np ~ normal(0, 13);
   b_new ~ normal(0, 13);
@@ -5118,19 +3259,25 @@ model {
   b_vpop ~ normal(0, 13);
   b_mhh ~ normal(0, 13);
   scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
   
   // likelihood
   for ( i in 1:n) {
     if (indiv_labor[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
+      target += (bernoulli_lpmf(1| prob[i]));
     else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(indiv_labor[i]| mu[i]/scale, 1/scale));
+      target += (bernoulli_lpmf(0| prob[i]) + gamma_lpdf(indiv_labor[i]| mu[i]/scale, 1/scale));
     }//i
 }
 
 generated quantities {
+  vector[n] prob;
   vector[n] mu;
+  
+  for (i in 1:n) {
+    // linear model
+    prob[i] = p + p_np * no_corp_pacs[i] + p_new * new_member[i]; 
+    prob[i] = inv_logit(prob[i]); // inverse link function
+  }
   
   for (i in 1:n) {
   mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
@@ -5168,9 +3315,9 @@ indivlabor.01 <- glm(indiv_labor ~ no_corp_pacs + new_member + pct_white + pct_b
 ## Bayesian
 laborindv.fit <- sampling(laborindv.model,
                           chains = 4,
-                          cores = 4,
-                          iter = 16000,
-                          warmup = 8000,
+                          cores = 2,
+                          iter = 10000,
+                          warmup = 5000,
                           data = stan.data)
 
 traceplot(laborindv.fit, 
@@ -5188,307 +3335,6 @@ ggplot(data = estimation.data, aes(x = indiv_labor)) +
   geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
 ```
 
-## Model of Self-finance Contributions
-
-### Simulating Priors
-
-```{r}
-# likelihood simulation
-ggplot() +
-  geom_density(data = as_tibble(rgamma(1e4, shape = 20, rate = 100)), 
-               aes(x = value)) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
-
-# prior simulation
-## Intercept
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(10), exp(11))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-
-## Slope Parameters
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(11))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
-
-## Scale Parameter
-ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
-  geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
-```
-
-### Model 
-
-```{stan output.var = "slffin.model"}
-data {
-  int<lower = 1> n;
-  real indiv_self_finance[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10, 11);
-  b_np ~ normal(0, 11);
-  b_new ~ normal(0, 11);
-  b_white ~ normal(0, 11);
-  b_black ~ normal(0, 11);
-  b_latino ~ normal(0, 11);
-  b_asian ~ normal(0, 11);
-  b_bach ~ normal(0, 11);
-  b_clint ~ normal(0, 11);
-  b_house ~ normal(0, 11);
-  b_vpop ~ normal(0, 11);
-  b_mhh ~ normal(0, 11);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (indiv_self_finance[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(indiv_self_finance[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-```{stan output.var = "int_slffin.model"}
-data {
-  int<lower = 1> n;
-  real indiv_self_finance[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_int;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-  real<lower = 0> scale;
-  real<lower = 0, upper = 1> prob;
-}
-
-model {
-  // linear model
-  vector[n] mu;
-  for (i in 1:n) {
-    mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    mu[i] = exp(mu[i]); // inverse link function
-  }
-  
-  // priors
-  a ~ normal(10, 11);
-  b_np ~ normal(0, 11);
-  b_new ~ normal(0, 11);
-  b_int ~ normal(0, 11);
-  b_white ~ normal(0, 11);
-  b_black ~ normal(0, 11);
-  b_latino ~ normal(0, 11);
-  b_asian ~ normal(0, 11);
-  b_bach ~ normal(0, 11);
-  b_clint ~ normal(0, 11);
-  b_house ~ normal(0, 11);
-  b_vpop ~ normal(0, 11);
-  b_mhh ~ normal(0, 11);
-  scale ~ exponential(2);
-  prob ~ beta(1.5, 1.5);
-  
-  // likelihood
-  for ( i in 1:n) {
-    if (indiv_self_finance[i] == 0)
-      target += (bernoulli_lpmf(1| prob));
-    else
-      target += (bernoulli_lpmf(0| prob) + gamma_lpdf(indiv_self_finance[i]| mu[i]/scale, 1/scale));
-    }//i
-}
-
-generated quantities {
-  vector[n] mu;
-  
-  for (i in 1:n) {
-  mu[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] +
-      b_int * (no_corp_pacs[i] * new_member[i]) +
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  mu[i] = exp(mu[i]); // inverse link function
-  }
-}
-```
-
-### Estimation
-
-```{r}
-# compose data
-stan.data <- 
-  estimation.data %>%
-  dplyr::select(indiv_self_finance, no_corp_pacs, new_member, pct_white, pct_black, 
-                pct_latino, pct_asian, pct_bachelors, pct_clinton_16,
-                pct_dem_house_16, log_tot_voting_age, log_median_hh_income) %>%
-  mutate(no_corp_pacs = ifelse(no_corp_pacs == "YES", 1, 0),
-         new_member = ifelse(new_member == "YES", 1, 0)) %>%
-  drop_na() %>%
-  mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center) %>%
-  compose_data()
-
-# model estimation ------------------------------------------------------------
-## Frequentist
-# self.contribs.01 <- glm(indiv_self_finance ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
-#                      family = Gamma(link = "log"),
-#                      data = as.data.frame(stan.data) %>% filter(indiv_self_finance != 0) %>% mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center))
-
-## Bayesian
-slffin.fit <- sampling(slffin.model,
-                       chains = 4,
-                       cores = 4,
-                       iter = 25000,
-                       warmup = 12000,
-                       data = stan.data)
-
-traceplot(slffin.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-#tidy(self.contribs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(slffin.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(slffin.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = indiv_self_finance)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7) +
-  xlim(0, 100)
-
-int_slffin.fit <- sampling(int_slffin.model,
-                           chains = 4,
-                           cores = 4,
-                           iter = 25000,
-                           warmup = 12000,
-                           data = stan.data)
-
-traceplot(int_slffin.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_int", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
-
-precis(int_slffin.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(int_slffin.fit, mu[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = indiv_self_finance)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7) +
-  xlim(0, 100)
-```
-
 
 # Results Summary
 
@@ -5500,43 +3346,27 @@ ggplot(data = estimation.data, aes(x = indiv_self_finance)) +
 # save(totpac.fit, file = "E:/Project/totpac_fit.Rda")
 # save(numpac.fit, file = "E:/Project/numpac_fit.Rda")
 # save(bizpac.fit, file = "E:/Project/bizpac_fit.Rda")
-
-## Ideological
+# 
+# ## Ideological
 # save(ideopac.fit, file = "E:/Project/ideopac_fit.Rda")
-# save(int_ideopac.fit, file = "E:/Project/int_ideopac_fit.Rda")
-# save(indideopac.fit, file = "E:/Project/indideopac_fit.Rda")
-# save(int_indideopac.fit, file = "E:/Project/int_indideopac_fit.Rda")
-# save(dirideopac.fit, file = "E:/Project/dirideopac_fit.Rda")
-# save(ind_dirideopac.fit, file = "E:/Project/ind_dirideopac_fit.Rda")
-# save(ikideopac.fit, file = "E:/Project/ikideopac_fit.Rda")
-# save(int_ikideopac.fit, file = "E:/Project/int_ikideopac_fit.Rda")
-
-## Labor
+# 
+# ## Labor
 # save(laborpac.fit, file = "E:/Project/labor_fit.Rda")
-# save(int_laborpac.fit, file = "E:/Project/int_labor_fit.Rda")
-
-## Party
+# 
+# ## Party
 # save(ldrpac.fit, file = "E:/Project/ldrpac_fit.Rda")
-# save(int_ldrpac.fit, file = "E:/Project/int_ldrpac_fit.Rda")
 # save(cmtpac.fit, file = "E:/Project/cmtpac_fit.Rda")
-# save(int_cmtpac.fit, file = "E:/Project/int_cmtpac_fit.Rda")
 # save(prtypac.fit, file = "E:/Project/prtypac_fit.Rda")
-# save(int_prtypac.fit, file = "E:/Project/int_prtypac_fit.Rda")
-# save(ikprtypac.fit, file = "E:/Project/ikprtypac_fit.Rda")
-# save(int_ikprtypac.fit, file = "E:/Project/int_ikprtypac_fit.Rda")
-# save(candcontribs.fit, file = "E:/Project/candcontribs_fit.Rda")
-# save(int_candcontribs.fit, file = "E:/Project/int_candcontribs_fit.Rda")
-
-## Individual
+# 
+# ## Individual
 # save(smlindv.fit, file = "E:/Project/smlindv_fit.Rda")
 # save(lrgindv.fit, file = "E:/Project/lrgindv_fit.Rda")
 # save(totindv.fit, file = "E:/Project/totindiv_fit.Rda")
 # save(individeopac.fit, file = "E:/Project/individeopac_fit.Rda")
 # save(bizindv.fit, file = "E:/Project/bizindv_fit.Rda")
-# save(slffin.fit, file = "E:/Project/slffin_fit.Rda")
-# save(int_slffin.fit, file = "E:/Project/int_slffin_fit.Rda")
-
-## Voting
+# save(laborindv.fit, file = "E:/Project/laborindv_fit.Rda")
+# 
+# ## Voting
 # save(voting.fit, file = "E:/Project/voting_fit.Rda")
 # save(turnout.fit, file = "E:/Project/turnout_fit.Rda")
 
@@ -5548,29 +3378,14 @@ load(file = "Models/bizpac_fit.Rda")
 
 ## Ideological
 load(file = "Models/ideopac_fit.Rda")
-load(file = "Models/indideopac_fit.Rda")
-load(file = "Models/dirideopac_fit.Rda")
-load(file = "Models/int_ideopac_fit.Rda")
-load(file = "Models/int_indideopac_fit.Rda")
-load(file = "Models/ind_dirideopac_fit.Rda")
-load(file = "Models/ikideopac_fit.Rda")
-load(file = "Models/int_ikideopac_fit.Rda")
 
 ## Labor
 load(file = "Models/labor_fit.Rda")
-load(file = "Models/int_labor_fit.Rda")
 
 ## Party
 load(file = "Models/ldrpac_fit.Rda")
-load(file = "Models/int_ldrpac_fit.Rda")
 load(file = "Models/cmtpac_fit.Rda")
-load(file = "Models/int_cmtpac_fit.Rda")
 load(file = "Models/prtypac_fit.Rda")
-load(file = "Models/int_prtypac_fit.Rda")
-load(file = "Models/ikprtypac_fit.Rda")
-load(file = "Models/int_ikprtypac_fit.Rda")
-load(file = "Models/candcontribs_fit.Rda")
-load(file = "Models/int_candcontribs_fit.Rda")
 
 ## Individual
 load(file = "Models/smlindv_fit.Rda")
@@ -5578,35 +3393,27 @@ load(file = "Models/lrgindv_fit.Rda")
 load(file = "Models/totindiv_fit.Rda")
 load(file = "Models/individeopac_fit.Rda")
 load(file = "Models/bizindv_fit.Rda")
-load(file = "Models/slffin_fit.Rda")
-load(file = "Models/int_slffin_fit.Rda")
+load(file = "Models/laborindv_fit.Rda")
 
 ## Voting
 load(file = "Models/voting_fit.Rda")
 load(file = "Models/turnout_fit.Rda")
 ```
 
-## Business PAC Results
+## PAC Results
 
 ```{r}
-# Business PAC results --------------------------------------------------------
-## quick plots
-plot(totpac.fit, show_density = TRUE, ci_level = 0.89)
-plot(numpac.fit, show_density = TRUE, ci_level = 0.89)
-plot(bizpac.fit, show_density = TRUE, ci_level = 0.89)
-
+# PAC results -----------------------------------------------------------------
 # extract posterior predictions
-## Business PACs
-biz.models <- c(totpac.fit, numpac.fit, bizpac.fit) 
-names(biz.models) <- c("totpac.fit", "numpac.fit", "bizpac.fit")
-
-post.biz <- 
-  biz.models %>%
-  map_dfr(~ spread_draws(., a, b_np), .id = "model")
+pac.models <- c(totpac.fit, numpac.fit, bizpac.fit, ideopac.fit, laborpac.fit) 
+names(pac.models) <- c("totpac.fit", "numpac.fit", "bizpac.fit", "ideopac.fit", 
+                       "laborpac.fit")
+post.pac <- 
+  pac.models %>%
+  map_dfr(~ spread_draws(., a, b_np, p, p_np), .id = "model")
 
 ## main effects
-post.biz %>%
-  filter(str_detect(model, pattern = "int_", negate = TRUE)) %>%
+post.pac %>%
   mutate(b_np = exp(b_np) - 1) %>%
   ggplot() +
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
@@ -5615,18 +3422,19 @@ post.biz %>%
                 fill = "#2D6CC0",
                 color = "black",
                 alpha = 0.9) +
-  geom_vline(aes(xintercept = 0), linetype = "dashed") +
+  geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
   scale_x_continuous(labels = percent_format(),
                      breaks = pretty_breaks(n = 6)) +
-  scale_y_discrete(labels = c("Business PAC $", "Total PAC $", "# of PACs")) +
+  scale_y_discrete(labels = c("Business PAC $", "Total PAC $", "Labor PAC $",
+                              "# of PACs", "Ideological PAC $")) +
   labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
        y = "Outcome Variable") +
   theme_pubr()
-ggsave("Figures/Results/biz_coef.pdf", height = 4, width = 7) 
+ggsave("Figures/Results/pac_coef.pdf", height = 4, width = 7) 
 
 ## predicted values
-pred.biz <- 
-  post.biz %>%
+pred.pac <- 
+  post.pac %>%
   group_by(model) %>%
   mutate(no_pac_pred = exp(a + b_np),
          pac_pred = exp(a)) %>%
@@ -5636,7 +3444,7 @@ pred.biz <-
   group_by(model, type) %>%
   median_hdi(.width = 0.89)
 
-ggplot(data = pred.biz, 
+ggplot(data = pred.pac, 
        aes(x = fct_reorder(model, prediction),
            y = prediction, 
            ymin = .lower, 
@@ -5653,257 +3461,61 @@ ggplot(data = pred.biz,
                   show.legend = FALSE) +
   scale_y_continuous(labels = dollar_format(),
                      breaks = pretty_breaks(n = 6)) +
-  scale_x_discrete(labels = c("# of PACs", "Business PAC $", "Total PAC $")) +
-  labs(x = "Model", y = "Predicted Contributions", color = "Prediction:") +
+  scale_x_discrete(labels = c("# of PACs", "Ideological PAC $", 
+                              "Labor PAC $", "Business PAC $", "Total PAC $")) +
+  labs(x = "Outcome Variable", 
+       y = "Predicted Contributions", 
+       color = "Prediction:") +
   scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
-                     labels = c("No to PACs", "Yes to PACs")) +
+                     labels = c("No to Corporate PACs", "Yes to Corporate PACs")) +
   theme_pubr()
-ggsave("Figures/Results/biz_preds.pdf", height = 4, width = 5)
+ggsave("Figures/Results/pac_preds.pdf", height = 4, width = 8)
+
+# Binomial model
+post.pac %>%
+  filter(model != "numpac.fit") %>%
+  mutate(p_np = logistic(p_np),
+         p = logistic(p)) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, p_np), x = p_np), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi,
+                fill = "#2D6CC0",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0.5), linetype = "dashed", color = "grey55") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_y_discrete(labels = c("Ideological PAC $", "Labor PAC $", "Total PAC $",
+                              "Business PAC $")) +
+  labs(x = "Predicted Probability of Receiving Contributions", 
+       y = "Outcome Variable") +
+  theme_pubr()
+ggsave("Figures/Results/pac_probs.pdf", height = 4, width = 8)
 
 # Tables ----------------------------------------------------------------------
-mcmcReg(totpac.fit)
-```
-
-## Ideological PAC Results
-
-```{r}
-plot(laborpac.fit, show_density = TRUE, ci_level = 0.89)
-plot(int_laborpac.fit, show_density = TRUE, ci_level = 0.89)
-plot(ideopac.fit, show_density = TRUE, ci_level = 0.89)
-plot(int_ideopac.fit, show_density = TRUE, ci_level = 0.89)
-plot(indideopac.fit, show_density = TRUE, ci_level = 0.89)
-plot(int_indideopac.fit, show_density = TRUE, ci_level = 0.89)
-plot(dirideopac.fit, show_density = TRUE, ci_level = 0.89)
-plot(ind_dirideopac.fit, show_density = TRUE, ci_level = 0.89)
-
-# extract posterior predictions
-# Ideological
-ideo.models <- c(ideopac.fit, indideopac.fit, dirideopac.fit)
-names(ideo.models) <- c("ideopac.fit", "indideopac.fit", "dirideopac.fit")
-post.ideo <- 
-  ideo.models %>%
-  map_dfr(~ spread_draws(., a, b_np, b_new), .id = "model")
-
-int.ideo.models <- c(int_ideopac.fit, int_indideopac.fit, ind_dirideopac.fit)
-names(int.ideo.models) <- c("int_ideopac.fit", "int_indideopac.fit", 
-                            "ind_dirideopac.fit")
-post.int.ideo <- 
-  int.ideo.models %>%
-  map_dfr(~ spread_draws(., a, b_np, b_new, b_int), .id = "model")
-
-## reject pacs
-post.ideo %>%
-  mutate(b_np = exp(b_np) - 1) %>%
-  ggplot() +
-  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
-                .width = c(0.89, 0.5), 
-                point_interval = median_hdi,
-                fill = "#2D6CC0",
-                color = "black",
-                alpha = 0.9) + 
-  geom_vline(aes(xintercept = 0), linetype = "dashed") +
-  scale_x_continuous(labels = percent_format(),
-                     breaks = pretty_breaks(n = 6)) +
-  scale_y_discrete(labels = c("Indp. Ideological $", 
-                              "Direct Ideological $", "Ideological $")) +
-  labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
-       y = "Outcome Variable") +
-  theme_pubr()
-ggsave("Figures/Results/ideo_coef.pdf", height = 4, width = 7)
-
-## reject pacs & new member
-post.int.ideo %>%
-  mutate(b_int = exp(b_np + b_new + b_int)) %>%
-  ggplot() +
-  stat_halfeyeh(aes(y = fct_reorder(model, b_int), x = b_int), 
-                .width = c(0.89, 0.5), 
-                point_interval = median_hdi,
-                fill = "#2D6CC0",
-                color = "black",
-                alpha = 0.9) + 
-  geom_vline(aes(xintercept = 0), linetype = "dashed") +
-  scale_x_continuous(breaks = pretty_breaks(n = 6)) +
-  scale_y_discrete(labels = c("Direct Ideological $", "Ideological $", 
-                              "Indp. Ideological $")) +
-  labs(x = "% Change in Contributions (exp(Interaction Effect) - 1)", 
-       y = "Outcome Variable") +
-  theme_pubr()
-ggsave("Figures/Results/ideo_int.pdf", height = 4, width = 7)
-
-pred.ideo <- 
-  bind_rows(post.int.ideo, post.ideo) %>%
-  group_by(model) %>%
-  mutate(no_pac_pred = exp(a + b_np),
-         pac_pred = exp(a),
-         new_member = exp(a + b_new),
-         int_pac_pred = exp(a + b_np + b_new + b_int)) %>%
-  dplyr::select(model, no_pac_pred, pac_pred, new_member, int_pac_pred) %>%
-  gather(no_pac_pred, pac_pred, new_member, int_pac_pred, 
-         key = "type", value = "prediction") %>%
-  group_by(model, type) %>%
-  median_hdi(.width = 0.89) %>%
-  mutate(prediction = ifelse(is.na(prediction) & model == "dirideopac.fit",
-                               3.097025e+04, prediction),
-         .lower = ifelse(is.na(.lower) & model == "dirideopac.fit",
-                                     2.881983e+04, .lower),
-         .upper = ifelse(is.na(.upper) & model == "dirideopac.fit",
-                                     33056.357109, .upper),
-         prediction = ifelse(is.na(prediction) & model == "ideopac.fit",
-                               4.421832e+04, prediction),
-         .lower = ifelse(is.na(.lower) & model == "ideopac.fit",
-                                     4.163870e+04, .lower),
-         .upper = ifelse(is.na(.upper) & model == "ideopac.fit",
-                                     46674.250500, .upper),
-         prediction = ifelse(is.na(prediction) & model == "indideopac.fit",
-                               5.029710e+03, prediction),
-         .lower = ifelse(is.na(.lower) & model == "indideopac.fit",
-                                     3.964501e+03	, .lower),
-         .upper = ifelse(is.na(.upper) & model == "indideopac.fit",
-                                     6048.740661, .upper)) %>%
-  filter(str_detect(model, pattern = "int_", negate = TRUE)) %>%
-  filter(str_detect(model, pattern = "ind_", negate = TRUE))
-
-ggplot(data = pred.ideo, 
-       aes(x = fct_reorder(model, prediction),
-           y = prediction, 
-           ymin = .lower, 
-           ymax = .upper,
-           color = type,
-           label = comma(round(prediction, digits = 0)))) +
-  geom_point(position = position_dodge(.1), size = 2) +
-  geom_errorbar(position = position_dodge(), width = 0.1) +
-  geom_text_repel(mapping = aes(group = type),
-                  position = position_dodge(0.1),
-                  alpha = 0.9,
-                  segment.size = 0,
-                  segment.alpha = 0,
-                  show.legend = FALSE) +
-  scale_y_continuous(labels = dollar_format(),
-                     breaks = pretty_breaks(n = 6)) +
-  scale_x_discrete(labels = c("Indp. Ideological $", "Direct Ideological $",
-                              "Ideological $")) +
-  labs(x = "", y = "", color = "Prediction:") +
-  scale_color_colorblind(labels = c("New Member & No to PACs", "New Member",
-                                    "No to PACs", "Yes to PACs")) +
-  theme_pubr()
-ggsave("Figures/Results/ideo_preds.pdf", height = 4, width = 8)
-```
-
-## Labor Results
-
-```{r}
-# extract posterior predictions
-post.labor <- laborpac.fit %>% spread_draws(a, b_np, b_new) %>% mutate(model = "laborpac.fit")
-post.intlabor <- int_laborpac.fit %>% spread_draws(a, b_np, b_new, b_int) %>% mutate(model = "int_laborpac.fit")
-
-## main effects
-post.labor %>%
-  mutate(b_np = exp(b_np) - 1) %>%
-  ggplot() +
-  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
-                .width = c(0.89, 0.5), 
-                point_interval = median_hdi) +
-  geom_vline(aes(xintercept = 0), linetype = "dashed") +
-  scale_x_continuous(labels = percent_format(),
-                     breaks = pretty_breaks(n = 6)) +
-  scale_y_discrete(labels = c("Labor PAC $")) +
-  labs(x = "% Change in Contributions (Coefficient Estimate)", y = "") +
-  theme_pubr()
-ggsave("Figures/Results/labor_coef.pdf", height = 4, width = 5) 
-
-## interaction effects
-post.intlabor %>%
-  mutate(b_int = exp(b_np + b_new + b_int) - 1) %>%
-  ggplot() +
-  stat_halfeyeh(aes(y = fct_reorder(model, b_int), x = b_int), 
-                .width = c(0.89, 0.5), 
-                point_interval = median_hdi) +
-  geom_vline(aes(xintercept = 0), linetype = "dashed") +
-  scale_x_continuous(labels = percent_format(),
-                     breaks = pretty_breaks(n = 6)) +
-  scale_y_discrete(labels = c("Labor PAC $")) +
-  labs(x = "% Change in Contributions (Coefficient Estimate)", y = "") +
-  theme_pubr()
-ggsave("Figures/Results/labor_int.pdf", height = 4, width = 5) 
-
-## predicted values
-pred.labor <- 
-  bind_rows(post.intlabor, post.labor) %>%
-  group_by(model) %>%
-  mutate(no_pac_pred = exp(a + b_np),
-         pac_pred = exp(a),
-         new_member = exp(a + b_new),
-         int_pac_pred = exp(a + b_np + b_new + b_int)) %>%
-  dplyr::select(model, no_pac_pred, pac_pred, new_member, int_pac_pred) %>%
-  gather(no_pac_pred, pac_pred, new_member, int_pac_pred, 
-         key = "type", value = "prediction") %>%
-  group_by(model, type) %>%
-  median_hdi(.width = 0.89) %>%
-  mutate(prediction = ifelse(is.na(prediction) & model == "laborpac.fit",
-                               43492.18, prediction),
-         .lower = ifelse(is.na(.lower) & model == "laborpac.fit",
-                                     41218.70, .lower),
-         .upper = ifelse(is.na(.upper) & model == "laborpac.fit",
-                                     45862.68, .upper)) %>%
-  filter(str_detect(model, pattern = "int_", negate = TRUE))
-
-ggplot(data = pred.labor, 
-       aes(x = fct_reorder(model, prediction),
-           y = prediction, 
-           ymin = .lower, 
-           ymax = .upper,
-           color = type,
-           label = comma(round(prediction, digits = 0)))) +
-  geom_point(position = position_dodge(.1), size = 2) +
-  geom_errorbar(position = position_dodge(), width = 0.1) +
-  geom_text_repel(mapping = aes(group = type),
-                  position = position_dodge(0.1),
-                  alpha = 0.9,
-                  segment.size = 0,
-                  segment.alpha = 0,
-                  show.legend = FALSE) +
-  scale_y_continuous(labels = dollar_format(),
-                     breaks = pretty_breaks(n = 6)) +
-  scale_x_discrete(labels = c("Labor PAC $")) +
-  labs(x = "", y = "", color = "Prediction:") +
-  scale_color_colorblind(labels = c("New Member & No to PACs", "New Member",
-                                    "No to PACs", "Yes to PACs")) +
-  theme_pubr()
-ggsave("Figures/Results/labor_preds.pdf", height = 4, width = 8)
+sink(file = "Tables/pac_results.tex")
+mcmcReg(list(numpac.fit, totpac.fit, bizpac.fit, ideopac.fit, laborpac.fit),
+        pointest = "median",
+        ci = 0.89,
+        hpdi = TRUE,
+        format = "latex",
+        pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
+                 "b_asian", "b_mhh", "b_clint", "b_house", "b_vpop", "scale",
+                 "p", "p_np", "p_new"))
+sink()
 ```
 
 ## Party Results
 
 ```{r}
-# Party Results ---------------------------------------------------------------
-## quick plots
-plot(ldrpac.fit, show_density = TRUE, ci_level = 0.89)
-plot(int_ldrpac.fit, show_density = TRUE, ci_level = 0.89)
-plot(cmtpac.fit, show_density = TRUE, ci_level = 0.89)
-plot(int_cmtpac.fit, show_density = TRUE, ci_level = 0.89)
-plot(prtypac.fit, show_density = TRUE, ci_level = 0.89)
-plot(int_prtypac.fit, show_density = TRUE, ci_level = 0.89)
-plot(slffin.fit, show_density = TRUE, ci_level = 0.89)
-plot(int_slffin.fit, show_density = TRUE, ci_level = 0.89)
-plot(candcontribs.fit, show_density = TRUE, ci_level = 0.89)
-plot(int_candcontribs.fit, show_density = TRUE, ci_level = 0.89)
-
 # extract posterior predictions
-## Party
 party.models <- c(ldrpac.fit, cmtpac.fit, prtypac.fit)
 names(party.models) <- c("ldrpac.fit", "cmtpac.fit", "prtypac.fit")
 
-int.party.models <- c(int_ldrpac.fit, int_cmtpac.fit, int_prtypac.fit)
-names(int.party.models) <- c("int_ldrpac.fit", "int_cmtpac.fit", 
-                             "int_prtypac.fit")
-
 post.prty <- 
   party.models %>%
-  map_dfr(~ spread_draws(., a, b_np, b_new), .id = "model")
-
-post.intprty <- 
-  int.party.models %>%
-  map_dfr(~ spread_draws(., a, b_np, b_new, b_int), .id = "model")
+  map_dfr(~ spread_draws(., a, b_np, p, p_np), .id = "model")
 
 ## main effects
 post.prty %>%
@@ -5911,65 +3523,31 @@ post.prty %>%
   ggplot() +
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
                 .width = c(0.89, 0.5), 
-                point_interval = median_hdi) +
-  geom_vline(aes(xintercept = 0), linetype = "dashed") +
+                point_interval = median_hdi,
+                fill = "#2D6CC0",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
   scale_x_continuous(labels = percent_format(),
                      breaks = pretty_breaks(n = 5)) +
   scale_y_discrete(labels = c("Leadership PAC $", "Party Committee $", 
                               "Candidate Committee $")) +
-  labs(x = "% Change in Contributions (exp(Coefficient Estimate))",
-       y = "") +
+  labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
+       y = "Outcome Variable") +
   theme_pubr()
-ggsave("Figures/Results/party_coef.pdf", height = 4)
-
-## interaction effects
-post.intprty %>%
-  mutate(int = exp(b_np + b_new + b_int) - 1) %>%
-  ggplot() +
-  stat_halfeyeh(aes(y = fct_reorder(model, int), x = int), 
-                .width = c(0.89, 0.5), 
-                point_interval = median_hdi) +
-  geom_vline(aes(xintercept = 0), linetype = "dashed") +
-  scale_x_continuous(labels = percent_format(),
-                     breaks = pretty_breaks(n = 6)) +
-  scale_y_discrete(labels = c("Party Committee $", "Candidate Committee $", 
-                              "Leadership PAC $")) +
-  labs(x = "% Change in Contributions (exp(Coefficient Estimate))", y = "") +
-  theme_pubr()
-ggsave("Figures/Results/party_int.pdf", height = 4, width = 7)
+ggsave("Figures/Results/party_coef.pdf", height = 4, width = 7)
 
 ## predicted values
 pred.party <- 
-  bind_rows(post.intprty, post.prty) %>%
+  post.prty %>%
   group_by(model) %>%
   mutate(no_pac_pred = exp(a + b_np),
-         pac_pred = exp(a),
-         new_member = exp(a + b_new),
-         int_pac_pred = exp(a + b_np + b_new + b_int)) %>%
-  dplyr::select(model, no_pac_pred, pac_pred, new_member, int_pac_pred) %>%
-  gather(no_pac_pred, pac_pred, new_member, int_pac_pred, 
+         pac_pred = exp(a)) %>%
+  dplyr::select(model, no_pac_pred, pac_pred) %>%
+  gather(no_pac_pred, pac_pred, 
          key = "type", value = "prediction") %>%
   group_by(model, type) %>%
-  median_hdi(.width = 0.89) %>%
-  mutate(prediction = ifelse(is.na(prediction) & model == "cmtpac.fit",
-                               1.212548e+04, prediction),
-         .lower = ifelse(is.na(.lower) & model == "cmtpac.fit",
-                                     1.106689e+04, .lower),
-         .upper = ifelse(is.na(.upper) & model == "cmtpac.fit",
-                                     1.327693e+04, .upper),
-         prediction = ifelse(is.na(prediction) & model == "ldrpac.fit",
-                               3.053255e+04, prediction),
-         .lower = ifelse(is.na(.lower) & model == "ldrpac.fit",
-                                     2.818047e+04, .lower),
-         .upper = ifelse(is.na(.upper) & model == "ldrpac.fit",
-                                     3.290842e+04, .upper),
-         prediction = ifelse(is.na(prediction) & model == "prtypac.fit",
-                               7.123738e+02, prediction),
-         .lower = ifelse(is.na(.lower) & model == "prtypac.fit",
-                                     5.490293e+02, .lower),
-         .upper = ifelse(is.na(.upper) & model == "prtypac.fit",
-                                     8.880864e+02	, .upper)) %>%
-  filter(str_detect(model, pattern = "int_", negate = TRUE))
+  median_hdi(.width = 0.89)
 
 ## all predictions
 ggplot(data = pred.party, 
@@ -5991,24 +3569,53 @@ ggplot(data = pred.party,
                      breaks = pretty_breaks(n = 6)) +
   scale_x_discrete(labels = c("Party Committee $", "Candidate Committees $", 
                               "Leadership PAC $")) +
-  labs(x = "", y = "", color = "Prediction:") +
-  scale_color_colorblind(labels = c("New Member & No to PACs", "New Member",
-                                    "No to PACs", "Yes to PACs")) +
+  labs(x = "Outcome Variable", 
+       y = "Predicted Contributions", 
+       color = "Prediction:") +
+  scale_color_colorblind()
+  scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
+                     labels = c("No to Corporate PACs", 
+                                "Yes to Corporate PACs")) +
   theme_pubr()
-ggsave("Figures/Results/party_preds.pdf", height = 5, width = 8)
+ggsave("Figures/Results/party_preds.pdf", height = 4, width = 8)
+
+# Binomial model
+post.prty %>%
+  mutate(p_np = logistic(p_np),
+         p = logistic(p)) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, p_np), x = p_np), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi,
+                fill = "#2D6CC0",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0.5), linetype = "dashed", color = "grey55") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_y_discrete(labels = c("Party Committee $", "Leadership PAC $", 
+                              "Candidate Committees $")) +
+  labs(x = "Predicted Probability of Receiving Contributions", 
+       y = "Outcome Variable") +
+  theme_pubr()
+ggsave("Figures/Results/pac_probs.pdf", height = 4, width = 8)
+
+# Tables ----------------------------------------------------------------------
+sink(file = "Tables/prty_results.tex")
+mcmcReg(list(ldrpac.fit, cmtpac.fit, prtypac.fit),
+        pointest = "median",
+        ci = 0.89,
+        hpdi = TRUE,
+        format = "latex",
+        pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
+                 "b_asian", "b_mhh", "b_clint", "b_house", "b_vpop", "scale",
+                 "p", "p_np", "p_new"))
+sink()
 ```
 
 ## Individual Results 
 
 ```{r}
-# Individual Results ----------------------------------------------------------
-## quick plots
-plot(smlindv.fit, show_density = TRUE, ci_level = 0.89)
-plot(lrgindv.fit, show_density = TRUE, ci_level = 0.89)
-plot(totindv.fit, show_density = TRUE, ci_level = 0.89)
-plot(individeopac.fit, show_density = TRUE, ci_level = 0.89)
-plot(bizindv.fit, show_density = TRUE, ci_level = 0.89)
-
 # extract posterior predictions
 ## individual contributions
 indiv.models <- c(smlindv.fit, lrgindv.fit, totindv.fit, individeopac.fit,
@@ -6025,8 +3632,11 @@ post.indiv %>%
   ggplot() +
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
                 .width = c(0.89, 0.5), 
-                point_interval = median_hdi) +
-  geom_vline(aes(xintercept = 0), linetype = "dashed") +
+                point_interval = median_hdi,
+                fill = "#2D6CC0",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
   scale_x_continuous(labels = percent_format(),
                      breaks = pretty_breaks(n = 6)) +
   scale_y_discrete(labels = c("Indiv. Business $", 
@@ -6034,8 +3644,8 @@ post.indiv %>%
                               "Indiv. Ideological $",
                               "Total Individual $",
                               "Small Individual $")) +
-  labs(x = "% Change in Contributions (exp(Coefficient Estimate))", y = "") +
-  scale_color_colorblind() +
+  labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
+       y = "Outcome Variable") +
   theme_pubr()
 ggsave("Figures/Results/indv_coef.pdf", height = 4, width = 7)
 
@@ -6051,7 +3661,6 @@ pred.indv <-
   group_by(model, type) %>%
   median_hdi(.width = 0.89)
 
-## all predictions
 ggplot(data = pred.indv, 
        aes(x = fct_reorder(model, prediction),
            y = prediction, 
@@ -6072,21 +3681,33 @@ ggplot(data = pred.indv,
   scale_x_discrete(labels = c("Indiv. Ideological $","Small Individual $", 
                               "Indiv. Business $", "Large Individual $", 
                               "Total Individual $")) +
-  labs(x = "", y = "", color = "Prediction:") +
-  scale_color_colorblind(labels = c("No to PACs", "Yes to PACs")) +
+  labs(x = "Outcome Variable", 
+       y = "Predicted Contributions", 
+       color = "Prediction:") +
+  scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
+                     labels = c("No to Corporate PACs", 
+                                "Yes to Corporate PACs")) +
   theme_pubr() +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ggsave("Figures/Results/indv_preds.pdf", height = 4, width = 8)
+
+# Tables ----------------------------------------------------------------------
+sink(file = "Tables/indiv_results.tex")
+mcmcReg(list(smlindv.fit, lrgindv.fit, totindv.fit, individeopac.fit,
+                  bizindv.fit),
+        pointest = "median",
+        ci = 0.89,
+        hpdi = TRUE,
+        format = "latex",
+        pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
+                 "b_asian", "b_mhh", "b_clint", "b_house", "b_vpop", "scale",
+                 "prob"))
+sink()
 ```
 
 ## Vote Results
 
 ```{r}
-# Vote Results ----------------------------------------------------------------
-## quick plots
-plot(voting.fit, show_density = TRUE, ci_level = 0.89)
-plot(turnout.fit, show_density = TRUE, ci_level = 0.89)
-
 # extract posterior predictions
 ## voting
 vote.models <- c(voting.fit, turnout.fit)
@@ -6101,15 +3722,18 @@ post.vote %>%
   ggplot() +
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
                 .width = c(0.89, 0.5), 
-                point_interval = median_hdi) +
+                point_interval = median_hdi,
+                fill = "#2D6CC0",
+                color = "black",
+                alpha = 0.9) +
   geom_vline(aes(xintercept = 0), linetype = "dashed") +
   scale_x_continuous(labels = percent_format(),
                      breaks = pretty_breaks(n = 6)) +
   scale_y_discrete(labels = c("V.A.P. Turnout", "Vote Share")) +
-  labs(x = "% Change",
-       y = "") +
+  labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
+       y = "Outcome Variable") +
   theme_pubr()
-ggsave("Figures/Results/vote_coef.pdf", height = 4)
+ggsave("Figures/Results/vote_coef.pdf", height = 4, width = 7)
 
 ## predicted values
 pred.vote <- 
@@ -6141,8 +3765,24 @@ ggplot(data = pred.vote,
                   show.legend = FALSE) +
   scale_y_continuous(breaks = pretty_breaks(n = 6)) +
   scale_x_discrete(labels = c("V.A.P. Turnout", "Vote Share")) +
-  labs(x = "", y = "", color = "Prediction:") +
-  scale_color_colorblind(labels = c("No to PACs", "Yes to PACs")) +
+  labs(x = "Outcome Variable", 
+       y = "Predicted %", 
+       color = "Prediction:") +
+  scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
+                     labels = c("No to Corporate PACs", 
+                                "Yes to Corporate PACs")) +
   theme_pubr()
-ggsave("Figures/Results/vote_preds.pdf", height = 4)
+ggsave("Figures/Results/vote_preds.pdf", height = 4, width = 6)
+
+# Tables ----------------------------------------------------------------------
+sink(file = "Tables/vote_results.tex")
+mcmcReg(list(voting.fit, turnout.fit),
+        pointest = "median",
+        ci = 0.89,
+        hpdi = TRUE,
+        format = "latex",
+        pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
+                 "b_asian", "b_mhh", "b_clint", "b_house", "b_vpop", "scale",
+                 "prob"))
+sink()
 ```

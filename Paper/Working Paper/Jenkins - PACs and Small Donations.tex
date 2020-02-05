@@ -25,7 +25,7 @@
 \usepackage{footnote}
 \usepackage[titletoc,title]{appendix}
 \usepackage{tikz}
-\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
 \usepackage{tabu}
 \usepackage{graphicx}
 \usepackage{longtable}
@@ -36,6 +36,7 @@
 \usepackage{subcaption}
 \usepackage{ntheorem}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{bm}
 \usetikzlibrary{shapes, shadows, arrows}
 \usepackage{rotating}
@@ -142,53 +143,7 @@
 \doublespacing
 
 % Section 1: Introduction  %
-\section{Research Question}
-
-How does rejecting PAC money affect the distribution of campaign contributions that a candidate receives?
-
-Does rejecting PAC money increase the amount of individual donations a candidate receives?
-
-Rejecting PACs as a way to beat incumbent advantage?
-
-\begin{hyp}
-	Candidates that reject will receive fewer corporate PAC contributions.
-\end{hyp}
-
-Rejecting corporate PAC money is likely a signal of trustworthiness and honesty and doing so will require raising money for other sources. The most popular strategy is to ask individual donors.
-
-\begin{hyp}
-	Candidates that reject PAC money will receive an increase in small-dollar donations. 
-\end{hyp} 
-
-Rejecting PAC money and betting on small-dollar donations is risky, so organizations interested in the success of their campaign, could be businesses, political parties, or other candidates, may increase their contributions. Businesses may still contribute to candidates through individual donations. This could be with or without the consent of the candidate.
-
-\begin{subhyp}
-	\begin{hyp}
-		Candidates that reject PAC money will receive more contributions from political parties.
-	\end{hyp}
-	
-	\begin{hyp}
-		Candidates that reject PAC money will receive more contributions from individuals associated with businesses.
-	\end{hyp}
-	
-	\begin{hyp}
-		Candidates that reject PAC money will receive more contributions from other candidates.
-	\end{hyp}
-\end{subhyp}
-
-
-Rejecting PAC money could also be the result of a strategy/agreement with a party or ideological PACs to win the election without corporate PAC money.
-
-\begin{hyp}
-	New members who reject PAC money will receive more donations from non-corporate PACs.
-\end{hyp}
-
-
-
-
 \section{Introduction} \label{sec: intro}
-% Introduction: A clear, concise statement of the puzzle you are addressing, of your proposed resolution, and of the empirical work you will do.
-
 
 On national television during the Democratic debate on February 6, 2016, Bernie Sanders stood on stage and enthusiastically announced to the audience, ``I am very proud to be the only candidate up here who does not have a super PAC, who’s not raising huge sums of money from Wall Street and special interests." Indeed, during the campaign, Sanders publicly voiced his opposition to PAC contributions and refused to accept their donations while his Democratic opponent, Hillary Clinton, accepted over \$1.7 million from political action committees (PACs) for which she faced sharp criticism from voters on the left \citep{harper_2020_2019, ye_hee_lee_sanderss_2016, seitz-wald_promise_2015, bump_why_2016}. 
 
@@ -198,9 +153,7 @@ The push for campaign donations in the form of small-dollar donations, rather th
 
 Despite this shift away from PAC donations, however, is the claim that these strategies galvanize individuals to donate true? That is, does publicly rejecting PAC contributions mobilize voters to donate to political campaigns? Additionally, and perhaps more importantly, does pledging to reject PAC money lead to increases in contributions from alternative sources like political parties, ideological interest groups, or wealthy individuals? Finally, does this strategy yield any benefits for election outcomes?
 
-In this article, I use Federal Election Commission data on campaign donations for all Democratic candidates in the 2018 Congressional House Elections to examine these questions. 
-Using a zero-augmented Gamma likelihood function to model the data generating process, I show that rejecting PAC donations does encourage more individual contributions but it is also associated with an increase in contributions from alternative actors like ... 
-
+In this article, I use Federal Election Commission data on campaign donations for all Democratic candidates in the 2018 Congressional House Elections to examine these questions. I show that rejecting PAC donations does encourage more individual contributions but it is also associated with an increase in contributions from other elected officials, and individuals associated with ideological and business organizations.   
 
 This study makes two significant contributions. First, to my knowledge, it is the first to examine the effects of pledging to reject PAC contributions on the distribution of a  candidate's campaign contributions. Campaign finance is an omnipresent concern for the vast majority of voters and political scientists and refusing PAC donations presents a curious strategy with unknown consequences. Perhaps such a strategy is born out of honest intentions, perhaps it is not. Either way, the systematic examination offered in this article provides valuable insights on the effects of this growing strategy. 
 
@@ -211,22 +164,141 @@ Second, this study is the first to test the implicit causal claim that voters wa
 
  Americans are remarkably cynical about Congress, and this cynicism is increasing. According to a survey conducted by the Pew Research Center, as of February of 2014, only twenty-four percent of the public trust Congress \citep{pew_research_center_public_2014} and public trust in Congress has been declining since 1950 \citep{dalton_social_2005}. Among the sources of distrust, researchers have argued that perceptions of corruption and money in politics play a crucial role \citep{persily_perceptions_2004, vanheerde-hudson_parties_2013}. 
  
- Although a lot is known about voting in congressional \citep{abramowitz_explaining_1988, welch_effects_1997} and presidential races \citep{petrocik_issue_1996, nadeau_national_2001, polsby_landmarks_2002}, less is known about the effects of campaign money on attitudes and support for presidential candidates. Specifically, do the sources of funding that a candidate receives affect their public support? 
+ Of general interest to scholars is explaining contribution among both individuals and PACs.  For example, scholars have examined how of campaign finance legislation and Federal Election Commission (FEC) regulations affect the behavior of large donors \citep{magleby_money_2010, raja_small_2008} and why donors donate, to what extent their donations influence policy, and what their donation strategies are \citep{francia_financiers_2003}. Most relevant to this study, \citet{alexander_good_2005} examined the effects of campaign funding sources on candidate vote share and finds that PAC and in-state donations are positively correlated with a candidate's vote share while self-financing has a negative relationship. Although researchers have typically focused their attention on large donors, since their more obvious potential to influence political outcomes, \citep{barber_ideologically_2017, francia_financiers_2003}, studies of small donors also exist \citep{johnson_individual_2010, lipsitz_filled_2011}.  
  
- Previous research has investigated the role of money in politics and campaigns, which has given us a better understanding of who donates to campaigns. For example, scholars have examined the role of campaign finance legislation and the FEC and how they limit or fail to limit, undue influence of large donors  \citep{magleby_money_2010, raja_small_2008}. Researchers have also investigated why donors donate, to what extent their donations influence policy, and what their donation strategies are \citep{francia_financiers_2003}. Most relevant to this study, \citet{alexander_good_2005} correlated campaign funding sources with candidate vote share. He finds that PAC and in-state donations are correlated with a candidate's vote share. In a study of small-dollar donations in Congressional elections, \citep{culberson_small_2019} find that small-dollar contributions are distributed rather evenly across candidates, including non-incumbents. Similarly, they find that small-dollar donations are more numerous in competitive elections and among more ideologically extreme candidates. \citep{culberson_small_2019} conclude by arguing that the participation of small-dollar donors ``may help with democratization of the electoral process by expanding participation in campaign financing, with money flowing more equally to all candidate types."   
+ In one such study of small-dollar donations in Congressional elections, \citep{culberson_small_2019} find that small-dollar contributions are distributed rather evenly across candidates, including non-incumbents. Similarly, they find that small-dollar donations are more numerous in competitive elections and among more ideologically extreme candidates. \citep{culberson_small_2019} conclude by arguing that the participation of small-dollar donors ``may help with democratization of the electoral process by expanding participation in campaign financing, with money flowing more equally to all candidate types."   
  
  More recently, researchers have begun investigating how individuals perceive money in politics. For example, \citet{bowler_campaign_2016} conduct a survey experiment and find that beliefs about donations are dependent on partisanship and information about the source of the donations. In the end, they conclude that attitudes about campaign contributions are informed by much more than just perceptions of corruption. This suggests that the source of the contributions does matter to voters and that messages about campaign finance may alter their perception of candidates. Indeed, by announcing opposition to PAC donations, candidates may provide an information signal to voters that PAC donations produce adverse effects and that pursuing financing through alternative means is a more ``ethical" strategy. 
  
- That American's lack political knowledge is perhaps the most well established finding in political science \citep{page_rational_1992, carpini_what_1997}. Hence, there is little reason to suspect that voters are knowledgeable about a particular candidate's campaign contribution sources unless they are explicitly discussed. However, voters typically think that contributions to candidates from corporations are more corrupt than contributions from individuals \citep{bowler_campaign_2016}. Moreover, the majority of Americans are dissatisfied with campaign practices in general, \citep{mayer_public_2001, persily_perceptions_2004}. Since trust in political officials has been declined over the last several decades, candidates should be able to use this to their advantage on the campaign trail.
+ That American's lack political knowledge is perhaps the most well established finding in political science \citep{page_rational_1992, carpini_what_1997}. Hence, there is little reason to suspect that voters are knowledgeable about a particular candidate's campaign contribution sources unless they are explicitly discussed. However, voters typically think that contributions to candidates from corporations are more corrupt than contributions from individuals \citep{bowler_campaign_2016}. Moreover, the majority of Americans are dissatisfied with campaign practices in general, \citep{mayer_public_2001, persily_perceptions_2004}. Since trust in political officials has been declined over the last several decades, candidates should be able to use this to their advantage on the campaign trail. Specifically, pledging to reject corporate PAC donations might be an attempt to signal their trustworthiness to voters. 
  
- Given that Americans are typically unaware of political information and that they tend to be distrusting of campaign financing, candidates can strategically advertise the fact that they will not accept PAC contributions. By doing so, they can prime voters to interpret this message as saying that rejecting PAC money means a more trustworthy and honest candidate. Such priming effects through the media have been well-documented \citep{iyengar_news_1989}. Indeed, Ella \citet{nilsen_race_2019} reported that Elizabeth Warren ``swore off PAC money to make a statement" in a story for Vox.com. In an email to her supporters Warren explained, ``For every time you see a presidential candidate talking with voters at a town hall, rally, or local diner, those same candidates are spending three or four or five times as long with wealthy donors — on the phone, or in conference rooms at hedge fund offices, or at fancy receptions and intimate dinners — all behind closed doors" \citep{nilsen_race_2019}. The 2020 Democratic candidates are almost in competition to distance themselves as far as they can from PACs and special interests. 
+ Such signaling effects through the media have been well-documented \citep{iyengar_news_1989} and voters see small-dollar donations from individuals as more honest \citep{bowler_campaign_2016}. Indeed, Ella \citet{nilsen_race_2019} reported that Elizabeth Warren ``swore off PAC money to make a statement" in a story for Vox.com. In an email to her supporters Warren explained, ``For every time you see a presidential candidate talking with voters at a town hall, rally, or local diner, those same candidates are spending three or four or five times as long with wealthy donors — on the phone, or in conference rooms at hedge fund offices, or at fancy receptions and intimate dinners — all behind closed doors" \citep{nilsen_race_2019}. The 2020 Democratic candidates are almost in competition to distance themselves as far as they can from PACs and special interests and there is little reason to suspect that the 2018 Democratic Congressional candidates would view this issue any differently. This reasoning motivates my first hypothesis:  
  
- Campaigns are still extraordinarily expensive, however, and rejecting contributions from large donors means that the money needs to come from somewhere else. Further, Democratic candidates like Bernie Sanders are soliciting donations from individuals for small amounts by advertising the fact that the average donation made to the campaign in 2020 is twenty-seven dollars \citep{gambino_not_2019}. This strategy is not only meant to galvanize supporters to donate, but since voters see small-dollar donations from individuals as more honest \citep{bowler_campaign_2016} it also creates an image of honesty and trustworthiness. These strategies are risky and require candidates to make-up for the lack of PAC contributions with these small-dollar donations from individuals. Ella \citet{nilsen_race_2019} called Warren's more extreme strategy of saying no to, ``... PAC[s], corporate PAC[s], or Super PAC money, [and] no donations from federal lobbyists" a ``risky move." These candidates must be hoping that their public stances against large-dollar donations will excite their supporters enough to get them to donate to their campaigns.
+ \begin{hyp}
+ 	Candidates that pledge to reject corporate PAC contributions will receive an increase in individual small-dollar donations. 
+ \end{hyp}
+ 
+ Campaigns are still extraordinarily expensive, however, and rejecting contributions from PACs means that the money will need to come from somewhere else. In general PACs tend to prioritize their contributions for incumbents rather than challengers \citep{brunell_relationship_2005} and that they often wait to support challengers until they show success in raising funds from other sources \citep{biersack_seeds_1993}. Individual donors, on the other hand, tend to be wealthy \citep{brown_serious_1995} and target candidates that are ideologically similar \citep{bonica_mapping_2014}. Candidates, however, can also receive support from political parties and other candidates or elected officials. Contributions from these sources may not seem as ``corrupt" thus provided candidates that reject PAC money with a fall back option if individual donors do not reach expectations. Moreover, political parties are much more vested in the success of their party's candidates and thus are less likely to risk their candidates not being able to raise enough money. This motivates my second hypothesis:
+ 
+ \begin{hyp}
+ 	Candidates that reject corporate PAC money will receive more contributions from partisan sources.  
+ \end{hyp}
+ 
+ Perhaps more concerning, is the possibility that corporate PACs will decided to exert their influence on candidates through individual donations. \citet{francia_financiers_2003} identify four categories of of big donors: those that seek material gain, those with ideological agendas, those motivated by the social considerations, and those with irregular behavior. Although it is difficult to access the motivations of these donors, it is at least possible that those motivated by material gain are more closely associated with corporate interests. Indeed, the Center for Responsive Politics documents donations made by individuals made in connection with larger organizations and state that, ``In some cases, a cluster of contributions from the same organization may indicate a concerted effort by that organization to "bundle" contributions to the candidate." This motivates a final hypothesis:
+ 
+ \begin{hyp}
+ 	Candidates that reject corporate PAC money will receive more contributions from individuals associated with business and ideological interests. 
+ \end{hyp}
+ 
+ In summary, pledging to reject corporate PAC contributions likely signals to voters that a candidate is not ``bought-out" by special interests and is thus more trustworthy. As a result of this signaling, the candidate should receive an increase in individual small-dollar donations. Rejecting such a large source of funding is also introduces an electoral risk, one that political parties, who are primarily interested in the success of their candidates, may not be willing to accept. Thus, candidates who reject PAC money will receive an increase in contributions from partisan organizations like parties themselves or incumbents. Finally, since the opportunity cost of making political contributions is so high \citep{grier_committee_1991}, businesses are unlikely to cease their involvement in campaigns because a member will not accept money from their associated PAC. Instead, they can still exert their influence, albeit more discreetly, through individual donations. Thus, candidates that pledge to reject corporate PAC contributions will receive an increase in contributions from individuals associated with corporations.
 
-%\section{Implications}
-% Implications: Explain what you expect the completed project will add to our understanding of some broader set of analytical or empirical issues in IPE.
+
+\section{The Data}
 
 
+
+
+\section{Model Definition}
+
+The goal of any statistical model is to describe the data generating process of the outcome under consideration. In this study, the primary interest is in modeling the generative process of campaign contributions from PACs, political party organizations, and individuals. Campaign contributions are composed on positive real values. Thus, campaign contributions likely arise from a gamma process since the gamma distribution describes a data generating process for a random variable with only positive real number outcomes $y \in  \mathbb{R}^+$. 
+
+However, because some candidates pledge to reject contributions from PACs, contribution values of zero are also possible. A zero could result because they accept zero contributions from a group, but a group could also decide not to contribute to a candidate because they pledged to reject PAC contributions. For example, suppose a new candidate takes to pledge to reject PAC contributions because they feel that doing so is morally good. Further suppose, however, that their political party's leadership wanted the candidate to announce their opposition to PACs after they had some time to evaluate this candidate's probability of winning the election and estimate their fund raising needs. Because the candidate did not wait for the party's approval, the party decides that this candidate has little chance of success given the timing of their announcement and therefore choses not to give this candidate funds from the party committee. In this situation, the candidate would receive zero contributions from their party because they pledge to reject PAC contributions. 
+
+This dual process is summarized in Figure \ref{fig: zeros}. Candidates decided either to reject PACs with probability of $\pi$ or accept PACs with probability $(1 - \pi$). If the reject PACs, we will observe a zero. If they accept PACs, we may still observe a zero if the candidate fails to attract donations from the group in question. Of the 167 candidates in the data, 9 did not receive contributions from business PACs, 2 did not receive contributions from ideological PACs, 4 did not receive contributions from labor PACs, 20 did not receive contributions from candidate committees, 141 did not receive contributions from party committees, 16 did not receive contributions from leadership PACs, 7 did not receive contributions from individuals associated with ideological organizations, and 113 did not receive contributions from individuals associated with labor organizations. 
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[
+		node distance=2.0cm,
+      scale=0.5,
+      level/.style={thick},
+      virtual/.style={thick,densely dashed},
+      trans/.style={->,shorten >=2pt,shorten <=2pt,>=stealth},
+      classical/.style={thin,double,<->,shorten >=4pt,shorten <=4pt,>=stealth}
+    ]
+	\node(a)[circle, draw=black, label={160:Reject PACs}] {};
+	\node(z)[right of=a] {};
+	\node(b)[circle, draw=black, right of=z, label={80:Accept PACs}] {};
+	\node(c)[circle, draw=black, above of=z] {};
+	\node(d)[below of=a] {observe $y = 0$};
+	\node(e)[below of=b] {observe $y > 0$};
+	
+	\draw [trans] (c) -- (a) node[midway, left] {$\pi$};
+	\draw [trans] (c) -- (b) node[midway, right] {$(1 - \pi)$};
+	\draw [trans] (a) -- (d);
+	\draw [trans] (b) -- (e);
+	\draw [trans] (b) -- (d);
+	\end{tikzpicture}
+	\caption{\textbf{Zero Generation Process.} Candidates can receive zero contributions through two different process. First, they may receive zero contributions because they pledge to reject PAC contributions. Second, they may receive zero contributions because they simply do not receive contributions from a particular group.}
+	\label{fig: zeros}
+\end{figure}
+
+
+Because the gamma distribution is not defined for zero values, I use a zero-augmented gamma likelihood function for models of contributions that contain zero values mentioned above. The zero-augmented gamma likelihood is a mixture of a bernoulli and gamma processes. Thus, the probability density $f(y)$ for contributions can be defined as:    
+
+  \begin{align}
+f(y) = \left\{ \begin{array}{cc} 
+                \pi & \hspace{5mm} \text{if $y = 0$} \\
+                (1 - \pi) \text{Gamma}(k, \theta) & \hspace{5mm}  \text{if $y > 0$} \\
+                \end{array} \right.
+\end{align}
+
+\noindent where $\pi$ is the probability of receiving zero contributions from a given group ($y = 0$), and $k$ and $\theta$ define a gamma distribution with mean $k\theta^{-1}$ and rate $\theta$. This likelihood can be easily summarized as $\text{ZGamma}(\pi, \mu, \theta)$ where $\pi$ indicates the probability of a zero, and non-zero outcomes are described by a mean $\mu$ and rate $\theta$. For more information on the mathematical details, see \citet{mccullagn_generalized_1989}. An alternative solution to model this data would be to model cases of zero contributions separately from non-zero cases, but this approach would sacrifice information about the relationship between these cases. 
+
+\subsection{Modeling Campaign Contributions}
+
+Campaign contributions are divided into three groups. Contributions from PACs, contributions from political party organizations, and contributions from individuals. In the PAC group, I examine the pattern of contributions made to candidates from PACs that primarily represent business, labor, and ideological interests. In the political party group, I examine contributions to candidates from leadership PACs, political party committees, and candidate committees. Leadership PACs are PACs created by incumbents to raise money to cover expenditures that cannot be paid by campaign committees or congressional offices. Additionally, leadership PAC funds can be used to fund other candidates campaigns as is often the case \citep{lazer_leadership_2015}. Along with leadership PACs, political parties also have the ability to contribute to a candidate's campaign. Finally, a member can use their candidate committee to contribute to another member's campaign. This is often do to support candidates of one's party who are challenging incumbents or are at risk of being defeated \citep{lazer_candidate_2015}. 
+
+For the final group, individual contributions, I examine small-dollar contributions ($< \$200$), large-dollar contributions ($> \$200$), and individual contributions associated with ideological, labor and business organizations. Since the Federal Election Commission requires that all contributions above \$200 must be itemized and list the donor's employer and occupation information, this information can be used to approximate a donors economic interest. This is, of course, not a perfect measurement but it will provide insight on the types of individual donations that a candidate receives. 
+
+The model structure used to estimate campaign contributions for outcomes that contain zeros is given by: 
+
+$$
+\begin{aligned}
+	y_i &\sim \text{ZGamma}(\pi_i, \mu_i, \theta_i) \\
+	\log \frac{\pi_i}{1 - \pi_i} &= \alpha_{\pi} + \beta_{1\pi} (\text{No PACs})_i + \beta_{2\pi} (\text{New Member})_i \\
+	\mu_i &= \alpha_{\mu} + \beta_{1\mu} (\text{No PACs})_i + \bm{X} \bm{\beta_{\mu}} \\
+\end{aligned}
+$$
+
+\noindent where $i$ indexes individuals, $\bm{X}$ is a matrix of control variables, and $\bm{\beta_{\mu}}$ is the corresponding coefficient vector. In these models, the probability of receiving contributions is modeled as a function of both rejecting PACs (0 - 1 indicator) and being a new member (0 - 1 indicator). Previous research indicates that PACs almost exclusively contribute to incumbents \citep{brunell_relationship_2005} and that they often wait to support challengers until they show success in raising funds from other sources \citep{biersack_seeds_1993}. 
+
+To model campaign contributions for outcomes without zeros (small-dollar individual, large-dollar individual, business individual, total individual, vote share, voting age population turnout), I use a standard gamma likelihood. Finally, to model the number of PAC contributors that a candidate has, I use a Poisson likelihood. 
+
+\subsection{Priors}
+
+Just as the chose of likelihoods and link functions can lead to different results, the choice of priors also affects model results. Priors, even when somewhat strong, are typically overridden by the data when working with large-n dataset but when working with small-n data priors can have large influences if one is not careful \citep{mcneish_using_2016}. Although this risk is present, Bayesian methods can also outperform Frequentist methods when working with small-n data since Bayesian analysis does not asympotic properties and because priors can be used to help narrow the range of plausible values that the model can produce. 
+
+I use weakly-informative priors for two reasons. First, because the sample size is 167 individuals I use priors to tell the model what reasonable values of the parameters can take on. This practice leads to estimates that better approximate large-n estimates because irregular variance due to the small-n nature of the data can be discounted \citep{mcneish_using_2016}. Second, ``uniformative" priors is almost never reasonable since one always knows \textit{a priori} something about the range of plausible values \citep{gelman_weakly_2008}. For example, whether one studies politics or not, it is known that a candidates vote share cannot exceed 100\% and cannot fall below 0\%. For simulations of the priors used in each specification see Appendix INSERT HERE.
+
+
+\section{Results}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\linewidth]{../../Figures/Results/pac_coef.pdf}
+	\caption{\textbf{The Effect of Rejecting Corporate PAC Contributions on PAC Contributions.} This figure presents the posterior distributions estimated for a candidate that pledges to reject corporate PAC contributions. The dot shows the median coefficient estimate and the intervals show the 50\% and 89\% highest density intervals. This figure shows that candidates that pledge to reject corporate PAC contributions experience a reduction in contributions from all types of PACs. See Table \ref{tbl: pac results} for the formal estimates.}
+	\label{fig: pac results}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\linewidth]{../../Figures/Results/party_coef.pdf}
+	\caption{\textbf{The Effect of Rejecting Corporate PAC Contributions on Contributions from Party Organizations.} This figure presents the posterior distributions estimated for a candidate that pledges to reject corporate PAC contributions. The dot shows the median coefficient estimate and the intervals show the 50\% and 89\% highest density intervals. This figure shows that candidates that pledge to reject corporate PAC contributions experience a reduction in contributions from leadership PACs but also experience an increase in contributions from candidate committees. See Table \ref{tbl: pac results} for the formal estimates.}
+	\label{fig: party results}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\linewidth]{../../Figures/Results/indv_coef.pdf}
+	\caption{\textbf{The Effect of Rejecting Corporate PAC Contributions on Contributions from Individuals.} This figure presents the posterior distributions estimated for a candidate that pledges to reject corporate PAC contributions. The dot shows the median coefficient estimate and the intervals show the 50\% and 89\% highest density intervals. This figure shows that candidates that pledge to reject corporate PAC contributions experience a reduction in contributions from leadership PACs but also experience an increase in contributions from candidate committees. See Table \ref{tbl: pac results} for the formal estimates.}
+	\label{fig: individual results}
+\end{figure}
+
+
+\section{Discussion}
+
+ Although candidates that took the pledge to reject PAC contributions explicitly stated that they are reject corporate PAC contributions, it is possible that this could affect contributions from PACs beyond those with primarily business interests. A candidate's decision to reject corporate PAC contributions is clearly strategic since they are choosing to retain the ability to receive donations from ideological and labor PACs. Candidates could have deliberated with ideological and labor organizations to develop this strategy with an agreement to help the member's campaign in the event that contributions from individuals fail to reach their expected values. 
 
 
 \pagebreak
@@ -238,8 +310,18 @@ Second, this study is the first to test the implicit causal claim that voters wa
 
 
 \begin{appendices}
+\doublespacing
+% Set Tables Names to have "A" Before the Table Names
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
 
+\begin{landscape}
 
+\input{../../Tables/pac_results_formatted.tex}
+
+\end{landscape}
+
+%\input{../../Tables/prty_results_formatted.tex}
 
 \end{appendices}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  31 JAN 2020 14:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  4 FEB 2020 18:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -430,15 +430,18 @@ File: pgfmodulematrix.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \tikz@expandcount=\count135
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2019/04/04 v3.1.2 (3.1.2)
-))) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2019/04/04 v3.1.2 (3.1.2)
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/tabu/tabu.sty
+))) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
+ (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
+File: pgflibraryarrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
+\arrowsize=\dimen167
+)) (/usr/local/texlive/2019/texmf-dist/tex/latex/tabu/tabu.sty
 Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
  (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/array.sty
 Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
-\col@sep=\dimen167
+\col@sep=\dimen168
 \ar@mcellbox=\box41
-\extrarowheight=\dimen168
+\extrarowheight=\dimen169
 \NC@list=\toks32
 \extratabsurround=\skip54
 \backup@length=\skip55
@@ -447,8 +450,8 @@ Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box43
 \sift@deathcycles=\count136
-\@vwid@loff=\dimen169
-\@vwid@roff=\dimen170
+\@vwid@loff=\dimen170
+\@vwid@roff=\dimen171
 )
 \c@taburow=\count137
 \tabu@nbcols=\count138
@@ -456,15 +459,15 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@Xcol=\count140
 \tabu@alloc=\count141
 \tabu@nested=\count142
-\tabu@target=\dimen171
-\tabu@spreadtarget=\dimen172
-\tabu@naturalX=\dimen173
-\tabucolX=\dimen174
-\tabu@Xsum=\dimen175
-\extrarowdepth=\dimen176
-\abovetabulinesep=\dimen177
-\belowtabulinesep=\dimen178
-\tabustrutrule=\dimen179
+\tabu@target=\dimen172
+\tabu@spreadtarget=\dimen173
+\tabu@naturalX=\dimen174
+\tabucolX=\dimen175
+\tabu@Xsum=\dimen176
+\extrarowdepth=\dimen177
+\abovetabulinesep=\dimen178
+\belowtabulinesep=\dimen179
+\tabustrutrule=\dimen180
 \tabu@thebody=\toks33
 \tabu@footnotes=\toks34
 \tabu@box=\box44
@@ -479,7 +482,7 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
 \LTpre=\skip59
 \LTpost=\skip60
 \LTchunksize=\count143
-\LTcapwidth=\dimen180
+\LTcapwidth=\dimen181
 \LT@head=\box48
 \LT@firsthead=\box49
 \LT@foot=\box50
@@ -504,35 +507,35 @@ Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2016/04/27 v1.618033 publication quality tables
-\heavyrulewidth=\dimen181
-\lightrulewidth=\dimen182
-\cmidrulewidth=\dimen183
-\belowrulesep=\dimen184
-\belowbottomsep=\dimen185
-\aboverulesep=\dimen186
-\abovetopsep=\dimen187
-\cmidrulesep=\dimen188
-\cmidrulekern=\dimen189
-\defaultaddspace=\dimen190
+\heavyrulewidth=\dimen182
+\lightrulewidth=\dimen183
+\cmidrulewidth=\dimen184
+\belowrulesep=\dimen185
+\belowbottomsep=\dimen186
+\aboverulesep=\dimen187
+\abovetopsep=\dimen188
+\cmidrulesep=\dimen189
+\cmidrulekern=\dimen190
+\defaultaddspace=\dimen191
 \@cmidla=\count148
 \@cmidlb=\count149
-\@aboverulesep=\dimen191
-\@belowrulesep=\dimen192
+\@aboverulesep=\dimen192
+\@belowrulesep=\dimen193
 \@thisruleclass=\count150
 \@lastruleclass=\count151
-\@thisrulewidth=\dimen193
+\@thisrulewidth=\dimen194
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
  (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen194
-\captionmargin@=\dimen195
-\captionwidth=\dimen196
-\caption@tempdima=\dimen197
-\caption@indent=\dimen198
-\caption@parindent=\dimen199
-\caption@hangindent=\dimen256
+\captionmargin=\dimen195
+\captionmargin@=\dimen196
+\captionwidth=\dimen197
+\caption@tempdima=\dimen198
+\caption@indent=\dimen199
+\caption@parindent=\dimen256
+\caption@hangindent=\dimen257
 )
 \c@caption@flags=\count152
 \c@ContinuedFloat=\count153
@@ -566,10 +569,10 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \theorem@framepostskip=\toks44
 \theorem@inframepreskip=\toks45
 \theorem@inframepostskip=\toks46
-\theoremindent=\dimen257
-\theorem@indent=\dimen258
-\theoremrightindent=\dimen259
-\theorem@rightindent=\dimen260
+\theoremindent=\dimen258
+\theorem@indent=\dimen259
+\theoremrightindent=\dimen260
+\theorem@rightindent=\dimen261
 \theoremheaderfont=\toks47
 \theoremseparator=\toks48
 \theoremprework=\toks49
@@ -590,10 +593,10 @@ Package: amstext 2000/06/29 v2.01 AMS text
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks55
-\ex@=\dimen261
+\ex@=\dimen262
 )) (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen262
+\pmbraise@=\dimen263
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
@@ -609,7 +612,7 @@ LaTeX Info: Redefining \dots on input line 485.
 LaTeX Info: Redefining \cdots on input line 606.
 \Mathstrutbox@=\box52
 \strutbox@=\box53
-\big@size=\dimen263
+\big@size=\dimen264
 LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \macc@depth=\count161
@@ -622,18 +625,20 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \column@=\count166
 \maxfields@=\count167
 \andhelp@=\toks57
-\eqnshift@=\dimen264
-\alignsep@=\dimen265
-\tagshift@=\dimen266
-\tagwidth@=\dimen267
-\totwidth@=\dimen268
-\lineht@=\dimen269
+\eqnshift@=\dimen265
+\alignsep@=\dimen266
+\tagshift@=\dimen267
+\tagwidth@=\dimen268
+\totwidth@=\dimen269
+\lineht@=\dimen270
 \@envbody=\toks58
 \multlinegap=\skip70
 \multlinetaggap=\skip71
 \mathdisplay@stack=\toks59
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/bm.sty
 Package: bm 2017/01/16 v1.2c Bold Symbol Support (DPC/FMi)
 \symboldoperators=\mathgroup6
@@ -687,15 +692,9 @@ File: pgflibraryshapes.multipart.code.tex 2019/04/04 v3.1.2 (3.1.2)
 File: tikzlibraryshadows.code.tex 2019/04/04 v3.1.2 (3.1.2)
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfadings.code.tex
 File: tikzlibraryfadings.code.tex 2019/04/04 v3.1.2 (3.1.2)
-
 (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.code.tex
 File: pgflibraryfadings.code.tex 2019/04/04 v3.1.2 (3.1.2)
-))) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
-File: tikzlibraryarrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
- (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
-File: pgflibraryarrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
-\arrowsize=\dimen270
-)) (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/rotating.sty
+))) (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/rotating.sty
 Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 \c@r@tfl@t=\count168
 \rotFPtop=\skip72
@@ -987,8 +986,8 @@ Package: multicol 2018/12/27 v1.8v multicolumn formatting (FMi)
 \colbreak@box=\box126
 \mc@col@check@num=\count355
 )
-Package hyperref Info: Option `pdfnewwindow' set `true' on input line 66.
-Package hyperref Info: Option `colorlinks' set `false' on input line 66.
+Package hyperref Info: Option `pdfnewwindow' set `true' on input line 67.
+Package hyperref Info: Option `colorlinks' set `false' on input line 67.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex-chicago/biblatex-chicago.sty
 Package: biblatex-chicago 2018/01/10 v 3.10 biblatex style
  (/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex/biblatex.sty
@@ -1199,8 +1198,7 @@ Package biblatex Info: Patching 'autolang=other' option.
 ))
 Package biblatex Info: Trying to load configuration file...
 Package biblatex Info: ... file 'biblatex.cfg' found.
-
-(/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex/biblatex.cfg
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
 )))
 \c@hyp=\count478
@@ -1219,7 +1217,8 @@ Package biblatex Info: ... file 'american.lbx' found.
 File: american.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
- (/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 File: english.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
 ))
 Package biblatex Info: Trying to load language 'english'...
@@ -1229,22 +1228,22 @@ File: english.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
 )) (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.aux)
 \openout1 = `"Jenkins - PACs and Small Donations.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 131.
-LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
 \AtBeginShipoutBox=\box127
-Package hyperref Info: Link coloring OFF on input line 131.
+Package hyperref Info: Link coloring OFF on input line 132.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -1252,9 +1251,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count480
 )
-LaTeX Info: Redefining \ref on input line 131.
-LaTeX Info: Redefining \pageref on input line 131.
-LaTeX Info: Redefining \nameref on input line 131.
+LaTeX Info: Redefining \ref on input line 132.
+LaTeX Info: Redefining \pageref on input line 132.
+LaTeX Info: Redefining \nameref on input line 132.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1404,88 +1403,771 @@ Package biblatex Info: Automatic encoding selection.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"Jenkins - PACs and Small Donations".bbl' found.
- (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl
-
-Package biblatex Warning: Biber reported the following issues
-(biblatex)                with 'gambino_not_2019':
-(biblatex)                - Entry 'gambino_not_2019' (/Users/nick/Documents/Research/References/BibTeX/biblatex.bib): Invalid format '2019-03-10T06:00:35.000Z' of date field 'date' - ignoring.
-
-)
-Package biblatex Info: Reference section=0 on input line 131.
-Package biblatex Info: Reference segment=0 on input line 131.
-LaTeX Font Info:    Try loading font information for U+msa on input line 131.
+ (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl)
+Package biblatex Info: Reference section=0 on input line 132.
+Package biblatex Info: Reference segment=0 on input line 132.
+LaTeX Font Info:    Try loading font information for U+msa on input line 132.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 131.
+LaTeX Font Info:    Try loading font information for U+msb on input line 132.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 135.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 136.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 135.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 135.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
  [1
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Package hyperref Info: bookmark level for unknown hyp defaults to 0 on input line 154.
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.184 \end{hyp}
-                [1
-
-pdfTeX warning (ext4): destination with the same identifier (name{hyp.1}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.184 \end{hyp}
-               pdfTeX warning (ext4): destination with the same identifier (name{hyp.2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.184 \end{hyp}
-               ]
 
 Package biblatex Warning: Name format 'first-last' deprecated.
 (biblatex)                Please use 'given-family' instead.
 (biblatex)                Using 'given-family' now.
 
-[2] [3]
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.155 
+       [1
 
-Package biblatex-chicago Warning: Empty Ibidem citation on input line 216.
+] [2]
 
-[4] [5] [6] [7] [8]
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 169.
+
+[3]
+
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 175.
+
+Package hyperref Info: bookmark level for unknown hyp defaults to 0 on input line 178.
+[4] [5] [6] [7] [8] [9]
+
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 272.
+
+<../../Figures/Results/pac_coef.pdf, id=173, 505.89pt x 289.08pt>
+File: ../../Figures/Results/pac_coef.pdf Graphic file (type pdf)
+<use ../../Figures/Results/pac_coef.pdf>
+Package pdftex.def Info: ../../Figures/Results/pac_coef.pdf  used on input line 279.
+(pdftex.def)             Requested size: 399.29463pt x 228.1722pt.
+<../../Figures/Results/party_coef.pdf, id=176, 505.89pt x 289.08pt>
+File: ../../Figures/Results/party_coef.pdf Graphic file (type pdf)
+<use ../../Figures/Results/party_coef.pdf>
+Package pdftex.def Info: ../../Figures/Results/party_coef.pdf  used on input line 286.
+(pdftex.def)             Requested size: 399.29463pt x 228.1722pt.
+<../../Figures/Results/indv_coef.pdf, id=179, 505.89pt x 289.08pt>
+File: ../../Figures/Results/indv_coef.pdf Graphic file (type pdf)
+<use ../../Figures/Results/indv_coef.pdf>
+Package pdftex.def Info: ../../Figures/Results/indv_coef.pdf  used on input line 293.
+(pdftex.def)             Requested size: 399.29463pt x 228.1722pt.
+[10] [11 <../../Figures/Results/pac_coef.pdf>] [12 <../../Figures/Results/party_coef.pdf>] [13 <../../Figures/Results/indv_coef.pdf>] [14
+
+]
+Overfull \hbox (192.7769pt too wide) in paragraph at lines 309--309
+[][]\OT1/cmr/m/n/12 Bonica, Adam. 2014. \  Map-ping the Ide-o-log-i-cal Mar-ket-place." []eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/ajps.12062,
+ []
+
+[15] [16] [17] (../../Tables/pac_results_formatted.tex
+Overfull \hbox (29.52783pt too wide) in paragraph at lines 40--40
+[]|\OT1/cmr/m/n/12 Notes:
+ []
+
+
+Overfull \hbox (17.39046pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 The
+ []
+
+
+Overfull \hbox (23.59178pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 num-
+ []
+
+
+Overfull \hbox (13.80022pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ber
+ []
+
+
+Overfull \hbox (6.61974pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 of
+ []
+
+
+Overfull \hbox (21.13765pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 PAC
+ []
+
+
+Overfull \hbox (18.696pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 con-
+ []
+
+
+Overfull \hbox (13.47383pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 tri-
+ []
+
+
+Overfull \hbox (14.1266pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 bu-
+ []
+
+
+Overfull \hbox (22.02513pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 tions
+ []
+
+
+Overfull \hbox (5.05309pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 is
+ []
+
+
+Overfull \hbox (10.92802pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 es-
+ []
+
+
+Overfull \hbox (8.90443pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ti-
+ []
+
+
+Overfull \hbox (29.14034pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 mated
+ []
+
+
+Overfull \hbox (12.23357pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 us-
+ []
+
+
+Overfull \hbox (12.82106pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ing
+ []
+
+
+Overfull \hbox (3.0295pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 a
+ []
+
+
+Overfull \hbox (41.62355pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Gamma-
+ []
+
+
+Overfull \hbox (35.63333pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Poisson
+ []
+
+
+Overfull \hbox (18.696pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 like-
+ []
+
+
+Overfull \hbox (7.59889pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 li-
+ []
+
+
+Overfull \hbox (22.61263pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 hood
+ []
+
+
+Overfull \hbox (22.93901pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 func-
+ []
+
+
+Overfull \hbox (17.39046pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 tion
+ []
+
+
+Overfull \hbox (16.08492pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 and
+ []
+
+
+Overfull \hbox (13.47383pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 the
+ []
+
+
+Overfull \hbox (23.91817pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 other
+ []
+
+
+Overfull \hbox (23.59178pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 mod-
+ []
+
+
+Overfull \hbox (10.27525pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 els
+ []
+
+
+Overfull \hbox (12.82106pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 are
+ []
+
+
+Overfull \hbox (10.92802pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 es-
+ []
+
+
+Overfull \hbox (8.90443pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ti-
+ []
+
+
+Overfull \hbox (29.14034pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 mated
+ []
+
+
+Overfull \hbox (12.23357pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 us-
+ []
+
+
+Overfull \hbox (12.82106pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ing
+ []
+
+
+Overfull \hbox (21.95985pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 zero-
+ []
+
+
+Overfull \hbox (52.96648pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 augmented
+ []
+
+
+Overfull \hbox (37.70692pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Gamma
+ []
+
+
+Overfull \hbox (18.696pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 like-
+ []
+
+
+Overfull \hbox (7.59889pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 li-
+ []
+
+
+Overfull \hbox (30.51115pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 hoods.
+ []
+
+
+Overfull \hbox (25.54593pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Anal-
+ []
+
+
+Overfull \hbox (7.2725pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 y-
+ []
+
+
+Overfull \hbox (11.64607pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ses
+ []
+
+
+Overfull \hbox (13.53911pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 use
+ []
+
+
+Overfull \hbox (17.71684pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 four
+ []
+
+
+Overfull \hbox (35.99026pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Markov
+ []
+
+
+Overfull \hbox (24.24455pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 chain
+ []
+
+
+Overfull \hbox (29.78894pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Monte
+ []
+
+
+Overfull \hbox (25.22371pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Carlo
+ []
+
+
+Overfull \hbox (44.79851pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 (MCMC)
+ []
+
+
+Overfull \hbox (28.87923pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 chains
+ []
+
+
+Overfull \hbox (7.59889pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 at
+ []
+
+
+Overfull \hbox (23.91817pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 8,000
+ []
+
+
+Overfull \hbox (8.90443pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 it-
+ []
+
+
+Overfull \hbox (10.86275pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 er-
+ []
+
+
+Overfull \hbox (6.94612pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 a-
+ []
+
+
+Overfull \hbox (22.02513pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 tions
+ []
+
+
+Overfull \hbox (19.67516pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 each
+ []
+
+
+Overfull \hbox (20.00154pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 with
+ []
+
+
+Overfull \hbox (3.0295pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 a
+ []
+
+
+Overfull \hbox (38.27913pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 warmup
+ []
+
+
+Overfull \hbox (13.14745pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 pe-
+ []
+
+
+Overfull \hbox (17.71684pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 riod
+ []
+
+
+Overfull \hbox (6.61974pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 of
+ []
+
+
+Overfull \hbox (23.91817pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 4,000
+ []
+
+
+Overfull \hbox (21.37236pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 sam-
+ []
+
+
+Overfull \hbox (16.80296pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ples
+ []
+
+
+Overfull \hbox (12.23357pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 us-
+ []
+
+
+Overfull \hbox (12.82106pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ing
+ []
+
+
+Overfull \hbox (13.47383pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 the
+ []
+
+
+Overfull \hbox (32.07364pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Hamil-
+ []
+
+
+Overfull \hbox (11.51552pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 to-
+ []
+
+
+Overfull \hbox (19.34877pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 nian
+ []
+
+
+Overfull \hbox (29.78894pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Monte
+ []
+
+
+Overfull \hbox (25.22371pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Carlo
+ []
+
+
+Overfull \hbox (10.20998pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 al-
+ []
+
+
+Overfull \hbox (12.82106pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 go-
+ []
+
+
+Overfull \hbox (29.14034pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 rithm.
+ []
+
+
+Overfull \hbox (12.49051pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 All
+ []
+
+
+Overfull \hbox (28.87923pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 chains
+ []
+
+
+Overfull \hbox (10.86275pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 in-
+ []
+
+
+Overfull \hbox (10.86275pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 di-
+ []
+
+
+Overfull \hbox (18.04323pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 cate
+ []
+
+
+Overfull \hbox (18.696pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 con-
+ []
+
+
+Overfull \hbox (16.73769pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ver-
+ []
+
+
+Overfull \hbox (25.22371pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 gence
+ []
+
+
+Overfull \hbox (20.00154pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 with
+ []
+
+
+Overfull \hbox (12.49467pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ev-
+ []
+
+
+Overfull \hbox (13.14745pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ery
+ []
+
+
+Overfull \hbox (5.8017pt too wide) in paragraph at lines 40--40
+[]\OT1/cmr/m/n/12 R
+ []
+
+
+Overfull \hbox (23.59178pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 value
+ []
+
+
+Overfull \hbox (13.14745pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 be-
+ []
+
+
+Overfull \hbox (12.82106pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ing
+ []
+
+
+Overfull \hbox (14.90993pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 less
+ []
+
+
+Overfull \hbox (20.65431pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 than
+ []
+
+
+Overfull \hbox (21.30708pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 1.01.
+ []
+
+
+Overfull \hbox (29.13617pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 Model
+ []
+
+
+Overfull \hbox (12.16829pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 co-
+ []
+
+
+Overfull \hbox (9.88359pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ef-
+ []
+
+
+Overfull \hbox (7.59889pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 fi-
+ []
+
+
+Overfull \hbox (26.26814pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 cients
+ []
+
+
+Overfull \hbox (12.82106pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 are
+ []
+
+
+Overfull \hbox (10.92802pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 es-
+ []
+
+
+Overfull \hbox (8.90443pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ti-
+ []
+
+
+Overfull \hbox (29.14034pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 mated
+ []
+
+
+Overfull \hbox (20.00154pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 with
+ []
+
+
+Overfull \hbox (32.0778pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 weakly
+ []
+
+
+Overfull \hbox (10.86275pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 in-
+ []
+
+
+Overfull \hbox (15.10576pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 for-
+ []
+
+
+Overfull \hbox (16.73769pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ma-
+ []
+
+
+Overfull \hbox (16.08492pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 tive
+ []
+
+
+Overfull \hbox (15.43214pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 pri-
+ []
+
+
+Overfull \hbox (15.49742pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ors.
+ []
+
+
+Overfull \hbox (1.90462pt too wide) in paragraph at lines 40--40
+[]$
+ []
+
+
+Overfull \hbox (10.86275pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 in-
+ []
+
+
+Overfull \hbox (10.86275pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 di-
+ []
+
+
+Overfull \hbox (22.6779pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 cates
+ []
+
+
+Overfull \hbox (18.696pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 that
+ []
+
+
+Overfull \hbox (3.0295pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 0
+ []
+
+
+Overfull \hbox (5.05309pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 is
+ []
+
+
+Overfull \hbox (18.04323pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 out-
+ []
+
+
+Overfull \hbox (16.80296pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 side
+ []
+
+
+Overfull \hbox (18.696pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 89%
+ []
+
+
+Overfull \hbox (23.2654pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 high-
+ []
+
+
+Overfull \hbox (11.5808pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 est
+ []
+
+
+Overfull \hbox (18.43489pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 pos-
+ []
+
+
+Overfull \hbox (10.86275pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 te-
+ []
+
+
+Overfull \hbox (15.43214pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 rior
+ []
+
+
+Overfull \hbox (19.34877pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 den-
+ []
+
+
+Overfull \hbox (15.49742pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 sity
+ []
+
+
+Overfull \hbox (10.86275pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 in-
+ []
+
+
+Overfull \hbox (15.43214pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 ter-
+ []
+
+
+Overfull \hbox (15.10576pt too wide) in paragraph at lines 40--40
+\OT1/cmr/m/n/12 val.| 
+ []
+
+) [18]
 \tf@thm=\write5
 \openout5 = `"Jenkins - PACs and Small Donations.thm"'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 247.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 247.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 329.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 329.
  (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 247.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 247.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 329.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 329.
 Package logreq Info: Writing requests to '"Jenkins - PACs and Small Donations".run.xml'.
 \openout1 = `"Jenkins - PACs and Small Donations.run.xml"'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 247.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 329.
  ) 
 Here is how much of TeX's memory you used:
- 43385 strings out of 492616
- 868382 string characters out of 6129482
- 1555055 words of memory out of 5000000
- 46701 multiletter control sequences out of 15000+600000
+ 43790 strings out of 492616
+ 874479 string characters out of 6129482
+ 1589565 words of memory out of 5000000
+ 47071 multiletter control sequences out of 15000+600000
  551529 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,11n,79p,1623b,3911s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.pdf" (9 pages, 114223 bytes).
+ 55i,19n,79p,1623b,3911s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.pdf" (19 pages, 265189 bytes).
 PDF statistics:
- 214 PDF objects out of 1000 (max. 8388607)
- 178 compressed objects within 2 object streams
- 44 named destinations out of 1000 (max. 500000)
- 141 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 378 PDF objects out of 1000 (max. 8388607)
+ 313 compressed objects within 4 object streams
+ 71 named destinations out of 1000 (max. 500000)
+ 196 words of extra memory for PDF output out of 10000 (max. 10000000)
 

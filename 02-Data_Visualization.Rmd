@@ -84,83 +84,66 @@ ggplot(data = estimation.data, aes(x = no_corp_pacs, y = net_spent)) +
 plot.data <- 
   estimation.data %>%
   filter(candidate_contribs < 10000000) %>% # drop outlier
-  select(no_corp_pacs, new_member, tot_pac_money, num_pac_contribs, 
-         business_pacs, dir_business_pacs, in_kind_business_pacs, 
-         ind_business_pacs, candidate_contribs, dir_pac_cand_committee, 
-         dir_pac_party_committee, ik_pac_party_committee, 
-         ind_pac_party_committee, ce_pac_party_committee, labor_pacs, 
-         dir_pac_labor, ik_pac_labor, ind_pac_labor, ideological_pacs, 
-         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
-         ce_pac_ideological, leadership_pacs, net_indiv_total, large_indiv, 
-         small_indiv, indiv_ideological, indiv_cand_committee, 
-         indiv_party_committee, indiv_self_finance, indiv_biz, indiv_labor, 
+  select(no_corp_pacs, tot_pac_money, num_pac_contribs, 
+         business_pacs, dir_pac_cand_committee, 
+         dir_pac_party_committee, labor_pacs, ideological_pacs, 
+         leadership_pacs, net_indiv_total, large_indiv, 
+         small_indiv, indiv_ideological, indiv_biz, indiv_labor, 
          net_spent, net_receipts) %>%
-  gather(tot_pac_money, num_pac_contribs, business_pacs, dir_business_pacs, 
-         in_kind_business_pacs, ind_business_pacs, candidate_contribs, 
-         dir_pac_cand_committee, dir_pac_party_committee, 
-         ik_pac_party_committee, ind_pac_party_committee, 
-         ce_pac_party_committee, labor_pacs, dir_pac_labor, ik_pac_labor, 
-         ind_pac_labor, ideological_pacs, dir_pac_ideological, 
-         ik_pac_ideological, ind_pac_ideological, ce_pac_ideological, 
-         leadership_pacs, net_indiv_total, large_indiv, small_indiv, 
-         indiv_ideological, indiv_cand_committee, indiv_party_committee, 
-         indiv_self_finance, indiv_biz, indiv_labor, net_spent, net_receipts,
+  gather(tot_pac_money, num_pac_contribs, 
+         business_pacs, dir_pac_cand_committee, 
+         dir_pac_party_committee, labor_pacs, ideological_pacs, 
+         leadership_pacs, net_indiv_total, large_indiv, 
+         small_indiv, indiv_ideological, indiv_biz, indiv_labor, 
+         net_spent, net_receipts,
          key = "group", value = "value") %>%
   mutate(no_corp_pacs = factor(no_corp_pacs,
                                levels = c("NO", "YES"),
                                labels = c("Yes to Corporate PAC Donations", 
                                           "No to Corporate PAC Donations")),
-         new_member = factor(new_member,
-                             levels = c("NO", "YES"),
-                             labels = c("Incumbent", "New Member")),
          group = factor(group,
                         levels = c("tot_pac_money", "num_pac_contribs", 
-                                   "business_pacs", "dir_business_pacs", 
-                                   "in_kind_business_pacs", "ind_business_pacs", 
-                                   "candidate_contribs", "dir_pac_cand_committee", 
+                                   "business_pacs", "dir_pac_cand_committee", 
                                    "dir_pac_party_committee", 
-                                   "ik_pac_party_committee", 
-                                   "ind_pac_party_committee", 
-                                   "ce_pac_party_committee", "labor_pacs", 
-                                   "dir_pac_labor", "ik_pac_labor", 
-                                   "ind_pac_labor", "ideological_pacs", 
-                                   "dir_pac_ideological", 
-                                   "ik_pac_ideological", "ind_pac_ideological", 
-                                   "ce_pac_ideological", 
+                                   "labor_pacs", "ideological_pacs", 
                                    "leadership_pacs", "net_indiv_total", 
                                    "large_indiv", "small_indiv", 
-                                   "indiv_ideological", "indiv_cand_committee", 
-                                   "indiv_party_committee", 
-                                   "indiv_self_finance", "indiv_biz", 
+                                   "indiv_ideological", "indiv_biz", 
                                    "indiv_labor", "net_spent", "net_receipts"),
-                        labels = c("Total PAC Money", 
-                                   "Number of PAC Contributors", "Business PACs",
-                                   "Direct Business PACs", 
-                                   "In-kind Business PACs", 
-                                   "Indirect Business PACs", 
-                                   "Candidate Contributions", 
-                                   "Direct Candidate Committee Contributions",
-                                   "Direct Party Contributions", 
-                                   "In-kind Party Contributions", 
-                                   "Indp. Party Expendatures",
-                                   "Coordinated Party Exp.",
-                                   "Labor PACs", "Direct Labor PACs",
-                                   "In-kind Labor PACs",
-                                   "Indp. Labor PAC Exp.",
-                                   "Ideological PACs", 
-                                   "Direct Ideological PACs",
-                                   "In-kind Ideological PACs",
-                                   "Indp. Ideological PA C Exp.",
-                                   "Coordinated Ideological PAC Exp.",
-                                   "Leadership PACs", "Total Individual",
-                                   "Large Individual", "Small Individual",
-                                   "Ideological Individual", 
-                                   "Candidate Individual",
-                                   "Party Individual", "Self-finance",
-                                   "Business Individual", "Labor Individual",
-                                   "Net Spent", "Net Receipts"))) %>%
-  group_by(group, no_corp_pacs, new_member) %>%
-  summarise(sum = mean(value))
+                        labels = c("Total PAC $", 
+                                   "# of PAC Contributors", "Business PAC $",
+                                   "Candidate Committee $",
+                                   "Party $", 
+                                   "Labor PAC $", "Ideological PAC $", 
+                                   "Leadership PAC $", "Total Individual $",
+                                   "Large Individual $", "Small Individual $",
+                                   "Ideological Individual $", 
+                                   "Business Individual $", "Labor Individual $",
+                                   "Net Spent", "Net Receipts")),
+         no_corp_pacs = relevel(no_corp_pacs, ref = "No to Corporate PAC Donations")) %>%
+  group_by(group, no_corp_pacs) %>%
+  summarise(sum = mean(value, na.rm = TRUE))
+
+ggplot(data = plot.data %>% 
+         filter(group != "Net Spent" & group != "Net Receipts" & 
+                  group != "Total Individual $"), 
+       aes(x = fct_reorder2(group, no_corp_pacs, sum), 
+           y = sum, 
+           color = no_corp_pacs)) +
+  geom_linerange(aes(x = fct_reorder2(group, no_corp_pacs, sum), 
+                     ymin = 0, ymax = sum), 
+                 color = "grey65", 
+                 size = 0.65) +
+  geom_point(size = 5) +
+  facet_wrap(~ fct_rev(no_corp_pacs)) +
+  coord_flip() +
+  scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
+                     labels = c("", "")) +
+  labs(x = "", y = "Mean Contributions") +
+  guides(fill = FALSE, color = FALSE, linetype = FALSE, shape = FALSE)+
+  scale_y_continuous(labels = dollar_format()) +
+  theme_pubr()
+ggsave("Figures/all_candy.pdf", height = 5.5, width = 12)
 
 # Business PAC plot
 plot.data %>%
@@ -169,7 +152,7 @@ ggplot(aes(x = reorder(group, sum), y = sum)) +
   geom_col() +
   geom_text(aes(label = comma(round(sum, digits = 0))),
             vjust = -1) +
-  facet_wrap(new_member ~ no_corp_pacs) + 
+  facet_wrap(~ no_corp_pacs) + 
   scale_y_continuous(labels = dollar_format(), 
                      breaks = pretty_breaks(n = 5),
                      limits = c(0, 550000)) +
