@@ -3419,7 +3419,7 @@ post.pac %>%
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
                 .width = c(0.89, 0.5), 
                 point_interval = median_hdi,
-                fill = "#2D6CC0",
+                fill = "#0072B2",
                 color = "black",
                 alpha = 0.9) +
   geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
@@ -3429,7 +3429,7 @@ post.pac %>%
                               "# of PACs", "Ideological PAC $")) +
   labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
        y = "Outcome Variable") +
-  theme_pubr()
+  theme_pubr() +
 ggsave("Figures/Results/pac_coef.pdf", height = 4, width = 7) 
 
 ## predicted values
@@ -3466,9 +3466,10 @@ ggplot(data = pred.pac,
   labs(x = "Outcome Variable", 
        y = "Predicted Contributions", 
        color = "Prediction:") +
-  scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
-                     labels = c("No to Corporate PACs", "Yes to Corporate PACs")) +
-  theme_pubr()
+  scale_color_manual(values = c("#0072B2", "#E69F00"),
+                     labels = c("No to Corporate PACs", 
+                                "Yes to Corporate PACs")) +
+  theme_pubr() + 
 ggsave("Figures/Results/pac_preds.pdf", height = 4, width = 8)
 
 # Binomial model
@@ -3480,7 +3481,7 @@ post.pac %>%
   stat_halfeyeh(aes(y = fct_reorder(model, p_np), x = p_np), 
                 .width = c(0.89, 0.5), 
                 point_interval = median_hdi,
-                fill = "#2D6CC0",
+                fill = "#0072B2",
                 color = "black",
                 alpha = 0.9) +
   geom_vline(aes(xintercept = 0.5), linetype = "dashed", color = "grey55") +
@@ -3490,7 +3491,7 @@ post.pac %>%
                               "Business PAC $")) +
   labs(x = "Predicted Probability of Receiving Contributions", 
        y = "Outcome Variable") +
-  theme_pubr()
+  theme_pubr() +
 ggsave("Figures/Results/pac_probs.pdf", height = 4, width = 8)
 
 # Tables ----------------------------------------------------------------------
@@ -3524,7 +3525,7 @@ post.prty %>%
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
                 .width = c(0.89, 0.5), 
                 point_interval = median_hdi,
-                fill = "#2D6CC0",
+                fill = "#0072B2",
                 color = "black",
                 alpha = 0.9) +
   geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
@@ -3534,7 +3535,7 @@ post.prty %>%
                               "Candidate Committee $")) +
   labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
        y = "Outcome Variable") +
-  theme_pubr()
+  theme_pubr() +
 ggsave("Figures/Results/party_coef.pdf", height = 4, width = 7)
 
 ## predicted values
@@ -3572,11 +3573,10 @@ ggplot(data = pred.party,
   labs(x = "Outcome Variable", 
        y = "Predicted Contributions", 
        color = "Prediction:") +
-  scale_color_colorblind()
-  scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
+  scale_color_manual(values = c("#0072B2", "#E69F00"),
                      labels = c("No to Corporate PACs", 
                                 "Yes to Corporate PACs")) +
-  theme_pubr()
+  theme_pubr() +
 ggsave("Figures/Results/party_preds.pdf", height = 4, width = 8)
 
 # Binomial model
@@ -3587,7 +3587,7 @@ post.prty %>%
   stat_halfeyeh(aes(y = fct_reorder(model, p_np), x = p_np), 
                 .width = c(0.89, 0.5), 
                 point_interval = median_hdi,
-                fill = "#2D6CC0",
+                fill = "#0072B2",
                 color = "black",
                 alpha = 0.9) +
   geom_vline(aes(xintercept = 0.5), linetype = "dashed", color = "grey55") +
@@ -3597,8 +3597,8 @@ post.prty %>%
                               "Candidate Committees $")) +
   labs(x = "Predicted Probability of Receiving Contributions", 
        y = "Outcome Variable") +
-  theme_pubr()
-ggsave("Figures/Results/pac_probs.pdf", height = 4, width = 8)
+  theme_pubr() +
+ggsave("Figures/Results/prty_probs.pdf", height = 4, width = 8)
 
 # Tables ----------------------------------------------------------------------
 sink(file = "Tables/prty_results.tex")
@@ -3618,13 +3618,13 @@ sink()
 ```{r}
 # extract posterior predictions
 ## individual contributions
-indiv.models <- c(smlindv.fit, lrgindv.fit, totindv.fit, individeopac.fit,
-                  bizindv.fit)
-names(indiv.models) <- c("smlindv.fit", "lrgindv.fit", "totindv.fit", 
-                         "individeopac.fit", "bizindv.fit")
+indiv.models <- c(bizindv.fit, smlindv.fit, lrgindv.fit, totindv.fit, 
+                  individeopac.fit)
+names(indiv.models) <- c("bizindv.fit", "smlindv.fit", "lrgindv.fit", 
+                         "totindv.fit", "individeopac.fit")
 post.indiv <- 
   indiv.models %>%
-  map_dfr(~ spread_draws(., a, b_np), .id = "model")
+  map_dfr(~ spread_draws(., a, b_np, p, p_np), .id = "model")
 
 ## main effects
 post.indiv %>%
@@ -3633,7 +3633,7 @@ post.indiv %>%
   stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
                 .width = c(0.89, 0.5), 
                 point_interval = median_hdi,
-                fill = "#2D6CC0",
+                fill = "#0072B2",
                 color = "black",
                 alpha = 0.9) +
   geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
@@ -3646,7 +3646,7 @@ post.indiv %>%
                               "Small Individual $")) +
   labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
        y = "Outcome Variable") +
-  theme_pubr()
+  theme_pubr() +
 ggsave("Figures/Results/indv_coef.pdf", height = 4, width = 7)
 
 ## predicted values
@@ -3684,12 +3684,33 @@ ggplot(data = pred.indv,
   labs(x = "Outcome Variable", 
        y = "Predicted Contributions", 
        color = "Prediction:") +
-  scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
+  scale_color_manual(values = c("#0072B2", "#E69F00"),
                      labels = c("No to Corporate PACs", 
                                 "Yes to Corporate PACs")) +
   theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
 ggsave("Figures/Results/indv_preds.pdf", height = 4, width = 8)
+
+# Binomial model
+post.indiv %>%
+  mutate(p_np = logistic(p_np),
+         p = logistic(p)) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, p_np), x = p_np), 
+                .width = c(0.89, 0.5), 
+                point_interval = median_hdi,
+                fill = "#0072B2",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0.5), linetype = "dashed", color = "grey55") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  scale_y_discrete(labels = c("Party Committee $", "Leadership PAC $", 
+                              "Candidate Committees $")) +
+  labs(x = "Predicted Probability of Receiving Contributions", 
+       y = "Outcome Variable") +
+  theme_pubr() +
+ggsave("Figures/Results/prty_probs.pdf", height = 4, width = 8)
 
 # Tables ----------------------------------------------------------------------
 sink(file = "Tables/indiv_results.tex")
