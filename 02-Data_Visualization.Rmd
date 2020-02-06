@@ -76,11 +76,6 @@ plot_density(estimation.data)
 # Plot Campaign Spending
 
 ```{r fig.width = 15}
-ggplot(data = estimation.data, aes(x = no_corp_pacs, y = net_spent)) +
-  geom_col() +
-  scale_y_continuous(labels = dollar_format(), breaks = pretty_breaks(n = 8)) +
-  theme_pubr()
-
 plot.data <- 
   estimation.data %>%
   filter(candidate_contribs < 10000000) %>% # drop outlier
@@ -133,127 +128,93 @@ ggplot(data = plot.data %>%
   geom_linerange(aes(x = fct_reorder2(group, no_corp_pacs, sum), 
                      ymin = 0, ymax = sum), 
                  color = "grey65", 
-                 size = 0.65) +
-  geom_point(size = 5) +
-  facet_wrap(~ fct_rev(no_corp_pacs)) +
+                 size = 0.65,
+                 position = position_dodge2(width = 0.7)) +
+  geom_point(size = 6, position = position_dodge2(width = 0.7)) +
+  #facet_wrap(~ fct_rev(no_corp_pacs)) +
   coord_flip() +
-  scale_color_manual(values = c("#2D6CC0", "#F1AB00"),
-                     labels = c("", "")) +
-  labs(x = "", y = "Mean Contributions") +
-  guides(fill = FALSE, color = FALSE, linetype = FALSE, shape = FALSE)+
+  scale_color_manual(values = c("#0072B2", "#E69F00"),
+                     labels = c("No to Corporate PACs", 
+                                "Yes to Corporate PACs")) +
+  labs(x = "", y = "Mean Contributions", color = "") +
+  #guides(fill = FALSE, color = FALSE, linetype = FALSE, shape = FALSE)+
+  scale_y_continuous(labels = dollar_format()) +
+  theme_pubr() +
+ggsave("Figures/all_candy.pdf", height = 9, width = 12)
+
+# Spending and Receipts Plot
+ggplot(data = plot.data %>% 
+         filter(group == "Net Spent" | group == "Net Receipts"), 
+       aes(x = fct_reorder2(group, no_corp_pacs, sum), 
+           y = sum, 
+           color = no_corp_pacs)) +
+  geom_linerange(aes(x = fct_reorder2(group, no_corp_pacs, sum), 
+                     ymin = 0, ymax = sum), 
+                 color = "grey65", 
+                 size = 0.65,
+                 position = position_dodge2(width = 0.5)) +
+  geom_point(size = 6, position = position_dodge2(width = 0.5)) +
+  #facet_wrap(~ fct_rev(no_corp_pacs)) +
+  coord_flip() +
+  scale_color_manual(values = c("#0072B2", "#E69F00"),
+                     labels = c("No to Corporate PACs", 
+                                "Yes to Corporate PACs")) +
+  labs(x = "", y = "Mean Contributions", color = "") +
+  #guides(fill = FALSE, color = FALSE, linetype = FALSE, shape = FALSE)+
   scale_y_continuous(labels = dollar_format()) +
   theme_pubr()
-ggsave("Figures/all_candy.pdf", height = 5.5, width = 12)
-
-# Business PAC plot
-plot.data %>%
-  filter(str_detect(group, pattern = "Business PACs")) %>%
-ggplot(aes(x = reorder(group, sum), y = sum)) +
-  geom_col() +
-  geom_text(aes(label = comma(round(sum, digits = 0))),
-            vjust = -1) +
-  facet_wrap(~ no_corp_pacs) + 
-  scale_y_continuous(labels = dollar_format(), 
-                     breaks = pretty_breaks(n = 5),
-                     limits = c(0, 550000)) +
-  labs(x = "", y = "") +
-  theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-ggsave("Figures/biz_contribs.pdf", width = 15, height = 8)
-
-# Ideological PAC plot
-plot.data %>%
-  filter(str_detect(group, pattern = "Ideological") & 
-           str_detect(group, pattern = "Individual", negate = TRUE)) %>%
-ggplot(aes(x = reorder(group, sum), y = sum)) +
-  geom_col() +
-  geom_text(aes(label = comma(round(sum, digits = 0))),
-            vjust = -1) +
-  facet_wrap(new_member ~ no_corp_pacs) + 
-  scale_y_continuous(labels = dollar_format(), 
-                     breaks = pretty_breaks(n = 5),
-                     limits = c(0, 180000)) +
-  labs(x = "", y = "") +
-  theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-ggsave("Figures/ideo_contribs.pdf", width = 15, height = 8)
-
-# Labor PAC plot
-plot.data %>%
-  filter(str_detect(group, pattern = "Labor") &
-           str_detect(group, pattern = "Individual", negate = TRUE)) %>%
-ggplot(aes(x = reorder(group, sum), y = sum)) +
-  geom_col() +
-  geom_text(aes(label = comma(round(sum, digits = 0))),
-            vjust = -1) +
-  facet_wrap(new_member ~ no_corp_pacs) + 
-  scale_y_continuous(labels = dollar_format(), 
-                     breaks = pretty_breaks(n = 6),
-                     limits = c(0, 140000)) +
-  labs(x = "", y = "") +
-  theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-ggsave("Figures/labor_contribs.pdf", width = 15, height = 8)
-
-# Party PAC plot
-plot.data %>%
-  filter((str_detect(group, pattern = "Party") | 
-           str_detect(group, pattern = "Leadership") |
-           str_detect(group, pattern = "Candidate")) &
-           str_detect(group, pattern = "Individual", negate = TRUE)) %>%
-ggplot(aes(x = reorder(group, sum), y = sum)) +
-  geom_col() +
-  geom_text(aes(label = comma(round(sum, digits = 0))),
-            vjust = -1) +
-  facet_wrap(new_member ~ no_corp_pacs) + 
-  scale_y_continuous(labels = dollar_format(), 
-                     breaks = pretty_breaks(n = 5),
-                     limits = c(0, 500000)) +
-  labs(x = "", y = "") +
-  theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-ggsave("Figures/party_contribs.pdf", width = 15, height = 8)
-
-# Individual Contributions plot
-plot.data %>%
-  filter(str_detect(group, pattern = "Individual") | 
-           str_detect(group, pattern = "Self-finance")) %>%
-ggplot(aes(x = reorder(group, sum), y = sum)) +
-  geom_col() +
-  geom_text(aes(label = comma(round(sum, digits = 0))),
-            vjust = -1) +
-  facet_wrap(new_member ~ no_corp_pacs) + 
-  scale_y_continuous(labels = dollar_format(), 
-                     breaks = pretty_breaks(n = 6),
-                     limits = c(0, 3800000)) +
-  labs(x = "", y = "") +
-  theme_pubr() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-ggsave("Figures/indiv_contribs.pdf", width = 15, height = 8)
+ggsave("Figures/spending_candy.pdf", height = 3, width = 12)
 ```
 
 # Plot Zeros
 
 ```{r}
 zeros <- 
-   estimation.data %>% 
-   dplyr::select(num_pac_contribs, tot_pac_money, business_pacs, ideological_pacs, 
-          labor_pacs, dir_pac_cand_committee, dir_pac_party_committee,
-          leadership_pacs, small_indiv, large_indiv, indiv_ideological,
-          indiv_biz, indiv_labor) %>%
-   summarise(num_pac = sum(num_pac_contribs == 0),
-             tot_pac_money = sum(tot_pac_money == 0),
-             business_pacs = sum(business_pacs == 0),
-             ideological_pacs = sum(ideological_pacs == 0),
-             labor_pacs = sum(labor_pacs == 0),
-             dir_pac_cand_committee = sum(dir_pac_cand_committee == 0),
-             dir_pac_party_committee = sum(dir_pac_party_committee == 0),
-             leadership_pacs = sum(leadership_pacs == 0),
-             small_indiv = sum(small_indiv == 0),
-             large_indiv = sum(large_indiv == 0),
-             indiv_ideological = sum(indiv_ideological == 0),
-             indiv_biz = sum(indiv_biz == 0),
-             indiv_labor = sum(indiv_labor == 0))
+  estimation.data %>% 
+  dplyr::select(num_pac_contribs, tot_pac_money, business_pacs, ideological_pacs, 
+                labor_pacs, dir_pac_cand_committee, dir_pac_party_committee,
+                leadership_pacs, small_indiv, large_indiv, indiv_ideological,
+                indiv_biz, indiv_labor) %>%
+  summarise(num_pac = sum(num_pac_contribs == 0),
+            tot_pac_money = sum(tot_pac_money == 0),
+            business_pacs = sum(business_pacs == 0),
+            ideological_pacs = sum(ideological_pacs == 0),
+            labor_pacs = sum(labor_pacs == 0),
+            dir_pac_cand_committee = sum(dir_pac_cand_committee == 0),
+            dir_pac_party_committee = sum(dir_pac_party_committee == 0),
+            leadership_pacs = sum(leadership_pacs == 0),
+            small_indiv = sum(small_indiv == 0),
+            large_indiv = sum(large_indiv == 0),
+            indiv_ideological = sum(indiv_ideological == 0),
+            indiv_biz = sum(indiv_biz == 0),
+            indiv_labor = sum(indiv_labor == 0)) %>%
+  mutate_at(vars(num_pac:indiv_labor), ~ . / nrow(estimation.data)) %>%
+  gather(num_pac, tot_pac_money, business_pacs, ideological_pacs, 
+         labor_pacs, dir_pac_cand_committee, dir_pac_party_committee,
+         leadership_pacs, small_indiv, large_indiv, indiv_ideological,
+         indiv_biz, indiv_labor, key = "model", value = "zeros")
+
+ggdotchart(data = zeros, 
+           x = "model", 
+           y = "zeros",
+           sorting = "descending",
+           add = "segments", 
+           rotate = TRUE,
+           dot.size = 6,
+           label = round((zeros$zeros) * 100),
+           font.label = list(color = "white", size = 9, 
+                             vjust = 0.5),
+           color = "#0072B2",
+           ggtheme = theme_pubr()) +
+  scale_y_continuous(labels = percent_format()) +
+  scale_x_discrete(labels = c("# of PAC Contributors", "Small Individual $", 
+                              "Large Individual $", "Business Individual $", 
+                              "Total PAC $", "Ideological PAC $", "Labor PAC $", 
+                              "Ideological Individual $", "Business PAC $",
+                              "Leadership PAC $", "Candidate Committee $",
+                              "Labor Individual $", "Party $")) +
+  labs(y = "Percantage of Zeros", x = "") +
+ggsave("Figures/zero_candy.pdf", height = 5, width = 8)
 ```
 
 
