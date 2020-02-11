@@ -41,7 +41,7 @@ packages <- c("tidyverse", "foreign", "stargazer", "lme4", "multcomp",
               "lmerTest", "ggmcmc", "ggridges", "rstan", "rstanarm", "brms",
               "rethinking", "patchwork", "tidybayes", "sjstats", "sjPlot",
               "bayesplot", "sjmisc", "ggpubr", "broom", "scales", "ggthemes",
-              "ggrepel", "ggpubr", "BayesPostEst")
+              "ggrepel", "BayesPostEst")
 lapply(packages, require, character.only = TRUE)
 
 # Functions -------------------------------------------------------------------
@@ -50,7 +50,7 @@ comma <- function(x) format(x, digits = 2, big.mark = ",")
 
 # Inverse Hyperbolic Sin Transformation Function
 ihs <- function(x) {
-    y <- log(x + sqrt(x ^ 2 + 1))
+    y <- log(x + sqrt(x^2 + 1))
     return(y)
 }
 
@@ -426,7 +426,7 @@ stan.data <-
   compose_data()
 
 # model estimation ------------------------------------------------------------
-turnout.1 <- glm(vap_turnout ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income + log_tot_voting_age,
+turnout.1 <- glm(vap_turnout ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + pct_clinton_16 + pct_dem_house_16 + log_median_hh_income,
                  family = Gamma(link = "log"),
                   data = as.data.frame(stan.data))
 
@@ -502,19 +502,6 @@ ggplot() +
                alpha = 0.5) +
   theme_classic() +
   labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
 ```
 
 ### Model 
@@ -670,203 +657,13 @@ ggplot(data = estimation.data, aes(x = tot_pac_money)) +
   geom_density(fill = "gray") +
   geom_density(data = post, aes(x = mu), fill = "skyblue", alpha = 0.7)
 
-test <- map2stan(
-  alist(tot_pac_money ~ dzagamma2(prob, mu, scale),
-        log(mu) <- a + b_np * no_corp_pacs,
-        logit(prob) <- p + p_np * no_corp_pacs,
-        a ~ dnorm(0, 100),
-        b_np ~ dnorm(0, 100),
-        p ~ dnorm(0, 100),
-        p_np ~ dnorm(0, 100),
-        scale ~ dexp(2)),
-  data = stan.data
-)
+# Prior vs posterior
+post <- spread_draws(totpac.fit, b_np)
+ggplot() +
+  geom_density(data = post, aes(x = exp(b_np))) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(14))),
+               aes(x = value))
 ```
-
-
-## Model of Number of PAC Contributions
-
-### Simulating Priors
-
-```{r}
-# likelihood simulation
-ggplot() +
-  geom_density(data = as_tibble(rgamma(1e4, shape = 20, rate = 100)), 
-               aes(x = value)) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
-
-# prior simulation
-## Intercept
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(6), exp(12))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
-
-## Slope Parameters
-ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(12))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
-
-## Scale Parameter
-ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
-  geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
-```
-
-### Model 
-
-```{stan output.var = "numpac.model"}
-data {
-  int<lower = 1> n;
-  int num_pac_contribs[n];
-  int no_corp_pacs[n];
-  int new_member[n];
-  real pct_white[n];
-  real pct_black[n];
-  real pct_latino[n];
-  real pct_asian[n];
-  real pct_bachelors[n];
-  real pct_clinton_16[n];
-  real pct_dem_house_16[n];
-  real log_median_hh_income[n];
-  real log_tot_voting_age[n];
-}
-
-parameters {
-  real<lower = 0> a;
-  real b_np;
-  real b_new;
-  real b_white;
-  real b_black;
-  real b_latino;
-  real b_asian;
-  real b_bach;
-  real b_mhh;
-  real b_clint;
-  real b_house;
-  real b_vpop;
-}
-
-model {
-  // linear model
-  vector[n] lambda;
-  
-  for (i in 1:n) {
-    lambda[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-    lambda[i] = exp(lambda[i]); // inverse log-link
-  }
-  
-  // priors
-  // Poisson model
-  a ~ normal(6, 12);
-  b_np ~ normal(0, 12);
-  b_new ~ normal(0, 12);
-  b_white ~ normal(0, 12);
-  b_black ~ normal(0, 12);
-  b_latino ~ normal(0, 12);
-  b_asian ~ normal(0, 12);
-  b_bach ~ normal(0, 12);
-  b_clint ~ normal(0, 12);
-  b_house ~ normal(0, 12);
-  b_vpop ~ normal(0, 12);
-  b_mhh ~ normal(0, 12);
-  
-  // likelihood
-  for (i in 1:n) {
-    num_pac_contribs[i] ~ poisson(lambda[i]);
-    }
-}
-
-
-generated quantities {
-  vector[n] lambda;
-  
-  for (i in 1:n) {
-  lambda[i] = a + b_np * no_corp_pacs[i] + b_new * new_member[i] + 
-      b_white * pct_white[i] + b_black * pct_black[i] + 
-      b_latino * pct_latino[i] + b_asian * pct_asian[i] + 
-      b_bach * pct_bachelors[i] + b_clint * pct_clinton_16[i] + 
-      b_house * pct_dem_house_16[i] + b_mhh * log_median_hh_income[i] +
-      b_vpop * log_tot_voting_age[i];
-  lambda[i] = exp(lambda[i]); // inverse log-link
-  }
-}
-```
-
-### Estimation
-
-```{r}
-# compose data
-stan.data <- 
-  estimation.data %>%
-  dplyr::select(num_pac_contribs, no_corp_pacs, new_member, pct_white, pct_black, 
-                pct_latino, pct_asian, pct_bachelors, pct_clinton_16,
-                pct_dem_house_16, log_tot_voting_age, log_median_hh_income) %>%
-  mutate(no_corp_pacs = ifelse(no_corp_pacs == "YES", 1, 0),
-         new_member = ifelse(new_member == "YES", 1, 0)) %>%
-  drop_na() %>%
-  mutate_at(.vars = vars(pct_white:log_median_hh_income), .funs = center) %>%
-  compose_data()
-
-# model estimation ------------------------------------------------------------
-## Frequentist
-num.pacs.01 <- glm(num_pac_contribs ~ no_corp_pacs + new_member + pct_white + pct_black + pct_latino + pct_asian + pct_bachelors + log_median_hh_income + pct_clinton_16 + pct_dem_house_16 + log_tot_voting_age,
-                   family = quasipoisson(link = "log"),
-                  data = as.data.frame(stan.data))
-
-## Bayesian
-numpac.fit <- sampling(numpac.model,
-                       chains = 4,
-                       cores = 4,
-                       iter = 10000,
-                       warmup = 5000,
-                       data = stan.data)
-
-traceplot(numpac.fit, 
-          inc_warmup = TRUE, 
-          pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
-                   "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh"))
-
-tidy(num.pacs.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
-precis(numpac.fit, prob = 0.89, digits = 3)
-
-post <- spread_draws(numpac.fit, lambda[i]) %>% median_hdi()
-ggplot(data = estimation.data, aes(x = num_pac_contribs)) +
-  geom_density(fill = "gray") +
-  geom_density(data = post, aes(x = lambda), fill = "skyblue", alpha = 0.7)
-```
-
 
 ## Model of Business PAC Contributions
 
@@ -3313,7 +3110,6 @@ ggplot(data = estimation.data, aes(x = indiv_labor)) +
 # Save models
 ## Business
 # save(totpac.fit, file = "E:/Project/totpac_fit.Rda")
-# save(numpac.fit, file = "E:/Project/numpac_fit.Rda")
 # save(bizpac.fit, file = "E:/Project/bizpac_fit.Rda")
 # 
 # ## Ideological
@@ -3342,7 +3138,6 @@ ggplot(data = estimation.data, aes(x = indiv_labor)) +
 # load models
 ## Business
 load(file = "Models/totpac_fit.Rda")
-load(file = "Models/numpac_fit.Rda")
 load(file = "Models/bizpac_fit.Rda")
 
 ## Ideological
@@ -3374,8 +3169,8 @@ load(file = "Models/turnout_fit.Rda")
 ```{r}
 # PAC results -----------------------------------------------------------------
 # extract posterior predictions
-pac.models <- c(totpac.fit, numpac.fit, bizpac.fit, ideopac.fit, laborpac.fit) 
-names(pac.models) <- c("totpac.fit", "numpac.fit", "bizpac.fit", "ideopac.fit", 
+pac.models <- c(totpac.fit, bizpac.fit, ideopac.fit, laborpac.fit) 
+names(pac.models) <- c("totpac.fit", "bizpac.fit", "ideopac.fit", 
                        "laborpac.fit")
 post.pac <- 
   pac.models %>%
@@ -3395,7 +3190,7 @@ post.pac %>%
   scale_x_continuous(labels = percent_format(),
                      breaks = pretty_breaks(n = 6)) +
   scale_y_discrete(labels = c("Business PAC $", "Total PAC $", "Labor PAC $",
-                              "# of PACs", "Ideological PAC $")) +
+                              "Ideological PAC $")) +
   labs(x = "% Change in Contributions (exp(Coefficient Estimate) - 1)", 
        y = "Outcome Variable") +
   theme_pubr() +
@@ -3430,8 +3225,8 @@ ggplot(data = pred.pac,
                   show.legend = FALSE) +
   scale_y_continuous(labels = dollar_format(),
                      breaks = pretty_breaks(n = 6)) +
-  scale_x_discrete(labels = c("# of PACs", "Ideological PAC $", 
-                              "Labor PAC $", "Business PAC $", "Total PAC $")) +
+  scale_x_discrete(labels = c("Ideological PAC $", "Labor PAC $", 
+                              "Business PAC $", "Total PAC $")) +
   labs(x = "Outcome Variable", 
        y = "Predicted Contributions", 
        color = "Prediction:") +
@@ -3461,11 +3256,11 @@ post.pac %>%
   labs(x = "Predicted Probability of Not Receiving Contributions", 
        y = "Outcome Variable") +
   theme_pubr() +
-ggsave("Figures/Results/pac_probs.pdf", height = 4, width = 8)
+ggsave("Figures/Results/pac_probs.pdf", height = 4, width = 7)
 
 # Tables ----------------------------------------------------------------------
-sink(file = "Tables/pac_results.tex")
-mcmcReg(list(numpac.fit, totpac.fit, bizpac.fit, ideopac.fit, laborpac.fit),
+sink(file = "Tables/pac_results_unformatted.tex")
+mcmcReg(list(totpac.fit, bizpac.fit, ideopac.fit, laborpac.fit),
         pointest = "median",
         ci = 0.89,
         hpdi = TRUE,
@@ -3567,10 +3362,10 @@ post.prty %>%
   labs(x = "Predicted Probability of Not Receiving Contributions", 
        y = "Outcome Variable") +
   theme_pubr() +
-ggsave("Figures/Results/prty_probs.pdf", height = 4, width = 8)
+ggsave("Figures/Results/prty_probs.pdf", height = 4, width = 7)
 
 # Tables ----------------------------------------------------------------------
-sink(file = "Tables/prty_results.tex")
+sink(file = "Tables/prty_results_unformatted.tex")
 mcmcReg(list(ldrpac.fit, cmtpac.fit, prtypac.fit),
         pointest = "median",
         ci = 0.89,
@@ -3689,10 +3484,10 @@ post.indiv %>%
   labs(x = "Predicted Probability of Not Receiving Contributions", 
        y = "Outcome Variable") +
   theme_pubr() +
-ggsave("Figures/Results/indiv_probs.pdf", height = 4, width = 8)
+ggsave("Figures/Results/indiv_probs.pdf", height = 4, width = 7)
 
 # Tables ----------------------------------------------------------------------
-sink(file = "Tables/indiv_results.tex")
+sink(file = "Tables/indiv_results_unformatted.tex")
 mcmcReg(list(smlindv.fit, lrgindv.fit, totindv.fit, individeopac.fit,
              bizindv.fit, laborindv.fit),
         pointest = "median",
@@ -3775,14 +3570,13 @@ ggplot(data = pred.vote,
 ggsave("Figures/Results/vote_preds.pdf", height = 4, width = 6)
 
 # Tables ----------------------------------------------------------------------
-sink(file = "Tables/vote_results.tex")
+sink(file = "Tables/vote_results_unformatted.tex")
 mcmcReg(list(voting.fit, turnout.fit),
         pointest = "median",
         ci = 0.89,
         hpdi = TRUE,
         format = "latex",
         pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
-                 "b_asian", "b_mhh", "b_clint", "b_house", "b_vpop", "scale",
-                 "prob"))
+                 "b_asian", "b_mhh", "b_clint", "b_house", "b_vpop", "scale"))
 sink()
 ```

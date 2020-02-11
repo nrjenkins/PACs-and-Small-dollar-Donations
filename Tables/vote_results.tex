@@ -1,42 +1,52 @@
 
 \begin{table}
 \begin{center}
-\begin{tabular}{l c c }
-\hline
- & Model 1 & Model 2 \\
-\hline
-a         & $4.22^{*}$        & $3.28^{*}$        \\
-          & $[4.20;\ 4.24]$   & $[3.19;\ 3.36]$   \\
-b\_np     & $0.00$            & $-0.09$           \\
+\caption{The Effects of Pledging to Reject Corporate PAC contributions on Voter Support}
+\label{tbl: vote results}
+\resizebox{\columnwidth}{!}{%
+\setlength{\linewidth}{.1cm}\newcommand{\contents}{\begin{tabular}{@{\extracolsep{5pt}}l c c }
+ \\[-1.8ex] \toprule  \\[-1.8ex]
+ & \multicolumn{2}{c}{\textbf{Outcome Variable:}} \\
+\textbf{Predictor Variables} & Vote \% & Voting Age Population Turnout \% \\
+ \midrule  \\[-1.8ex]
+\\[-1.8ex] \textit{Gamma Model (log link)} \\
+\midrule  \\[-1.8ex]
+ \\[-1.8ex] \textit{Predictor of Interest} \\  \\[-1.8ex]
+\quad No to Corporate PAC Contributions     & $0.00$            & $-0.09$           \\
           & $[-0.04;\ 0.05]$  & $[-0.30;\ 0.12]$  \\
-b\_new    & $-0.09^{*}$       & $0.14$            \\
+\\[-1.8ex] \textit{Controls} \\ \\[-1.8ex]
+	\quad New Member    & $-0.09^{*}$       & $0.14$            \\
           & $[-0.13;\ -0.04]$ & $[-0.08;\ 0.35]$  \\
-b\_white  & $0.00$            & $-0.01$           \\
+\quad \% of White Population in District  & $0.00$            & $-0.01$           \\
           & $[-0.00;\ 0.01]$  & $[-0.03;\ 0.02]$  \\
-b\_black  & $0.00$            & $-0.03^{*}$       \\
+\quad \% of Black Population in District  & $0.00$            & $-0.03^{*}$       \\
           & $[-0.00;\ 0.01]$  & $[-0.05;\ -0.00]$ \\
-b\_latino & $0.00$            & $-0.03^{*}$       \\
+\quad \% of Latino Population in District & $0.00$            & $-0.03^{*}$       \\
           & $[-0.00;\ 0.01]$  & $[-0.06;\ -0.01]$ \\
-b\_asian  & $0.00$            & $-0.02$           \\
+\quad \% of Asian Population in District   & $0.00$            & $-0.02$           \\
           & $[-0.00;\ 0.01]$  & $[-0.05;\ 0.01]$  \\
-b\_bach   & $0.00$            & $-0.02^{*}$       \\
+\quad \% of District Pop. with Bachelors Degree   & $0.00$            & $-0.02^{*}$       \\
           & $[-0.00;\ 0.00]$  & $[-0.03;\ -0.00]$ \\
-b\_clint  & $0.01^{*}$        & $0.04^{*}$        \\
+\quad \% of District Vote for Clinton in 2016  & $0.01^{*}$        & $0.04^{*}$        \\
           & $[0.01;\ 0.01]$   & $[0.02;\ 0.05]$   \\
-b\_house  & $0.00$            & $-0.01^{*}$       \\
+\quad \% of District Vote for Dem. House Candidates in 2016  & $0.00$            & $-0.01^{*}$       \\
           & $[-0.00;\ 0.00]$  & $[-0.02;\ -0.00]$ \\
-b\_vpop   & $0.02$            & $-1.74^{*}$       \\
+\quad $\log$(Voting Age Population in District)   & $0.02$            & $-1.74^{*}$       \\
           & $[-0.27;\ 0.32]$  & $[-3.14;\ -0.34]$ \\
-b\_mhh    & $-0.10$           & $0.73^{*}$        \\
+\quad $\log$(Median Household Income)    & $-0.10$           & $0.73^{*}$        \\
           & $[-0.21;\ 0.00]$  & $[0.17;\ 1.28]$   \\
-scale     & $0.79^{*}$        & $8.67^{*}$        \\
+\quad Intercept         & $4.22^{*}$        & $3.28^{*}$        \\
+          & $[4.20;\ 4.24]$   & $[3.19;\ 3.36]$   \\
+Dispersion Parameter     & $0.79^{*}$        & $8.67^{*}$        \\
           & $[0.65;\ 0.94]$   & $[7.14;\ 10.40]$  \\
-prob      & $0.05^{*}$        & $0.01^{*}$        \\
-          & $[0.03;\ 0.08]$   & $[0.00;\ 0.02]$   \\
-\hline
-\multicolumn{3}{l}{\scriptsize{$^*$ 0 outside 89\% highest posterior density interval}}
-\end{tabular}
-\caption{Statistical models}
-\label{table:coefficients}
+\midrule  \\[-1.8ex]
+Number of Observations & 167 & 167 \\
+\bottomrule  \\[-1.8ex]
+\multicolumn{3}{p{\linewidth}}{Notes: Models are estimated using a Gamma likelihood with a log link function. Analyses use four Markov chain Monte Carlo (MCMC) chains at 8,000 iterations each with a warmup period of 3,000 samples using the Hamiltonian Monte Carlo algorithm. All chains indicate convergence with every \^{R} value being less than 1.01. Model coefficients are estimated with weakly informative priors. 89\% highest density intervals shown in brackets below each coefficient. $^*$ indicates that 0 is outside 89\% highest posterior density interval.}
+\end{tabular}}
+\setbox0=\hbox{\contents}
+	\setlength{\linewidth}{\wd0-2\tabcolsep-.25em}
+	\contents
+}
 \end{center}
 \end{table}
