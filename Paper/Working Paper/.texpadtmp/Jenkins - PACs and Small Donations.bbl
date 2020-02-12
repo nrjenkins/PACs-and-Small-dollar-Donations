@@ -16,9 +16,1648 @@
   {}
 \endgroup
 
-\preamble{%
-\ifdefined\DeclarePrefChars\DeclarePrefChars{'’-}\else\fi%
-}
 
+\refsection{0}
+  \datalist[entry]{cms/global//global/global}
+    \entry{alexander2005}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=a42931c86eee08d6146f97b3e6a90c3d}{%
+           family={Alexander},
+           familyi={A\bibinitperiod},
+           given={Brad},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a42931c86eee08d6146f97b3e6a90c3d}
+      \strng{fullhash}{a42931c86eee08d6146f97b3e6a90c3d}
+      \strng{bibnamehash}{a42931c86eee08d6146f97b3e6a90c3d}
+      \strng{authorbibnamehash}{a42931c86eee08d6146f97b3e6a90c3d}
+      \strng{authornamehash}{a42931c86eee08d6146f97b3e6a90c3d}
+      \strng{authorfullhash}{a42931c86eee08d6146f97b3e6a90c3d}
+      \field{sortinit}{A}
+      \field{sortinithash}{d77c7cdd82ff690d4c3ef13216f92f0b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{There is lively public debate about the normative impact of different kinds of money in elections. However, there is surprisingly little examination of the practical impact that funding sources have on election outcomes. Even if we assume that voters do not care directly about campaign finance, there may still be incentives built into the system to discourage fundraising from some sources and encourage it from others. Therefore, I examine the actual impact of out-of-state donations, PAC donations, and self-financing on election outcomes in open seat House elections in the 1996, 1998, 2000 and 2002 cycles. I find that some kinds of fundraising are correlated with success, while others are correlated with failure, although at a lesser level than district partisanship or total campaign spending. These results offer promise for addressing some measurement issues in the congressional election field, as well as possible directions for future research.}
+      \field{day}{1}
+      \field{issn}{1065-9129}
+      \field{journaltitle}{Political Research Quarterly}
+      \field{langid}{english}
+      \field{month}{6}
+      \field{number}{2}
+      \field{shortjournal}{Political Research Quarterly}
+      \field{shorttitle}{Good {{Money}} and {{Bad Money}}}
+      \field{title}{Good {{Money}} and {{Bad Money}}: {{Do Funding Sources Affect Electoral Outcomes}}?}
+      \field{urlday}{12}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
+      \field{volume}{58}
+      \field{year}{2005}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{353\bibrangedash 358}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10/ct3zp7
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Alexander_2005_Good Money and Bad Money.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1177/106591290505800214
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1177/106591290505800214
+      \endverb
+    \endentry
+    \entry{barber2017}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=6a476484f469189a025c47460eccbd64}{%
+           family={Barber},
+           familyi={B\bibinitperiod},
+           given={Michael\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=d06e0fa66a1cca270a6411666c46e3cd}{%
+           family={Canes‐Wrone},
+           familyi={C\bibinitperiod},
+           given={Brandice},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=dddb7c63de1d9e903954fd94d06273d6}{%
+           family={Thrower},
+           familyi={T\bibinitperiod},
+           given={Sharece},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6310563006d5a40b195c1bbf1f4806b5}
+      \strng{fullhash}{6310563006d5a40b195c1bbf1f4806b5}
+      \strng{bibnamehash}{6310563006d5a40b195c1bbf1f4806b5}
+      \strng{authorbibnamehash}{6310563006d5a40b195c1bbf1f4806b5}
+      \strng{authornamehash}{6310563006d5a40b195c1bbf1f4806b5}
+      \strng{authorfullhash}{6310563006d5a40b195c1bbf1f4806b5}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Individuals are the single largest source of campaign contributions, yet we know little about their motivations. For instance, the existing literature questions whether individual contributors sophisticatedly differentiate among candidates according to policy positions, particularly among same-party candidates. We analyze this issue by combining data from a new survey of over 2,800 in- and out-of-state donors associated with the 2012 Senate elections, FEC data on contributors’ professions, and legislative records. Three major findings emerge. First, policy agreement between a donor's positions and a senator's roll calls significantly influences the likelihood of giving, even for same-party contributors. Second, there is a significant effect of committee membership corresponding to a donor's occupation; this holds even for donors who claim that other motivations dominate, but it does not appear to be motivated by an expectation of access. Third, conditional upon a donation occurring, its size is determined by factors outside a legislator's control.}
+      \field{issn}{1540-5907}
+      \field{journaltitle}{American Journal of Political Science}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{number}{2}
+      \field{shorttitle}{Ideologically {{Sophisticated Donors}}}
+      \field{title}{Ideologically {{Sophisticated Donors}}: {{Which Candidates Do Individual Contributors Finance}}?}
+      \field{urlday}{5}
+      \field{urlmonth}{2}
+      \field{urlyear}{2020}
+      \field{volume}{61}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{271\bibrangedash 288}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10/f93p96
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Barber et al_2017_Ideologically Sophisticated Donors.pdf;/Users/nick/Zotero/storage/ZHW58Y27/ajps.html
+      \endverb
+      \verb{urlraw}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12275
+      \endverb
+      \verb{url}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12275
+      \endverb
+    \endentry
+    \entry{biersack1993}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=2ad19e585c62360353633b9de03cf359}{%
+           family={Biersack},
+           familyi={B\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=90227074297877797a2c7f3c17373043}{%
+           family={Herrnson},
+           familyi={H\bibinitperiod},
+           given={Paul\bibnamedelima S.},
+           giveni={P\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=6ed7f5dd1e3d2048489ee1471395688f}{%
+           family={Wilcox},
+           familyi={W\bibinitperiod},
+           given={Clyde},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {[Wiley, Comparative Legislative Research Center]}%
+      }
+      \strng{namehash}{60579e7f3aefcba7eb4ecf1a3f2ad77d}
+      \strng{fullhash}{60579e7f3aefcba7eb4ecf1a3f2ad77d}
+      \strng{bibnamehash}{60579e7f3aefcba7eb4ecf1a3f2ad77d}
+      \strng{authorbibnamehash}{60579e7f3aefcba7eb4ecf1a3f2ad77d}
+      \strng{authornamehash}{60579e7f3aefcba7eb4ecf1a3f2ad77d}
+      \strng{authorfullhash}{60579e7f3aefcba7eb4ecf1a3f2ad77d}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Campaign professionals maintain that early money is more valuable than money raised late in the campaign, because it increases the success of later fund raising. We find that early fund raising by House challengers does stimulate later receipts, especially for those who lack experience in elected office. For these candidates, early money from any source improves later fund raising from all sources. For candidates who have held elected office, however, only early money from individual contributors is a significant predictor of later receipts from PACs.}
+      \field{issn}{0362-9805}
+      \field{journaltitle}{Legislative Studies Quarterly}
+      \field{month}{11}
+      \field{number}{4}
+      \field{shorttitle}{Seeds for {{Success}}}
+      \field{title}{Seeds for {{Success}}: {{Early Money}} in {{Congressional Elections}}}
+      \field{urlday}{4}
+      \field{urlmonth}{2}
+      \field{urlyear}{2020}
+      \field{volume}{18}
+      \field{year}{1993}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{535\bibrangedash 551}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10/c2x8jh
+      \endverb
+      \verb{urlraw}
+      \verb https://www.jstor.org/stable/439854
+      \endverb
+      \verb{url}
+      \verb https://www.jstor.org/stable/439854
+      \endverb
+    \endentry
+    \entry{bonica2014}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=da6af7365cdb3b443f8352985930182c}{%
+           family={Bonica},
+           familyi={B\bibinitperiod},
+           given={Adam},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{da6af7365cdb3b443f8352985930182c}
+      \strng{fullhash}{da6af7365cdb3b443f8352985930182c}
+      \strng{bibnamehash}{da6af7365cdb3b443f8352985930182c}
+      \strng{authorbibnamehash}{da6af7365cdb3b443f8352985930182c}
+      \strng{authornamehash}{da6af7365cdb3b443f8352985930182c}
+      \strng{authorfullhash}{da6af7365cdb3b443f8352985930182c}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{I develop a method to measure the ideology of candidates and contributors using campaign finance data. Combined with a data set of over 100 million contribution records from state and federal elections, the method estimates ideal points for an expansive range of political actors. The common pool of contributors who give across institutions and levels of politics makes it possible to recover a unified set of ideological measures for members of Congress, the president and executive branch, state legislators, governors, and other state officials, as well as the interest groups and individuals who make political donations. Since candidates fundraise regardless of incumbency status, the method estimates ideal points for both incumbents and nonincumbents. After establishing measure validity and addressing issues concerning strategic behavior, I present results for a variety of political actors and discuss several promising avenues of research made possible by the new measures.}
+      \field{issn}{1540-5907}
+      \field{journaltitle}{American Journal of Political Science}
+      \field{langid}{english}
+      \field{number}{2}
+      \field{title}{Mapping the {{Ideological Marketplace}}}
+      \field{urlday}{5}
+      \field{urlmonth}{2}
+      \field{urlyear}{2020}
+      \field{volume}{58}
+      \field{year}{2014}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{367\bibrangedash 386}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10/f5wts9
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Bonica_2014_Mapping the Ideological Marketplace.pdf;/Users/nick/Zotero/storage/ZPLNTZMC/ajps.html
+      \endverb
+      \verb{urlraw}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12062
+      \endverb
+      \verb{url}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12062
+      \endverb
+    \endentry
+    \entry{bowler2016}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=2c3ec9daa539fa612ef2d50a49e4f5bd}{%
+           family={Bowler},
+           familyi={B\bibinitperiod},
+           given={Shaun},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=866c6251f8a529b9591bad26a3ba7c7e}{%
+           family={Donovan},
+           familyi={D\bibinitperiod},
+           given={Todd},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{fullhash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{bibnamehash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{authorbibnamehash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{authornamehash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{authorfullhash}{d28bd5076e2362317842a3f25c53478a}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Many Americans think campaign money has a corrupting influence on Congress. Yet how they think about money in politics is a relatively unexplored topic. This article investigates how the public reasons about campaign money and corruption. Our survey experiments demonstrate that attitudes about campaign money are structured by partisan interest and are also driven by information about sources of campaign money and the amount spent (particularly for large independent expenditures made possible by Citizens United), the method of delivery, and about what the money is spent on. Mass perceptions about corruption of Congress, furthermore, may reflect aversion to negative campaigns as well as attitudes about campaign financiers having undue influence over representatives. These findings not only provide a more nuanced picture of attitudes about campaign money but also have consequences for how we assess reform proposals relating to money and politics.}
+      \field{issn}{1532-673X, 1552-3373}
+      \field{journaltitle}{American Politics Research}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{number}{2}
+      \field{shortjournal}{American Politics Research}
+      \field{title}{Campaign {{Money}}, {{Congress}}, and {{Perceptions}} of {{Corruption}}}
+      \field{urlday}{17}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
+      \field{volume}{44}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{272\bibrangedash 295}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10/f8bfv9
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Bowler_Donovan_2016_Campaign Money, Congress, and Perceptions of Corruption.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://journals.sagepub.com/doi/10.1177/1532673X15594232
+      \endverb
+      \verb{url}
+      \verb http://journals.sagepub.com/doi/10.1177/1532673X15594232
+      \endverb
+    \endentry
+    \entry{brown1995}{book}{}
+      \name{author}{5}{}{%
+        {{uniquename=0,uniquepart=base,hash=9c917654c22f3a7255481c953ea0fdda}{%
+           family={Brown},
+           familyi={B\bibinitperiod},
+           given={Clifford\bibnamedelima W.},
+           giveni={C\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=7ceeb8519503c9126b8c2e34dd9f3ad9}{%
+           family={Powell},
+           familyi={P\bibinitperiod},
+           given={Lynda\bibnamedelima W.},
+           giveni={L\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=7ceeb8519503c9126b8c2e34dd9f3ad9}{%
+           family={Powell},
+           familyi={P\bibinitperiod},
+           given={Lynda\bibnamedelima W.},
+           giveni={L\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=6ed7f5dd1e3d2048489ee1471395688f}{%
+           family={Wilcox},
+           familyi={W\bibinitperiod},
+           given={Clyde},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=d85d874dbfc1359a421501e8c4bc54a3}{%
+           family={Powell},
+           familyi={P\bibinitperiod},
+           given={Professor\bibnamedelimb Lynda\bibnamedelima W.},
+           giveni={P\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{49a601181241056c0999a18e8a0bd68b}
+      \strng{fullhash}{7e3b48ba28eeae7b22c1f49fbedee49d}
+      \strng{bibnamehash}{7e3b48ba28eeae7b22c1f49fbedee49d}
+      \strng{authorbibnamehash}{7e3b48ba28eeae7b22c1f49fbedee49d}
+      \strng{authornamehash}{49a601181241056c0999a18e8a0bd68b}
+      \strng{authorfullhash}{7e3b48ba28eeae7b22c1f49fbedee49d}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Serious Money offers detailed analysis of the relationship between fundraising methods and contributing decisions in presidential nomination campaigns. Brown, Powell, and Wilcox explore the fundamental differences between direct mail solicitation and personal-solicitation networks, and how candidate resources dictate the use of unique methods of solicitation. The research is based largely on newly conducted surveys of campaign contributors, a panel study of contributors and interviews with campaign fundraising professionals.}
+      \field{day}{29}
+      \field{isbn}{978-0-521-49780-0}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{pagetotal}{204}
+      \field{shorttitle}{Serious {{Money}}}
+      \field{title}{Serious {{Money}}: {{Fundraising}} and {{Contributing}} in {{Presidential Nomination Campaigns}}}
+      \field{year}{1995}
+      \field{dateera}{ce}
+      \keyw{Political Science / American Government / General,Political Science / Political Process / General}
+    \endentry
+    \entry{brunell2005}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=c06ebd1e64ac621b06960874c6a78c89}{%
+           family={Brunell},
+           familyi={B\bibinitperiod},
+           given={Thomas\bibnamedelima L.},
+           giveni={T\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications Inc}%
+      }
+      \strng{namehash}{c06ebd1e64ac621b06960874c6a78c89}
+      \strng{fullhash}{c06ebd1e64ac621b06960874c6a78c89}
+      \strng{bibnamehash}{c06ebd1e64ac621b06960874c6a78c89}
+      \strng{authorbibnamehash}{c06ebd1e64ac621b06960874c6a78c89}
+      \strng{authornamehash}{c06ebd1e64ac621b06960874c6a78c89}
+      \strng{authorfullhash}{c06ebd1e64ac621b06960874c6a78c89}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Interest groups are policy maximizers, while political parties are focused on maximizing the number of seats they win in Congress. These competing goals have important implications for the relationship between interest groups and parties. In this study I develop and test a theory concerning the patterns of hard money contributions from Political Action Committees (PACs) to candidates for the U.S. Congress. I argue that interest groups have preferences as to which party controls a majority of seats in Congress, which leads them to direct ?sincere? and electorally useful money to this party (i.e., labor groups prefer Democrats, corporate groups prefer Republicans). When interest groups donate funds to the ?other? party, the donations are designed to have as minimal electoral impact as possible. Interest groups accomplish this by giving ?strategic? donations to this party in the following way: donate less money almost exclusively to incumbents (who typically do not need the money in order to be reelected). Thus, while many PACs do give money to both Democrats and Republicans, which indicates the importance of access, it is evident from the overall pattern of donations that these groups clearly favor either one party or the other.}
+      \field{day}{1}
+      \field{issn}{1065-9129}
+      \field{journaltitle}{Political Research Quarterly}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{4}
+      \field{shortjournal}{Political Research Quarterly}
+      \field{shorttitle}{The {{Relationship Between Political Parties}} and {{Interest Groups}}}
+      \field{title}{The {{Relationship Between Political Parties}} and {{Interest Groups}}: {{Explaining Patterns}} of {{PAC Contributions}} to {{Candidates}} for {{Congress}}}
+      \field{urlday}{4}
+      \field{urlmonth}{2}
+      \field{urlyear}{2020}
+      \field{volume}{58}
+      \field{year}{2005}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{681\bibrangedash 688}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10/d3rwqk
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1177/106591290505800415
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1177/106591290505800415
+      \endverb
+    \endentry
+    \entry{bump2016}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=f4cef6cda37776220ab89c91390a3423}{%
+           family={Bump},
+           familyi={B\bibinitperiod},
+           given={Philip},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{f4cef6cda37776220ab89c91390a3423}
+      \strng{fullhash}{f4cef6cda37776220ab89c91390a3423}
+      \strng{bibnamehash}{f4cef6cda37776220ab89c91390a3423}
+      \strng{authorbibnamehash}{f4cef6cda37776220ab89c91390a3423}
+      \strng{authornamehash}{f4cef6cda37776220ab89c91390a3423}
+      \strng{authorfullhash}{f4cef6cda37776220ab89c91390a3423}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The over-simplification of politics.}
+      \field{day}{1}
+      \field{journaltitle}{The Washington Post}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{title}{Why {{Hillary Clinton}} Is Justifiably Annoyed by Criticism of Her {{Big Oil}} Fundraising}
+      \field{urlday}{6}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/9WKQXW7F/why-hillary-clinton-is-justifiably-annoyed-by-critiques-of-her-big-oil-fundraising.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.washingtonpost.com/news/the-fix/wp/2016/04/01/why-hillary-clinton-is-justifiably-annoyed-by-critiques-of-her-big-oil-fundraising/
+      \endverb
+      \verb{url}
+      \verb https://www.washingtonpost.com/news/the-fix/wp/2016/04/01/why-hillary-clinton-is-justifiably-annoyed-by-critiques-of-her-big-oil-fundraising/
+      \endverb
+    \endentry
+    \entry{carpini1997}{book}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=95426f706578ff2381960cd559b8d91c}{%
+           family={Carpini},
+           familyi={C\bibinitperiod},
+           given={Michael\bibnamedelimb X.\bibnamedelimi Delli},
+           giveni={M\bibinitperiod\bibinitdelim X\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=150a6a434a3300a4d22a89d048addcd3}{%
+           family={Keeter},
+           familyi={K\bibinitperiod},
+           given={Scott},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {New Haven}%
+      }
+      \list{publisher}{1}{%
+        {Yale University Press}%
+      }
+      \strng{namehash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{fullhash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{bibnamehash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{authorbibnamehash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{authornamehash}{7a470f70a373104b4433dd6f4a6c617d}
+      \strng{authorfullhash}{7a470f70a373104b4433dd6f4a6c617d}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This book is the most comprehensive analysis ever written about the American public’s factual knowledge of politics. Drawing on extensive survey data, including much that is original, two experts in public opinion and political behavior find that many citizens are remarkably informed about the details of politics, while equally large numbers are nearly ignorant of political facts. And despite dramatic changes in American society and politics, citizens appear no more or less informed today than half a century ago. Michael X. Delli Carpini and Scott Keeter demonstrate that informed persons are more likely to participate, better able to discern their own interests, and more likely to advocate those interests through political actions. Who, then, is politically informed? The authors provide compelling evidence that whites, men, and older, financially secure citizens have substantially more knowledge about national politics than do blacks, women, young adults, and financially less- well-off citizens. Thus citizens who are most disadvantaged socially and economically are least able to redress their grievances politically. Yet the authors believe that a broader and more equitably informed populace is possible. The challenge to America, they conclude, lies in providing an environment in which the benefits of being informed are clearer, the tools for gaining information more accessible, and the opportunities to learn about politics more frequent, timely, and equitable.}
+      \field{day}{23}
+      \field{isbn}{978-0-300-07275-4}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{pagetotal}{416}
+      \field{title}{What {{Americans Know}} about {{Politics}} and {{Why It Matters}}}
+      \field{year}{1997}
+      \field{dateera}{ce}
+    \endentry
+    \entry{culberson2019}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=ecc8df3946c6cc2b60fbc92355d775e0}{%
+           family={Culberson},
+           familyi={C\bibinitperiod},
+           given={Tyler},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3fc0caecd444fdca5f57aac1b9bfd31a}{%
+           family={McDonald},
+           familyi={M\bibinitperiod},
+           given={Michael\bibnamedelima P.},
+           giveni={M\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2da6fc22f1ef96409ec4ab4210d0b602}{%
+           family={Robbins},
+           familyi={R\bibinitperiod},
+           given={Suzanne\bibnamedelima M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{fullhash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{bibnamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authorbibnamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authornamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authorfullhash}{9ba83d0150c468fe869e03fa1a085db2}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{{$<$}p{$>$}American Politics Research, Ahead of Print. {$<$}br/{$><$}/p{$>$}}
+      \field{journaltitle}{American Politics Research}
+      \field{number}{5}
+      \field{title}{Small {{Donors}} in {{Congressional Elections}}}
+      \field{volume}{47}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{pages}{970\bibrangedash 999}
+      \range{pages}{30}
+      \verb{doi}
+      \verb 10/gfz3jg
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Culberson et al_2019_Small Donors in Congressional Elections.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://journals.sagepub.com/doi/abs/10.1177/1532673X18763918?ai=2b4&mi=ehikzz&af=R
+      \endverb
+      \verb{url}
+      \verb https://journals.sagepub.com/doi/abs/10.1177/1532673X18763918?ai=2b4&mi=ehikzz&af=R
+      \endverb
+    \endentry
+    \entry{dalton2005}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=84632f7414f0ebd1e9055a20e294b550}{%
+           family={Dalton},
+           familyi={D\bibinitperiod},
+           given={Russell\bibnamedelima J.},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{fullhash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{bibnamehash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{authorbibnamehash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{authornamehash}{84632f7414f0ebd1e9055a20e294b550}
+      \strng{authorfullhash}{84632f7414f0ebd1e9055a20e294b550}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The phenomenon of declining political trust among the American public has been widely discussed, with the explanations often focusing on specific historical events or the unique problems of American political institutions. We first demonstrate that public doubts about politicians and government are spreading across almost all advanced industrial democracies. The pervasiveness of this trend suggests that common social forces are affecting these nations, and we examine the social correlates of the decrease in trust. We find the greatest declines are among the better-educated and upper social status. These results suggest that changing citizen expectations, rather than the failure of governments, are prompting the erosion of political support in advanced industrial democracies.}
+      \field{day}{1}
+      \field{issn}{0390-6701}
+      \field{journaltitle}{International Review of Sociology}
+      \field{month}{3}
+      \field{number}{1}
+      \field{title}{The {{Social Transformation}} of {{Trust}} in {{Government}}}
+      \field{urlday}{11}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
+      \field{volume}{15}
+      \field{year}{2005}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{133\bibrangedash 154}
+      \range{pages}{22}
+      \verb{doi}
+      \verb 10/crxf3t
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/EDJI2CN3/03906700500038819.html
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/03906700500038819
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/03906700500038819
+      \endverb
+    \endentry
+    \entry{evers-hillstrom2018}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=031eb633676a831f7e4d5c5cb9c6fb1a}{%
+           family={Evers-Hillstrom},
+           familyi={E\bibinithyphendelim H\bibinitperiod},
+           given={Karl},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{031eb633676a831f7e4d5c5cb9c6fb1a}
+      \strng{fullhash}{031eb633676a831f7e4d5c5cb9c6fb1a}
+      \strng{bibnamehash}{031eb633676a831f7e4d5c5cb9c6fb1a}
+      \strng{authorbibnamehash}{031eb633676a831f7e4d5c5cb9c6fb1a}
+      \strng{authornamehash}{031eb633676a831f7e4d5c5cb9c6fb1a}
+      \strng{authorfullhash}{031eb633676a831f7e4d5c5cb9c6fb1a}
+      \field{sortinit}{E}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Fifty-two members of the 116th Congress — including 50 Democrats and 35 new members — pledged to reject money from corporate PACs this cycle.}
+      \field{day}{7}
+      \field{hour}{20}
+      \field{journaltitle}{OpenSecrets News}
+      \field{langid}{american}
+      \field{minute}{14}
+      \field{month}{12}
+      \field{second}{27}
+      \field{shorttitle}{Democrats Are Rejecting Corporate {{PACs}}}
+      \field{timezone}{Z}
+      \field{title}{Democrats Are Rejecting Corporate {{PACs}}: {{Does}} It Mean Anything?}
+      \field{urlday}{6}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/K524TP3Y/democrats-say-no-pacs.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.opensecrets.org/news/2018/12/democrats-say-no-pacs/
+      \endverb
+      \verb{url}
+      \verb https://www.opensecrets.org/news/2018/12/democrats-say-no-pacs/
+      \endverb
+    \endentry
+    \entry{francia2003}{book}{}
+      \name{author}{5}{}{%
+        {{uniquename=0,uniquepart=base,hash=d34da01bc8084f1f14b4569b7cafb31e}{%
+           family={Francia},
+           familyi={F\bibinitperiod},
+           given={Peter\bibnamedelima L.},
+           giveni={P\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c806fc2f226d82c52f8b0297a7d38ed4}{%
+           family={Green},
+           familyi={G\bibinitperiod},
+           given={John\bibnamedelima C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=90227074297877797a2c7f3c17373043}{%
+           family={Herrnson},
+           familyi={H\bibinitperiod},
+           given={Paul\bibnamedelima S.},
+           giveni={P\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=6ed7f5dd1e3d2048489ee1471395688f}{%
+           family={Wilcox},
+           familyi={W\bibinitperiod},
+           given={Clyde},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=7ceeb8519503c9126b8c2e34dd9f3ad9}{%
+           family={Powell},
+           familyi={P\bibinitperiod},
+           given={Lynda\bibnamedelima W.},
+           giveni={L\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Columbia University Press}%
+      }
+      \strng{namehash}{a77743e44f89089e93479221ca2b5629}
+      \strng{fullhash}{70d8591462ee81799ffba7a682de06ab}
+      \strng{bibnamehash}{70d8591462ee81799ffba7a682de06ab}
+      \strng{authorbibnamehash}{70d8591462ee81799ffba7a682de06ab}
+      \strng{authornamehash}{a77743e44f89089e93479221ca2b5629}
+      \strng{authorfullhash}{70d8591462ee81799ffba7a682de06ab}
+      \field{sortinit}{F}
+      \field{sortinithash}{669c706c6f1fbf3b5a83d26f1d9e9e72}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Individual donors play a critical role in financing congressional elections, accounting for more than half of all money raised in House campaigns. But significant donors (defined here as those contributing more than \$200) are the least understood participants in the system. Defenders assert that contributing money to campaigns is part of a broader pattern of civic involvement and is free speech that gives a voice to various interests. Detractors argue that these contributions are undemocratic, enabling wealthy citizens to overwhelm the voices of the many and to promote narrow business and policy interests. These divergent assessments were raised in connection with the Bipartisan Campaign Finance Reform Act of 2002 and continue to characterize the debate over campaign finance reform.So who really contributes and why? How much and to how many candidates? What are the strategies used by political campaigns to elicit contributions and how do the views of significant donors impact the campaign-finance system? What do donors think about campaign-finance reform? This book investigates these vital questions, describing the influence of congressional financiers in American politics.}
+      \field{isbn}{978-0-231-11618-3}
+      \field{langid}{english}
+      \field{pagetotal}{219}
+      \field{shorttitle}{The {{Financiers}} of {{Congressional Elections}}}
+      \field{title}{The {{Financiers}} of {{Congressional Elections}}: {{Investors}}, {{Ideologues}}, and {{Intimates}}}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \keyw{Political Science / American Government / Legislative Branch,Political Science / American Government / National,Political Science / Political Process / Campaigns & Elections,Political Science / Political Process / General}
+    \endentry
+    \entry{gelman2008a}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=1e1eb60e3b6e222217bf8e9b24070b28}{%
+           family={Gelman},
+           familyi={G\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c617e65fc168096e379748f734d3db84}{%
+           family={Jakulin},
+           familyi={J\bibinitperiod},
+           given={Aleks},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=43f1809ab714b4218d201e3fd76f8000}{%
+           family={Pittau},
+           familyi={P\bibinitperiod},
+           given={Maria\bibnamedelima Grazia},
+           giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=33544ecfe6b2235e8ada2a3ff2deeb71}{%
+           family={Su},
+           familyi={S\bibinitperiod},
+           given={Yu-Sung},
+           giveni={Y\bibinithyphendelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{7b511f44eded88e08c98470ecd75568d}
+      \strng{fullhash}{95799dbd13f526e1b91274d7e2c65340}
+      \strng{bibnamehash}{95799dbd13f526e1b91274d7e2c65340}
+      \strng{authorbibnamehash}{95799dbd13f526e1b91274d7e2c65340}
+      \strng{authornamehash}{7b511f44eded88e08c98470ecd75568d}
+      \strng{authorfullhash}{95799dbd13f526e1b91274d7e2c65340}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1932-6157}
+      \field{journaltitle}{The Annals of Applied Statistics}
+      \field{langid}{english}
+      \field{number}{4}
+      \field{title}{A Weakly Informative Default Prior Distribution for Logistic and Other Regression Models}
+      \field{urlday}{10}
+      \field{urlmonth}{11}
+      \field{urlyear}{2018}
+      \field{volume}{2}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1360\bibrangedash 1383}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10/bmr86q
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/QXT9WG88/A weakly informative default prior distribution for logistic and other - Gelman et al 2008.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://projecteuclid.org/euclid.aoas/1231424214
+      \endverb
+      \verb{url}
+      \verb http://projecteuclid.org/euclid.aoas/1231424214
+      \endverb
+    \endentry
+    \entry{grier1991}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=c59fbc503685a3597cf56630fe96b3c6}{%
+           family={Grier},
+           familyi={G\bibinitperiod},
+           given={Kevin\bibnamedelima B.},
+           giveni={K\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=1278f60d7e02d08e54d0c420c60da69a}{%
+           family={Munger},
+           familyi={M\bibinitperiod},
+           given={Michael\bibnamedelima C.},
+           giveni={M\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{fullhash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{bibnamehash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{authorbibnamehash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{authornamehash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{authorfullhash}{9894a55583d54839c2e5bd027bb405c6}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We model the behavior of a vote-maximizing legislator in order to predict interest group campaign contributions to incumbent politicians. We show that committee assignments and voter preferences affect the price a legislator requires to produce policies for any interest group. An econometric analysis of actual interest group contributions shows that these groups make significantly larger contributions to legislators on committees with jurisdiction over especially relevant policy issues and to incumbents with non-hostile constituencies. These results support our theory; interest groups act as if committees matter in the determination of policy and voters' interests constrain interest group behavior.}
+      \field{issn}{1465-7295}
+      \field{journaltitle}{Economic Inquiry}
+      \field{langid}{english}
+      \field{number}{1}
+      \field{title}{Committee {{Assignments}}, {{Constituent Preferences}}, and {{Campaign Contributions}}}
+      \field{urlday}{8}
+      \field{urlmonth}{2}
+      \field{urlyear}{2019}
+      \field{volume}{29}
+      \field{year}{1991}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{24\bibrangedash 43}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10/dt325k
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Grier_Munger_1991_Committee Assignments, Constituent Preferences, and Campaign Contributions.pdf;/Users/nick/Zotero/storage/UQ9Z6L94/j.1465-7295.1991.tb01250.html
+      \endverb
+      \verb{urlraw}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1465-7295.1991.tb01250.x
+      \endverb
+      \verb{url}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1465-7295.1991.tb01250.x
+      \endverb
+    \endentry
+    \entry{harper2019}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=f4669bb0ad9a086bbdc4aeb10674116b}{%
+           family={Harper},
+           familyi={H\bibinitperiod},
+           given={Averi},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{f4669bb0ad9a086bbdc4aeb10674116b}
+      \strng{fullhash}{f4669bb0ad9a086bbdc4aeb10674116b}
+      \strng{bibnamehash}{f4669bb0ad9a086bbdc4aeb10674116b}
+      \strng{authorbibnamehash}{f4669bb0ad9a086bbdc4aeb10674116b}
+      \strng{authornamehash}{f4669bb0ad9a086bbdc4aeb10674116b}
+      \strng{authorfullhash}{f4669bb0ad9a086bbdc4aeb10674116b}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This cycle rejecting donations from corporate political action committees is nearly universal within the Democratic field.}
+      \field{day}{5}
+      \field{journaltitle}{ABC News}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{title}{2020 Candidates Back Away from Big Money, Focus on Small-Dollar Donors}
+      \field{urlday}{6}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/CSY9DLT5/story.html
+      \endverb
+      \verb{urlraw}
+      \verb https://abcnews.go.com/Politics/2020-candidates-back-big-money-focus-small-dollar/story?id=62768128
+      \endverb
+      \verb{url}
+      \verb https://abcnews.go.com/Politics/2020-candidates-back-big-money-focus-small-dollar/story?id=62768128
+      \endverb
+    \endentry
+    \entry{iyengar1989}{book}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=cc7508dbd54eff68f7ffe197dc0e70bd}{%
+           family={Iyengar},
+           familyi={I\bibinitperiod},
+           given={Shanto},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a0e579a898c93cd13011548f021030ef}{%
+           family={Kinder},
+           familyi={K\bibinitperiod},
+           given={Donald\bibnamedelima R.},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Chicago}%
+      }
+      \list{publisher}{1}{%
+        {University Of Chicago Press}%
+      }
+      \strng{namehash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{fullhash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{bibnamehash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{authorbibnamehash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{authornamehash}{fe3d13de12889ac85fce72486af1bff1}
+      \strng{authorfullhash}{fe3d13de12889ac85fce72486af1bff1}
+      \field{sortinit}{I}
+      \field{sortinithash}{320bc8fe8101b9376f9f21cd507de0e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{"News That Matters does matter, because it demonstrates conclusively that television newscasts powerfully affect opinion. . . . All that follows, whether it supports, modifies, or challenges their conclusions, will have to begin here."—Aaron Wildavsky, The Public Interest"Because of its methodological integrity and richness, News That Matters is likely to be regarded as an impressive, possibliy grounbreaking work."—Neil Postman, New York Times Book Review}
+      \field{day}{15}
+      \field{edition}{Reprint edition}
+      \field{isbn}{978-0-226-38857-1}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{pagetotal}{196}
+      \field{shorttitle}{News {{That Matters}}}
+      \field{title}{News {{That Matters}}: {{Television}} and {{American Opinion}}}
+      \field{year}{1989}
+      \field{dateera}{ce}
+    \endentry
+    \entry{johnson2010}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=80a991fa86ec986a4b8a83fc6383eb23}{%
+           family={Johnson},
+           familyi={J\bibinitperiod},
+           given={Bertram},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications Inc}%
+      }
+      \strng{namehash}{80a991fa86ec986a4b8a83fc6383eb23}
+      \strng{fullhash}{80a991fa86ec986a4b8a83fc6383eb23}
+      \strng{bibnamehash}{80a991fa86ec986a4b8a83fc6383eb23}
+      \strng{authorbibnamehash}{80a991fa86ec986a4b8a83fc6383eb23}
+      \strng{authornamehash}{80a991fa86ec986a4b8a83fc6383eb23}
+      \strng{authorfullhash}{80a991fa86ec986a4b8a83fc6383eb23}
+      \field{sortinit}{J}
+      \field{sortinithash}{fce5f8d0bd05e8d93f3dbe21c78897ca}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Some ideologically extreme candidates appear to generate enthusiastic support from individual donors, but previous systematic analysis has found no overall fundraising benefits accruing to extremism. I propose that the similar amount of funds raised by extreme and moderate candidates masks different fundraising coalitions. Just as senior members of Congress may have a comparative advantage in raising money from access-oriented contributors, ideologically extreme members of Congress may have a comparative advantage in raising money from ideologically motivated individual contributors. I test for this possibility by using a multilevel model to predict the proportion of funds candidates raise from individual contributions and confirm that, holding total fundraising amounts constant, extreme candidates are more likely to rely on individual contributors than are moderate candidates.}
+      \field{day}{1}
+      \field{issn}{1532-673X}
+      \field{journaltitle}{American Politics Research}
+      \field{month}{9}
+      \field{number}{5}
+      \field{shortjournal}{American Politics Research}
+      \field{shorttitle}{Individual {{Contributions}}}
+      \field{title}{Individual {{Contributions}}: {{A Fundraising Advantage}} for the {{Ideologically Extreme}}?}
+      \field{urlday}{5}
+      \field{urlmonth}{2}
+      \field{urlyear}{2020}
+      \field{volume}{38}
+      \field{year}{2010}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{890\bibrangedash 908}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10/c2n5pk
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Johnson_2010_Individual Contributions.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1177/1532673X09357500
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1177/1532673X09357500
+      \endverb
+    \endentry
+    \entry{lazer2015a}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=81f439d468dc23df4e28507359869513}{%
+           family={Lazer},
+           familyi={L\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{81f439d468dc23df4e28507359869513}
+      \strng{fullhash}{81f439d468dc23df4e28507359869513}
+      \strng{bibnamehash}{81f439d468dc23df4e28507359869513}
+      \strng{authorbibnamehash}{81f439d468dc23df4e28507359869513}
+      \strng{authornamehash}{81f439d468dc23df4e28507359869513}
+      \strng{authorfullhash}{81f439d468dc23df4e28507359869513}
+      \field{extraname}{1}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradate}{1}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{OpenSecrets}
+      \field{month}{9}
+      \field{title}{Candidate {{Committees}}: {{Background}} | {{OpenSecrets}}}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/V8745MC5/background.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.opensecrets.org/industries/background.php?cycle=2020&ind=q16
+      \endverb
+      \verb{url}
+      \verb https://www.opensecrets.org/industries/background.php?cycle=2020&ind=q16
+      \endverb
+    \endentry
+    \entry{lazer2015}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=81f439d468dc23df4e28507359869513}{%
+           family={Lazer},
+           familyi={L\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{81f439d468dc23df4e28507359869513}
+      \strng{fullhash}{81f439d468dc23df4e28507359869513}
+      \strng{bibnamehash}{81f439d468dc23df4e28507359869513}
+      \strng{authorbibnamehash}{81f439d468dc23df4e28507359869513}
+      \strng{authornamehash}{81f439d468dc23df4e28507359869513}
+      \strng{authorfullhash}{81f439d468dc23df4e28507359869513}
+      \field{extraname}{2}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradate}{2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{OpenSecrets}
+      \field{month}{7}
+      \field{title}{Leadership {{PACs}}: {{Background}} | {{OpenSecrets}}}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/SIWJZF3H/background.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.opensecrets.org/industries/background.php?cycle=2020&ind=q03
+      \endverb
+      \verb{url}
+      \verb https://www.opensecrets.org/industries/background.php?cycle=2020&ind=q03
+      \endverb
+    \endentry
+    \entry{lipsitz2011}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=0191feed696cda4c9546bcec5048cc5a}{%
+           family={Lipsitz},
+           familyi={L\bibinitperiod},
+           given={Keena},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2653158c74c981f6c390f7dceb4ff78b}{%
+           family={Panagopoulos},
+           familyi={P\bibinitperiod},
+           given={Costas},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6f0b25f985e2d1829c949809295c7b25}
+      \strng{fullhash}{6f0b25f985e2d1829c949809295c7b25}
+      \strng{bibnamehash}{6f0b25f985e2d1829c949809295c7b25}
+      \strng{authorbibnamehash}{6f0b25f985e2d1829c949809295c7b25}
+      \strng{authornamehash}{6f0b25f985e2d1829c949809295c7b25}
+      \strng{authorfullhash}{6f0b25f985e2d1829c949809295c7b25}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The presidential candidates alone in 2008 raised a stunning \$1.75 billion, which was double the \$881 million raised by candidates during the 2004 election cycle and more than triple the \$529 million raised by candidates in 2000. Virtually all of this money was raised from individual contributions. In this article, the authors use survey data to examine the individual characteristics and political attitudes of contributors in 2008.}
+      \field{day}{16}
+      \field{issn}{1537-7857, 1537-7865}
+      \field{journaltitle}{Journal of Political Marketing}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{number}{1-2}
+      \field{shortjournal}{Journal of Political Marketing}
+      \field{shorttitle}{Filled {{Coffers}}}
+      \field{title}{Filled {{Coffers}}: {{Campaign Contributions}} and {{Contributors}} in the 2008 {{Elections}}}
+      \field{urlday}{5}
+      \field{urlmonth}{2}
+      \field{urlyear}{2020}
+      \field{volume}{10}
+      \field{year}{2011}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{43\bibrangedash 57}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10/bbtfrj
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Lipsitz_Panagopoulos_2011_Filled Coffers.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://www.tandfonline.com/doi/abs/10.1080/15377857.2011.540193
+      \endverb
+      \verb{url}
+      \verb http://www.tandfonline.com/doi/abs/10.1080/15377857.2011.540193
+      \endverb
+    \endentry
+    \entry{magleby2010}{book}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=0bdf3d3303a8f9c1abc3bb27b3c8b3af}{%
+           family={Magleby},
+           familyi={M\bibinitperiod},
+           given={David\bibnamedelima B.},
+           giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=42e28eb4052dce1bfa228c65c232f037}{%
+           family={Nelson},
+           familyi={N\bibinitperiod},
+           given={Candice\bibnamedelima J.},
+           giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Brookings Institution Press}%
+      }
+      \strng{namehash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{fullhash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{bibnamehash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{authorbibnamehash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{authornamehash}{4e6c05465e4f76b64f274a67ca68f446}
+      \strng{authorfullhash}{4e6c05465e4f76b64f274a67ca68f446}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The amount of money needed to run a competitive congressional campaign is staggering, with special interests playing a central role in raising these funds. Also of concern is the declining competitiveness of House elections. And while recognition of the need to reform campaign financing is widespread, partisan and House/Senate differences over what these changes should be have complicated legislative efforts.Almost \$450 million was spent in both the 1986 and 1988 congressional campaigns, much of it coming from wealthy contributors and political action committees (PACs). Increasing criticism of the current system will undoubtedly force Congress to keep campaign finance reform on it's legislative agenda.Using public opinion, election and campaign spending data, extensive interviews, and a knowledge of practical politics, Magleby and Nelson examine the central issues in the campaign financing debate: the cost of congressional campaigns, financial participation by the political parties and PACs, existing and proposed limits on contributions and expenditures, public financing, and the role of the Federal Election Commission. They propose a comprehensive package of reforms that will undoubtedly serve as a guide for future legislation.}
+      \field{day}{1}
+      \field{isbn}{978-0-8157-2026-3}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{pagetotal}{244}
+      \field{shorttitle}{The {{Money Chase}}}
+      \field{title}{The {{Money Chase}}: {{Congressional Campaign Finance Reform}}}
+      \field{year}{2010}
+      \field{dateera}{ce}
+      \keyw{Political Science / American Government / Legislative Branch,Political Science / General,Political Science / Political Process / Campaigns & Elections}
+    \endentry
+    \entry{mayer2001}{incollection}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=0ad08a2a5f3561daa4dc672c3adb3e2b}{%
+           family={Mayer},
+           familyi={M\bibinitperiod},
+           given={William\bibnamedelima G.},
+           giveni={W\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Rowman \& Littlefield}%
+      }
+      \strng{namehash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{fullhash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{bibnamehash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{authorbibnamehash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{authornamehash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \strng{authorfullhash}{0ad08a2a5f3561daa4dc672c3adb3e2b}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Is campaign finance reform dead or alive? Can Congress really fix the problems that American voters perceive in their electoral system? This book assumes that voters are the end users of campaign finance reform, and it questions whether average citizens really know what they are asking for or what they may get when they demand change. In this book, ten prominent political scientists and commentators challenge the conventional wisdom about the role of money in campaigns and elections. They look at the level of campaign spending in recent times, the judicial perspective on spending as a First Amendment right, the current diversity of donors, the media spin on the subject, and the act of contributing as a form of political participation. The inimitable Norm Ornstein wraps it all up with a model reform proposal that is at once more moderate than McCain-Feingold and yet radical in its own way. Published under the auspices of Berkeley Public Policy Press."}
+      \field{booktitle}{A {{User}}'s {{Guide}} to {{Campaign Finance Reform}}}
+      \field{isbn}{978-0-7425-1795-0}
+      \field{langid}{english}
+      \field{title}{Public {{Attitudes}} on {{Campaign Finance}}}
+      \field{year}{2001}
+      \field{dateera}{ce}
+      \keyw{Political Science / Political Process / Campaigns & Elections}
+    \endentry
+    \entry{mccullagn1989}{book}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=90d6d552330e7d07717c341974240a64}{%
+           family={McCullagn},
+           familyi={M\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=525c6028cf4d63e0a127c938f328602d}{%
+           family={Nelder},
+           familyi={N\bibinitperiod},
+           given={John\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Chapman and Hall/CRC Press}%
+      }
+      \strng{namehash}{a289deba17aae33ada739406db84a671}
+      \strng{fullhash}{a289deba17aae33ada739406db84a671}
+      \strng{bibnamehash}{a289deba17aae33ada739406db84a671}
+      \strng{authorbibnamehash}{a289deba17aae33ada739406db84a671}
+      \strng{authornamehash}{a289deba17aae33ada739406db84a671}
+      \strng{authorfullhash}{a289deba17aae33ada739406db84a671}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The success of the first edition of Generalized Linear Models led to the updated Second Edition, which continues to provide a definitive unified, treatment of methods for the analysis of diverse types of data. Today, it remains popular for its clarity, richness of content and direct relevance to agr}
+      \field{edition}{2nd}
+      \field{langid}{english}
+      \field{month}{8}
+      \field{title}{Generalized {{Linear Models}}}
+      \field{year}{1989}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/N5FRMPPB/9780412317606.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.crcpress.com/Generalized-Linear-Models-Second-Edition/McCullagh-Nelder/p/book/9780412317606
+      \endverb
+      \verb{url}
+      \verb https://www.crcpress.com/Generalized-Linear-Models-Second-Edition/McCullagh-Nelder/p/book/9780412317606
+      \endverb
+    \endentry
+    \entry{mcneish2016}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=8c0919ecd443c526bc3a222bc7c76ee5}{%
+           family={McNeish},
+           familyi={M\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Routledge}%
+      }
+      \strng{namehash}{8c0919ecd443c526bc3a222bc7c76ee5}
+      \strng{fullhash}{8c0919ecd443c526bc3a222bc7c76ee5}
+      \strng{bibnamehash}{8c0919ecd443c526bc3a222bc7c76ee5}
+      \strng{authorbibnamehash}{8c0919ecd443c526bc3a222bc7c76ee5}
+      \strng{authornamehash}{8c0919ecd443c526bc3a222bc7c76ee5}
+      \strng{authorfullhash}{8c0919ecd443c526bc3a222bc7c76ee5}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{As Bayesian methods continue to grow in accessibility and popularity, more empirical studies are turning to Bayesian methods to model small sample data. Bayesian methods do not rely on asympotics, a property that can be a hindrance when employing frequentist methods in small sample contexts. Although Bayesian methods are better equipped to model data with small sample sizes, estimates are highly sensitive to the specification of the prior distribution. If this aspect is not heeded, Bayesian estimates can actually be worse than frequentist methods, especially if frequentist small sample corrections are utilized. We show with illustrative simulations and applied examples that relying on software defaults or diffuse priors with small samples can yield more biased estimates than frequentist methods. We discuss conditions that need to be met if researchers want to responsibly harness the advantages that Bayesian methods offer for small sample problems as well as leading small sample frequentist methods.}
+      \field{day}{2}
+      \field{issn}{1070-5511}
+      \field{journaltitle}{Structural Equation Modeling: A Multidisciplinary Journal}
+      \field{month}{9}
+      \field{note}{\_eprint: https://doi.org/10.1080/10705511.2016.1186549}
+      \field{number}{5}
+      \field{title}{On {{Using Bayesian Methods}} to {{Address Small Sample Problems}}}
+      \field{urlday}{4}
+      \field{urlmonth}{2}
+      \field{urlyear}{2020}
+      \field{volume}{23}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{750\bibrangedash 773}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10/gf794c
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/VUNLT8F4/10705511.2016.html
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/10705511.2016.1186549
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/10705511.2016.1186549
+      \endverb
+      \keyw{Bayes,prior distribution,small sample}
+    \endentry
+    \entry{nilsen2019}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=bf645c10cd85cf1d914a05e56bc8acdc}{%
+           family={Nilsen},
+           familyi={N\bibinitperiod},
+           given={Ella},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{bf645c10cd85cf1d914a05e56bc8acdc}
+      \strng{fullhash}{bf645c10cd85cf1d914a05e56bc8acdc}
+      \strng{bibnamehash}{bf645c10cd85cf1d914a05e56bc8acdc}
+      \strng{authorbibnamehash}{bf645c10cd85cf1d914a05e56bc8acdc}
+      \strng{authornamehash}{bf645c10cd85cf1d914a05e56bc8acdc}
+      \strng{authorfullhash}{bf645c10cd85cf1d914a05e56bc8acdc}
+      \field{sortinit}{N}
+      \field{sortinithash}{f7242c3ed3dc50029fca1be76c497c7c}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Small-dollar donations also make up the majority of Pete Buttigieg’s, Beto O’Rourke, and Andrew Yang’s fundraising.}
+      \field{day}{16}
+      \field{hour}{12}
+      \field{journaltitle}{Vox}
+      \field{minute}{30}
+      \field{month}{4}
+      \field{second}{0}
+      \field{timezone}{-04\bibtzminsep 00}
+      \field{title}{In the Race for Grassroots Donations, It’s a Battle between {{Elizabeth Warren}} and {{Bernie Sanders}}}
+      \field{urlday}{12}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/ECPZFXTV/fec-reports-elizabeth-warren-bernie-sanders-grassroots-donations.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.vox.com/policy-and-politics/2019/4/16/18409234/fec-reports-elizabeth-warren-bernie-sanders-grassroots-donations
+      \endverb
+      \verb{url}
+      \verb https://www.vox.com/policy-and-politics/2019/4/16/18409234/fec-reports-elizabeth-warren-bernie-sanders-grassroots-donations
+      \endverb
+    \endentry
+    \entry{page1992}{book}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=7102137e4c15f07f8f8e0d01275d02dd}{%
+           family={Page},
+           familyi={P\bibinitperiod},
+           given={Benjamin\bibnamedelima I.},
+           giveni={B\bibinitperiod\bibinitdelim I\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=221767dcb1b451bd1be561af46ff8d47}{%
+           family={Shapiro},
+           familyi={S\bibinitperiod},
+           given={Robert\bibnamedelima Y.},
+           giveni={R\bibinitperiod\bibinitdelim Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Chicago}%
+      }
+      \list{publisher}{1}{%
+        {University of Chicago Press}%
+      }
+      \strng{namehash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{fullhash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{bibnamehash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{authorbibnamehash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{authornamehash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \strng{authorfullhash}{3845f5dee0e4c4ea31d511741efc96f9}
+      \field{sortinit}{P}
+      \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{isbn}{978-0-226-64477-6 978-0-226-64478-3}
+      \field{pagetotal}{489}
+      \field{series}{American Politics and Political Economy Series}
+      \field{shorttitle}{The Rational Public}
+      \field{title}{The Rational Public: Fifty Years of Trends in {{Americans}}' Policy Preferences}
+      \field{year}{1992}
+      \field{dateera}{ce}
+      \keyw{20th century,History,Public opinion,United States}
+    \endentry
+    \entry{persily2004}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=f6306fb6c9e0eddcc26ce7ffb1957f6e}{%
+           family={Persily},
+           familyi={P\bibinitperiod},
+           given={Nathaniel},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=826cd49412d62a1bd096e1cb37804a16}{%
+           family={Lammie},
+           familyi={L\bibinitperiod},
+           given={Kelli},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{f7685727679aed3c34580c084f4a6d7f}
+      \strng{fullhash}{f7685727679aed3c34580c084f4a6d7f}
+      \strng{bibnamehash}{f7685727679aed3c34580c084f4a6d7f}
+      \strng{authorbibnamehash}{f7685727679aed3c34580c084f4a6d7f}
+      \strng{authornamehash}{f7685727679aed3c34580c084f4a6d7f}
+      \strng{authorfullhash}{f7685727679aed3c34580c084f4a6d7f}
+      \field{sortinit}{P}
+      \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{endyear}{2005}
+      \field{journaltitle}{University of Pennsylvania Law Review}
+      \field{langid}{english}
+      \field{shortjournal}{U. Pa. L. Rev.}
+      \field{shorttitle}{Perceptions of {{Corruption}} and {{Campaign Finance}}}
+      \field{title}{Perceptions of {{Corruption}} and {{Campaign Finance}}: {{When Public Opinion Determines Constitutional Law Symposium}}: {{The Law}} of {{Democracy}}: {{Campaign Finance}} after {{Mccain}}-{{Feingold}}}
+      \field{urlday}{11}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
+      \field{volume}{153}
+      \field{year}{2004}
+      \field{enddateera}{ce}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{119\bibrangedash 180}
+      \range{pages}{62}
+      \verb{doi}
+      \verb 10/dgt57d
+      \endverb
+      \verb{urlraw}
+      \verb https://heinonline.org/HOL/P?h=hein.journals/pnlr153&i=133
+      \endverb
+      \verb{url}
+      \verb https://heinonline.org/HOL/P?h=hein.journals/pnlr153&i=133
+      \endverb
+    \endentry
+    \entry{pewresearchcenter2014}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=83778ea1c38ca19c82fc35bb68b48c1b}{%
+           family={{Pew Research Center}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{fullhash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{bibnamehash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{authorbibnamehash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{authornamehash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \strng{authorfullhash}{83778ea1c38ca19c82fc35bb68b48c1b}
+      \field{sortinit}{P}
+      \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Public trust in the government remains near historic lows, although somewhat higher than during the October 2013 government shutdown. In a survey}
+      \field{day}{13}
+      \field{langid}{american}
+      \field{month}{11}
+      \field{shorttitle}{Public {{Trust}} in {{Government}}}
+      \field{title}{Public {{Trust}} in {{Government}}: 1958-2014 | {{Pew Research Center}}}
+      \field{urlday}{12}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
+      \field{year}{2014}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/ZUSVYWC8/public-trust-in-government.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.people-press.org/2014/11/13/public-trust-in-government/
+      \endverb
+      \verb{url}
+      \verb https://www.people-press.org/2014/11/13/public-trust-in-government/
+      \endverb
+    \endentry
+    \entry{raja2008}{book}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=3802aceb8557bceba023674e7f221ff2}{%
+           family={Raja},
+           familyi={R\bibinitperiod},
+           given={Raymond\bibnamedelimb J.\bibnamedelimi La},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {University of Michigan Press}%
+      }
+      \strng{namehash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{fullhash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{bibnamehash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{authorbibnamehash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{authornamehash}{3802aceb8557bceba023674e7f221ff2}
+      \strng{authorfullhash}{3802aceb8557bceba023674e7f221ff2}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Reformers lament that, with every effort to regulate the sources of campaign funding, candidates creatively circumvent the new legislation. But in fact, political fundraisers don't need to look for loopholes because, as Raymond J. La Raja proves, legislators intentionally design regulations to gain advantage over their partisan rivals. La Raja traces the history of the U.S. campaign finance system from the late nineteenth century through the passage of the Bipartisan Campaign Reform Act (BCRA) of 2002. Then, using the 2004 presidential election as a case study, he compares the ways in which Democrats and Republicans adapted their national fund-raising and campaigning strategies to satisfy BCRA regulations. Drawing upon this wealth of historical and recent evidence, he concludes with recommendations for reforming campaign finance in ways that promote fair competition among candidates and guarantee their accountability to voters. Small Change offers an engaging account of campaign finance reforms' contradictory history; it is a must-read for anyone concerned about influence of money on democratic elections.}
+      \field{day}{5}
+      \field{isbn}{978-0-472-05028-4}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{pagetotal}{302}
+      \field{shorttitle}{Small {{Change}}}
+      \field{title}{Small {{Change}}: {{Money}}, {{Political Parties}}, and {{Campaign Finance Reform}}}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \keyw{Law / General,Political Science / General,Political Science / Political Process / Campaigns & Elections}
+    \endentry
+    \entry{seitz-wald2015}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=7408f53f899bfd39d6b7fcce42ece053}{%
+           family={Seitz-Wald},
+           familyi={S\bibinithyphendelim W\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{7408f53f899bfd39d6b7fcce42ece053}
+      \strng{fullhash}{7408f53f899bfd39d6b7fcce42ece053}
+      \strng{bibnamehash}{7408f53f899bfd39d6b7fcce42ece053}
+      \strng{authorbibnamehash}{7408f53f899bfd39d6b7fcce42ece053}
+      \strng{authornamehash}{7408f53f899bfd39d6b7fcce42ece053}
+      \strng{authorfullhash}{7408f53f899bfd39d6b7fcce42ece053}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Clinton's decision to endorse Priorities USA may hurt her marginally in the primary, but it'll help her significantly in the more challenging general election.}
+      \field{day}{8}
+      \field{hour}{17}
+      \field{journaltitle}{MSNBC}
+      \field{minute}{54}
+      \field{month}{5}
+      \field{second}{0}
+      \field{timezone}{-04\bibtzminsep 00}
+      \field{title}{The Promise of Super {{PACs}} Outweigh the Perils for {{Hillary Clinton}}}
+      \field{urlday}{6}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/8LVRVQ2B/the-promise-super-pacs-outweigh-the-perils-hillary-clinton.html
+      \endverb
+      \verb{urlraw}
+      \verb http://www.msnbc.com/msnbc/the-promise-super-pacs-outweigh-the-perils-hillary-clinton
+      \endverb
+      \verb{url}
+      \verb http://www.msnbc.com/msnbc/the-promise-super-pacs-outweigh-the-perils-hillary-clinton
+      \endverb
+    \endentry
+    \entry{vanheerde-hudson2013}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,useprefix=true,hash=13a628fb02b870c7c776e738412cf112}{%
+           family={Hudson},
+           familyi={H\bibinitperiod},
+           given={Jennifer},
+           giveni={J\bibinitperiod},
+           givenun=0,
+           prefix={vanHeerde-},
+           prefixi={v\bibinitperiod},
+           prefixun=0}}%
+        {{uniquename=0,uniquepart=base,hash=fee1b5ce24629be865f6051de96c7f55}{%
+           family={Fisher},
+           familyi={F\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{fullhash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{bibnamehash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{authorbibnamehash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{authornamehash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{authorfullhash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \field{sortinit}{v}
+      \field{sortinithash}{75dd7385c90b2252c3ae853a80ca853b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Despite comprehensive reform (Political Parties, Elections and Referendums Act) and recent review (Phillips Review in 2007) of party finance in Britain, public opinion of party finance remains plagued by perceptions of corruption, undue influence from wealthy donors, carefree and wasteful spending and, more generally, from the perception that there is just ‘too much money’ in politics. In this article we argue that knowledge of and attitudes to party finance matter, not least because advocates of reform have cited public opinion as evidence for reform. However, because attitudes to party finance are part of a broader attitudinal structure, opinion-led reforms are unlikely to succeed in increasing public confidence. Using data generated from YouGov’s online panel (N=2,008), we demonstrate that the public know little of the key provisions regulating party finance and attitudes to party finance can be explained along two underlying dimensions – Anti-Party Finance and Reformers. As such, we consider whether parties and politicians should be freed from the constraints of public opinion in reforming party finance.}
+      \field{day}{1}
+      \field{issn}{1354-0688}
+      \field{journaltitle}{Party Politics}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{Party Politics}
+      \field{shorttitle}{Parties Heed (with Caution)}
+      \field{title}{Parties Heed (with Caution): {{Public}} Knowledge of and Attitudes towards Party Finance in {{Britain}}}
+      \field{urlday}{11}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
+      \field{volume}{19}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{41\bibrangedash 60}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10/dhjdgz
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/RSGL6HRH/Parties heed (with caution) - vanHeerde-Hudson and Fisher 2013.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1177/1354068810393268
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1177/1354068810393268
+      \endverb
+    \endentry
+    \entry{yeheelee2016}{online}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=7af8692c80813147d1b93ec226572fc4}{%
+           family={Ye\bibnamedelima Hee\bibnamedelima Lee},
+           familyi={Y\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim L\bibinitperiod},
+           given={Michelle},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{fullhash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{bibnamehash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{authorbibnamehash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{authornamehash}{7af8692c80813147d1b93ec226572fc4}
+      \strng{authorfullhash}{7af8692c80813147d1b93ec226572fc4}
+      \field{sortinit}{Y}
+      \field{sortinithash}{b8d711a035f7be9840c721c82920477e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Sanders doesn't technically have a sanctioned super PAC. But he's still reaping the benefits of outside spending, including a super PAC backed by a nurses union.}
+      \field{day}{11}
+      \field{journaltitle}{The Washington Post}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{title}{Sanders’s Claim That He ‘Does Not Have a Super {{PAC}}’}
+      \field{urlday}{6}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/TU5U4LHF/sanderss-claim-that-he-does-not-have-a-super-pac.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.washingtonpost.com/news/fact-checker/wp/2016/02/11/sanderss-claim-that-he-does-not-have-a-super-pac/
+      \endverb
+      \verb{url}
+      \verb https://www.washingtonpost.com/news/fact-checker/wp/2016/02/11/sanderss-claim-that-he-does-not-have-a-super-pac/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

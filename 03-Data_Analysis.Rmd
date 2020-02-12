@@ -101,46 +101,42 @@ ggplot() +
 ## Intercept
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(4), exp(3))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+               aes(x = value, fill = "Vote %"),
+               alpha = 0.6) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(3.5), exp(3))),
+               aes(x = value, fill = "V.A.P. Turnout %"),
+               alpha = 0.5) +
+  scale_fill_colorblind() +
+  theme_pubr() +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(breaks = pretty_breaks(n = 12)) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/vote_int.pdf", width = 6, height = 4)
 
 ## Slope Parameters
 ggplot() +
-  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(4))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
-  xlim(-200, 200)
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(3.5))),
+               aes(x = value, fill = "Vote %"),
+               alpha = 0.6) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(3.5))),
+               aes(x = value, fill = "V.A.P. Turnout %"),
+               alpha = 0.5) +
+  scale_fill_colorblind() +
+  theme_pubr() +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(breaks = pretty_breaks(n = 10)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/vote_slopes.pdf", width = 6, height = 4)
 
 ## Scale Parameter
 ggplot() +
   geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1"),
+               aes(x = value),
+               fill = "#0072B2",
                alpha = 0.5) +
-  geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  fill_palette(palette = "jco") +
-  theme_light() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  fill_palette(palette = "jco") +
-  theme_light() +
-  labs(x = "Mean and SD of Probability Parameter")
+  theme_pubr() +
+  labs(x = "")
+ggsave("Figures/Priors/vote_scale.pdf", width = 6, height = 4)
 ```
 
 ### Model
@@ -388,6 +384,7 @@ model {
   b_house ~ normal(0, 3.5);
   b_vpop ~ normal(0, 3.5);
   b_mhh ~ normal(0, 3.5);
+  scale ~ exponential(1);
   
   // likelihood
   for ( i in 1:n) {
@@ -465,43 +462,67 @@ ggplot() +
                aes(x = value)) +
   theme_classic() +
   labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) 
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 1)) 
 
 # prior simulation
 ## Intercept
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(13), exp(15))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
+               aes(x = value, fill = "Total PAC $"),
+               alpha = 0.6) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(12.5), exp(14))),
+               aes(x = value, fill = "Business PAC $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(10.5), exp(13))),
+               aes(x = value, fill = "Ideological PAC $"),
+               alpha = 0.5) +
+  scale_fill_colorblind() +
+  theme_pubr() +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 18)) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/pac_int.pdf", width = 6, height = 4)
 
+## Logit model
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, logistic(0), logistic(1))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+               aes(x = value),
+               fill = "#0072B2",
+               alpha = 0.5) +
+  theme_pubr() +
+  labs(x = "") +
+  scale_x_continuous(breaks = pretty_breaks(n = 5))
+ggsave("Figures/Priors/pac_logit.pdf", width = 5, height = 4)
 
 ## Slope Parameters
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(14))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
+               aes(x = value, fill = "Total PAC $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(13))),
+               aes(x = value, fill = "Business PAC $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(12))),
+               aes(x = value, fill = "Ideological PAC $"),
+               alpha = 0.5) +
+  scale_fill_colorblind() +
+  theme_pubr() +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 10)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/pac_slopes.pdf", width = 6, height = 4)
 
 ## Scale Parameter
 ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
   geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
+               aes(x = value), 
+               fill = "#0072B2",
                alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
+  theme_pubr() +
+  labs(x = "")
+ggsave("Figures/Priors/pac_scale.pdf", width = 5, height = 4)
 ```
 
 ### Model 
@@ -647,7 +668,7 @@ traceplot(totpac.fit,
           inc_warmup = TRUE, 
           pars = c("a", "b_np", "b_new", "b_white", "b_black", "b_latino", 
                    "b_asian", "b_bach", "b_clint", "b_house", "b_vpop", 
-                   "b_mhh", "scale"))
+                   "b_mhh", "p", "p_np", "p_new", "scale"))
 
 tidy(pac.money.01, conf.int = TRUE, conf.level = 0.89, digits = 3)
 precis(totpac.fit, prob = 0.89, digits = 3)
@@ -682,42 +703,43 @@ ggplot() +
 ## Intercept
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(12.5), exp(14))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
+               aes(x = value),
+               fill = "#0072B2") +
+  theme_pubr() +
+  labs(x = "Mean = exp(12.5), SD = exp(14)") +
   scale_x_continuous(labels = dollar_format()) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/biz_pac_int.pdf", width = 5, height = 4)
+
+## Logit model
+ggplot() +
+  geom_density(data = as_tibble(rnorm(1e4, logistic(0), logistic(1))),
+               aes(x = value),
+               fill = "#0072B2") +
+  theme_pubr() +
+  labs(x = "Mean = logistic(0), SD = logistic(1)")
+  #scale_x_continuous(labels = dollar_format())
+ggsave("Figures/Priors/biz_pac_logit.pdf", width = 5, height = 4)
 
 ## Slope Parameters
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(13))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
+               aes(x = value),
+               fill = "#0072B2") +
+  theme_pubr() +
+  labs(x = "Mean = exp(0), SD = exp(14)") +
+  scale_x_continuous(labels = dollar_format()) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/biz_pac_slopes.pdf", width = 5, height = 4)
 
 ## Scale Parameter
 ggplot() +
-  geom_density(data = as_tibble(rexp(1e4, 1)), 
-               aes(x = value, fill = "rate=1")) +
   geom_density(data = as_tibble(rexp(1e4, 2)), 
-               aes(x = value, fill = "rate=2"), 
-               alpha = 0.5) +
-  theme_classic() +
-  labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
+               aes(x = value), 
+               fill = "#0072B2") +
+  theme_pubr() +
+  labs(x = "Mean = 2")
+ggsave("Figures/Priors/biz_pac_scale.pdf", width = 5, height = 4)
 ```
 
 ### Model 
@@ -1317,19 +1339,40 @@ ggplot() +
 ## Intercept
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(10.5), exp(13))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
+               aes(x = value, fill = "Leadership PAC $"),
+               alpha = 0.6) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(10.5), exp(13))),
+               aes(x = value, fill = "Candidate Committee $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(12), exp(14))),
+               aes(x = value, fill = "Party $"),
+               alpha = 0.5) +
+  scale_fill_colorblind() +
+  theme_pubr() +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 12)) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/party_int.pdf", width = 6, height = 4)
 
 ## Slope Parameters
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(12))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
+               aes(x = value, fill = "Leadership PAC $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(12))),
+               aes(x = value, fill = "Candidate Committee $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(13))),
+               aes(x = value, fill = "Party $"),
+               alpha = 0.5) +
+  scale_fill_colorblind() +
+  theme_pubr() +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 10)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/party_slopes.pdf", width = 6, height = 4)
 
 ## Scale Parameter
 ggplot() +
@@ -1340,19 +1383,6 @@ ggplot() +
                alpha = 0.5) +
   theme_classic() +
   labs(x = "Mean and SD of Scale Parameter")
-
-## Probability Parameter
-ggplot() +
-  geom_density(data = as_tibble(runif(1e4, 0, 1)), 
-               aes(x = value, fill = "uniform")) +
-  geom_density(data = as_tibble(rbeta(1e4, 2, 2)), 
-               aes(x = value, fill = "beta 2"), 
-               alpha = 0.5) +
-    geom_density(data = as_tibble(rbeta(1e4, 1.5, 1.5)), 
-               aes(x = value, fill = "beta 1.5"), 
-               alpha = 0.7) +
-  theme_classic() +
-  labs(x = "Mean and SD of Probability Parameter")
 ```
 
 ### Model 
@@ -1954,19 +1984,58 @@ ggplot() +
 ## Intercept
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(10), exp(14))),
-               aes(x = value, fill = "Normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Intercept") +
-  scale_x_continuous(labels = dollar_format()) +
+               aes(x = value, fill = "Small-dollar $"),
+               alpha = 0.6) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(11), exp(14))),
+               aes(x = value, fill = "Large-dollar $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(12), exp(14))),
+               aes(x = value, fill = "Large Individual $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(10.5), exp(14))),
+               aes(x = value, fill = "Ideological Individual $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(11), exp(14))),
+               aes(x = value, fill = "Business Individual $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(11), exp(14))),
+               aes(x = value, fill = "Labor Individual $"),
+               alpha = 0.5) +
+  scale_fill_colorblind() +
+  theme_pubr() +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 12)) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/indiv_int.pdf", width = 6, height = 4)
 
 ## Slope Parameters
 ggplot() +
   geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(13))),
-               aes(x = value, fill = "normal")) +
-  theme_classic() +
-  labs(x = "Mean and SD of Slope Parameters") +
-  scale_x_continuous(labels = dollar_format()) 
+               aes(x = value, fill = "Small-dollar $"),
+               alpha = 0.6) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(13))),
+               aes(x = value, fill = "Large-dollar $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(14))),
+               aes(x = value, fill = "Large Individual $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(12))),
+               aes(x = value, fill = "Ideological Individual $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(13))),
+               aes(x = value, fill = "Business Individual $"),
+               alpha = 0.5) +
+  geom_density(data = as_tibble(rnorm(1e4, exp(0), exp(13))),
+               aes(x = value, fill = "Labor Individual $"),
+               alpha = 0.5) +
+  scale_fill_colorblind() +
+  theme_pubr() +
+  labs(x = "", fill = "Model") +
+  scale_x_continuous(labels = dollar_format(),
+                     breaks = pretty_breaks(n = 10)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+ggsave("Figures/Priors/indiv_slopes.pdf", width = 6, height = 4)
 
 ## Scale Parameter
 ggplot() +

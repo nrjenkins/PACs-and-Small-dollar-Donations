@@ -1,50 +1,18 @@
 [0] Config.pm:304> INFO - This is Biber 2.12
-[1] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.blg'
-[93] biber-darwin:315> INFO - === Tue Feb 11, 2020, 12:41:44
-[156] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bcf'
-[428] Biber.pm:889> INFO - Found 33 citekeys in bib section 0
-[442] Biber.pm:4093> INFO - Processing section 0
-[476] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
-[648] bibtex.pm:1523> INFO - LaTeX decoding ...
-[3776] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
-[3937] Utils.pm:193> WARN - I didn't find a database entry for 'harper_2020_2019' (section 0)
-[3937] Utils.pm:193> WARN - I didn't find a database entry for 'ye_hee_lee_sanderss_2016' (section 0)
-[3937] Utils.pm:193> WARN - I didn't find a database entry for 'seitz-wald_promise_2015' (section 0)
-[3937] Utils.pm:193> WARN - I didn't find a database entry for 'bump_why_2016' (section 0)
-[3937] Utils.pm:193> WARN - I didn't find a database entry for 'evers-hillstrom_democrats_2018' (section 0)
-[3937] Utils.pm:193> WARN - I didn't find a database entry for 'bowler_campaign_2016' (section 0)
-[3937] Utils.pm:193> WARN - I didn't find a database entry for 'pew_research_center_public_2014' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'dalton_social_2005' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'persily_perceptions_2004' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'vanheerde-hudson_parties_2013' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'magleby_money_2010' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'raja_small_2008' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'francia_financiers_2003' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'alexander_good_2005' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'barber_ideologically_2017' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'johnson_individual_2010' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'lipsitz_filled_2011' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'culberson_small_2019' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'page_rational_1992' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'carpini_what_1997' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'mayer_public_2001' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'iyengar_news_1989' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'nilsen_race_2019' (section 0)
-[3938] Utils.pm:193> WARN - I didn't find a database entry for 'brunell_relationship_2005' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'biersack_seeds_1993' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'brown_serious_1995' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'bonica_mapping_2014' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'grier_committee_1991' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'mccullagn_generalized_1989' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'lazer_leadership_2015' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'lazer_candidate_2015' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'mcneish_using_2016' (section 0)
-[3939] Utils.pm:193> WARN - I didn't find a database entry for 'gelman_weakly_2008' (section 0)
-[3945] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[3945] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[3946] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
-[3946] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
-[3946] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
-[3946] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl' with encoding 'UTF-8'
-[3946] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl
-[3947] Biber.pm:110> INFO - WARNINGS: 33
+[0] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.blg'
+[43] biber-darwin:315> INFO - === Tue Feb 11, 2020, 20:06:24
+[79] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bcf'
+[239] Biber.pm:889> INFO - Found 33 citekeys in bib section 0
+[252] Biber.pm:4093> INFO - Processing section 0
+[263] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[352] bibtex.pm:1523> INFO - LaTeX decoding ...
+[3091] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
+[3345] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page1992' is invalid - run biber with '--validate_datamodel' for details.
+[3455] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[3455] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[3455] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
+[3455] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
+[3455] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[3496] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl' with encoding 'UTF-8'
+[3521] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl
+[3522] Biber.pm:110> INFO - WARNINGS: 1
