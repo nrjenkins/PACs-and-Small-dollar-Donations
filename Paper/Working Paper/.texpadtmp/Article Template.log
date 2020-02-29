@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  21 FEB 2020 18:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  21 FEB 2020 12:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"Jenkins - PACs and Small Donations.tex"
-(./Jenkins - PACs and Small Donations.tex
+**"Article Template.tex"
+(./Article Template.tex
 LaTeX2e <2018-12-01>
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
@@ -941,38 +941,29 @@ Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 File: english.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
-)) (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.aux
+)) (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Article Template.aux
 
 LaTeX Warning: Label `fig: zeros' multiply defined.
 
-
-LaTeX Warning: Label `fig: priors' multiply defined.
-
-
-LaTeX Warning: Label `fig: priors' multiply defined.
-
-
-LaTeX Warning: Label `fig: priors' multiply defined.
-
 )
-\openout1 = `"Jenkins - PACs and Small Donations.aux"'.
+\openout1 = `"Article Template.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 110.
-LaTeX Font Info:    ... okay on input line 110.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 110.
-LaTeX Font Info:    ... okay on input line 110.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 110.
-LaTeX Font Info:    ... okay on input line 110.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 110.
-LaTeX Font Info:    ... okay on input line 110.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 110.
-LaTeX Font Info:    ... okay on input line 110.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 110.
-LaTeX Font Info:    ... okay on input line 110.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 110.
-LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
 \AtBeginShipoutBox=\box72
-Package hyperref Info: Link coloring OFF on input line 110.
+Package hyperref Info: Link coloring OFF on input line 134.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -980,9 +971,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count360
 )
-LaTeX Info: Redefining \ref on input line 110.
-LaTeX Info: Redefining \pageref on input line 110.
-LaTeX Info: Redefining \nameref on input line 110.
+LaTeX Info: Redefining \ref on input line 134.
+LaTeX Info: Redefining \pageref on input line 134.
+LaTeX Info: Redefining \nameref on input line 134.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1049,29 +1040,29 @@ Package caption Info: End \AtBeginDocument code.
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `"Jenkins - PACs and Small Donations.bcf"'.
+\openout4 = `"Article Template.bcf"'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file '"Jenkins - PACs and Small Donations".bbl' found.
- (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl)
-Package biblatex Info: Reference section=0 on input line 110.
-Package biblatex Info: Reference segment=0 on input line 110.
-LaTeX Font Info:    Try loading font information for U+msa on input line 114.
+Package biblatex Info: ... file '"Article Template".bbl' found.
+ (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Article Template.bbl)
+Package biblatex Info: Reference section=0 on input line 134.
+Package biblatex Info: Reference segment=0 on input line 134.
+LaTeX Font Info:    Try loading font information for U+msa on input line 138.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 114.
+LaTeX Font Info:    Try loading font information for U+msb on input line 138.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 114.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 138.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 114.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 138.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 114.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 138.
  [1
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
@@ -1083,107 +1074,110 @@ Package biblatex Warning: Name format 'first-last' deprecated.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.143 
+l.167 
        [1
 
-] [2] [3] [4]
+] [2] [3]
 
-Package biblatex-chicago Warning: Empty Ibidem citation on input line 174.
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 187.
 
-Package hyperref Info: bookmark level for unknown hyp defaults to 0 on input line 177.
-[5] [6] [7]
-<../../Figures/all_candy.pdf, id=147, 867.24pt x 650.43pt>
+Package hyperref Info: bookmark level for unknown hyp defaults to 0 on input line 190.
+[4] [5] [6]
+<../../Figures/all_candy.pdf, id=141, 867.24pt x 650.43pt>
 File: ../../Figures/all_candy.pdf Graphic file (type pdf)
 <use ../../Figures/all_candy.pdf>
-Package pdftex.def Info: ../../Figures/all_candy.pdf  used on input line 203.
+Package pdftex.def Info: ../../Figures/all_candy.pdf  used on input line 216.
 (pdftex.def)             Requested size: 422.77664pt x 317.08583pt.
- [8 <../../Figures/all_candy.pdf>]
-<../../Figures/spending_candy.pdf, id=161, 867.24pt x 216.81pt>
+ [7 <../../Figures/all_candy.pdf>]
+<../../Figures/spending_candy.pdf, id=155, 867.24pt x 216.81pt>
 File: ../../Figures/spending_candy.pdf Graphic file (type pdf)
 <use ../../Figures/spending_candy.pdf>
-Package pdftex.def Info: ../../Figures/spending_candy.pdf  used on input line 212.
+Package pdftex.def Info: ../../Figures/spending_candy.pdf  used on input line 225.
 (pdftex.def)             Requested size: 422.77664pt x 105.69527pt.
- [9 <../../Figures/spending_candy.pdf>] [10]
-<../../Figures/zero_candy.pdf, id=187, 578.16pt x 361.35pt>
+ [8 <../../Figures/spending_candy.pdf>] [9]
+<../../Figures/zero_candy.pdf, id=181, 578.16pt x 361.35pt>
 File: ../../Figures/zero_candy.pdf Graphic file (type pdf)
 <use ../../Figures/zero_candy.pdf>
-Package pdftex.def Info: ../../Figures/zero_candy.pdf  used on input line 257.
+Package pdftex.def Info: ../../Figures/zero_candy.pdf  used on input line 270.
 (pdftex.def)             Requested size: 399.29463pt x 249.55783pt.
- [11 <../../Figures/zero_candy.pdf>] [12] [13]
+ [10 <../../Figures/zero_candy.pdf>] [11] [12]
 
-Package biblatex-chicago Warning: Empty Ibidem citation on input line 299.
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 312.
 
-<../../Figures/Results/pac_coef.pdf, id=227, 505.89pt x 289.08pt>
+
+LaTeX Warning: Reference `sec: prior sims' on page 13 undefined on input line 312.
+
+<../../Figures/Results/pac_coef.pdf, id=219, 505.89pt x 289.08pt>
 File: ../../Figures/Results/pac_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_coef.pdf>
-Package pdftex.def Info: ../../Figures/Results/pac_coef.pdf  used on input line 310.
+Package pdftex.def Info: ../../Figures/Results/pac_coef.pdf  used on input line 323.
 (pdftex.def)             Requested size: 352.31625pt x 201.32684pt.
-<../../Figures/Results/pac_probs.pdf, id=228, 505.89pt x 289.08pt>
+<../../Figures/Results/pac_probs.pdf, id=220, 505.89pt x 289.08pt>
 File: ../../Figures/Results/pac_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_probs.pdf>
-Package pdftex.def Info: ../../Figures/Results/pac_probs.pdf  used on input line 317.
+Package pdftex.def Info: ../../Figures/Results/pac_probs.pdf  used on input line 330.
 (pdftex.def)             Requested size: 352.31625pt x 201.32684pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../../Figures/Results/pac_preds.pdf, id=235, 578.16pt x 289.08pt>
+<../../Figures/Results/pac_preds.pdf, id=227, 578.16pt x 289.08pt>
 File: ../../Figures/Results/pac_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_preds.pdf>
-Package pdftex.def Info: ../../Figures/Results/pac_preds.pdf  used on input line 327.
+Package pdftex.def Info: ../../Figures/Results/pac_preds.pdf  used on input line 340.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../../Figures/Results/party_coef.pdf, id=236, 505.89pt x 289.08pt>
+<../../Figures/Results/party_coef.pdf, id=228, 505.89pt x 289.08pt>
 File: ../../Figures/Results/party_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/party_coef.pdf>
-Package pdftex.def Info: ../../Figures/Results/party_coef.pdf  used on input line 337.
+Package pdftex.def Info: ../../Figures/Results/party_coef.pdf  used on input line 350.
 (pdftex.def)             Requested size: 352.31625pt x 201.32684pt.
-<../../Figures/Results/prty_probs.pdf, id=237, 505.89pt x 289.08pt>
+<../../Figures/Results/prty_probs.pdf, id=229, 505.89pt x 289.08pt>
 File: ../../Figures/Results/prty_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/prty_probs.pdf>
-Package pdftex.def Info: ../../Figures/Results/prty_probs.pdf  used on input line 344.
+Package pdftex.def Info: ../../Figures/Results/prty_probs.pdf  used on input line 357.
 (pdftex.def)             Requested size: 352.31625pt x 201.32684pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../../Figures/Results/party_preds.pdf, id=244, 578.16pt x 289.08pt>
+<../../Figures/Results/party_preds.pdf, id=236, 578.16pt x 289.08pt>
 File: ../../Figures/Results/party_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/party_preds.pdf>
-Package pdftex.def Info: ../../Figures/Results/party_preds.pdf  used on input line 354.
+Package pdftex.def Info: ../../Figures/Results/party_preds.pdf  used on input line 367.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../../Figures/Results/indv_coef.pdf, id=245, 505.89pt x 289.08pt>
+<../../Figures/Results/indv_coef.pdf, id=237, 505.89pt x 289.08pt>
 File: ../../Figures/Results/indv_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indv_coef.pdf>
-Package pdftex.def Info: ../../Figures/Results/indv_coef.pdf  used on input line 364.
+Package pdftex.def Info: ../../Figures/Results/indv_coef.pdf  used on input line 377.
 (pdftex.def)             Requested size: 352.31625pt x 201.32684pt.
-<../../Figures/Results/indiv_probs.pdf, id=246, 505.89pt x 289.08pt>
+<../../Figures/Results/indiv_probs.pdf, id=238, 505.89pt x 289.08pt>
 File: ../../Figures/Results/indiv_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indiv_probs.pdf>
-Package pdftex.def Info: ../../Figures/Results/indiv_probs.pdf  used on input line 371.
+Package pdftex.def Info: ../../Figures/Results/indiv_probs.pdf  used on input line 384.
 (pdftex.def)             Requested size: 352.31625pt x 201.32684pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../../Figures/Results/indv_preds.pdf, id=253, 578.16pt x 289.08pt>
+<../../Figures/Results/indv_preds.pdf, id=245, 578.16pt x 289.08pt>
 File: ../../Figures/Results/indv_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indv_preds.pdf>
-Package pdftex.def Info: ../../Figures/Results/indv_preds.pdf  used on input line 381.
+Package pdftex.def Info: ../../Figures/Results/indv_preds.pdf  used on input line 394.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../../Figures/Results/vote_coef.pdf, id=254, 505.89pt x 289.08pt>
+<../../Figures/Results/vote_coef.pdf, id=246, 505.89pt x 289.08pt>
 File: ../../Figures/Results/vote_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/vote_coef.pdf>
-Package pdftex.def Info: ../../Figures/Results/vote_coef.pdf  used on input line 389.
+Package pdftex.def Info: ../../Figures/Results/vote_coef.pdf  used on input line 402.
 (pdftex.def)             Requested size: 469.75502pt x 268.43579pt.
-[14] [15 <../../Figures/Results/pac_coef.pdf> <../../Figures/Results/pac_probs.pdf>] [16 <../../Figures/Results/pac_preds.pdf>] [17 <../../Figures/Results/party_coef.pdf> <../../Figures/Results/prty_probs.pdf>] [18 <../../Figures/Results/party_preds.pdf>] [19 <../../Figures/Results/indv_coef.pdf> <../../Figures/Results/indiv_probs.pdf>] [20 <../../Figures/Results/indv_preds.pdf> <../../Figures/Results/vote_coef.pdf>] [21
+[13] [14 <../../Figures/Results/pac_coef.pdf> <../../Figures/Results/pac_probs.pdf>] [15 <../../Figures/Results/pac_preds.pdf>] [16 <../../Figures/Results/party_coef.pdf> <../../Figures/Results/prty_probs.pdf>] [17 <../../Figures/Results/party_preds.pdf>] [18 <../../Figures/Results/indv_coef.pdf> <../../Figures/Results/indiv_probs.pdf>] [19 <../../Figures/Results/indv_preds.pdf> <../../Figures/Results/vote_coef.pdf>] [20
 
-] [22] [23] [24] (../../Tables/pac_results.tex
+] [21] [22] [23] (../../Tables/pac_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 61--61
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -2459,7 +2453,7 @@ Overfull \hbox (15.10576pt too wide) in paragraph at lines 61--61
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [25] [26] [27] (../../Tables/indiv_results.tex
+) [24] [25] [26] (../../Tables/indiv_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 59--59
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -3145,7 +3139,7 @@ LaTeX Warning: Float too large for page by 51.02426pt on input line 61.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [28] (../../Tables/vote_results.tex
+) [27] (../../Tables/vote_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 50--50
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -3808,113 +3802,45 @@ Overfull \hbox (15.10576pt too wide) in paragraph at lines 50--50
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [29]
-<../../Figures/Priors/pac_int.pdf, id=461, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/pac_int.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/pac_int.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_int.pdf  used on input line 436.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/pac_slopes.pdf, id=462, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/pac_slopes.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/pac_slopes.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_slopes.pdf  used on input line 442.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/pac_logit.pdf, id=463, 361.35pt x 289.08pt>
-File: ../../Figures/Priors/pac_logit.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/pac_logit.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 448.
-(pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/pac_scale.pdf, id=464, 361.35pt x 289.08pt>
-File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/pac_scale.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 454.
-(pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/party_int.pdf, id=465, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/party_int.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/party_int.pdf>
-Package pdftex.def Info: ../../Figures/Priors/party_int.pdf  used on input line 465.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/party_slopes.pdf, id=466, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/party_slopes.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/party_slopes.pdf>
-Package pdftex.def Info: ../../Figures/Priors/party_slopes.pdf  used on input line 471.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-File: ../../Figures/Priors/pac_logit.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/pac_logit.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 477.
-(pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/pac_scale.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 483.
-(pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/indiv_int.pdf, id=467, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/indiv_int.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/indiv_int.pdf>
-Package pdftex.def Info: ../../Figures/Priors/indiv_int.pdf  used on input line 494.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/indiv_slopes.pdf, id=468, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/indiv_slopes.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/indiv_slopes.pdf>
-Package pdftex.def Info: ../../Figures/Priors/indiv_slopes.pdf  used on input line 500.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-File: ../../Figures/Priors/pac_logit.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/pac_logit.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 506.
-(pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/pac_scale.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 512.
-(pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/vote_int.pdf, id=469, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/vote_int.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/vote_int.pdf>
-Package pdftex.def Info: ../../Figures/Priors/vote_int.pdf  used on input line 523.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/vote_slopes.pdf, id=470, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/vote_slopes.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/vote_slopes.pdf>
-Package pdftex.def Info: ../../Figures/Priors/vote_slopes.pdf  used on input line 529.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/vote_scale.pdf, id=471, 433.62pt x 289.08pt>
-File: ../../Figures/Priors/vote_scale.pdf Graphic file (type pdf)
-<use ../../Figures/Priors/vote_scale.pdf>
-Package pdftex.def Info: ../../Figures/Priors/vote_scale.pdf  used on input line 535.
-(pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
+) [28]
 \tf@thm=\write5
-\openout5 = `"Jenkins - PACs and Small Donations.thm"'.
+\openout5 = `"Article Template.thm"'.
 
- [30
+ [29
 
 
 
- <../../Figures/Priors/pac_int.pdf> <../../Figures/Priors/pac_slopes.pdf> <../../Figures/Priors/pac_logit.pdf> <../../Figures/Priors/pac_scale.pdf>] [31 <../../Figures/Priors/party_int.pdf> <../../Figures/Priors/party_slopes.pdf>] [32 <../../Figures/Priors/indiv_int.pdf> <../../Figures/Priors/indiv_slopes.pdf>] [33 <../../Figures/Priors/vote_int.pdf> <../../Figures/Priors/vote_slopes.pdf> <../../Figures/Priors/vote_scale.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 546.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 546.
- (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 546.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 546.
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 451.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 451.
+ (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Article Template.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 451.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 451.
+
+
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package logreq Info: Writing requests to '"Jenkins - PACs and Small Donations".run.xml'.
-\openout1 = `"Jenkins - PACs and Small Donations.run.xml"'.
+Package logreq Info: Writing requests to '"Article Template".run.xml'.
+\openout1 = `"Article Template.run.xml"'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 546.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 451.
  ) 
 Here is how much of TeX's memory you used:
- 31657 strings out of 492616
- 619431 string characters out of 6129482
- 1381959 words of memory out of 5000000
- 34925 multiletter control sequences out of 15000+600000
+ 31579 strings out of 492616
+ 616670 string characters out of 6129482
+ 1380827 words of memory out of 5000000
+ 34870 multiletter control sequences out of 15000+600000
  20311 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,19n,79p,1619b,3911s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,19n,79p,1601b,3911s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.pdf" (34 pages, 528618 bytes).
+Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Article Template.pdf" (30 pages, 389484 bytes).
 PDF statistics:
- 717 PDF objects out of 1000 (max. 8388607)
- 585 compressed objects within 6 object streams
- 109 named destinations out of 1000 (max. 500000)
- 365 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 575 PDF objects out of 1000 (max. 8388607)
+ 470 compressed objects within 5 object streams
+ 98 named destinations out of 1000 (max. 500000)
+ 294 words of extra memory for PDF output out of 10000 (max. 10000000)
 

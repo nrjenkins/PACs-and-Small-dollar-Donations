@@ -1,0 +1,18 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Article Template.blg'
+[38] biber-darwin:315> INFO - === Fri Feb 21, 2020, 12:44:39
+[66] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Article Template.bcf'
+[215] Biber.pm:889> INFO - Found 33 citekeys in bib section 0
+[228] Biber.pm:4093> INFO - Processing section 0
+[237] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[324] bibtex.pm:1523> INFO - LaTeX decoding ...
+[2737] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
+[2970] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page1992' is invalid - run biber with '--validate_datamodel' for details.
+[3084] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[3085] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[3085] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
+[3085] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
+[3085] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[3121] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Article Template.bbl' with encoding 'UTF-8'
+[3145] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Article Template.bbl
+[3145] Biber.pm:110> INFO - WARNINGS: 1

@@ -1112,40 +1112,6 @@
       \verb http://www.tandfonline.com/doi/abs/10.1080/15377857.2011.540193
       \endverb
     \endentry
-    \entry{lubenow2001}{collection}{}
-      \name{editor}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=5618dc543dfbc8c1c12d6da89ff8b752}{%
-           family={Lubenow},
-           familyi={L\bibinitperiod},
-           given={Gerald\bibnamedelima C.},
-           giveni={G\bibinitperiod\bibinitdelim C\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{location}{1}{%
-        {Lanham, MD : Berkeley}%
-      }
-      \list{publisher}{1}{%
-        {Rowman \& Littlefield ; Berkeley Public Policy Press, University of California}%
-      }
-      \strng{namehash}{5618dc543dfbc8c1c12d6da89ff8b752}
-      \strng{fullhash}{5618dc543dfbc8c1c12d6da89ff8b752}
-      \strng{bibnamehash}{5618dc543dfbc8c1c12d6da89ff8b752}
-      \strng{editorbibnamehash}{5618dc543dfbc8c1c12d6da89ff8b752}
-      \strng{editornamehash}{5618dc543dfbc8c1c12d6da89ff8b752}
-      \strng{editorfullhash}{5618dc543dfbc8c1c12d6da89ff8b752}
-      \field{sortinit}{L}
-      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{editor}
-      \field{labeltitlesource}{title}
-      \field{isbn}{978-0-7425-1794-3 978-0-7425-1795-0}
-      \field{pagetotal}{158}
-      \field{title}{A User's Guide to Campaign Finance Reform}
-      \field{year}{2001}
-      \field{dateera}{ce}
-      \keyw{Campaign funds,Law and legislation,United States}
-    \endentry
     \entry{magleby2010}{book}{}
       \name{author}{2}{}{%
         {{uniquename=0,uniquepart=base,hash=0bdf3d3303a8f9c1abc3bb27b3c8b3af}{%
@@ -1438,14 +1404,20 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
+      \field{endyear}{2005}
       \field{journaltitle}{University of Pennsylvania Law Review}
       \field{langid}{english}
       \field{shortjournal}{U. Pa. L. Rev.}
       \field{shorttitle}{Perceptions of {{Corruption}} and {{Campaign Finance}}}
       \field{title}{Perceptions of {{Corruption}} and {{Campaign Finance}}: {{When Public Opinion Determines Constitutional Law Symposium}}: {{The Law}} of {{Democracy}}: {{Campaign Finance}} after {{Mccain}}-{{Feingold}}}
+      \field{urlday}{11}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
       \field{volume}{153}
       \field{year}{2004}
+      \field{enddateera}{ce}
       \field{dateera}{ce}
+      \field{urldateera}{ce}
       \field{pages}{119\bibrangedash 180}
       \range{pages}{62}
       \verb{doi}
@@ -1482,8 +1454,12 @@
       \field{month}{11}
       \field{shorttitle}{Public {{Trust}} in {{Government}}}
       \field{title}{Public {{Trust}} in {{Government}}: 1958-2014 | {{Pew Research Center}}}
+      \field{urlday}{12}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
       \field{year}{2014}
       \field{dateera}{ce}
+      \field{urldateera}{ce}
       \verb{file}
       \verb /Users/nick/Zotero/storage/ZUSVYWC8/public-trust-in-government.html
       \endverb
@@ -1560,8 +1536,12 @@
       \field{second}{0}
       \field{timezone}{-04\bibtzminsep 00}
       \field{title}{The Promise of Super {{PACs}} Outweigh the Perils for {{Hillary Clinton}}}
+      \field{urlday}{6}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
       \field{year}{2015}
       \field{dateera}{ce}
+      \field{urldateera}{ce}
       \verb{file}
       \verb /Users/nick/Zotero/storage/8LVRVQ2B/the-promise-super-pacs-outweigh-the-perils-hillary-clinton.html
       \endverb
@@ -1572,38 +1552,66 @@
       \verb http://www.msnbc.com/msnbc/the-promise-super-pacs-outweigh-the-perils-hillary-clinton
       \endverb
     \endentry
-    \entry{stockman2018}{online}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=c40e1d4993c49850abf7fdb12c3b6167}{%
-           family={Stockman},
-           familyi={S\bibinitperiod},
-           given={Farah},
-           giveni={F\bibinitperiod},
+    \entry{vanheerde-hudson2013}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,useprefix=true,hash=13a628fb02b870c7c776e738412cf112}{%
+           family={Hudson},
+           familyi={H\bibinitperiod},
+           given={Jennifer},
+           giveni={J\bibinitperiod},
+           givenun=0,
+           prefix={vanHeerde-},
+           prefixi={v\bibinitperiod},
+           prefixun=0}}%
+        {{uniquename=0,uniquepart=base,hash=fee1b5ce24629be865f6051de96c7f55}{%
+           family={Fisher},
+           familyi={F\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{c40e1d4993c49850abf7fdb12c3b6167}
-      \strng{fullhash}{c40e1d4993c49850abf7fdb12c3b6167}
-      \strng{bibnamehash}{c40e1d4993c49850abf7fdb12c3b6167}
-      \strng{authorbibnamehash}{c40e1d4993c49850abf7fdb12c3b6167}
-      \strng{authornamehash}{c40e1d4993c49850abf7fdb12c3b6167}
-      \strng{authorfullhash}{c40e1d4993c49850abf7fdb12c3b6167}
-      \field{sortinit}{S}
-      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \strng{namehash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{fullhash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{bibnamehash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{authorbibnamehash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{authornamehash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \strng{authorfullhash}{db71e0a3b1ba88ef31f35d54bed4a6ef}
+      \field{sortinit}{v}
+      \field{sortinithash}{75dd7385c90b2252c3ae853a80ca853b}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{day}{8}
-      \field{journaltitle}{The New York Times}
-      \field{month}{12}
-      \field{title}{For {{Voters Sick}} of {{Money}} in {{Politics}}, a {{New Pitch}}: {{No PAC Money Accepted}}}
-      \field{year}{2018}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Despite comprehensive reform (Political Parties, Elections and Referendums Act) and recent review (Phillips Review in 2007) of party finance in Britain, public opinion of party finance remains plagued by perceptions of corruption, undue influence from wealthy donors, carefree and wasteful spending and, more generally, from the perception that there is just ‘too much money’ in politics. In this article we argue that knowledge of and attitudes to party finance matter, not least because advocates of reform have cited public opinion as evidence for reform. However, because attitudes to party finance are part of a broader attitudinal structure, opinion-led reforms are unlikely to succeed in increasing public confidence. Using data generated from YouGov’s online panel (N=2,008), we demonstrate that the public know little of the key provisions regulating party finance and attitudes to party finance can be explained along two underlying dimensions – Anti-Party Finance and Reformers. As such, we consider whether parties and politicians should be freed from the constraints of public opinion in reforming party finance.}
+      \field{day}{1}
+      \field{issn}{1354-0688}
+      \field{journaltitle}{Party Politics}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{Party Politics}
+      \field{shorttitle}{Parties Heed (with Caution)}
+      \field{title}{Parties Heed (with Caution): {{Public}} Knowledge of and Attitudes towards Party Finance in {{Britain}}}
+      \field{urlday}{11}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
+      \field{volume}{19}
+      \field{year}{2013}
       \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{41\bibrangedash 60}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10/dhjdgz
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Zotero/storage/RSGL6HRH/Parties heed (with caution) - vanHeerde-Hudson and Fisher 2013.pdf
+      \endverb
       \verb{urlraw}
-      \verb https://www.nytimes.com/2018/08/12/us/money-politics-dean-phillips.html
+      \verb https://doi.org/10.1177/1354068810393268
       \endverb
       \verb{url}
-      \verb https://www.nytimes.com/2018/08/12/us/money-politics-dean-phillips.html
+      \verb https://doi.org/10.1177/1354068810393268
       \endverb
     \endentry
     \entry{yeheelee2016}{online}{}
@@ -1633,8 +1641,12 @@
       \field{langid}{english}
       \field{month}{2}
       \field{title}{Sanders’s Claim That He ‘Does Not Have a Super {{PAC}}’}
+      \field{urlday}{6}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
       \field{year}{2016}
       \field{dateera}{ce}
+      \field{urldateera}{ce}
       \verb{file}
       \verb /Users/nick/Zotero/storage/TU5U4LHF/sanderss-claim-that-he-does-not-have-a-super-pac.html
       \endverb
