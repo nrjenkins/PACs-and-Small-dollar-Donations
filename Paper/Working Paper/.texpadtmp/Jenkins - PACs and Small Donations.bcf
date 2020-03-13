@@ -3630,18 +3630,21 @@
     <bcf:citekey order="21">biersack1993</bcf:citekey>
     <bcf:citekey order="22">brown1995</bcf:citekey>
     <bcf:citekey order="23">bonica2014</bcf:citekey>
-    <bcf:citekey order="24">francia2003</bcf:citekey>
-    <bcf:citekey order="25">francia2003</bcf:citekey>
-    <bcf:citekey order="26">grier1991</bcf:citekey>
-    <bcf:citekey order="27">mccullagn1989</bcf:citekey>
-    <bcf:citekey order="28">mccullagn1989</bcf:citekey>
-    <bcf:citekey order="29">lazer2015</bcf:citekey>
-    <bcf:citekey order="30">lazer2015a</bcf:citekey>
-    <bcf:citekey order="31">brunell2005</bcf:citekey>
-    <bcf:citekey order="32">biersack1993</bcf:citekey>
-    <bcf:citekey order="33">mcneish2016</bcf:citekey>
-    <bcf:citekey order="34">mcneish2016</bcf:citekey>
-    <bcf:citekey order="35">gelman2008a</bcf:citekey>
+    <bcf:citekey order="24">wilcox1989</bcf:citekey>
+    <bcf:citekey order="24">currinder2003</bcf:citekey>
+    <bcf:citekey order="25">herrnson2009</bcf:citekey>
+    <bcf:citekey order="26">francia2003</bcf:citekey>
+    <bcf:citekey order="27">francia2003</bcf:citekey>
+    <bcf:citekey order="28">grier1991</bcf:citekey>
+    <bcf:citekey order="29">mccullagn1989</bcf:citekey>
+    <bcf:citekey order="30">mccullagn1989</bcf:citekey>
+    <bcf:citekey order="31">lazer2015</bcf:citekey>
+    <bcf:citekey order="32">lazer2015a</bcf:citekey>
+    <bcf:citekey order="33">brunell2005</bcf:citekey>
+    <bcf:citekey order="34">biersack1993</bcf:citekey>
+    <bcf:citekey order="35">mcneish2016</bcf:citekey>
+    <bcf:citekey order="36">mcneish2016</bcf:citekey>
+    <bcf:citekey order="37">gelman2008a</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="cms">

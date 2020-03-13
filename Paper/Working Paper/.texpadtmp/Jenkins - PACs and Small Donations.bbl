@@ -386,6 +386,55 @@
       \field{year}{1997}
       \field{dateera}{ce}
     \endentry
+    \entry{currinder2003}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=da131760b49698c90f83fdfc31694698}{%
+           family={Currinder},
+           familyi={C\bibinitperiod},
+           given={Marian\bibnamedelima L.},
+           giveni={M\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{da131760b49698c90f83fdfc31694698}
+      \strng{fullhash}{da131760b49698c90f83fdfc31694698}
+      \strng{bibnamehash}{da131760b49698c90f83fdfc31694698}
+      \strng{authorbibnamehash}{da131760b49698c90f83fdfc31694698}
+      \strng{authornamehash}{da131760b49698c90f83fdfc31694698}
+      \strng{authorfullhash}{da131760b49698c90f83fdfc31694698}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{03629805}
+      \field{journaltitle}{Legislative Studies Quarterly}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{4}
+      \field{title}{Leadership {{PAC Contribution Strategies}} and {{House Member Ambitions}}}
+      \field{urlday}{13}
+      \field{urlmonth}{3}
+      \field{urlyear}{2020}
+      \field{volume}{28}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{551\bibrangedash 577}
+      \range{pages}{27}
+      \verb{doi}
+      \verb 10.3162/036298003X201006
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Currinder_2003_Leadership PAC Contribution Strategies and House Member Ambitions.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://doi.wiley.com/10.3162/036298003X201006
+      \endverb
+      \verb{url}
+      \verb http://doi.wiley.com/10.3162/036298003X201006
+      \endverb
+    \endentry
     \entry{dalton2005}{article}{}
       \name{author}{1}{}{%
         {{uniquename=0,uniquepart=base,hash=84632f7414f0ebd1e9055a20e294b550}{%
@@ -704,6 +753,56 @@
       \endverb
       \verb{url}
       \verb https://abcnews.go.com/Politics/2020-candidates-back-big-money-focus-small-dollar/story?id=62768128
+      \endverb
+    \endentry
+    \entry{herrnson2009}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=90227074297877797a2c7f3c17373043}{%
+           family={Herrnson},
+           familyi={H\bibinitperiod},
+           given={Paul\bibnamedelima S.},
+           giveni={P\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{90227074297877797a2c7f3c17373043}
+      \strng{fullhash}{90227074297877797a2c7f3c17373043}
+      \strng{bibnamehash}{90227074297877797a2c7f3c17373043}
+      \strng{authorbibnamehash}{90227074297877797a2c7f3c17373043}
+      \strng{authornamehash}{90227074297877797a2c7f3c17373043}
+      \strng{authorfullhash}{90227074297877797a2c7f3c17373043}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0022-3816, 1468-2508}
+      \field{journaltitle}{The Journal of Politics}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{number}{4}
+      \field{shortjournal}{The Journal of Politics}
+      \field{title}{The {{Roles}} of {{Party Organizations}}, {{Party}}-{{Connected Committees}}, and {{Party Allies}} in {{Elections}}}
+      \field{urlday}{13}
+      \field{urlmonth}{3}
+      \field{urlyear}{2020}
+      \field{volume}{71}
+      \field{year}{2009}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1207\bibrangedash 1224}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1017/S0022381609990065
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Herrnson_2009_The Roles of Party Organizations, Party-Connected Committees, and Party Allies.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.journals.uchicago.edu/doi/10.1017/S0022381609990065
+      \endverb
+      \verb{url}
+      \verb https://www.journals.uchicago.edu/doi/10.1017/S0022381609990065
       \endverb
     \endentry
     \entry{iyengar1989}{book}{}
@@ -1241,6 +1340,40 @@
       \endverb
       \verb{url}
       \verb https://www.nytimes.com/2018/08/12/us/money-politics-dean-phillips.html
+      \endverb
+    \endentry
+    \entry{wilcox1989}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=6ed7f5dd1e3d2048489ee1471395688f}{%
+           family={Wilcox},
+           familyi={W\bibinitperiod},
+           given={Clyde},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{fullhash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{bibnamehash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{authorbibnamehash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{authornamehash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{authorfullhash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \field{sortinit}{W}
+      \field{sortinithash}{ecb89ff85896a47dc313960773ac311d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Politics Quarterly}
+      \field{month}{10}
+      \field{number}{4}
+      \field{title}{Share the {{Wealth}}: {{Contributions}} by {{Congressional Incumbents}} to the {{Campaigns}} of {{Other Candidates}}}
+      \field{volume}{17}
+      \field{year}{1989}
+      \field{dateera}{ce}
+      \field{pages}{386\bibrangedash 408}
+      \range{pages}{23}
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Wilcox_1989_Share the Wealth.pdf
       \endverb
     \endentry
     \entry{yeheelee2016}{online}{}

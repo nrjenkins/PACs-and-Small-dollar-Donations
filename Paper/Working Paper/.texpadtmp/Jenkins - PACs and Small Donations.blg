@@ -1,19 +1,19 @@
 [0] Config.pm:304> INFO - This is Biber 2.12
 [0] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.blg'
-[51] biber-darwin:315> INFO - === Thu Mar 12, 2020, 18:15:07
-[89] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bcf'
-[233] Biber.pm:889> INFO - Found 27 citekeys in bib section 0
-[248] Biber.pm:4093> INFO - Processing section 0
-[260] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
-[360] bibtex.pm:1523> INFO - LaTeX decoding ...
-[3195] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
-[3408] Utils.pm:193> WARN - ISBN '978-0-7425-1794-3 978-0-7425-1795-0' in entry 'lubenow2001' is invalid - run biber with '--validate_datamodel' for details.
-[3418] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page1992' is invalid - run biber with '--validate_datamodel' for details.
-[3557] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
-[3557] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[3557] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[3557] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
-[3558] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
-[3594] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl' with encoding 'UTF-8'
-[3615] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl
-[3615] Biber.pm:110> INFO - WARNINGS: 2
+[69] biber-darwin:315> INFO - === Fri Mar 13, 2020, 10:08:53
+[115] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bcf'
+[416] Biber.pm:889> INFO - Found 30 citekeys in bib section 0
+[438] Biber.pm:4093> INFO - Processing section 0
+[460] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[595] bibtex.pm:1523> INFO - LaTeX decoding ...
+[4828] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
+[5114] Utils.pm:193> WARN - ISBN '978-0-7425-1794-3 978-0-7425-1795-0' in entry 'lubenow2001' is invalid - run biber with '--validate_datamodel' for details.
+[5134] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page1992' is invalid - run biber with '--validate_datamodel' for details.
+[5349] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[5349] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[5349] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
+[5349] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
+[5350] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[5403] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl' with encoding 'UTF-8'
+[5442] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl
+[5444] Biber.pm:110> INFO - WARNINGS: 2

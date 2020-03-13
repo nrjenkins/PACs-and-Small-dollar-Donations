@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  12 MAR 2020 18:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  13 MAR 2020 10:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1096,80 +1096,80 @@ Package hyperref Info: bookmark level for unknown hyp defaults to 0 on input lin
 LaTeX Warning: Reference `sec: discussion' on page 6 undefined on input line 191.
 
 [6]
-<../../Figures/all_candy.pdf, id=124, 867.24pt x 650.43pt>
+<../../Figures/all_candy.pdf, id=130, 867.24pt x 650.43pt>
 File: ../../Figures/all_candy.pdf Graphic file (type pdf)
 <use ../../Figures/all_candy.pdf>
 Package pdftex.def Info: ../../Figures/all_candy.pdf  used on input line 197.
 (pdftex.def)             Requested size: 422.77664pt x 317.08583pt.
-<../../Figures/spending_candy.pdf, id=126, 867.24pt x 216.81pt>
+<../../Figures/spending_candy.pdf, id=132, 867.24pt x 216.81pt>
 File: ../../Figures/spending_candy.pdf Graphic file (type pdf)
 <use ../../Figures/spending_candy.pdf>
 Package pdftex.def Info: ../../Figures/spending_candy.pdf  used on input line 206.
 (pdftex.def)             Requested size: 422.77664pt x 105.69527pt.
  [7] [8 <../../Figures/all_candy.pdf>] [9 <../../Figures/spending_candy.pdf>]
-<../../Figures/zero_candy.pdf, id=161, 578.16pt x 361.35pt>
+<../../Figures/zero_candy.pdf, id=167, 578.16pt x 361.35pt>
 File: ../../Figures/zero_candy.pdf Graphic file (type pdf)
 <use ../../Figures/zero_candy.pdf>
 Package pdftex.def Info: ../../Figures/zero_candy.pdf  used on input line 251.
 (pdftex.def)             Requested size: 399.29463pt x 249.55783pt.
  [10] [11 <../../Figures/zero_candy.pdf>] [12] [13]
-<../../Figures/Results/pac_coef.pdf, id=212, 505.89pt x 289.08pt>
+<../../Figures/Results/pac_coef.pdf, id=218, 505.89pt x 289.08pt>
 File: ../../Figures/Results/pac_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_coef.pdf>
 Package pdftex.def Info: ../../Figures/Results/pac_coef.pdf  used on input line 306.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
-<../../Figures/Results/pac_probs.pdf, id=213, 505.89pt x 289.08pt>
+<../../Figures/Results/pac_probs.pdf, id=219, 505.89pt x 289.08pt>
 File: ../../Figures/Results/pac_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_probs.pdf>
 Package pdftex.def Info: ../../Figures/Results/pac_probs.pdf  used on input line 313.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
  [14]
-<../../Figures/Results/pac_preds.pdf, id=231, 578.16pt x 289.08pt>
+<../../Figures/Results/pac_preds.pdf, id=237, 578.16pt x 289.08pt>
 File: ../../Figures/Results/pac_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_preds.pdf>
 Package pdftex.def Info: ../../Figures/Results/pac_preds.pdf  used on input line 325.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
  [15 <../../Figures/Results/pac_coef.pdf> <../../Figures/Results/pac_probs.pdf>]
-<../../Figures/Results/party_coef.pdf, id=255, 505.89pt x 289.08pt>
+<../../Figures/Results/party_coef.pdf, id=261, 505.89pt x 289.08pt>
 File: ../../Figures/Results/party_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/party_coef.pdf>
 Package pdftex.def Info: ../../Figures/Results/party_coef.pdf  used on input line 341.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
-<../../Figures/Results/prty_probs.pdf, id=256, 505.89pt x 289.08pt>
+<../../Figures/Results/prty_probs.pdf, id=262, 505.89pt x 289.08pt>
 File: ../../Figures/Results/prty_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/prty_probs.pdf>
 Package pdftex.def Info: ../../Figures/Results/prty_probs.pdf  used on input line 348.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
  [16 <../../Figures/Results/pac_preds.pdf>] [17 <../../Figures/Results/party_coef.pdf> <../../Figures/Results/prty_probs.pdf>]
-<../../Figures/Results/party_preds.pdf, id=305, 578.16pt x 289.08pt>
+<../../Figures/Results/party_preds.pdf, id=311, 578.16pt x 289.08pt>
 File: ../../Figures/Results/party_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/party_preds.pdf>
 Package pdftex.def Info: ../../Figures/Results/party_preds.pdf  used on input line 366.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
  [18]
-<../../Figures/Results/indv_coef.pdf, id=314, 505.89pt x 289.08pt>
+<../../Figures/Results/indv_coef.pdf, id=321, 505.89pt x 289.08pt>
 File: ../../Figures/Results/indv_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indv_coef.pdf>
 Package pdftex.def Info: ../../Figures/Results/indv_coef.pdf  used on input line 381.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
-<../../Figures/Results/indiv_probs.pdf, id=315, 505.89pt x 289.08pt>
+<../../Figures/Results/indiv_probs.pdf, id=322, 505.89pt x 289.08pt>
 File: ../../Figures/Results/indiv_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indiv_probs.pdf>
 Package pdftex.def Info: ../../Figures/Results/indiv_probs.pdf  used on input line 388.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
  [19 <../../Figures/Results/party_preds.pdf>] [20 <../../Figures/Results/indv_coef.pdf> <../../Figures/Results/indiv_probs.pdf>]
-<../../Figures/Results/indv_preds.pdf, id=365, 578.16pt x 289.08pt>
+<../../Figures/Results/indv_preds.pdf, id=371, 578.16pt x 289.08pt>
 File: ../../Figures/Results/indv_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indv_preds.pdf>
 Package pdftex.def Info: ../../Figures/Results/indv_preds.pdf  used on input line 402.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
  [21 <../../Figures/Results/indv_preds.pdf>]
-<../../Figures/Results/vote_coef.pdf, id=382, 505.89pt x 289.08pt>
+<../../Figures/Results/vote_coef.pdf, id=388, 505.89pt x 289.08pt>
 File: ../../Figures/Results/vote_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/vote_coef.pdf>
 Package pdftex.def Info: ../../Figures/Results/vote_coef.pdf  used on input line 414.
 (pdftex.def)             Requested size: 469.75502pt x 268.43579pt.
- [22 <../../Figures/Results/vote_coef.pdf>] [23] [24] [25] (../../Tables/pac_results.tex
+ [22 <../../Figures/Results/vote_coef.pdf>] [23] [24] [25] [26] (../../Tables/pac_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 61--61
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -2439,7 +2439,7 @@ Overfull \hbox (15.10576pt too wide) in paragraph at lines 61--61
 \OT1/cmr/m/n/12 val.| 
  []
 
-) [26] [27] (../../Tables/indiv_results.tex
+) [27] [28] (../../Tables/indiv_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 59--59
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -3122,7 +3122,7 @@ Overfull \hbox (15.10576pt too wide) in paragraph at lines 59--59
 
 LaTeX Warning: Float too large for page by 63.79509pt on input line 61.
 
-) [28] (../../Tables/vote_results.tex
+) [29] (../../Tables/vote_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 50--50
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -3783,32 +3783,32 @@ Overfull \hbox (15.10576pt too wide) in paragraph at lines 50--50
  []
 
 )
-<../../Figures/Priors/pac_int.pdf, id=452, 433.62pt x 289.08pt>
+<../../Figures/Priors/pac_int.pdf, id=462, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/pac_int.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_int.pdf>
 Package pdftex.def Info: ../../Figures/Priors/pac_int.pdf  used on input line 466.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/pac_slopes.pdf, id=453, 433.62pt x 289.08pt>
+<../../Figures/Priors/pac_slopes.pdf, id=463, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/pac_slopes.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_slopes.pdf>
 Package pdftex.def Info: ../../Figures/Priors/pac_slopes.pdf  used on input line 472.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/pac_logit.pdf, id=454, 361.35pt x 289.08pt>
+<../../Figures/Priors/pac_logit.pdf, id=464, 361.35pt x 289.08pt>
 File: ../../Figures/Priors/pac_logit.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_logit.pdf>
 Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 478.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/pac_scale.pdf, id=455, 361.35pt x 289.08pt>
+<../../Figures/Priors/pac_scale.pdf, id=465, 361.35pt x 289.08pt>
 File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_scale.pdf>
 Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 484.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/party_int.pdf, id=456, 433.62pt x 289.08pt>
+<../../Figures/Priors/party_int.pdf, id=466, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/party_int.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/party_int.pdf>
 Package pdftex.def Info: ../../Figures/Priors/party_int.pdf  used on input line 495.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/party_slopes.pdf, id=457, 433.62pt x 289.08pt>
+<../../Figures/Priors/party_slopes.pdf, id=467, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/party_slopes.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/party_slopes.pdf>
 Package pdftex.def Info: ../../Figures/Priors/party_slopes.pdf  used on input line 501.
@@ -3821,12 +3821,12 @@ File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_scale.pdf>
 Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 513.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/indiv_int.pdf, id=458, 433.62pt x 289.08pt>
+<../../Figures/Priors/indiv_int.pdf, id=468, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/indiv_int.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/indiv_int.pdf>
 Package pdftex.def Info: ../../Figures/Priors/indiv_int.pdf  used on input line 524.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/indiv_slopes.pdf, id=459, 433.62pt x 289.08pt>
+<../../Figures/Priors/indiv_slopes.pdf, id=469, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/indiv_slopes.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/indiv_slopes.pdf>
 Package pdftex.def Info: ../../Figures/Priors/indiv_slopes.pdf  used on input line 530.
@@ -3839,17 +3839,17 @@ File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_scale.pdf>
 Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 542.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/vote_int.pdf, id=460, 433.62pt x 289.08pt>
+<../../Figures/Priors/vote_int.pdf, id=470, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/vote_int.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/vote_int.pdf>
 Package pdftex.def Info: ../../Figures/Priors/vote_int.pdf  used on input line 553.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/vote_slopes.pdf, id=461, 433.62pt x 289.08pt>
+<../../Figures/Priors/vote_slopes.pdf, id=471, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/vote_slopes.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/vote_slopes.pdf>
 Package pdftex.def Info: ../../Figures/Priors/vote_slopes.pdf  used on input line 559.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/vote_scale.pdf, id=462, 433.62pt x 289.08pt>
+<../../Figures/Priors/vote_scale.pdf, id=472, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/vote_scale.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/vote_scale.pdf>
 Package pdftex.def Info: ../../Figures/Priors/vote_scale.pdf  used on input line 565.
@@ -3857,10 +3857,10 @@ Package pdftex.def Info: ../../Figures/Priors/vote_scale.pdf  used on input line
 \tf@thm=\write5
 \openout5 = `"Jenkins - PACs and Small Donations.thm"'.
 
- [29
+ [30
 
 
-] [30 <../../Figures/Priors/pac_int.pdf> <../../Figures/Priors/pac_slopes.pdf> <../../Figures/Priors/pac_logit.pdf> <../../Figures/Priors/pac_scale.pdf>] [31 <../../Figures/Priors/party_int.pdf> <../../Figures/Priors/party_slopes.pdf>] [32 <../../Figures/Priors/indiv_int.pdf> <../../Figures/Priors/indiv_slopes.pdf>] [33 <../../Figures/Priors/vote_int.pdf> <../../Figures/Priors/vote_slopes.pdf> <../../Figures/Priors/vote_scale.pdf>]
+] [31 <../../Figures/Priors/pac_int.pdf> <../../Figures/Priors/pac_slopes.pdf> <../../Figures/Priors/pac_logit.pdf> <../../Figures/Priors/pac_scale.pdf>] [32 <../../Figures/Priors/party_int.pdf> <../../Figures/Priors/party_slopes.pdf>] [33 <../../Figures/Priors/indiv_int.pdf> <../../Figures/Priors/indiv_slopes.pdf>] [34 <../../Figures/Priors/vote_int.pdf> <../../Figures/Priors/vote_slopes.pdf> <../../Figures/Priors/vote_scale.pdf>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 576.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 576.
  (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.aux)
@@ -3879,18 +3879,18 @@ Package logreq Info: Writing requests to '"Jenkins - PACs and Small Donations".r
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 576.
  ) 
 Here is how much of TeX's memory you used:
- 31619 strings out of 492616
- 618501 string characters out of 6129482
- 1382402 words of memory out of 5000000
- 34895 multiletter control sequences out of 15000+600000
+ 31635 strings out of 492616
+ 618895 string characters out of 6129482
+ 1383586 words of memory out of 5000000
+ 34907 multiletter control sequences out of 15000+600000
  20311 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,19n,79p,1619b,3911s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.pdf" (34 pages, 535095 bytes).
+Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.pdf" (35 pages, 536024 bytes).
 PDF statistics:
- 706 PDF objects out of 1000 (max. 8388607)
- 574 compressed objects within 6 object streams
- 101 named destinations out of 1000 (max. 500000)
+ 717 PDF objects out of 1000 (max. 8388607)
+ 584 compressed objects within 6 object streams
+ 105 named destinations out of 1000 (max. 500000)
  357 words of extra memory for PDF output out of 10000 (max. 10000000)
 
