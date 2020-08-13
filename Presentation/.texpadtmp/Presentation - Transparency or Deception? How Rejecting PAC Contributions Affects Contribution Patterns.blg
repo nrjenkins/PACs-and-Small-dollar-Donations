@@ -1,0 +1,18 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.blg'
+[36] biber-darwin:315> INFO - === Sat Apr 25, 2020, 15:33:34
+[62] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bcf'
+[232] Biber.pm:889> INFO - Found 6 citekeys in bib section 0
+[247] Biber.pm:4093> INFO - Processing section 0
+[261] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[349] bibtex.pm:1523> INFO - LaTeX decoding ...
+[2856] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
+[3002] Utils.pm:193> WARN - ISBN '978-0-7425-1794-3 978-0-7425-1795-0' in entry 'lubenow2001' is invalid - run biber with '--validate_datamodel' for details.
+[3056] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[3056] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[3056] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
+[3056] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
+[3056] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[3067] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bbl' with encoding 'UTF-8'
+[3073] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bbl
+[3074] Biber.pm:110> INFO - WARNINGS: 1

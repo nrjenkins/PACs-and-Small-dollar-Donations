@@ -1,0 +1,304 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{cms/global//global/global}
+    \entry{bowler2016}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=2c3ec9daa539fa612ef2d50a49e4f5bd}{%
+           family={Bowler},
+           familyi={B\bibinitperiod},
+           given={Shaun},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=866c6251f8a529b9591bad26a3ba7c7e}{%
+           family={Donovan},
+           familyi={D\bibinitperiod},
+           given={Todd},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{fullhash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{bibnamehash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{authorbibnamehash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{authornamehash}{d28bd5076e2362317842a3f25c53478a}
+      \strng{authorfullhash}{d28bd5076e2362317842a3f25c53478a}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Many Americans think campaign money has a corrupting influence on Congress. Yet how they think about money in politics is a relatively unexplored topic. This article investigates how the public reasons about campaign money and corruption. Our survey experiments demonstrate that attitudes about campaign money are structured by partisan interest and are also driven by information about sources of campaign money and the amount spent (particularly for large independent expenditures made possible by Citizens United), the method of delivery, and about what the money is spent on. Mass perceptions about corruption of Congress, furthermore, may reflect aversion to negative campaigns as well as attitudes about campaign financiers having undue influence over representatives. These findings not only provide a more nuanced picture of attitudes about campaign money but also have consequences for how we assess reform proposals relating to money and politics.}
+      \field{issn}{1532-673X, 1552-3373}
+      \field{journaltitle}{American Politics Research}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{number}{2}
+      \field{shortjournal}{American Politics Research}
+      \field{title}{Campaign {{Money}}, {{Congress}}, and {{Perceptions}} of {{Corruption}}}
+      \field{urlday}{17}
+      \field{urlmonth}{5}
+      \field{urlyear}{2019}
+      \field{volume}{44}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{272\bibrangedash 295}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10/f8bfv9
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Bowler_Donovan_2016_Campaign Money, Congress, and Perceptions of Corruption.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://journals.sagepub.com/doi/10.1177/1532673X15594232
+      \endverb
+      \verb{url}
+      \verb http://journals.sagepub.com/doi/10.1177/1532673X15594232
+      \endverb
+    \endentry
+    \entry{currinder2003}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=da131760b49698c90f83fdfc31694698}{%
+           family={Currinder},
+           familyi={C\bibinitperiod},
+           given={Marian\bibnamedelima L.},
+           giveni={M\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{da131760b49698c90f83fdfc31694698}
+      \strng{fullhash}{da131760b49698c90f83fdfc31694698}
+      \strng{bibnamehash}{da131760b49698c90f83fdfc31694698}
+      \strng{authorbibnamehash}{da131760b49698c90f83fdfc31694698}
+      \strng{authornamehash}{da131760b49698c90f83fdfc31694698}
+      \strng{authorfullhash}{da131760b49698c90f83fdfc31694698}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{03629805}
+      \field{journaltitle}{Legislative Studies Quarterly}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{4}
+      \field{title}{Leadership {{PAC Contribution Strategies}} and {{House Member Ambitions}}}
+      \field{urlday}{13}
+      \field{urlmonth}{3}
+      \field{urlyear}{2020}
+      \field{volume}{28}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{551\bibrangedash 577}
+      \range{pages}{27}
+      \verb{doi}
+      \verb 10.3162/036298003X201006
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Currinder_2003_Leadership PAC Contribution Strategies and House Member Ambitions.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://doi.wiley.com/10.3162/036298003X201006
+      \endverb
+      \verb{url}
+      \verb http://doi.wiley.com/10.3162/036298003X201006
+      \endverb
+    \endentry
+    \entry{grier1991}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=c59fbc503685a3597cf56630fe96b3c6}{%
+           family={Grier},
+           familyi={G\bibinitperiod},
+           given={Kevin\bibnamedelima B.},
+           giveni={K\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=1278f60d7e02d08e54d0c420c60da69a}{%
+           family={Munger},
+           familyi={M\bibinitperiod},
+           given={Michael\bibnamedelima C.},
+           giveni={M\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{fullhash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{bibnamehash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{authorbibnamehash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{authornamehash}{9894a55583d54839c2e5bd027bb405c6}
+      \strng{authorfullhash}{9894a55583d54839c2e5bd027bb405c6}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We model the behavior of a vote-maximizing legislator in order to predict interest group campaign contributions to incumbent politicians. We show that committee assignments and voter preferences affect the price a legislator requires to produce policies for any interest group. An econometric analysis of actual interest group contributions shows that these groups make significantly larger contributions to legislators on committees with jurisdiction over especially relevant policy issues and to incumbents with non-hostile constituencies. These results support our theory; interest groups act as if committees matter in the determination of policy and voters' interests constrain interest group behavior.}
+      \field{issn}{1465-7295}
+      \field{journaltitle}{Economic Inquiry}
+      \field{langid}{english}
+      \field{number}{1}
+      \field{title}{Committee {{Assignments}}, {{Constituent Preferences}}, and {{Campaign Contributions}}}
+      \field{urlday}{8}
+      \field{urlmonth}{2}
+      \field{urlyear}{2019}
+      \field{volume}{29}
+      \field{year}{1991}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{24\bibrangedash 43}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10/dt325k
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Grier_Munger_1991_Committee Assignments, Constituent Preferences, and Campaign Contributions.pdf;/Users/nick/Zotero/storage/UQ9Z6L94/j.1465-7295.1991.tb01250.html
+      \endverb
+      \verb{urlraw}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1465-7295.1991.tb01250.x
+      \endverb
+      \verb{url}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1465-7295.1991.tb01250.x
+      \endverb
+    \endentry
+    \entry{herrnson2009}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=90227074297877797a2c7f3c17373043}{%
+           family={Herrnson},
+           familyi={H\bibinitperiod},
+           given={Paul\bibnamedelima S.},
+           giveni={P\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{90227074297877797a2c7f3c17373043}
+      \strng{fullhash}{90227074297877797a2c7f3c17373043}
+      \strng{bibnamehash}{90227074297877797a2c7f3c17373043}
+      \strng{authorbibnamehash}{90227074297877797a2c7f3c17373043}
+      \strng{authornamehash}{90227074297877797a2c7f3c17373043}
+      \strng{authorfullhash}{90227074297877797a2c7f3c17373043}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0022-3816, 1468-2508}
+      \field{journaltitle}{The Journal of Politics}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{number}{4}
+      \field{shortjournal}{The Journal of Politics}
+      \field{title}{The {{Roles}} of {{Party Organizations}}, {{Party}}-{{Connected Committees}}, and {{Party Allies}} in {{Elections}}}
+      \field{urlday}{13}
+      \field{urlmonth}{3}
+      \field{urlyear}{2020}
+      \field{volume}{71}
+      \field{year}{2009}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1207\bibrangedash 1224}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1017/S0022381609990065
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Herrnson_2009_The Roles of Party Organizations, Party-Connected Committees, and Party Allies.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.journals.uchicago.edu/doi/10.1017/S0022381609990065
+      \endverb
+      \verb{url}
+      \verb https://www.journals.uchicago.edu/doi/10.1017/S0022381609990065
+      \endverb
+    \endentry
+    \entry{lubenow2001}{collection}{}
+      \name{editor}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=5618dc543dfbc8c1c12d6da89ff8b752}{%
+           family={Lubenow},
+           familyi={L\bibinitperiod},
+           given={Gerald\bibnamedelima C.},
+           giveni={G\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Lanham, MD : Berkeley}%
+      }
+      \list{publisher}{1}{%
+        {Rowman \& Littlefield ; Berkeley Public Policy Press, University of California}%
+      }
+      \strng{namehash}{5618dc543dfbc8c1c12d6da89ff8b752}
+      \strng{fullhash}{5618dc543dfbc8c1c12d6da89ff8b752}
+      \strng{bibnamehash}{5618dc543dfbc8c1c12d6da89ff8b752}
+      \strng{editorbibnamehash}{5618dc543dfbc8c1c12d6da89ff8b752}
+      \strng{editornamehash}{5618dc543dfbc8c1c12d6da89ff8b752}
+      \strng{editorfullhash}{5618dc543dfbc8c1c12d6da89ff8b752}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-7425-1794-3 978-0-7425-1795-0}
+      \field{pagetotal}{158}
+      \field{title}{A User's Guide to Campaign Finance Reform}
+      \field{year}{2001}
+      \field{dateera}{ce}
+      \keyw{Campaign funds,Law and legislation,United States}
+    \endentry
+    \entry{wilcox1989}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=6ed7f5dd1e3d2048489ee1471395688f}{%
+           family={Wilcox},
+           familyi={W\bibinitperiod},
+           given={Clyde},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{fullhash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{bibnamehash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{authorbibnamehash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{authornamehash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \strng{authorfullhash}{6ed7f5dd1e3d2048489ee1471395688f}
+      \field{sortinit}{W}
+      \field{sortinithash}{ecb89ff85896a47dc313960773ac311d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Politics Quarterly}
+      \field{month}{10}
+      \field{number}{4}
+      \field{title}{Share the {{Wealth}}: {{Contributions}} by {{Congressional Incumbents}} to the {{Campaigns}} of {{Other Candidates}}}
+      \field{volume}{17}
+      \field{year}{1989}
+      \field{dateera}{ce}
+      \field{pages}{386\bibrangedash 408}
+      \range{pages}{23}
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Wilcox_1989_Share the Wealth.pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

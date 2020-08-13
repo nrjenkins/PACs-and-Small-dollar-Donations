@@ -56,29 +56,23 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
       \field{abstract}{Campaign professionals maintain that early money is more valuable than money raised late in the campaign, because it increases the success of later fund raising. We find that early fund raising by House challengers does stimulate later receipts, especially for those who lack experience in elected office. For these candidates, early money from any source improves later fund raising from all sources. For candidates who have held elected office, however, only early money from individual contributors is a significant predictor of later receipts from PACs.}
+      \field{eprinttype}{jstor}
       \field{issn}{0362-9805}
       \field{journaltitle}{Legislative Studies Quarterly}
       \field{month}{11}
       \field{number}{4}
       \field{shorttitle}{Seeds for {{Success}}}
       \field{title}{Seeds for {{Success}}: {{Early Money}} in {{Congressional Elections}}}
-      \field{urlday}{4}
-      \field{urlmonth}{2}
-      \field{urlyear}{2020}
       \field{volume}{18}
       \field{year}{1993}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \field{pages}{535\bibrangedash 551}
       \range{pages}{17}
       \verb{doi}
       \verb 10/c2x8jh
       \endverb
-      \verb{urlraw}
-      \verb https://www.jstor.org/stable/439854
-      \endverb
-      \verb{url}
-      \verb https://www.jstor.org/stable/439854
+      \verb{eprint}
+      \verb 439854
       \endverb
     \endentry
     \entry{bonica2014}{article}{}
@@ -385,6 +379,61 @@
       \field{title}{What {{Americans Know}} about {{Politics}} and {{Why It Matters}}}
       \field{year}{1997}
       \field{dateera}{ce}
+    \endentry
+    \entry{culberson2019}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=ecc8df3946c6cc2b60fbc92355d775e0}{%
+           family={Culberson},
+           familyi={C\bibinitperiod},
+           given={Tyler},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3fc0caecd444fdca5f57aac1b9bfd31a}{%
+           family={McDonald},
+           familyi={M\bibinitperiod},
+           given={Michael\bibnamedelima P.},
+           giveni={M\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2da6fc22f1ef96409ec4ab4210d0b602}{%
+           family={Robbins},
+           familyi={R\bibinitperiod},
+           given={Suzanne\bibnamedelima M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{fullhash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{bibnamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authorbibnamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authornamehash}{9ba83d0150c468fe869e03fa1a085db2}
+      \strng{authorfullhash}{9ba83d0150c468fe869e03fa1a085db2}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{{$<$}p{$>$}American Politics Research, Ahead of Print. {$<$}br/{$><$}/p{$>$}}
+      \field{journaltitle}{American Politics Research}
+      \field{number}{5}
+      \field{title}{Small {{Donors}} in {{Congressional Elections}}}
+      \field{volume}{47}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{pages}{970\bibrangedash 999}
+      \range{pages}{30}
+      \verb{doi}
+      \verb 10/gfz3jg
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Culberson et al_2019_Small Donors in Congressional Elections.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://journals.sagepub.com/doi/abs/10.1177/1532673X18763918?ai=2b4&mi=ehikzz&af=R
+      \endverb
+      \verb{url}
+      \verb https://journals.sagepub.com/doi/abs/10.1177/1532673X18763918?ai=2b4&mi=ehikzz&af=R
+      \endverb
     \endentry
     \entry{currinder2003}{article}{}
       \name{author}{1}{}{%
@@ -1024,7 +1073,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The success of the first edition of Generalized Linear Models led to the updated Second Edition, which continues to provide a definitive unified, treatment of methods for the analysis of diverse types of data. Today, it remains popular for its clarity, richness of content and direct relevance to agr}
-      \field{edition}{2nd}
+      \field{edition}{2}
       \field{langid}{english}
       \field{month}{8}
       \field{title}{Generalized {{Linear Models}}}
@@ -1069,7 +1118,6 @@
       \field{issn}{1070-5511}
       \field{journaltitle}{Structural Equation Modeling: A Multidisciplinary Journal}
       \field{month}{9}
-      \field{note}{\_eprint: https://doi.org/10.1080/10705511.2016.1186549}
       \field{number}{5}
       \field{title}{On {{Using Bayesian Methods}} to {{Address Small Sample Problems}}}
       \field{urlday}{4}
@@ -1329,9 +1377,9 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{day}{8}
+      \field{day}{12}
       \field{journaltitle}{The New York Times}
-      \field{month}{12}
+      \field{month}{8}
       \field{title}{For {{Voters Sick}} of {{Money}} in {{Politics}}, a {{New Pitch}}: {{No PAC Money Accepted}}}
       \field{year}{2018}
       \field{dateera}{ce}

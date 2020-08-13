@@ -3602,51 +3602,34 @@
     <bcf:datasource type="file" datatype="bibtex">/Users/nick/Documents/Research/References/BibTeX/biblatex.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">seitz-wald2015</bcf:citekey>
-    <bcf:citekey order="1">yeheelee2016</bcf:citekey>
-    <bcf:citekey order="1">bump2016</bcf:citekey>
-    <bcf:citekey order="1">harper2019</bcf:citekey>
-    <bcf:citekey order="2">evers-hillstrom2018</bcf:citekey>
-    <bcf:citekey order="3">evers-hillstrom2018</bcf:citekey>
-    <bcf:citekey order="4">harper2019</bcf:citekey>
-    <bcf:citekey order="5">culberson2019</bcf:citekey>
-    <bcf:citekey order="6">stockman2018</bcf:citekey>
-    <bcf:citekey order="7">stockman2018</bcf:citekey>
-    <bcf:citekey order="8">pewresearchcenter2014</bcf:citekey>
-    <bcf:citekey order="9">dalton2005</bcf:citekey>
-    <bcf:citekey order="10">lubenow2001</bcf:citekey>
-    <bcf:citekey order="11">bowler2016</bcf:citekey>
-    <bcf:citekey order="12">bowler2016</bcf:citekey>
-    <bcf:citekey order="13">page1992</bcf:citekey>
-    <bcf:citekey order="13">carpini1997</bcf:citekey>
-    <bcf:citekey order="14">mayer2001</bcf:citekey>
-    <bcf:citekey order="14">persily2004</bcf:citekey>
-    <bcf:citekey order="15">iyengar1989</bcf:citekey>
-    <bcf:citekey order="16">bowler2016</bcf:citekey>
-    <bcf:citekey order="17">nilsen2019</bcf:citekey>
-    <bcf:citekey order="18">nilsen2019</bcf:citekey>
-    <bcf:citekey order="19">nilsen2019</bcf:citekey>
-    <bcf:citekey order="20">brunell2005</bcf:citekey>
-    <bcf:citekey order="21">biersack1993</bcf:citekey>
-    <bcf:citekey order="22">brown1995</bcf:citekey>
-    <bcf:citekey order="23">bonica2014</bcf:citekey>
-    <bcf:citekey order="24">wilcox1989</bcf:citekey>
-    <bcf:citekey order="24">currinder2003</bcf:citekey>
-    <bcf:citekey order="25">herrnson2009</bcf:citekey>
-    <bcf:citekey order="26">francia2003</bcf:citekey>
-    <bcf:citekey order="27">francia2003</bcf:citekey>
-    <bcf:citekey order="28">grier1991</bcf:citekey>
-    <bcf:citekey order="29">mccullagn1989</bcf:citekey>
-    <bcf:citekey order="30">mccullagn1989</bcf:citekey>
-    <bcf:citekey order="31">herrnson2009</bcf:citekey>
-    <bcf:citekey order="31">lazer2015</bcf:citekey>
-    <bcf:citekey order="32">wilcox1989</bcf:citekey>
-    <bcf:citekey order="32">lazer2015a</bcf:citekey>
-    <bcf:citekey order="33">brunell2005</bcf:citekey>
-    <bcf:citekey order="34">biersack1993</bcf:citekey>
-    <bcf:citekey order="35">mcneish2016</bcf:citekey>
-    <bcf:citekey order="36">mcneish2016</bcf:citekey>
-    <bcf:citekey order="37">gelman2008a</bcf:citekey>
+    <bcf:citekey order="1">lubenow2001</bcf:citekey>
+    <bcf:citekey order="2">bowler2016</bcf:citekey>
+    <bcf:citekey order="3">lubenow2001</bcf:citekey>
+    <bcf:citekey order="4">bowler2016</bcf:citekey>
+    <bcf:citekey order="5">lubenow2001</bcf:citekey>
+    <bcf:citekey order="6">bowler2016</bcf:citekey>
+    <bcf:citekey order="7">lubenow2001</bcf:citekey>
+    <bcf:citekey order="8">bowler2016</bcf:citekey>
+    <bcf:citekey order="9">lubenow2001</bcf:citekey>
+    <bcf:citekey order="10">bowler2016</bcf:citekey>
+    <bcf:citekey order="11">wilcox1989</bcf:citekey>
+    <bcf:citekey order="11">currinder2003</bcf:citekey>
+    <bcf:citekey order="11">herrnson2009</bcf:citekey>
+    <bcf:citekey order="12">wilcox1989</bcf:citekey>
+    <bcf:citekey order="12">currinder2003</bcf:citekey>
+    <bcf:citekey order="12">herrnson2009</bcf:citekey>
+    <bcf:citekey order="13">wilcox1989</bcf:citekey>
+    <bcf:citekey order="13">currinder2003</bcf:citekey>
+    <bcf:citekey order="13">herrnson2009</bcf:citekey>
+    <bcf:citekey order="14">wilcox1989</bcf:citekey>
+    <bcf:citekey order="14">currinder2003</bcf:citekey>
+    <bcf:citekey order="14">herrnson2009</bcf:citekey>
+    <bcf:citekey order="15">wilcox1989</bcf:citekey>
+    <bcf:citekey order="15">currinder2003</bcf:citekey>
+    <bcf:citekey order="15">herrnson2009</bcf:citekey>
+    <bcf:citekey order="16">grier1991</bcf:citekey>
+    <bcf:citekey order="17">grier1991</bcf:citekey>
+    <bcf:citekey order="18">grier1991</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="cms">
@@ -3685,13 +3668,4 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
-  <bcf:datalist section="0"
-                name="cms/global//global/global"
-                type="entry"
-                sortingtemplatename="cms"
-                sortingnamekeytemplatename="global"
-                labelprefix=""
-                uniquenametemplatename="global"
-                labelalphanametemplatename="global">
-  </bcf:datalist>
 </bcf:controlfile>

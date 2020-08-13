@@ -1,0 +1,5 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/UCR Beamer - Template 1.blg'
+[50] biber-darwin:315> INFO - === Mon Apr 20, 2020, 13:15:31
+[84] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/UCR Beamer - Template 1.bcf'
+[253] Utils.pm:193> WARN - No data sources defined!
