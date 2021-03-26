@@ -81,7 +81,7 @@ University of California, Riverside \\
 
 % Bibliography Setup %
 \usepackage[authordate, natbib, isbn=false, url=false, doi=false, backend=biber]{biblatex-chicago} 
-\bibliography{/Users/nick/Documents/Research/References/BibTeX/biblatex.bib}
+\bibliography{/Users/nickjenkins/Documents/Research/References/BibTeX/biblatex.bib}
 
 
 % Title Page Information %
@@ -142,334 +142,125 @@ University of California, Riverside \\
 %\tableofcontents
 %\end{frame}
 
+\begin{frame}{Motivation}
+	\begin{alertblock}{Research Question}
+		Do pledges to reject corporate PAC contributions minimize corporate influence in elections?
+	\end{alertblock}
+\end{frame}
 
-\section{Perceptions of Money in Politics} \label{sec: framework}
 
+\section{Voter Perceptions of Corporate Influence} \label{sec: framework}
 
-\begin{frame}{Motivating individuals?}
-
-	\begin{alertblock}{Hypothesis 1}
-Candidates that pledge to reject corporate PAC contributions will receive an increase in individual small-dollar donations.
-\end{alertblock} \pause
-
+\begin{frame}{Why do candidates refuse corporate PAC money?}
 	\begin{itemize}
-		\item People generally hold negative views of money in politics {\tiny \citep{lubenow2001}} \pause
-		\item Funding sources might affect voter perceptions of candidates {\tiny \citep{bowler2016}} \pause
-		\item Pledging to reject corporate PAC money might signal trustworthiness \pause
-		\item Discussions of these pledges and requests for small-dollar donations go hand-in-hand
-	\end{itemize}
-	
-\end{frame}
-
-
-\begin{frame}{Parties with their fingers crossed?}
-
-\begin{alertblock}{Hypothesis 2}
-Candidates that reject corporate PAC money will receive more contributions from partisan sources.
-\end{alertblock} \pause
-
-\begin{itemize}
-	\item Why not reject all PAC money? \pause
-	\item Taking the pledge is also risky \pause
-	\item Will political parties just hope that their candidates raise enough money? \pause
-	\begin{itemize}
-		\item Parties give strategically! {\tiny \citep{wilcox1989, currinder2003, herrnson2009}}
-	\end{itemize}
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{Corporations just give up?}
-
-\begin{alertblock}{Hypothesis 3}
-Candidates that reject corporate PAC money will receive more contributions from individuals associated with business and ideological interests.
-\end{alertblock} \pause
-
-\begin{itemize}
-	\item Opportunity cost of not making contributions is very high! {\tiny \citep{grier1991}} \pause
-	\item Corporations can ``bundle" individual donations to candidates 
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{The Trade-off Summarized}
-	\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    axis x line=bottom,
-    axis y line=left,
-    xmin=0, xmax=10, 
-    ymin=0, ymax=10,
-    xlabel={Non-corporate PAC Contributions},
-    ylabel={Corporate PAC Contributions},
-    ytick=\empty,
-    xtick={0},
-    extra y tick style={align=center, font=\scriptsize},
-    ]
-    \draw (axis cs:0.5,9.5) to [bend right=30] coordinate[pos=0.2] (l_i) (axis cs:9.5,0.5);
-    \fill (axis cs:0.85,8.5) circle (2.2pt) node[above right] {$A_i$};
-
-    \fill (axis cs:8.5,0.75) circle (2.2pt) node[above right] {$B_i$};
-    
-    \draw[dashed, thin] (axis cs:0.85,8.5) -- (axis cs:0.85,0);
-    \draw[dashed, thin] (axis cs:0.85,8.5) -- (axis cs:0,8.5);
-    \draw[dashed, thin] (axis cs:8.5,0.75) -- (axis cs:8.5,0);
-    \draw[dashed, thin] (axis cs:0,0.75) -- (axis cs:8.5,0.75); 
-\end{axis}
-\end{tikzpicture}
-\label{fig: iso map}
-\end{figure}
-\end{frame}
-
-
-\section{Methods} \label{sec: methods}
-
-\begin{frame}{Sample Information}
-	\begin{itemize}
-		\item Sample of candidates in the 2018 Congressional midterm election \pause
-		\item Only Democrats who won their election (167)
+		\item Americans are very skeptical about money in politics {\tiny \citep{lubenow2001}} \pause
+		\item Voter believe contributions from corporations are more corrupt than those from other sources {\tiny {\citep{bowler2016}}} \pause
+		\item Voters also think that small-dollar contributions are the most trustworthy
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Exploratory Data Analysis}
+\begin{frame}{Why do candidates refuse corporate PAC money?}
+	\begin{itemize}
+		\item It's probably strategic! \pause
+		\item Elizabeth Warren ``swore off PAC money to make a statement” {\tiny {\citep{nilsen2019}}} \pause
+		\item The Democrats in the 2020 presidential race were almost in a competition to distance themselves from corporations 
+	\end{itemize}
+\end{frame}
+% “For every time you see a presidential candidate talking with voters at a town hall, rally, or local diner, those same candidates are spending three or four or five times as long with wealthy donors — on the phone, or in conference rooms at hedge fund offices, or at fancy receptions and intimate dinners — all behind closed doors”
 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.65\linewidth]{all_candy.pdf}
+\begin{frame}{Do corporations just give up?}
+	\begin{itemize}
+		\item Campaigns are extremely expensive! \pause
+		\item A lot of opportunity cost to not get involved {\tiny \citep{denzau1986, kroszner1998}} \pause
+		\item Corporations bundle individual contributions \pause
+		\item ``In some cases, a cluster of contributions from the same organization may indicate a concerted effort by that organization to ‘bundle’ contributions to the candidate” {\tiny \citep{opensecrets.org}}
+	\end{itemize}
+\end{frame}
+% To put this into context, contributions to all candidates from business PACs totaled $394 million in the 2018 election cycle compared to over $1.6 billion from individuals affiliated with business interests (Opensecrets.org 2021). This type of giving strategy would allow recipients to claim that they do not accept corporate PAC money while still receiving corporate support.
+% Candidates who adopt this strategy likely do so either because they feel confident that they can win without corporate PAC support or adequately compensate for the loss of funds with those from other sources. “Other sources” could be small-dollar donations, party organizations, or super PACs. Small-dollar donations, however, are unlikely to be substantial enough for most candidates to win or even give them an assurance of a winning strategy. Moreover, given the incentives for corporations to participate in politics, they will likely find alternative means to finance their preferred candidates.
 
-\end{figure}
+\section{Data}
 
+\begin{frame}{Estimation Sample}
+	\begin{itemize}
+		\item Campaign finance data on the 2018 midterm election from OpenSecrets.org \pause
+		\item 259 Members, 24\% freshman 19\% refuse corporate PAC contributions \pause
+		\item Among those who reject corporate PAC contributions: 35 are freshman and 29 are returning members
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{DW-NOMINATE Scores}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.65\linewidth]{../Figures/nominate_plot.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Estimation Sample}
+	\begin{itemize}
+		\item My focus is on contributions from: \pause
+		\begin{itemize}
+			\item Business PACs \pause
+			\item Small-dollar individual contributions \pause
+			\item Contributions of \$1,000 or more from individuals who work in business industries \pause
+			\item Contributions of \$1,000 or more from individuals who work in business industries and live outside of the member's district \pause
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Estimation Sample}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\linewidth]{../Figures/all_candy.pdf}
+	\end{figure}
 \end{frame}
 
 
-\begin{frame}{Exploratory Data Analysis}
+\section{Methods}
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=1\linewidth]{spending_candy.pdf}
-\end{figure}
-
+\begin{frame}{How the composition of a member's campaign contribution courses change in response to making an anti-corporate PAC pledge?}
+	\begin{itemize}
+		\item Outcome Variable: the proportion of contributions received by a candidate from business PACs, business individual, small-dollar, and out-of-district business donations \pause
+		\item Predictor of interest: Whether the candidate refuses corporate PAC contributions \pause
+		\item Dirichlet likelihood \pause
+		\item Controls: New member, district demographics, Democratic vote share, and median household income
+	\end{itemize}
 \end{frame}
 
 
-\begin{frame}{Model Definition}
+\section{Results}
 
-\begin{itemize}
-	\item Campaign contributions follow a gamma distribution ($y \in  \mathbb{R}^+$)
-\end{itemize}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.5\linewidth]{gamma.pdf}
-\end{figure}
-
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.95\linewidth]{../Figures/dir_model_results.pdf}
+	\end{figure}
 \end{frame}
+% Candidates who accept corporate PAC contributions are estimated to receive over 50 percent of contributions from business PACs compared to around 20 percent for candidates who refuse them
+% In addition to this expected decrease in business PAC contributions, candidates who pledge to reject corporate PAC contributions receive a higher proportion of contributions from small-dollar, business, and out-of-district business individual contributions
+% The largest proportional shift is for contributions from small-dollar individuals. Candidates who accept corporate PAC contributions are predicted to receive just over 10 percent of their contributions from small-dollar donors compared to around 25 percent for candidates who refuse corporate PAC money. Similarly, candidates who refuse corporate PAC contributions are predicted to receive around 30 and 25 percent of their contributions from business (contributions from individuals that work in a business industry of $1,000 or more) and out-of-district business individual contributions.
 
 
-\begin{frame}{Model Definition}
-
-\begin{itemize}
-	\item But, zeros are also possible!
-\end{itemize}
-
-\begin{figure} \pause 
-    \centering
-    \begin{tikzpicture}[
-        node distance=2.0cm,
-      scale=0.5,
-      level/.style={thick},
-      virtual/.style={thick,densely dashed},
-      trans/.style={->,shorten >=2pt,shorten <=2pt,>=stealth},
-      classical/.style={thin,double,<->,shorten >=4pt,shorten <=4pt,>=stealth}
-    ]
-    \node(a)[circle, draw=black, label={160:Reject PACs}] {};
-    \node(z)[right of=a] {};
-    \node(b)[circle, draw=black, right of=z, label={80:Accept PACs}] {};
-    \node(c)[circle, draw=black, above of=z] {};
-    \node(d)[below of=a] {observe $y = 0$};
-    \node(e)[below of=b] {observe $y > 0$};
-    
-    \draw [trans] (c) -- (a) node[midway, left] {$\pi$};
-    \draw [trans] (c) -- (b) node[midway, right] {$(1 - \pi)$};
-    \draw [trans] (a) -- (d);
-    \draw [trans] (b) -- (e);
-    \draw [trans] (b) -- (d);
-    \end{tikzpicture}
-\end{figure}
-
-\end{frame}
-
-
-\begin{frame}{Percentage of Zeros}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.77\linewidth]{zero_candy.pdf}
-\end{figure}
-
-\end{frame}
-
-
-\begin{frame}{Model Definition}
-
-\begin{align}
-f(y) = \left\{ \begin{array}{cc} 
-                \pi & \hspace{5mm} \text{if $y = 0$} \\
-                (1 - \pi) \text{Gamma}(k, \theta) & \hspace{5mm}  \text{if $y > 0$} \\
-                \end{array} \right.
-\end{align}
-
-\end{frame}
-
-
-\begin{frame}{Model Definition}
-
-\begin{align}
-    y_i &\sim \text{ZGamma}(\pi_i, \mu_i, \theta_i) \\
-    \log \frac{\pi_i}{1 - \pi_i} &= \alpha_{\pi} + \beta_{1\pi} (\text{No PACs})_i + \beta_{2\pi} (\text{New Member})_i \\
-   \log( \mu_i) &= \alpha_{\mu} + \beta_{1\mu} (\text{No PACs})_i + \bm{X} \bm{\beta_{\mu}}
-\end{align} \pause
-
-\begin{itemize}
-	\item Yes, priors are subjective ... but so are likelihood and link functions!
-\end{itemize}
-
-\end{frame}
-
-
-\section{Findings} \label{sec: findings}
-
-\begin{frame}{Are the pledges effective?} \label{pac results}
-
-\begin{figure}
-  \centering
-  \subfloat[The Effect of Rejecting Corporate PAC Contributions on the Amount of PAC Contributions\label{fig:a}]{\includegraphics[width=0.47\linewidth]{pac_coef.pdf}}\qquad
-  \subfloat[The Effect of Rejecting Corporate PAC Contributions on the Probability of Receiving PAC Contributions\label{fig:b}]{\includegraphics[width=0.47\linewidth]{pac_probs.pdf}}
-\end{figure}
-
-\hyperlink{pac priors}{\beamerbutton{Prior Simulations}}
-
-\end{frame}
-
-
-\begin{frame}{Are the pledges effective?}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=1\linewidth]{pac_preds.pdf}
-    \label{fig: pac preds}
-\end{figure}
-
-\end{frame}
-
-
-\begin{frame}{Parties with their fingers crossed?} \label{party results}
-
-\begin{figure}
-  \centering
-  \subfloat[The Effect of Rejecting Corporate PAC Contributions on the Amount of Contributions from Party Organizations\label{fig:a}]{\includegraphics[width=0.47\linewidth]{party_coef.pdf}}\qquad
-  \subfloat[The Effect of Rejecting Corporate PAC Contributions on the Probability of Receiving Party Contributions\label{fig:b}]{\includegraphics[width=0.47\linewidth]{prty_probs.pdf}}
-\end{figure}
-
-\hyperlink{party priors}{\beamerbutton{Prior Simulations}}
-
-\end{frame}
-
-
-\begin{frame}{Parties with their fingers crossed?}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=1\linewidth]{party_preds.pdf}
-    \label{fig: pac preds}
-\end{figure}
-
-\end{frame}
-
-
-\begin{frame}{Corporations just give up?} \label{indiv results}
-
-\begin{figure}
-  \centering
-  \subfloat[The Effect of Rejecting Corporate PAC Contributions on the Amount of Contributions from Individuals\label{fig:a}]{\includegraphics[width=0.47\linewidth]{indv_coef.pdf}}\qquad
-  \subfloat[The Effect of Rejecting Corporate PAC Contributions on the Probability of Receiving Individual Contributions.\label{fig:b}]{\includegraphics[width=0.47\linewidth]{indiv_probs.pdf}}
-\end{figure}
-
-\hyperlink{indiv priors}{\beamerbutton{Prior Simulations}}
-
-\end{frame}
-
-
-\begin{frame}{Corporations just give up?}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=1\linewidth]{indv_preds.pdf}
-    \label{fig: pac preds}
-\end{figure}
-
-\end{frame}
-
-
-\section{Summary} \label{sec: summary}
+\section{Summary}
 
 \begin{frame}{Summary}
-\begin{itemize}
-	\item Pledging to reject corporate PAC contributions is associated with: \pause
+
+Findings
 	\begin{itemize}
-		\item $\downarrow$ contributions from ideological, labor, and business PACs \pause
-		\item $\uparrow$ contributions from political PACs and individuals \pause
-		\item $\uparrow$ in small and large dollar contributions \pause
-		\item $\uparrow$ in contributions from individuals affiliated with ideological and business interests
+		\item Candidates who refuse corporate PAC contributions receive:
+		\begin{itemize}
+			\item more contributions from small-dollar donors \pause
+			\item more contributions from business individuals \pause
+			\item more contributions from out-of-district business individuals \pause
+		\end{itemize}
 	\end{itemize}
-\end{itemize}
-\end{frame}
-
-% Appendixes
-\begin{appendix}
 	
-\begin{frame}{Priors for PAC Models} \label{pac priors}
-
-\begin{figure}
-  \centering
-  \subfloat[Priors for Model Intercepts\label{fig:a}]{\includegraphics[width=0.46\linewidth]{pac_int.pdf}}\qquad
-  \subfloat[Priors for Model Slopes\label{fig:b}]{\includegraphics[width=0.46\linewidth]{pac_slopes.pdf}}
-\end{figure}
-		
-		\hyperlink{pac results}{\beamerbutton{PAC Results}}
-		
+Implications \pause
+	\begin{itemize}
+		\item May create a less transparent campaign finance system \pause
+		% If public opinion on PAC contributions sours, the organizations these PACs represent may resort to less transparent strategies like the use of super PACs, 527 committees, and “dark money;” indeed emerging evidence suggests that this is already happening
+		\item Who is represented with money from other districts?
+	\end{itemize}
 \end{frame}
-
-\begin{frame}{Priors for Political PAC Models} \label{party priors}
-
-\begin{figure}
-  \centering
-  \subfloat[Priors for Model Intercepts\label{fig:a}]{\includegraphics[width=0.46\linewidth]{party_int.pdf}}\qquad
-  \subfloat[Priors for Model Slopes\label{fig:b}]{\includegraphics[width=0.46\linewidth]{party_slopes.pdf}}
-\end{figure}
-
-\hyperlink{party results}{\beamerbutton{Party Results}}
-		
-\end{frame}
-
-\begin{frame}{Priors for Individual Models} \label{indiv priors}
-
-\begin{figure}
-  \centering
-  \subfloat[Priors for Model Intercepts\label{fig:a}]{\includegraphics[width=0.46\linewidth]{indiv_int.pdf}}\qquad
-  \subfloat[Priors for Model Slopes\label{fig:b}]{\includegraphics[width=0.46\linewidth]{indiv_slopes.pdf}}
-\end{figure}
-
-\hyperlink{indiv results}{\beamerbutton{Individual Results}}
-		
-\end{frame}
-	
-\end{appendix}
-
-
-
 
 \end{document}

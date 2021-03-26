@@ -41,7 +41,7 @@ packages <- c("tidyverse", "foreign", "stargazer", "lme4", "multcomp",
               "lmerTest", "ggmcmc", "ggridges", "rstan", "rstanarm", "brms",
               "rethinking", "patchwork", "tidybayes", "sjstats", "sjPlot",
               "bayesplot", "sjmisc", "ggpubr", "broom", "scales", "ggthemes",
-              "ggrepel", "BayesPostEst")
+              "ggrepel", "BayesPostEst", "cmdstanr", "bayestestR")
 lapply(packages, require, character.only = TRUE)
 
 # Functions -------------------------------------------------------------------
@@ -70,9 +70,444 @@ knitr::opts_chunk$set(
 This section imports the data cleaned in the "Step I: Data Cleaning" document to begin analyzing the data. 
 
 ```{r Data Import}
-load("Data/Clean Data/estimation_data.RDa")
+load("Data/Clean Data/estimation_data.Rda")
 #load("E:/Project/Data/Clean Data/estimation_data.RDa")
+
+estimation.data <- 
+  estimation.data %>%
+  mutate(pct_white_c = std(pct_white, robust = "2sd"),
+         pct_black_c = std(pct_black, robust = "2sd"),
+         pct_latino_c = std(pct_latino, robust = "2sd"),
+         pct_asian_c = std(pct_asian, robust = "2sd"),
+         pct_bachelors_c = std(pct_bachelors, robust = "2sd"),
+         pct_clinton_16_c = std(pct_clinton_16, robust = "2sd"),
+         pct_dem_house_16_c = std(pct_dem_house_16, robust = "2sd"),
+         log_tot_voting_age_c = std(log_tot_voting_age, robust = "2sd"),
+         log_median_hh_income_c = std(log_median_hh_income, robust = "2sd"))
 ```
+
+
+# PAC Models
+
+## Model Fitting
+
+```{r}
+biz.pac.fit <- brm(bf(business_pacs ~ no_corp_pacs + new_member + pct_white_c +
+                        pct_black_c + pct_latino_c + pct_asian_c + 
+                        pct_bachelors_c + pct_clinton_16_c + 
+                        pct_dem_house_16_c + log_tot_voting_age_c +
+                        log_median_hh_income_c,
+                      hu ~ no_corp_pacs + new_member),
+                   family = hurdle_gamma(link = "log", link_hu = "logit"),
+                   prior = c(prior(normal(13, 12), class = Intercept),
+                             prior(normal(-1, 0.5), class = b, 
+                                   coef = "no_corp_pacsYES"),
+                             prior(normal(0, 0.5), class = b),
+                             prior(normal(0, 1), dpar = "hu", class = Intercept),
+                             prior(normal(0, 0.5), dpar = "hu", class = b)),
+                   sample_prior = "yes",
+                   cores = 4,
+                   iter = 4000,
+                   backend = "cmdstan",
+                   data = estimation.data)
+
+describe_posterior(biz.pac.fit, ci = 0.9, ci_method = "hdi",
+                   test = c("p_direction"))
+
+num.pac.fit <- brm(num_pac_contribs ~ no_corp_pacs + new_member + pct_white_c +
+                     pct_black_c + pct_latino_c + pct_asian_c + 
+                     pct_bachelors_c + pct_clinton_16_c + 
+                     pct_dem_house_16_c + log_tot_voting_age_c +
+                     log_median_hh_income_c,
+                   family = negbinomial(link = "log"),
+                   prior = c(prior(normal(7, 6), class = Intercept),
+                             prior(normal(-1, 0.5), class = b, 
+                                   coef = "no_corp_pacsYES"),
+                             prior(normal(0, 0.5), class = b)),
+                   sample_prior = "yes",
+                   cores = 4,
+                   iter = 4000,
+                   backend = "cmdstan",
+                   data = estimation.data)
+
+describe_posterior(num.pac.fit, ci = 0.9, ci_method = "hdi",
+                   test = c("p_direction"))
+```
+
+## Model Diagnostics
+
+### Prior Influence
+
+```{r}
+# business pac contributions
+biz.pac.priors <- prior_samples(biz.pac.fit)
+biz.pac.post <- posterior_samples(biz.pac.fit)
+
+ggplot() +
+  geom_density(data = biz.pac.priors, aes(x = b_no_corp_pacsYES)) +
+  geom_density(data = biz.pac.post, aes(x = b_no_corp_pacsYES))
+
+# number of business pac contributions
+num.pac.priors <- prior_samples(num.pac.fit)
+num.pac.post <- posterior_samples(num.pac.fit)
+
+ggplot() +
+  geom_density(data = num.pac.priors, aes(x = b_no_corp_pacsYES)) +
+  geom_density(data = num.pac.post, aes(x = b_no_corp_pacsYES))
+```
+
+### Posterior Predictive Checks
+
+```{r}
+# business pac contributions --------------------------------------------------
+y.biz.pac <- estimation.data$business_pacs
+
+# extract the fitted values
+y.rep <- posterior_predict(biz.pac.fit, draws = 500)
+dim(y.rep)
+
+ppc_dens_overlay(y = y.biz.pac[1:235], yrep = y.rep[1:100, ])
+
+# number business pac contributors --------------------------------------------
+y.num.pac <- estimation.data$num_pac_contribs
+
+# extract the fitted values
+y.rep <- posterior_predict(num.pac.fit, draws = 500)
+dim(y.rep)
+
+ppc_dens_overlay(y = y.num.pac[1:235], yrep = y.rep[1:100, ])
+```
+
+
+## Model Results
+
+### Results Tables
+
+```{r}
+library(xtable)
+
+# Business PAC Fit
+xtable(describe_posterior(biz.pac.fit, ci = 0.9, ci_method = "hdi",
+                   test = c("p_direction")))
+```
+
+### Coefficient Plots
+
+```{r}
+# Gamma Likelihood ------------------------------------------------------------
+# extract posterior predictions
+biz.pac.coef <- 
+  biz.pac.fit %>%
+  spread_draws(b_no_corp_pacsYES) %>%
+  mutate(model = "Business PAC $")
+
+## main effects
+library(latex2exp)
+biz.pac.coef %>%
+  mutate(b_np = exp(b_no_corp_pacsYES) - 1) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
+                .width = c(0.9), 
+                point_interval = median_hdi,
+                fill = "#A4A4A4",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  labs(x = TeX("% Change in Contributions ($\\e^{\\beta} - 1$)"), 
+       y = "Outcome Variable") +
+  theme_pubr() +
+  theme(axis.text.y = element_text(angle = 90, vjust = 0, hjust = 0.5))
+ggsave("Figures/Results/pac_gamma_coef.pdf", height = 4, width = 7) 
+
+# Binomial Likelihood ---------------------------------------------------------
+biz.pac.coef <- 
+  biz.pac.fit %>%
+  spread_draws(b_hu_no_corp_pacsYES) %>%
+  mutate(model = "Business PAC $")
+
+## main effects
+library(latex2exp)
+biz.pac.coef %>%
+  mutate(b_np = plogis(b_hu_no_corp_pacsYES)) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
+                .width = c(0.9), 
+                point_interval = median_hdi,
+                fill = "#A4A4A4",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  labs(x = TeX("Probability of Not Receiving Contributions ($logit^{-1}(\\beta)$)"), 
+       y = "Outcome Variable") +
+  theme_pubr()
+ggsave("Figures/Results/pac_binom_coef.pdf", height = 4, width = 7) 
+```
+
+
+# Individual Models
+
+## Model Fitting
+
+```{r}
+small.indv.fit <- brm(small_indiv ~ no_corp_pacs + new_member + pct_white_c +
+                           pct_black_c + pct_latino_c + pct_asian_c + 
+                           pct_bachelors_c + pct_clinton_16_c + 
+                           pct_dem_house_16_c + log_tot_voting_age_c +
+                           log_median_hh_income_c,
+                      family = Gamma(link = "log"),
+                      prior = c(prior(normal(13, 13), class = Intercept),
+                                prior(normal(0.2, 0.5), class = b, 
+                                      coef = "no_corp_pacsYES"),
+                                prior(normal(0, 0.5), class = b)),
+                      sample_prior = "yes",
+                      cores = 4,
+                      iter = 4000,
+                      backend = "cmdstan",
+                      data = estimation.data)
+
+describe_posterior(small.indv.fit, ci = 0.9, ci_method = "hdi",
+                   test = c("p_direction"))
+
+biz.indv.fit <- brm(biz_contribs ~ no_corp_pacs + new_member + pct_white_c +
+                      pct_black_c + pct_latino_c + pct_asian_c + 
+                      pct_bachelors_c + pct_clinton_16_c + pct_dem_house_16_c + 
+                      log_tot_voting_age_c + log_median_hh_income_c,
+                    family = Gamma(link = "log"),
+                    prior = c(prior(normal(13, 13), class = Intercept),
+                              prior(normal(0, 0.5), class = b)),
+                    sample_prior = "yes",
+                    cores = 4,
+                    iter = 4000,
+                    backend = "cmdstan",
+                    data = estimation.data)
+
+describe_posterior(biz.indv.fit, ci = 0.9, ci_method = "hdi",
+                   test = c("p_direction"))
+
+out.dist.biz.fit <- brm(bf(out_of_dist_biz_contrib ~ no_corp_pacs + new_member + 
+                             pct_white_c + pct_black_c + pct_latino_c + 
+                             pct_asian_c + pct_bachelors_c + pct_clinton_16_c + 
+                             pct_dem_house_16_c + log_tot_voting_age_c +
+                             log_median_hh_income_c,
+                           hu ~ no_corp_pacs + new_member),
+                        family = hurdle_gamma(link = "log", link_hu = "logit"),
+                        prior = c(prior(normal(13, 13), class = Intercept),
+                                  prior(normal(0, 0.5), class = b),
+                                  prior(normal(0, 1), dpar = "hu", class = Intercept),
+                                  prior(normal(0, 0.5), dpar = "hu", class = b)),
+                        sample_prior = "yes",
+                        cores = 4,
+                        iter = 4000,
+                        backend = "cmdstan",
+                        data = estimation.data)
+
+describe_posterior(out.dist.biz.fit, ci = 0.9, ci_method = "hdi",
+                   test = c("p_direction"))
+```
+
+## Model Diagnostics
+
+### Prior Influence
+
+```{r}
+# small individual contributions ----------------------------------------------
+small.indiv.priors <- prior_samples(small.indv.fit)
+small.indiv.post <- posterior_samples(small.indv.fit)
+
+ggplot() +
+  geom_density(data = small.indiv.priors, aes(x = b_no_corp_pacsYES)) +
+  geom_density(data = small.indiv.post, aes(x = b_no_corp_pacsYES))
+
+# business individual contributions -------------------------------------------
+biz.indv.priors <- prior_samples(biz.indv.fit)
+biz.indv.post <- posterior_samples(biz.indv.fit)
+
+ggplot() +
+  geom_density(data = biz.indv.priors, aes(x = b)) +
+  geom_density(data = biz.indv.post, aes(x = b_no_corp_pacsYES))
+
+# business individual contributions from out-of-district ----------------------
+out.biz.indv.priors <- prior_samples(out.dist.biz.fit)
+out.biz.indv.post <- posterior_samples(out.dist.biz.fit)
+
+ggplot() +
+  geom_density(data = out.biz.indv.priors, aes(x = b)) +
+  geom_density(data = out.biz.indv.post, aes(x = b_no_corp_pacsYES))
+```
+
+### Posterior Predictive Checks
+
+```{r}
+# # small individual contributions --------------------------------------------
+y.small.indv <- estimation.data$small_indiv
+
+# extract the fitted values
+y.rep <- posterior_predict(small.indv.fit, draws = 500)
+dim(y.rep)
+
+ppc_dens_overlay(y = y.small.indv[1:235], yrep = y.rep[1:100, ]) + 
+  xlim(0, 400000)
+
+# business individual contributions -------------------------------------------
+y.biz.indv <- estimation.data$indiv_biz
+
+# extract the fitted values
+y.rep <- posterior_predict(biz.indv.fit, draws = 500)
+dim(y.rep)
+
+ppc_dens_overlay(y = y.biz.indv[1:235], yrep = y.rep[1:100, ]) +
+  xlim(0, 5000000)
+```
+
+
+## Model Results
+
+### Results Tables
+
+```{r}
+
+```
+
+### Coefficient Plots
+
+```{r}
+# Gamma Likelihood ------------------------------------------------------------
+# extract posterior predictions
+small.indv.coef <- 
+  small.indv.fit %>%
+  spread_draws(b_no_corp_pacsYES) %>%
+  mutate(model = "Small Indiv. $")
+
+biz.indv.coef <- 
+  biz.indv.fit %>%
+  spread_draws(b_no_corp_pacsYES) %>%
+  mutate(model = "Business Indiv. $")
+
+out.biz.indv.coef <- 
+  out.dist.biz.fit %>%
+  spread_draws(b_no_corp_pacsYES) %>%
+  mutate(model = "Out-of-District Business Indiv. $")
+
+indv.models <- 
+  bind_rows(small.indv.coef, biz.indv.coef, out.biz.indv.coef) %>%
+  mutate(b_np = exp(b_no_corp_pacsYES) - 1)
+
+## main effects
+library(latex2exp)
+indv.models %>%
+  #filter(model == "Out-of-District Business Indiv. $") %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
+                .width = c(0.9), 
+                point_interval = median_hdi,
+                fill = "#A4A4A4",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 6)) +
+  labs(x = TeX("% Change in Contributions ($\\e^{\\beta} - 1$)"), 
+       y = "Outcome Variable") +
+  theme_pubr()
+ggsave("Figures/Results/indv_gamma_coef.pdf", height = 4, width = 7) 
+
+# Binomial Likelihood ---------------------------------------------------------
+out.biz.indv.coef <- 
+  out.dist.biz.fit %>%
+  spread_draws(b_hu_no_corp_pacsYES) %>%
+  mutate(model = "Out-of-District Business Indiv. $")
+
+## main effects
+library(latex2exp)
+out.biz.indv.coef %>%
+  rename(b_np = b_hu_no_corp_pacsYES) %>%
+  ggplot() +
+  stat_halfeyeh(aes(y = fct_reorder(model, b_np), x = b_np), 
+                .width = c(0.9), 
+                point_interval = median_hdi,
+                fill = "#A4A4A4",
+                color = "black",
+                alpha = 0.9) +
+  geom_vline(aes(xintercept = 0), linetype = "dashed", color = "grey55") +
+  scale_x_continuous(labels = percent_format(),
+                     breaks = pretty_breaks(n = 4)) +
+  labs(x = TeX("Probability of Not Receiving Contributions ($logit^{-1}(\\beta)$)"), 
+       y = "Outcome Variable") +
+  theme_pubr()
+ggsave("Figures/Results/indv_binom_coef.pdf", height = 4, width = 7) 
+```
+
+
+# Proportion Models
+
+```{r}
+estimation.data <- 
+  estimation.data %>%
+  mutate(tot_contribs = business_pacs + small_indiv + biz_contribs + 
+           out_of_dist_biz_contrib,
+         biz_pac_prop = business_pacs / tot_contribs,
+         small_indiv_prop = small_indiv / tot_contribs,
+         biz_contribs_prop = biz_contribs / tot_contribs,
+         out_of_dist_biz_contrib_prop = out_of_dist_biz_contrib / tot_contribs,
+         sum = biz_pac_prop + biz_contribs_prop + small_indiv_prop + 
+           out_of_dist_biz_contrib_prop)
+
+dir.estimation.data <- 
+  estimation.data %>%
+  filter(biz_pac_prop != 0) %>%
+  filter(small_indiv_prop != 0) %>%
+  filter(biz_contribs_prop != 0) %>%
+  filter(out_of_dist_biz_contrib_prop != 0)
+
+dir.estimation.data$y <- 
+  with(dir.estimation.data, cbind(biz_pac_prop, small_indiv_prop, 
+                                  biz_contribs_prop, 
+                                  out_of_dist_biz_contrib_prop))
+
+dir.fit <- brm(y ~ no_corp_pacs + new_member + pct_white_c +
+                 pct_black_c + pct_latino_c + pct_asian_c + 
+                 pct_bachelors_c + pct_clinton_16_c + 
+                 pct_dem_house_16_c + log_tot_voting_age_c +
+                 log_median_hh_income_c,
+               family = dirichlet(link = "logit"),
+               cores = 4,
+               iter = 4000,
+               backend = "cmdstanr",
+               data = dir.estimation.data)
+describe_posterior(dir.fit, ci = 0.9, ci_method = "hdi",
+                   test = c("p_direction"))
+
+ce <- conditional_effects(dir.fit, categorical = T, effects = "no_corp_pacs", 
+                          prob = 0.9, method = "posterior_epred")[[1]]
+
+ggplot(data = ce, aes(x = no_corp_pacs, y = estimate__, ymin = lower__,
+                      ymax = upper__, shape = cats__, color = cats__)) +
+  geom_point(position = position_dodge(width = 0.5), size = 4.5) +
+  geom_errorbar(position = position_dodge(width = 0.5), width = 0.2) +
+  scale_color_manual(values = c("gray62", "gray38", "grey20", "black"),
+                     labels = c("Business PACs", "Small Individual", 
+                                "Business Individual", 
+                                "Out-of-District Business Indiv.")) +
+  scale_shape_manual(values = c(15, 19, 17, 18),
+                     labels = c("Business PACs", "Small Individual", 
+                                "Business Individual", 
+                                "Out-of-District Business Indiv.")) +
+  labs(x = "Candidate Accepts Corporate PAC Contributions?",
+       y = "Proportion of Contributions",
+       color = "Contributions from:",
+       shape = "Contributions from:") +
+  scale_x_discrete(labels = c("Yes", "No")) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 0.6),
+                     breaks = pretty_breaks(n = 6)) +
+  theme_pubclean()
+ggsave("Figures/dir_model_results.pdf", plot = last_plot(),
+       width = 9, height = 5)
+```
+
 
 
 # Vote Models
@@ -526,6 +961,21 @@ ggsave("Figures/Priors/pac_scale.pdf", width = 5, height = 4)
 ```
 
 ### Model 
+
+```{r}
+test <- brms::brm(bf(tot_pac_money ~ no_corp_pacs + new_member + pct_white + 
+                       pct_black + pct_latino + pct_asian + pct_bachelors +
+                       pct_clinton_16 + pct_dem_house_16 + 
+                       log_median_hh_income + log_tot_voting_age,
+                     hu ~ no_corp_pacs + new_member),
+                  prior = c(prior(normal(0, 14), class = b),
+                            prior(normal(13, 15), class = Intercept)),
+                  data = estimation.data,
+                  family = hurdle_gamma(link = "log", link_hu = "logit"))
+prior_summary(test)
+print(test)
+```
+
 
 ```{stan output.var = "totpac.model"}
 data {

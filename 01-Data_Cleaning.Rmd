@@ -55,7 +55,18 @@ knitr::opts_chunk$set(
 
 # Legislator Data
 
-Data on the 2018 Congressional candidates, whether or not they pledged to reject PAC money, and their contribution totals was compiled by OpenSecrets.org and is availbe on Google Drive [here](https://docs.google.com/spreadsheets/d/1T2yvwu9clk5eeETE90SgPeX0ouDXEeAEIDl_KTCtBhs/edit#gid=545136858).
+```{r}
+leg.data <- read_csv("Data/Raw Data/house_roster.csv")
+
+leg.data <- 
+  leg.data %>%
+  filter(congress == 116) %>%
+  select(icpsr, opensecrets_id, freshman, cand_type)
+```
+
+## PAC Pledge Data
+
+Data on the 2018 Congressional candidates, whether or not they pledged to reject PAC money, and their contribution totals was compiled by OpenSecrets.org and is available on Google Drive [here](https://docs.google.com/spreadsheets/d/1T2yvwu9clk5eeETE90SgPeX0ouDXEeAEIDl_KTCtBhs/edit#gid=545136858).
 
 ```{r}
 members.2018.data.raw <- read_xlsx("Data/Raw Data/OpenSecrets.org _ No Corp PAC Members.xlsx", 
@@ -90,6 +101,29 @@ members.2018.data <-
   separate(candidae_name, into = c("first_name", "last_name"), extra = "drop") %>%
   mutate(first_initial = str_sub(first_name, start = 1L, end = 1L),
          last_stub = str_sub(last_name, start = 1L, end = 3L))
+
+members.data <- 
+  members.2018.data %>%
+  filter(party == "D") %>%
+  filter(!is.na(gen_election_result))
+```
+
+### Merge with Legislator Data
+
+```{r}
+members.data <- 
+  left_join(members.data, leg.data, by = c("opensecrets_id"))
+
+write_csv(members.data, file = "Data/Raw Data/members_data.csv")
+
+# read in complete data set
+member.data <- read_csv("Data/Raw Data/members_data_working.csv")
+
+# identify chambers
+member.data <- 
+  member.data %>%
+  mutate(chamber = ifelse(str_detect(district, "S1") | 
+                            str_detect(district, "S2"), "Senate", "House"))
 ```
 
 
@@ -129,7 +163,7 @@ voting_age <-
            into = c("district", "state"),
            sep = ",",
            extra = "merge") %>%
-  mutate(district = str_replace(district, "\\(115th Congress\\)", ""),
+  mutate(district = str_replace(district, "\\(116th Congress\\)", ""),
          district = str_replace(district, "Congressional District ", ""),
          district = str_trim(district, side = "both"),
          district = str_pad(district, width = 2, side = "left", pad = "0"),
@@ -138,11 +172,7 @@ voting_age <-
          state_dist = str_replace(state_dist, pattern = "\\(at Large\\)", "01")) %>%
   dplyr::select(-variable, -moe, -GEOID, -district, -state)
 
-demo.data <- left_join(
-  demo.data,
-  voting_age,
-  by = c("state_dist")
-)
+demo.data <- left_join(demo.data, voting_age, by = c("state_dist"))
 ```
 
 ## Merge Legislator Data with Demographic Data
@@ -151,11 +181,8 @@ demo.data <- left_join(
 sum(duplicated(members.2018.data[ , c("district")]))
 sum(duplicated(demo.data[ , c("district")]))
 
-member.data <- left_join(
-  members.2018.data,
-  demo.data,
-  by = c("district" = "state_dist")
-)
+member.data <- 
+  left_join(member.data, demo.data, by = c("district" = "state_dist"))
 ```
 
 # Election Data
@@ -163,7 +190,11 @@ member.data <- left_join(
 Data on each candidates' total number of votes for the 2018 midterm election was collected from the [MIT Election Data + Science Lab](https://electionlab.mit.edu/data).
 
 ```{r}
-election.data.raw <- read_csv("/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Data/Raw Data/Election Data/1976-2018-house.csv") %>% filter(year == 2018) %>% filter(stage == "gen")
+# House Elections
+election.data.raw <- 
+  read_csv("Data/Raw Data/Election Data/1976-2018-house.csv") %>% 
+  filter(year == 2018) %>% 
+  filter(stage == "gen")
 
 election.data <- 
   election.data.raw %>%
@@ -194,30 +225,29 @@ election.data <-
 ## Merge Election Data with Contribution Data
 
 ```{r}
+# house elections
 sum(duplicated(election.data[ , c("state_dist", "party", "first_initial", "last_stub")]))
 sum(duplicated(member.data[ , c("district", "party", "first_initial", "last_stub")]))
 
-member.data <- left_join(
-  member.data,
-  election.data,
-  by = c("district" = "state_dist", "party", "first_initial", "last_stub")
-)
+member.data <- 
+  left_join(member.data, election.data,
+  by = c("district" = "state_dist", "party", "first_initial", "last_stub"))
 
 member.data <- 
   member.data %>%
   mutate(new_member = as_factor(new_member),
          party = as_factor(party),
          vap_turnout = candidatevotes / tot_voting_age) %>%
-  dplyr::select(opensecrets_id, first_name.x, last_name.x, district, party, 
+  dplyr::select(icpsr, opensecrets_id, first_name.x, last_name.x, district, 
+                party, 
                 new_member, no_corp_pacs, tot_pac_money, num_pac_contribs, 
                 business_pacs, labor_pacs, ideological_pacs, leadership_pacs, 
                 other_pacs, net_receipts, net_indiv_total, candidate_contribs, 
                 large_indiv, small_indiv, net_spent, vote_pct, vap_turnout, 
                 median_hh_income, pct_clinton_16, pct_obama_12, 
                 pct_dem_house_16,pct_dem_house_14, pct_asian, pct_white, 
-                pct_black, pct_latino, pct_bachelors, tot_voting_age, office) %>%
-  filter(!is.na(office)) %>%
-  dplyr::select(-office) %>%
+                pct_black, pct_latino, pct_bachelors, tot_voting_age, chamber,
+                last_stub, first_initial) %>%
   rename(first_name = first_name.x,
          last_name = last_name.x)
 ```
@@ -231,7 +261,7 @@ This contribution data come from [OpenSecrets.org](https://www.opensecrets.org/r
 
 ```{r}
 # Industry Categories
-industry.cats <- read_excel("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/CRP_industry_codes.xlsx")
+industry.cats <- read_excel("/Users/nickjenkins/Documents/Research/Data Sets/Contribution Data/CRP_industry_codes.xlsx")
 
 industry.cats <- 
   industry.cats %>%
@@ -241,10 +271,11 @@ industry.cats <-
 
 # Individual Contribution data
 indiv.contrib.data.raw <- 
-  read_delim("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/Contribution Data/CampaignFin18/indivs18.txt", 
-                       delim = "|, |",
-                       col_names = FALSE) %>%
-    rename(year = X2,
+  read_delim("/Users/nickjenkins/Documents/Research/Data Sets/Contribution Data/CampaignFin18/indivs18.txt", 
+             delim = "|", 
+             col_names = FALSE, 
+             col_types = cols(.default = col_character())) %>%
+  rename(year = X2,
          fec_trans_id = X4,
          donor_id = X6,
          contrib_name = X8,
@@ -255,11 +286,45 @@ indiv.contrib.data.raw <-
          contrib_date = X17,
          contrib_city = X20,
          contrib_state = X22, 
-         contrib_zip = X24)  %>%
-  select(year, fec_trans_id, donor_id, contrib_name, receipt_id, 
-         donor_org_name, standard_org, industry_code, contrib_date, contrib_zip, 
-         contrib_state) %>%
-  separate(contrib_date, into = c("drop", "contrib_date", "contrib_amount"), sep = ",")
+         contrib_zip = X24,
+         recipient_type = X26,
+         transaction_type = X28) %>%
+  mutate(contrib_type = "Individual",
+         contrib_date = str_replace(contrib_date, ",,", ","),
+         industry_code = str_to_upper(industry_code),
+         industry_letter = str_sub(industry_code, start = 1L, end = 1L)) %>%
+  filter(str_detect(industry_code, pattern = "^Z4", negate = TRUE)) %>%
+  filter(str_detect(industry_code, pattern = "^Z9", negate = TRUE)) %>%
+  filter(str_detect(industry_code, pattern = "^z4", negate = TRUE)) %>%
+  filter(str_detect(industry_code, pattern = "^z9", negate = TRUE)) %>%
+  filter(str_detect(receipt_id, "^N")) %>%
+  separate(contrib_date, into = c("drop", "contrib_date", "contrib_amount"), sep = ",") %>%
+  mutate(contrib_amount, as.numeric(contrib_amount),
+         contrib_data = mdy(contrib_date))
+
+# code transaction types
+indiv.contribs <- 
+  indiv.contrib.data.raw %>%
+  mutate(transaction_type = factor(transaction_type, 
+                                   levels = c("10", "11", "15 ", "15E", "15I", "15J", "15T",
+                                              "19J", "20Y", "22Y"),
+                                   labels = c("Contrib. to Indp. Exp. Cmte.",
+                                              "Native American Tribe Contribution",
+                                              "Contrib. to Political Cmte.",
+                                              "Earmarked Contrib. to Political Cmte.",
+                                              "Earmarked Contrib. Check",
+                                              "Pct. Recipient Contrib. to Joint Fund. Cmte.",
+                                              "Earmarked Contrib. Treasury",
+                                              "Pct. Recipient Contrib. Electioneering",
+                                              "Nonfederal Refund",
+                                              "Contrib. Refund"))) %>%
+  filter(str_detect(transaction_type, "Contrib. to Indp. Exp. Cmte.", negate = TRUE)) %>%
+  filter(str_detect(transaction_type, "Pct. Recipient Contrib. to Joint Fund. Cmte.", 
+                    negate = TRUE)) %>%
+  filter(str_detect(transaction_type, "Pct. Recipient Contrib. Electioneering", 
+                    negate = TRUE)) %>%
+  filter(str_detect(transaction_type, "Nonfederal Refund", negate = TRUE)) %>%
+  filter(str_detect(transaction_type, "Contrib. Refund", negate = TRUE))
 
 # filter out non-individual recipients
 indiv.contrib.data <- 
@@ -366,10 +431,9 @@ indiv.contrib.data <-
 indiv.contrib.data <- 
   indiv.contrib.data %>%
   mutate(indiv_biz = sum(indiv_ag, indiv_comms_electric, indiv_const_pub_wrks,
-                         indiv_defense, indiv_engy_res_envrmt, 
-                         indiv_fncs_ins_real, indiv_commerce, 
-                         indiv_hlth_edu_human, indiv_legal, indiv_manu,
-                         indiv_other, indiv_trans)) %>%
+                         indiv_defense, indiv_engy_res_envrmt, indiv_legal,
+                         indiv_fncs_ins_real, indiv_commerce, indiv_manu,
+                         indiv_hlth_edu_human, indiv_trans)) %>%
   select(receipt_id, indiv_biz, indiv_labor, indiv_ideological, 
          indiv_self_finance, indiv_cand_committee, indiv_party_committee)
 ```
@@ -379,7 +443,7 @@ indiv.contrib.data <-
 ```{r}
 ## 2018 - Congress 116
 pac.contrib.data.raw <- 
-  read_delim("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/Contribution Data/CampaignFin18/pacs18.txt", 
+  read_delim("/Users/nick/Documents/Research/Data Sets/Contribution Data/CampaignFin18/pacs18.txt", 
                        delim = "|, |",
                        col_names = FALSE) %>%
   rename(year = X2,
@@ -563,11 +627,25 @@ save(contrib.data, file = "Data/Clean Data/contribution_data.Rda")
 ## Merge with Legislator Data
 
 ```{r}
-member.data <- left_join(
-  member.data,
-  contrib.data,
-  by = c("opensecrets_id" = "receipt_id")
-)
+# load clean contribution data
+load("Data/Raw Data/contrib_data.Rda")
+
+member.data <- 
+  left_join(member.data, contrib.data, by = c("opensecrets_id" = "receipt_id"))
+```
+
+
+# Nominate Data
+
+```{r}
+nominate.data <- read_csv("Data/Raw Data/HSall_members.csv")
+
+nominate.data <- 
+  nominate.data %>%
+  filter(congress == 116) %>%
+  select(icpsr, nominate_dim1, nominate_dim2)
+
+member.data <- left_join(member.data, nominate.data, by = "icpsr")
 ```
 
 
@@ -578,24 +656,20 @@ estimation.data <-
   member.data %>%
   filter(party == "D") %>%
   select(district, no_corp_pacs, new_member, tot_pac_money, num_pac_contribs, 
-         business_pacs, dir_business_pacs, in_kind_business_pacs, 
-         ind_business_pacs, candidate_contribs, dir_pac_cand_committee, 
-         dir_pac_party_committee, ik_pac_party_committee, 
-         ind_pac_party_committee, ce_pac_party_committee, labor_pacs, 
-         dir_pac_labor, ik_pac_labor, ind_pac_labor, ideological_pacs, 
-         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
-         ce_pac_ideological, leadership_pacs, net_indiv_total, large_indiv, 
-         small_indiv, indiv_ideological, indiv_cand_committee, 
-         indiv_party_committee, indiv_self_finance, indiv_biz, indiv_labor, 
+         business_pacs, ideological_pacs, in_kind_business_pacs, ind_against_business_pacs,
+         ind_for_business_pacs, party_exp, leadership_pacs, net_indiv_total, 
+         large_indiv, small_indiv, indiv_ideological, indiv_cand_committee, 
+         indiv_party_committee, indiv_biz, indiv_labor, 
          net_spent, net_receipts, vote_pct, vap_turnout, median_hh_income, 
          pct_clinton_16, pct_dem_house_16, pct_asian, pct_white, pct_black, 
-         pct_latino, pct_bachelors, tot_voting_age) %>%
+         pct_latino, pct_bachelors, tot_voting_age, chamber, nominate_dim1,
+         nominate_dim2) %>%
   mutate(vote_pct = vote_pct * 100,
          vap_turnout = vap_turnout * 100,
          log_median_hh_income = log(median_hh_income),
          log_tot_voting_age = log(tot_voting_age))
 
-save(estimation.data, file = "Data/Clean Data/estimation_data.Rda")
+save(estimation.data, file = "Data/Clean Data/estimation_data2.Rda")
 ```
 
 

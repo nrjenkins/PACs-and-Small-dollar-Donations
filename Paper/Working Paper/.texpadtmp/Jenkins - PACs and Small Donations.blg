@@ -1,20 +1,19 @@
 [0] Config.pm:304> INFO - This is Biber 2.12
 [0] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.blg'
-[54] biber-darwin:315> INFO - === Wed Jun 24, 2020, 11:44:31
-[91] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bcf'
-[249] Biber.pm:889> INFO - Found 31 citekeys in bib section 0
-[261] Biber.pm:4093> INFO - Processing section 0
-[283] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
-[408] bibtex.pm:1523> INFO - LaTeX decoding ...
-[3595] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
-[3741] Utils.pm:193> WARN - BAD RECURSION! Entry alias 'hall1987' is identical to the entry key, skipping ...
-[3896] Utils.pm:193> WARN - ISBN '978-0-7425-1794-3 978-0-7425-1795-0' in entry 'lubenow2001' is invalid - run biber with '--validate_datamodel' for details.
-[3907] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page1992' is invalid - run biber with '--validate_datamodel' for details.
-[4060] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[4060] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[4060] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
-[4060] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
-[4060] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
-[4101] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl' with encoding 'UTF-8'
-[4123] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl
-[4123] Biber.pm:110> INFO - WARNINGS: 3
+[66] biber-darwin:315> INFO - === Tue Sep 29, 2020, 17:01:24
+[104] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bcf'
+[348] Biber.pm:889> INFO - Found 33 citekeys in bib section 0
+[374] Biber.pm:4093> INFO - Processing section 0
+[403] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[548] bibtex.pm:1523> INFO - LaTeX decoding ...
+[5419] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
+[5794] Utils.pm:193> WARN - ISBN '978-0-7425-1794-3 978-0-7425-1795-0' in entry 'lubenow2001' is invalid - run biber with '--validate_datamodel' for details.
+[5811] Utils.pm:193> WARN - ISBN '978-0-226-64477-6 978-0-226-64478-3' in entry 'page1992' is invalid - run biber with '--validate_datamodel' for details.
+[6141] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[6141] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[6142] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
+[6142] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
+[6142] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[6226] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl' with encoding 'UTF-8'
+[6269] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl
+[6270] Biber.pm:110> INFO - WARNINGS: 2

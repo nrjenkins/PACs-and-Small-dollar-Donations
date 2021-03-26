@@ -534,6 +534,62 @@
       \verb https://doi.org/10.1080/03906700500038819
       \endverb
     \endentry
+    \entry{denzau1986}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=56fa657e2558a832593e98bf09d22fce}{%
+           family={Denzau},
+           familyi={D\bibinitperiod},
+           given={Arthur\bibnamedelima T.},
+           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=1278f60d7e02d08e54d0c420c60da69a}{%
+           family={Munger},
+           familyi={M\bibinitperiod},
+           given={Michael\bibnamedelima C.},
+           giveni={M\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{24464f2f7dca81591121488db3c88925}
+      \strng{fullhash}{24464f2f7dca81591121488db3c88925}
+      \strng{bibnamehash}{24464f2f7dca81591121488db3c88925}
+      \strng{authorbibnamehash}{24464f2f7dca81591121488db3c88925}
+      \strng{authornamehash}{24464f2f7dca81591121488db3c88925}
+      \strng{authorfullhash}{24464f2f7dca81591121488db3c88925}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{issn}{0003-0554, 1537-5943}
+      \field{journaltitle}{American Political Science Review}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{number}{1}
+      \field{shorttitle}{Legislators and {{Interest Groups}}}
+      \field{title}{Legislators and {{Interest Groups}}: {{How Unorganized Interests Get Represented}}}
+      \field{urlday}{28}
+      \field{urlmonth}{10}
+      \field{urlyear}{2018}
+      \field{volume}{80}
+      \field{year}{1986}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{89\bibrangedash 106}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10/d2tfzr
+      \endverb
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Denzau_Munger_1986_Legislators and Interest Groups.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://www.journals.cambridge.org/abstract_S0003055400182279
+      \endverb
+      \verb{url}
+      \verb http://www.journals.cambridge.org/abstract_S0003055400182279
+      \endverb
+    \endentry
     \entry{evers-hillstrom2018}{online}{}
       \name{author}{1}{}{%
         {{uniquename=0,uniquepart=base,hash=031eb633676a831f7e4d5c5cb9c6fb1a}{%
@@ -706,7 +762,7 @@
       \verb http://projecteuclid.org/euclid.aoas/1231424214
       \endverb
     \endentry
-    \entry{grier1991}{article}{}
+    \entry{grier1986}{article}{}
       \name{author}{2}{}{%
         {{uniquename=0,uniquepart=base,hash=c59fbc503685a3597cf56630fe96b3c6}{%
            family={Grier},
@@ -733,32 +789,33 @@
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{We model the behavior of a vote-maximizing legislator in order to predict interest group campaign contributions to incumbent politicians. We show that committee assignments and voter preferences affect the price a legislator requires to produce policies for any interest group. An econometric analysis of actual interest group contributions shows that these groups make significantly larger contributions to legislators on committees with jurisdiction over especially relevant policy issues and to incumbents with non-hostile constituencies. These results support our theory; interest groups act as if committees matter in the determination of policy and voters' interests constrain interest group behavior.}
-      \field{issn}{1465-7295}
-      \field{journaltitle}{Economic Inquiry}
+      \field{issn}{0195-3613, 1936-4768}
+      \field{journaltitle}{Journal of Labor Research}
       \field{langid}{english}
-      \field{number}{1}
-      \field{title}{Committee {{Assignments}}, {{Constituent Preferences}}, and {{Campaign Contributions}}}
-      \field{urlday}{8}
-      \field{urlmonth}{2}
-      \field{urlyear}{2019}
-      \field{volume}{29}
-      \field{year}{1991}
+      \field{month}{9}
+      \field{number}{4}
+      \field{shortjournal}{J Labor Res}
+      \field{title}{The Impact of Legislator Attributes on Interest-Group Campaign Contributions}
+      \field{urlday}{19}
+      \field{urlmonth}{3}
+      \field{urlyear}{2020}
+      \field{volume}{7}
+      \field{year}{1986}
       \field{dateera}{ce}
       \field{urldateera}{ce}
-      \field{pages}{24\bibrangedash 43}
-      \range{pages}{20}
+      \field{pages}{349\bibrangedash 361}
+      \range{pages}{13}
       \verb{doi}
-      \verb 10/dt325k
+      \verb 10.1007/BF03179665
       \endverb
       \verb{file}
-      \verb /Users/nick/Documents/Research/Articles/Grier_Munger_1991_Committee Assignments, Constituent Preferences, and Campaign Contributions.pdf;/Users/nick/Zotero/storage/UQ9Z6L94/j.1465-7295.1991.tb01250.html
+      \verb /Users/nick/Documents/Research/Articles/Grier_Munger_1986_The impact of legislator attributes on interest-group campaign contributions.pdf
       \endverb
       \verb{urlraw}
-      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1465-7295.1991.tb01250.x
+      \verb http://link.springer.com/10.1007/BF03179665
       \endverb
       \verb{url}
-      \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1465-7295.1991.tb01250.x
+      \verb http://link.springer.com/10.1007/BF03179665
       \endverb
     \endentry
     \entry{harper2019}{online}{}
@@ -899,6 +956,48 @@
       \field{year}{1989}
       \field{dateera}{ce}
     \endentry
+    \entry{kroszner1998}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=506b304c38321b8a1269d03da3b0d232}{%
+           family={Kroszner},
+           familyi={K\bibinitperiod},
+           given={Randall\bibnamedelima S.},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=d95d750a91b6de485ec1be8ac1a37778}{%
+           family={Stratmann},
+           familyi={S\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{1fed63ae7eaa6c2f11d64b97bc13e1ae}
+      \strng{fullhash}{1fed63ae7eaa6c2f11d64b97bc13e1ae}
+      \strng{bibnamehash}{1fed63ae7eaa6c2f11d64b97bc13e1ae}
+      \strng{authorbibnamehash}{1fed63ae7eaa6c2f11d64b97bc13e1ae}
+      \strng{authornamehash}{1fed63ae7eaa6c2f11d64b97bc13e1ae}
+      \strng{authorfullhash}{1fed63ae7eaa6c2f11d64b97bc13e1ae}
+      \field{sortinit}{K}
+      \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The American Economic Review}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{5}
+      \field{title}{Interest-{{Group Competition}} and the {{Organization}} of {{Congress}}: {{Theory}} and {{Evidence}} from {{Financial Services}}' {{Political Action Committees}}}
+      \field{volume}{88}
+      \field{year}{1998}
+      \field{dateera}{ce}
+      \field{pages}{1163\bibrangedash 1187}
+      \range{pages}{25}
+      \verb{file}
+      \verb /Users/nick/Documents/Research/Articles/Kroszner_Stratmann_1998_Interest-Group Competition and the Organization of Congress.pdf
+      \endverb
+      \keyw{⛔ No DOI found}
+    \endentry
     \entry{lazer2015a}{online}{}
       \name{author}{1}{}{%
         {{uniquename=0,uniquepart=base,hash=81f439d468dc23df4e28507359869513}{%
@@ -975,7 +1074,7 @@
       \verb https://www.opensecrets.org/industries/background.php?cycle=2020&ind=q03
       \endverb
     \endentry
-    \entry{lubenow2001}{collection}{}
+    \entry{lubenow2001}{book}{}
       \name{editor}{1}{}{%
         {{uniquename=0,uniquepart=base,hash=5618dc543dfbc8c1c12d6da89ff8b752}{%
            family={Lubenow},
@@ -1114,6 +1213,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{As Bayesian methods continue to grow in accessibility and popularity, more empirical studies are turning to Bayesian methods to model small sample data. Bayesian methods do not rely on asympotics, a property that can be a hindrance when employing frequentist methods in small sample contexts. Although Bayesian methods are better equipped to model data with small sample sizes, estimates are highly sensitive to the specification of the prior distribution. If this aspect is not heeded, Bayesian estimates can actually be worse than frequentist methods, especially if frequentist small sample corrections are utilized. We show with illustrative simulations and applied examples that relying on software defaults or diffuse priors with small samples can yield more biased estimates than frequentist methods. We discuss conditions that need to be met if researchers want to responsibly harness the advantages that Bayesian methods offer for small sample problems as well as leading small sample frequentist methods.}
+      \field{annotation}{\_eprint: https://doi.org/10.1080/10705511.2016.1186549}
       \field{day}{2}
       \field{issn}{1070-5511}
       \field{journaltitle}{Structural Equation Modeling: A Multidisciplinary Journal}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  24 JUN 2020 11:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  29 SEP 2020 17:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -464,45 +464,28 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@hleads=\box43
 \tabu@vleads=\box44
 \tabu@cellskip=\skip55
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
-\LTleft=\skip56
-\LTright=\skip57
-\LTpre=\skip58
-\LTpost=\skip59
-\LTchunksize=\count143
-\LTcapwidth=\dimen178
-\LT@head=\box45
-\LT@firsthead=\box46
-\LT@foot=\box47
-\LT@lastfoot=\box48
-\LT@cols=\count144
-\LT@rows=\count145
-\c@LT@tables=\count146
-\c@LT@chunks=\count147
-\LT@p@ftn=\toks35
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2016/04/27 v1.618033 publication quality tables
-\heavyrulewidth=\dimen179
-\lightrulewidth=\dimen180
-\cmidrulewidth=\dimen181
-\belowrulesep=\dimen182
-\belowbottomsep=\dimen183
-\aboverulesep=\dimen184
-\abovetopsep=\dimen185
-\cmidrulesep=\dimen186
-\cmidrulekern=\dimen187
-\defaultaddspace=\dimen188
-\@cmidla=\count148
-\@cmidlb=\count149
-\@aboverulesep=\dimen189
-\@belowrulesep=\dimen190
-\@thisruleclass=\count150
-\@lastruleclass=\count151
-\@thisrulewidth=\dimen191
+\heavyrulewidth=\dimen178
+\lightrulewidth=\dimen179
+\cmidrulewidth=\dimen180
+\belowrulesep=\dimen181
+\belowbottomsep=\dimen182
+\aboverulesep=\dimen183
+\abovetopsep=\dimen184
+\cmidrulesep=\dimen185
+\cmidrulekern=\dimen186
+\defaultaddspace=\dimen187
+\@cmidla=\count143
+\@cmidlb=\count144
+\@aboverulesep=\dimen188
+\@belowrulesep=\dimen189
+\@thisruleclass=\count145
+\@lastruleclass=\count146
+\@thisrulewidth=\dimen190
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks36
+\@emptytoks=\toks35
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
@@ -518,112 +501,109 @@ Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
  (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen192
-\captionmargin@=\dimen193
-\captionwidth=\dimen194
-\caption@tempdima=\dimen195
-\caption@indent=\dimen196
-\caption@parindent=\dimen197
-\caption@hangindent=\dimen198
+\captionmargin=\dimen191
+\captionmargin@=\dimen192
+\captionwidth=\dimen193
+\caption@tempdima=\dimen194
+\caption@indent=\dimen195
+\caption@parindent=\dimen196
+\caption@hangindent=\dimen197
 )
-\c@caption@flags=\count152
-\c@ContinuedFloat=\count153
+\c@caption@flags=\count147
+\c@ContinuedFloat=\count148
 Package caption Info: hyperref package is loaded.
-Package caption Info: longtable package is loaded.
- (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/ltcaption.sty
-Package: ltcaption 2018/08/26 v1.4-95 longtable captions (AR)
-)) (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/subcaption.sty
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2018/05/01 v1.1-162 Sub-captions (AR)
-\c@subfigure=\count154
-\c@subtable=\count155
+\c@subfigure=\count149
+\c@subtable=\count150
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/ntheorem/ntheorem.sty
 Style `ntheorem', Version 1.33 <2011/08/15>
 Package: ntheorem 2011/08/15 1.33
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\theorem@style=\toks37
-\theorem@@style=\toks38
-\theorembodyfont=\toks39
-\theoremnumbering=\toks40
-\theorempreskipamount=\skip60
-\theorempostskipamount=\skip61
-\theoremframepreskipamount=\skip62
-\theoremframepostskipamount=\skip63
-\theoreminframepreskipamount=\skip64
-\theoreminframepostskipamount=\skip65
-\theorem@preskip=\toks41
-\theorem@postskip=\toks42
-\theorem@framepreskip=\toks43
-\theorem@framepostskip=\toks44
-\theorem@inframepreskip=\toks45
-\theorem@inframepostskip=\toks46
-\theoremindent=\dimen199
-\theorem@indent=\dimen256
-\theoremrightindent=\dimen257
-\theorem@rightindent=\dimen258
-\theoremheaderfont=\toks47
-\theoremseparator=\toks48
-\theoremprework=\toks49
-\theorempostwork=\toks50
-\theoremsymbol=\toks51
-\qedsymbol=\toks52
-\theoremkeyword=\toks53
-\qedsymbol=\toks54
-\thm@topsep=\skip66
-\thm@topsepadd=\skip67
+\theorem@style=\toks36
+\theorem@@style=\toks37
+\theorembodyfont=\toks38
+\theoremnumbering=\toks39
+\theorempreskipamount=\skip56
+\theorempostskipamount=\skip57
+\theoremframepreskipamount=\skip58
+\theoremframepostskipamount=\skip59
+\theoreminframepreskipamount=\skip60
+\theoreminframepostskipamount=\skip61
+\theorem@preskip=\toks40
+\theorem@postskip=\toks41
+\theorem@framepreskip=\toks42
+\theorem@framepostskip=\toks43
+\theorem@inframepreskip=\toks44
+\theorem@inframepostskip=\toks45
+\theoremindent=\dimen198
+\theorem@indent=\dimen199
+\theoremrightindent=\dimen256
+\theorem@rightindent=\dimen257
+\theoremheaderfont=\toks46
+\theoremseparator=\toks47
+\theoremprework=\toks48
+\theorempostwork=\toks49
+\theoremsymbol=\toks50
+\qedsymbol=\toks51
+\theoremkeyword=\toks52
+\qedsymbol=\toks53
+\thm@topsep=\skip62
+\thm@topsepadd=\skip63
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2018/12/01 v2.17b AMS math features
-\@mathmargin=\skip68
+\@mathmargin=\skip64
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks55
-\ex@=\dimen259
+\@emptytoks=\toks54
+\ex@=\dimen258
 )) (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen260
+\pmbraise@=\dimen259
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count156
+\inf@bad=\count151
 LaTeX Info: Redefining \frac on input line 223.
-\uproot@=\count157
-\leftroot@=\count158
+\uproot@=\count152
+\leftroot@=\count153
 LaTeX Info: Redefining \overline on input line 385.
-\classnum@=\count159
-\DOTSCASE@=\count160
+\classnum@=\count154
+\DOTSCASE@=\count155
 LaTeX Info: Redefining \ldots on input line 482.
 LaTeX Info: Redefining \dots on input line 485.
 LaTeX Info: Redefining \cdots on input line 606.
-\Mathstrutbox@=\box49
-\strutbox@=\box50
-\big@size=\dimen261
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen260
 LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
-\macc@depth=\count161
-\c@MaxMatrixCols=\count162
+\macc@depth=\count156
+\c@MaxMatrixCols=\count157
 \dotsspace@=\muskip11
-\c@parentequation=\count163
-\dspbrk@lvl=\count164
-\tag@help=\toks56
-\row@=\count165
-\column@=\count166
-\maxfields@=\count167
-\andhelp@=\toks57
-\eqnshift@=\dimen262
-\alignsep@=\dimen263
-\tagshift@=\dimen264
-\tagwidth@=\dimen265
-\totwidth@=\dimen266
-\lineht@=\dimen267
-\@envbody=\toks58
-\multlinegap=\skip69
-\multlinetaggap=\skip70
-\mathdisplay@stack=\toks59
+\c@parentequation=\count158
+\dspbrk@lvl=\count159
+\tag@help=\toks55
+\row@=\count160
+\column@=\count161
+\maxfields@=\count162
+\andhelp@=\toks56
+\eqnshift@=\dimen261
+\alignsep@=\dimen262
+\tagshift@=\dimen263
+\tagwidth@=\dimen264
+\totwidth@=\dimen265
+\lineht@=\dimen266
+\@envbody=\toks57
+\multlinegap=\skip65
+\multlinetaggap=\skip66
+\mathdisplay@stack=\toks58
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/bm.sty
@@ -633,6 +613,23 @@ Package: bm 2017/01/16 v1.2c Bold Symbol Support (DPC/FMi)
 \symboldsymbols=\mathgroup8
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
 LaTeX Info: Redefining \bm on input line 207.
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
+\LTleft=\skip67
+\LTright=\skip68
+\LTpre=\skip69
+\LTpost=\skip70
+\LTchunksize=\count163
+\LTcapwidth=\dimen267
+\LT@head=\box47
+\LT@firsthead=\box48
+\LT@foot=\box49
+\LT@lastfoot=\box50
+\LT@cols=\count164
+\LT@rows=\count165
+\c@LT@tables=\count166
+\c@LT@chunks=\count167
+\LT@p@ftn=\toks59
 ) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.code.tex
 File: tikzlibraryshapes.code.tex 2019/04/04 v3.1.2 (3.1.2)
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
@@ -747,8 +744,8 @@ File: tikzlibraryplotmarks.code.tex 2019/04/04 v3.1.2 (3.1.2)
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
 File: pgflibraryplotmarks.code.tex 2019/04/04 v3.1.2 (3.1.2)
 )))
-Package hyperref Info: Option `pdfnewwindow' set `true' on input line 60.
-Package hyperref Info: Option `colorlinks' set `false' on input line 60.
+Package hyperref Info: Option `pdfnewwindow' set `true' on input line 59.
+Package hyperref Info: Option `colorlinks' set `false' on input line 59.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex-chicago/biblatex-chicago.sty
 Package: biblatex-chicago 2018/01/10 v 3.10 biblatex style
  (/usr/local/texlive/2019/texmf-dist/tex/latex/biblatex/biblatex.sty
@@ -1002,22 +999,22 @@ LaTeX Warning: Label `fig: priors' multiply defined.
 )
 \openout1 = `"Jenkins - PACs and Small Donations.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 112.
-LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
 \AtBeginShipoutBox=\box73
-Package hyperref Info: Link coloring OFF on input line 112.
+Package hyperref Info: Link coloring OFF on input line 111.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -1025,9 +1022,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count368
 )
-LaTeX Info: Redefining \ref on input line 112.
-LaTeX Info: Redefining \pageref on input line 112.
-LaTeX Info: Redefining \nameref on input line 112.
+LaTeX Info: Redefining \ref on input line 111.
+LaTeX Info: Redefining \pageref on input line 111.
+LaTeX Info: Redefining \nameref on input line 111.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1089,12 +1086,16 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) ABD: EveryShipout initializing macros
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: longtable package is loaded.
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2018/08/26 v1.4-95 longtable captions (AR)
+)
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable tick labels; missing features). Consider writing \pgfplotsset{compat=1.16} into your preamble.
- on input line 112.
+ on input line 111.
 
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
@@ -1104,17 +1105,17 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"Jenkins - PACs and Small Donations".bbl' found.
 (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.bbl)
-Package biblatex Info: Reference section=0 on input line 112.
-Package biblatex Info: Reference segment=0 on input line 112.
-LaTeX Font Info:    Try loading font information for U+msa on input line 116.
+Package biblatex Info: Reference section=0 on input line 111.
+Package biblatex Info: Reference segment=0 on input line 111.
+LaTeX Font Info:    Try loading font information for U+msa on input line 115.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 116.
+LaTeX Font Info:    Try loading font information for U+msb on input line 115.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (3.60551pt too wide) in paragraph at lines 125--126
+Overfull \hbox (3.60551pt too wide) in paragraph at lines 124--125
 \OT1/cmr/bx/n/10.95 Key Words: \OT1/cmr/m/n/10.95 Cam-paign Fi-nance; Elec-tions; Po-lit-i-cal Ac-tion Com-mit-tees; Small Donors 
  []
 
@@ -1129,93 +1130,92 @@ Package biblatex Warning: Name format 'first-last' deprecated.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.145 
+l.144 
        [1
 
 ] [2] [3]
 
-Package biblatex-chicago Warning: Empty Ibidem citation on input line 163.
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 164.
 
-Package hyperref Info: bookmark level for unknown hyp defaults to 0 on input line 166.
-[4] [5] [6] [7]
-<../../Figures/all_candy.pdf, id=138, 867.24pt x 650.43pt>
+Package hyperref Info: bookmark level for unknown hyp defaults to 0 on input line 167.
+[4] [5] [6] [7] [8]
+<../../Figures/all_candy.pdf, id=146, 867.24pt x 650.43pt>
 File: ../../Figures/all_candy.pdf Graphic file (type pdf)
 <use ../../Figures/all_candy.pdf>
-Package pdftex.def Info: ../../Figures/all_candy.pdf  used on input line 229.
+Package pdftex.def Info: ../../Figures/all_candy.pdf  used on input line 236.
 (pdftex.def)             Requested size: 422.77664pt x 317.08583pt.
-<../../Figures/spending_candy.pdf, id=140, 867.24pt x 216.81pt>
+ [9 <../../Figures/all_candy.pdf>]
+<../../Figures/spending_candy.pdf, id=158, 867.24pt x 216.81pt>
 File: ../../Figures/spending_candy.pdf Graphic file (type pdf)
 <use ../../Figures/spending_candy.pdf>
-Package pdftex.def Info: ../../Figures/spending_candy.pdf  used on input line 238.
+Package pdftex.def Info: ../../Figures/spending_candy.pdf  used on input line 245.
 (pdftex.def)             Requested size: 422.77664pt x 105.69527pt.
- [8] [9 <../../Figures/all_candy.pdf> <../../Figures/spending_candy.pdf>] [10
-
-]
-<../../Figures/zero_candy.pdf, id=175, 578.16pt x 361.35pt>
+ [10 <../../Figures/spending_candy.pdf>] [11]
+<../../Figures/zero_candy.pdf, id=184, 578.16pt x 361.35pt>
 File: ../../Figures/zero_candy.pdf Graphic file (type pdf)
 <use ../../Figures/zero_candy.pdf>
-Package pdftex.def Info: ../../Figures/zero_candy.pdf  used on input line 283.
+Package pdftex.def Info: ../../Figures/zero_candy.pdf  used on input line 290.
 (pdftex.def)             Requested size: 399.29463pt x 249.55783pt.
- [11 <../../Figures/zero_candy.pdf>] [12] [13]
+ [12 <../../Figures/zero_candy.pdf>] [13] [14]
 
-Package biblatex-chicago Warning: Empty Ibidem citation on input line 327.
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 334.
 
-[14]
-<../../Figures/Results/pac_coef.pdf, id=228, 505.89pt x 289.08pt>
+[15]
+<../../Figures/Results/pac_coef.pdf, id=238, 505.89pt x 289.08pt>
 File: ../../Figures/Results/pac_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_coef.pdf>
-Package pdftex.def Info: ../../Figures/Results/pac_coef.pdf  used on input line 340.
+Package pdftex.def Info: ../../Figures/Results/pac_coef.pdf  used on input line 347.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
-<../../Figures/Results/pac_probs.pdf, id=229, 505.89pt x 289.08pt>
+<../../Figures/Results/pac_probs.pdf, id=239, 505.89pt x 289.08pt>
 File: ../../Figures/Results/pac_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_probs.pdf>
-Package pdftex.def Info: ../../Figures/Results/pac_probs.pdf  used on input line 347.
+Package pdftex.def Info: ../../Figures/Results/pac_probs.pdf  used on input line 354.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
-<../../Figures/Results/pac_preds.pdf, id=237, 578.16pt x 289.08pt>
+<../../Figures/Results/pac_preds.pdf, id=247, 578.16pt x 289.08pt>
 File: ../../Figures/Results/pac_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/pac_preds.pdf>
-Package pdftex.def Info: ../../Figures/Results/pac_preds.pdf  used on input line 359.
+Package pdftex.def Info: ../../Figures/Results/pac_preds.pdf  used on input line 366.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
- [15] [16 <../../Figures/Results/pac_coef.pdf> <../../Figures/Results/pac_probs.pdf>]
-<../../Figures/Results/party_coef.pdf, id=270, 505.89pt x 289.08pt>
+ [16] [17 <../../Figures/Results/pac_coef.pdf> <../../Figures/Results/pac_probs.pdf>]
+<../../Figures/Results/party_coef.pdf, id=277, 505.89pt x 289.08pt>
 File: ../../Figures/Results/party_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/party_coef.pdf>
-Package pdftex.def Info: ../../Figures/Results/party_coef.pdf  used on input line 375.
+Package pdftex.def Info: ../../Figures/Results/party_coef.pdf  used on input line 382.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
-<../../Figures/Results/prty_probs.pdf, id=271, 505.89pt x 289.08pt>
+<../../Figures/Results/prty_probs.pdf, id=278, 505.89pt x 289.08pt>
 File: ../../Figures/Results/prty_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/prty_probs.pdf>
-Package pdftex.def Info: ../../Figures/Results/prty_probs.pdf  used on input line 382.
+Package pdftex.def Info: ../../Figures/Results/prty_probs.pdf  used on input line 389.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
- [17 <../../Figures/Results/pac_preds.pdf>] [18 <../../Figures/Results/party_coef.pdf> <../../Figures/Results/prty_probs.pdf>]
-<../../Figures/Results/party_preds.pdf, id=321, 578.16pt x 289.08pt>
+ [18 <../../Figures/Results/pac_preds.pdf>] [19 <../../Figures/Results/party_coef.pdf> <../../Figures/Results/prty_probs.pdf>]
+<../../Figures/Results/party_preds.pdf, id=328, 578.16pt x 289.08pt>
 File: ../../Figures/Results/party_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/party_preds.pdf>
-Package pdftex.def Info: ../../Figures/Results/party_preds.pdf  used on input line 400.
+Package pdftex.def Info: ../../Figures/Results/party_preds.pdf  used on input line 407.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
- [19]
-<../../Figures/Results/indv_coef.pdf, id=331, 505.89pt x 289.08pt>
+ [20]
+<../../Figures/Results/indv_coef.pdf, id=338, 505.89pt x 289.08pt>
 File: ../../Figures/Results/indv_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indv_coef.pdf>
-Package pdftex.def Info: ../../Figures/Results/indv_coef.pdf  used on input line 415.
+Package pdftex.def Info: ../../Figures/Results/indv_coef.pdf  used on input line 422.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
-<../../Figures/Results/indiv_probs.pdf, id=332, 505.89pt x 289.08pt>
+<../../Figures/Results/indiv_probs.pdf, id=339, 505.89pt x 289.08pt>
 File: ../../Figures/Results/indiv_probs.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indiv_probs.pdf>
-Package pdftex.def Info: ../../Figures/Results/indiv_probs.pdf  used on input line 422.
+Package pdftex.def Info: ../../Figures/Results/indiv_probs.pdf  used on input line 429.
 (pdftex.def)             Requested size: 305.33789pt x 174.4815pt.
-<../../Figures/Results/indv_preds.pdf, id=342, 578.16pt x 289.08pt>
+<../../Figures/Results/indv_preds.pdf, id=347, 578.16pt x 289.08pt>
 File: ../../Figures/Results/indv_preds.pdf Graphic file (type pdf)
 <use ../../Figures/Results/indv_preds.pdf>
-Package pdftex.def Info: ../../Figures/Results/indv_preds.pdf  used on input line 436.
+Package pdftex.def Info: ../../Figures/Results/indv_preds.pdf  used on input line 441.
 (pdftex.def)             Requested size: 469.75502pt x 234.8769pt.
- [20 <../../Figures/Results/party_preds.pdf>] [21 <../../Figures/Results/indv_coef.pdf> <../../Figures/Results/indiv_probs.pdf>]
-<../../Figures/Results/vote_coef.pdf, id=382, 505.89pt x 289.08pt>
+ [21 <../../Figures/Results/party_preds.pdf>] [22 <../../Figures/Results/indv_coef.pdf> <../../Figures/Results/indiv_probs.pdf>]
+<../../Figures/Results/vote_coef.pdf, id=387, 505.89pt x 289.08pt>
 File: ../../Figures/Results/vote_coef.pdf Graphic file (type pdf)
 <use ../../Figures/Results/vote_coef.pdf>
-Package pdftex.def Info: ../../Figures/Results/vote_coef.pdf  used on input line 448.
+Package pdftex.def Info: ../../Figures/Results/vote_coef.pdf  used on input line 453.
 (pdftex.def)             Requested size: 469.75502pt x 268.43579pt.
- [22 <../../Figures/Results/indv_preds.pdf>] [23 <../../Figures/Results/vote_coef.pdf>] [24] [25] [26] [27] (../../Tables/pac_results.tex
+ [23 <../../Figures/Results/indv_preds.pdf>] [24 <../../Figures/Results/vote_coef.pdf>] [25] [26] [27] [28] [29] (../../Tables/pac_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 61--61
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -2485,7 +2485,7 @@ Overfull \hbox (15.10576pt too wide) in paragraph at lines 61--61
 \OT1/cmr/m/n/12 val.| 
  []
 
-) [28] [29] (../../Tables/indiv_results.tex
+) [30] [31] (../../Tables/indiv_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 59--59
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -3168,7 +3168,7 @@ Overfull \hbox (15.10576pt too wide) in paragraph at lines 59--59
 
 LaTeX Warning: Float too large for page by 63.79509pt on input line 61.
 
-) [30] (../../Tables/vote_results.tex
+) [32] (../../Tables/vote_results.tex
 Overfull \hbox (29.52783pt too wide) in paragraph at lines 50--50
 []|\OT1/cmr/m/n/12 Notes:
  []
@@ -3829,89 +3829,89 @@ Overfull \hbox (15.10576pt too wide) in paragraph at lines 50--50
  []
 
 )
-<../../Figures/Priors/pac_int.pdf, id=472, 433.62pt x 289.08pt>
+<../../Figures/Priors/pac_int.pdf, id=481, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/pac_int.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_int.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_int.pdf  used on input line 500.
+Package pdftex.def Info: ../../Figures/Priors/pac_int.pdf  used on input line 510.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/pac_slopes.pdf, id=473, 433.62pt x 289.08pt>
+<../../Figures/Priors/pac_slopes.pdf, id=482, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/pac_slopes.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_slopes.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_slopes.pdf  used on input line 506.
+Package pdftex.def Info: ../../Figures/Priors/pac_slopes.pdf  used on input line 516.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/pac_logit.pdf, id=474, 361.35pt x 289.08pt>
+<../../Figures/Priors/pac_logit.pdf, id=483, 361.35pt x 289.08pt>
 File: ../../Figures/Priors/pac_logit.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_logit.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 512.
+Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 522.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/pac_scale.pdf, id=475, 361.35pt x 289.08pt>
+<../../Figures/Priors/pac_scale.pdf, id=484, 361.35pt x 289.08pt>
 File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_scale.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 518.
+Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 528.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/party_int.pdf, id=476, 433.62pt x 289.08pt>
+<../../Figures/Priors/party_int.pdf, id=485, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/party_int.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/party_int.pdf>
-Package pdftex.def Info: ../../Figures/Priors/party_int.pdf  used on input line 529.
+Package pdftex.def Info: ../../Figures/Priors/party_int.pdf  used on input line 539.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/party_slopes.pdf, id=477, 433.62pt x 289.08pt>
+<../../Figures/Priors/party_slopes.pdf, id=486, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/party_slopes.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/party_slopes.pdf>
-Package pdftex.def Info: ../../Figures/Priors/party_slopes.pdf  used on input line 535.
+Package pdftex.def Info: ../../Figures/Priors/party_slopes.pdf  used on input line 545.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
 File: ../../Figures/Priors/pac_logit.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_logit.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 541.
+Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 551.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
 File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_scale.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 547.
+Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 557.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/indiv_int.pdf, id=478, 433.62pt x 289.08pt>
+<../../Figures/Priors/indiv_int.pdf, id=487, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/indiv_int.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/indiv_int.pdf>
-Package pdftex.def Info: ../../Figures/Priors/indiv_int.pdf  used on input line 558.
+Package pdftex.def Info: ../../Figures/Priors/indiv_int.pdf  used on input line 568.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/indiv_slopes.pdf, id=479, 433.62pt x 289.08pt>
+<../../Figures/Priors/indiv_slopes.pdf, id=488, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/indiv_slopes.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/indiv_slopes.pdf>
-Package pdftex.def Info: ../../Figures/Priors/indiv_slopes.pdf  used on input line 564.
+Package pdftex.def Info: ../../Figures/Priors/indiv_slopes.pdf  used on input line 574.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
 File: ../../Figures/Priors/pac_logit.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_logit.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 570.
+Package pdftex.def Info: ../../Figures/Priors/pac_logit.pdf  used on input line 580.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
 File: ../../Figures/Priors/pac_scale.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/pac_scale.pdf>
-Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 576.
+Package pdftex.def Info: ../../Figures/Priors/pac_scale.pdf  used on input line 586.
 (pdftex.def)             Requested size: 211.38832pt x 169.1089pt.
-<../../Figures/Priors/vote_int.pdf, id=480, 433.62pt x 289.08pt>
+<../../Figures/Priors/vote_int.pdf, id=489, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/vote_int.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/vote_int.pdf>
-Package pdftex.def Info: ../../Figures/Priors/vote_int.pdf  used on input line 587.
+Package pdftex.def Info: ../../Figures/Priors/vote_int.pdf  used on input line 597.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/vote_slopes.pdf, id=481, 433.62pt x 289.08pt>
+<../../Figures/Priors/vote_slopes.pdf, id=490, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/vote_slopes.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/vote_slopes.pdf>
-Package pdftex.def Info: ../../Figures/Priors/vote_slopes.pdf  used on input line 593.
+Package pdftex.def Info: ../../Figures/Priors/vote_slopes.pdf  used on input line 603.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
-<../../Figures/Priors/vote_scale.pdf, id=482, 433.62pt x 289.08pt>
+<../../Figures/Priors/vote_scale.pdf, id=491, 433.62pt x 289.08pt>
 File: ../../Figures/Priors/vote_scale.pdf Graphic file (type pdf)
 <use ../../Figures/Priors/vote_scale.pdf>
-Package pdftex.def Info: ../../Figures/Priors/vote_scale.pdf  used on input line 599.
+Package pdftex.def Info: ../../Figures/Priors/vote_scale.pdf  used on input line 609.
 (pdftex.def)             Requested size: 211.38832pt x 140.92703pt.
 \tf@thm=\write5
 \openout5 = `"Jenkins - PACs and Small Donations.thm"'.
 
- [31
+ [33
 
 
-] [32 <../../Figures/Priors/pac_int.pdf> <../../Figures/Priors/pac_slopes.pdf> <../../Figures/Priors/pac_logit.pdf> <../../Figures/Priors/pac_scale.pdf>] [33 <../../Figures/Priors/party_int.pdf> <../../Figures/Priors/party_slopes.pdf>] [34 <../../Figures/Priors/indiv_int.pdf> <../../Figures/Priors/indiv_slopes.pdf>] [35 <../../Figures/Priors/vote_int.pdf> <../../Figures/Priors/vote_slopes.pdf> <../../Figures/Priors/vote_scale.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 610.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 610.
+] [34 <../../Figures/Priors/pac_int.pdf> <../../Figures/Priors/pac_slopes.pdf> <../../Figures/Priors/pac_logit.pdf> <../../Figures/Priors/pac_scale.pdf>] [35 <../../Figures/Priors/party_int.pdf> <../../Figures/Priors/party_slopes.pdf>] [36 <../../Figures/Priors/indiv_int.pdf> <../../Figures/Priors/indiv_slopes.pdf>] [37 <../../Figures/Priors/vote_int.pdf> <../../Figures/Priors/vote_slopes.pdf> <../../Figures/Priors/vote_scale.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 620.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 620.
  (/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 610.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 610.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 620.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 620.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -3919,21 +3919,21 @@ LaTeX Warning: There were multiply-defined labels.
 Package logreq Info: Writing requests to '"Jenkins - PACs and Small Donations".run.xml'.
 \openout1 = `"Jenkins - PACs and Small Donations.run.xml"'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 610.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 620.
  ) 
 Here is how much of TeX's memory you used:
- 41703 strings out of 492616
- 959772 string characters out of 6129482
- 1805985 words of memory out of 5000000
- 44838 multiletter control sequences out of 15000+600000
+ 41715 strings out of 492616
+ 960046 string characters out of 6129482
+ 1805289 words of memory out of 5000000
+ 44846 multiletter control sequences out of 15000+600000
  20311 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,19n,96p,1619b,3911s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.pdf" (36 pages, 531508 bytes).
+Output written on "/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations.pdf" (38 pages, 537504 bytes).
 PDF statistics:
- 723 PDF objects out of 1000 (max. 8388607)
- 590 compressed objects within 6 object streams
- 108 named destinations out of 1000 (max. 500000)
+ 738 PDF objects out of 1000 (max. 8388607)
+ 602 compressed objects within 7 object streams
+ 112 named destinations out of 1000 (max. 500000)
  357 words of extra memory for PDF output out of 10000 (max. 10000000)
 

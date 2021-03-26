@@ -5,10 +5,12 @@
 \defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {2}{Motivation}{3}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {3}{Perceptions of Money in Politics}{4}{0}{3}
+\beamer@sectionintoc {3}{Voter Perceptions of Corporate Influence}{5}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {4}{Methods}{18}{0}{4}
+\beamer@sectionintoc {4}{Data}{15}{0}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {5}{Findings}{29}{0}{5}
+\beamer@sectionintoc {5}{Methods}{26}{0}{5}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {6}{Summary}{35}{0}{6}
+\beamer@sectionintoc {6}{Results}{30}{0}{6}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {7}{Summary}{31}{0}{7}

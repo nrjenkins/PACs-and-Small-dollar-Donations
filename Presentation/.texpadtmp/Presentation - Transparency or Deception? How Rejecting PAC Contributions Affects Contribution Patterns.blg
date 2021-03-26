@@ -1,18 +1,20 @@
-[0] Config.pm:304> INFO - This is Biber 2.12
-[0] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.blg'
-[36] biber-darwin:315> INFO - === Sat Apr 25, 2020, 15:33:34
-[62] Biber.pm:371> INFO - Reading '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bcf'
-[232] Biber.pm:889> INFO - Found 6 citekeys in bib section 0
-[247] Biber.pm:4093> INFO - Processing section 0
-[261] Biber.pm:4254> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
-[349] bibtex.pm:1523> INFO - LaTeX decoding ...
-[2856] bibtex.pm:1340> INFO - Found BibTeX data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
-[3002] Utils.pm:193> WARN - ISBN '978-0-7425-1794-3 978-0-7425-1795-0' in entry 'lubenow2001' is invalid - run biber with '--validate_datamodel' for details.
-[3056] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[3056] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[3056] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
-[3056] Biber.pm:3921> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
-[3056] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
-[3067] bbl.pm:636> INFO - Writing '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bbl' with encoding 'UTF-8'
-[3073] bbl.pm:739> INFO - Output to /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bbl
-[3074] Biber.pm:110> INFO - WARNINGS: 1
+[0] Config.pm:304> INFO - This is Biber 2.14
+[0] Config.pm:307> INFO - Logfile is '/Users/nickjenkins/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.blg'
+[59] biber-darwin:322> INFO - === Sat Mar 20, 2021, 13:04:43
+[73] Biber.pm:415> INFO - Reading '/Users/nickjenkins/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bcf'
+[202] Biber.pm:943> INFO - Found 6 citekeys in bib section 0
+[216] Biber.pm:4256> INFO - Processing section 0
+[216] Utils.pm:75> INFO - Globbing data source '/Users/nickjenkins/Documents/Research/References/BibTeX/biblatex.bib'
+[216] Utils.pm:91> INFO - Globbed data source '/Users/nickjenkins/Documents/Research/References/BibTeX/biblatex.bib' to /Users/nickjenkins/Documents/Research/References/BibTeX/biblatex.bib
+[224] Biber.pm:4455> INFO - Looking for bibtex format file '/Users/nickjenkins/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[304] bibtex.pm:1653> INFO - LaTeX decoding ...
+[2532] bibtex.pm:1471> INFO - Found BibTeX data source '/Users/nickjenkins/Documents/Research/References/BibTeX/biblatex.bib'
+[2665] Utils.pm:304> WARN - ISBN '978-0-7425-1794-3 978-0-7425-1795-0' in entry 'lubenow2001' is invalid - run biber with '--validate_datamodel' for details.
+[2689] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[2689] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'level = 4' with 'level = 2'
+[2689] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[2689] Biber.pm:4084> INFO - Sorting list 'cms/global//global/global' of type 'entry' with template 'cms' and locale 'en-US'
+[2689] Biber.pm:4090> INFO - No sort tailoring available for locale 'en-US'
+[2698] bbl.pm:652> INFO - Writing '/Users/nickjenkins/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bbl' with encoding 'UTF-8'
+[2701] bbl.pm:755> INFO - Output to /Users/nickjenkins/Documents/Research/Projects/PACs and Small-dollar Donations/Presentation/.texpadtmp/Presentation - Transparency or Deception? How Rejecting PAC Contributions Affects Contribution Patterns.bbl
+[2701] Biber.pm:128> INFO - WARNINGS: 1

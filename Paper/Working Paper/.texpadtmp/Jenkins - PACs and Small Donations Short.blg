@@ -1,0 +1,5 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is '/Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations Short.blg'
+[83] biber-darwin:315> INFO - === Tue Nov 10, 2020, 18:45:57
+[121] Utils.pm:209> ERROR - /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations Short.bcf is malformed, last biblatex run probably failed. Deleted /Users/nick/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Working Paper/.texpadtmp/Jenkins - PACs and Small Donations Short.bbl
+[121] Biber.pm:114> INFO - ERRORS: 1

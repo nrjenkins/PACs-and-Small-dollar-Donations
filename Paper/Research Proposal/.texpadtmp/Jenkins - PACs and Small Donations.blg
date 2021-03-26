@@ -1,0 +1,11 @@
+[0] Config.pm:304> INFO - This is Biber 2.14
+[0] Config.pm:307> INFO - Logfile is '/Users/nickjenkins/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small Donations.blg'
+[72] biber-darwin:322> INFO - === Wed Jan 20, 2021, 10:54:46
+[106] Biber.pm:415> INFO - Reading '/Users/nickjenkins/Documents/Research/Projects/PACs and Small-dollar Donations/Paper/Research Proposal/.texpadtmp/Jenkins - PACs and Small Donations.bcf'
+[241] Biber.pm:943> INFO - Found 27 citekeys in bib section 0
+[254] Biber.pm:4256> INFO - Processing section 0
+[254] Utils.pm:75> INFO - Globbing data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'
+[255] Utils.pm:91> INFO - Globbed data source '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' to /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
+[272] Biber.pm:4455> INFO - Looking for bibtex format file '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib' for section 0
+[404] Utils.pm:320> ERROR - Cannot find '/Users/nick/Documents/Research/References/BibTeX/biblatex.bib'!
+[405] Biber.pm:132> INFO - ERRORS: 1
