@@ -23,7 +23,7 @@ output:
     toc_float: true
 bibliography: /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 # Environment Preperation
@@ -255,6 +255,7 @@ member.data <-
 
 # Contribution Data
 
+<<<<<<< HEAD:01-Data_Cleaning-old.Rmd
 This contribution data come from [OpenSecrets.org](https://www.opensecrets.org/resources/). 
 
 ## Individual Contributions
@@ -263,6 +264,11 @@ This contribution data come from [OpenSecrets.org](https://www.opensecrets.org/r
 # Industry Categories
 industry.cats <- read_excel("/Users/nickjenkins/Documents/Research/Data Sets/Contribution Data/CRP_industry_codes.xlsx")
 
+=======
+```{r}
+## Industry Categories
+industry.cats <- read_excel("/Users/nick/Documents/Research/Projects/Contributions and Committee Requests/Data/Raw Data/CRP_industry_codes.xlsx")
+>>>>>>> parent of 6f7fbd8 (calculating in vs out of state contributions):01-Data_Cleaning.Rmd
 industry.cats <- 
   industry.cats %>%
   filter(str_detect(Catcode, "0000")) %>%
@@ -286,6 +292,7 @@ indiv.contrib.data.raw <-
          contrib_date = X17,
          contrib_city = X20,
          contrib_state = X22, 
+<<<<<<< HEAD:01-Data_Cleaning-old.Rmd
          contrib_zip = X24,
          recipient_type = X26,
          transaction_type = X28) %>%
@@ -334,6 +341,12 @@ indiv.contrib.data <-
 # aggregate data to recepient-level
 indiv.contrib.data <- 
   indiv.contrib.data %>%
+=======
+         contrib_zip = X24) %>%
+  select(year, fec_trans_id, donor_id, contrib_name, receipt_id, 
+         donor_org_name, standard_org, industry_code, contrib_date) %>%
+  separate(contrib_date, into = c("drop", "contrib_date", "contrib_amount"), sep = ",") %>%
+>>>>>>> parent of 6f7fbd8 (calculating in vs out of state contributions):01-Data_Cleaning.Rmd
   mutate(fec_trans_id = as.character(fec_trans_id),
          contrib_amount = as.numeric(contrib_amount),
          contrib_date = mdy(contrib_date)) %>%
@@ -343,9 +356,12 @@ indiv.contrib.data <-
   mutate(contrib_type = "Individual") %>%
   arrange(receipt_id, industry_code, year)
 
+<<<<<<< HEAD:01-Data_Cleaning-old.Rmd
 # remove non-contributions
+=======
+>>>>>>> parent of 6f7fbd8 (calculating in vs out of state contributions):01-Data_Cleaning.Rmd
 indiv.contrib.data <- 
-  indiv.contrib.data %>%
+  indiv.contrib.data.raw %>%
   mutate(industry_code = str_to_upper(industry_code),
          industry_letter = str_sub(industry_code, start = 1L, end = 1L)) %>%
   filter(industry_code != "Z9100") %>%
@@ -428,6 +444,7 @@ indiv.contrib.data <-
   mutate_at(vars(indiv_ag:indiv_unknown), funs(ifelse(is.na(.), 0, .))) %>%
   arrange(receipt_id)
 
+<<<<<<< HEAD:01-Data_Cleaning-old.Rmd
 indiv.contrib.data <- 
   indiv.contrib.data %>%
   mutate(indiv_biz = sum(indiv_ag, indiv_comms_electric, indiv_const_pub_wrks,
@@ -439,8 +456,11 @@ indiv.contrib.data <-
 ```
 
 ## PAC Contributions
+=======
+indiv.contrib.data$indiv_total <- rowSums(indiv.contrib.data[ , 3:20], na.rm = TRUE)
+>>>>>>> parent of 6f7fbd8 (calculating in vs out of state contributions):01-Data_Cleaning.Rmd
 
-```{r}
+# PAC Contributions
 ## 2018 - Congress 116
 pac.contrib.data.raw <- 
   read_delim("/Users/nick/Documents/Research/Data Sets/Contribution Data/CampaignFin18/pacs18.txt", 
@@ -620,8 +640,6 @@ contrib.data <- left_join(
   pac.contrib.data,
   by = c("receipt_id")
 )
-
-save(contrib.data, file = "Data/Clean Data/contribution_data.Rda")
 ```
 
 ## Merge with Legislator Data
@@ -654,6 +672,7 @@ member.data <- left_join(member.data, nominate.data, by = "icpsr")
 ```{r}
 estimation.data <- 
   member.data %>%
+<<<<<<< HEAD:01-Data_Cleaning-old.Rmd
   filter(party == "D") %>%
   select(district, no_corp_pacs, new_member, tot_pac_money, num_pac_contribs, 
          business_pacs, ideological_pacs, in_kind_business_pacs, ind_against_business_pacs,
@@ -664,12 +683,32 @@ estimation.data <-
          pct_clinton_16, pct_dem_house_16, pct_asian, pct_white, pct_black, 
          pct_latino, pct_bachelors, tot_voting_age, chamber, nominate_dim1,
          nominate_dim2) %>%
+=======
+  select(opensecrets_id, first_name, last_name, district, party, no_corp_pacs,
+         new_member, tot_pac_money, num_pac_contribs, business_pacs,
+         dir_business_pacs, in_kind_business_pacs, ind_business_pacs, 
+         dir_pac_cand_committee, dir_pac_party_committee, 
+         ik_pac_party_committee, ind_pac_party_committee, 
+         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
+         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
+         ce_pac_ideological, ideological_pacs, labor_pacs, leadership_pacs,
+         net_indiv_total, large_indiv, small_indiv, candidate_contribs, 
+         indiv_ideological, indiv_cand_committee, indiv_jnt_cand_committee, 
+         indiv_party_committee, indiv_self_finance, net_spent, net_receipts, 
+         vote_pct, vap_turnout, median_hh_income, pct_clinton_16, pct_obama_12, 
+         pct_dem_house_16, pct_dem_house_14, pct_asian, pct_white, pct_black, 
+         pct_latino, pct_bachelors, tot_voting_age) %>%
+>>>>>>> parent of 6f7fbd8 (calculating in vs out of state contributions):01-Data_Cleaning.Rmd
   mutate(vote_pct = vote_pct * 100,
          vap_turnout = vap_turnout * 100,
          log_median_hh_income = log(median_hh_income),
          log_tot_voting_age = log(tot_voting_age))
 
+<<<<<<< HEAD:01-Data_Cleaning-old.Rmd
 save(estimation.data, file = "Data/Clean Data/estimation_data2.Rda")
+=======
+save(estimation.data, file = "Data/Clean Data/estimation_data.RDa")
+>>>>>>> parent of 6f7fbd8 (calculating in vs out of state contributions):01-Data_Cleaning.Rmd
 ```
 
 

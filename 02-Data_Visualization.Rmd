@@ -60,7 +60,15 @@ knitr::opts_chunk$set(
 This section imports the data cleaned in the "Step I: Data Cleaning" document to begin visualizing the data. 
 
 ```{r Data Import}
+<<<<<<< HEAD
 load("Data/Clean Data/estimation_data.Rda")
+=======
+load("Data/Clean Data/estimation_data.RDa")
+
+estimation.data <- 
+  estimation.data %>%
+  filter(party == "D")
+>>>>>>> parent of 6f7fbd8 (calculating in vs out of state contributions)
 ```
 
 
