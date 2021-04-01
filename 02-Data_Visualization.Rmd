@@ -83,19 +83,14 @@ plot.data <-
   pivot_longer(cols = c(business_pacs, small_indiv, biz_contribs, 
                         out_of_dist_biz_contrib, net_spent, net_receipts),
                names_to = "group", values_to = "value") %>%
-  mutate(no_corp_pacs = factor(no_corp_pacs,
-                               levels = c("NO", "YES"),
-                               labels = c("Yes to Corporate PAC Donations", 
-                                          "No to Corporate PAC Donations")),
-         group = factor(group,
+  mutate(group = factor(group,
                         levels = c("business_pacs", "small_indiv", 
                                    "biz_contribs", "out_of_dist_biz_contrib",
                                    "net_spent", "net_receipts"),
                         labels = c("Business PAC $", 
                                    "Small Indiv. $", "Business Indiv. $", 
                                    "Out-of-District Business Indiv. $",
-                                   "Net Spent", "Net Receipts")),
-         no_corp_pacs = relevel(no_corp_pacs, ref = "No to Corporate PAC Donations")) %>%
+                                   "Net Spent", "Net Receipts"))) %>%
   group_by(group, no_corp_pacs) %>%
   summarise(sum = mean(value, na.rm = TRUE))
 
