@@ -1,0 +1,78 @@
+---
+title: "Much better template"
+author: |
+  | Nicholas R. Jenkins^[nicholas.jenkins@email.ucr.edu]
+  | University of California, Riverside
+abstract: |
+  | Do pledges to reject corporate PAC contributions minimize corporate influence in elections? I address this question with campaign finance data for congressional candidates in the 2018 elections. I argue that anti-corporate PAC pledges lead to ``backchannel" corporate contributions through individual donors. While I find that candidates who pledge to reject corporate PAC contributions receive fewer contributions from business PACs, I also find that they receive more funds from small-dollar contributions, large-dollar contributions from individuals affiliated with business interests, and large-dollar contributions from individuals outside their districts. These findings support the claim that voters are motivated to donate by anti-corporate PAC pledges, as candidates hope, but that these candidates likely substitute corporate PAC contributions with funds from sources beyond small-dollar donations. This study is the first to examine the effects of rejecting corporate PAC contributions on contribution patterns.
+  | **Keywords:** Campaign Finance; Elections; Political Action Committees; Small Donors
+output: 
+  bookdown::pdf_document2:
+    toc: no
+    number_sections: yes
+    keep_tex: yes
+    df_print: kable
+  bookdown::word_document2:
+    toc: no
+    number_sections: yes
+    df_print: kable
+  bookdown::html_document2:
+    toc: no
+    number_sections: yes
+    df_print: kable
+  bookdown::pdf_book:
+    toc: no
+    number_sections: yes
+    keep_tex: yes
+    df_print: kable
+    base_format: rticles::springer_article
+bibliography: refs.bib
+csl: /Users/nickjenkins/Documents/Research/References/BibTeX/american-political-science-association.csl
+header-includes:
+  - \usepackage{setspace}\doublespacing
+  - \usepackage{lineno}
+  - \linenumbers
+  - \setlength{\parindent}{1.5em}
+  - \setlength{\parskip}{0em}
+fontsize: 12pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+# Uncomment to automatically update .bib file
+# URL provided by Better Bibtex for Zotero.
+download.file(
+  "http://127.0.0.1:23119/better-bibtex/export/library?/1/library.biblatex",
+  "refs.bib")
+```
+
+\newpage
+
+# Introduction 
+
+During the Democratic debate on February 6, 2016, Bernie Sanders stood on stage and announced to the audience, ``I am very proud to be the only candidate up here who does not have a super PAC, who’s not raising huge sums of money from Wall Street and special interests." Sanders publicly voiced his opposition to corporate Political Action Committee (PAC) contributions and refused their support in contrast to his opponent, Hillary Clinton, who accepted over \$1.7 million from PACs; a decision for which she faced sharp criticism from voters on the left [@seitz-wald2015]. 
+
+The strategy of rejecting corporate PAC contributions continued into the 2018 and the 2020 elections as well. OpenSecrets News reported that 52 members of the 116th Congress, including 35 non-incumbents, announced that they would not accept money from corporate PACs during their campaigns [@evers-hillstrom2018. Similarly, an article in ABC News claimed, "The 2020 Democratic presidential candidates are forgoing corporate money in an effort to capture small donors'' [@harper2019]. All 14 of the 2020 presidential Democratic candidates declined to accept corporate PAC contributions although only three declined to accept all PAC contributions. 
+
+Candidates who seek small-dollar donations in place of PAC contributions are responding to a demand from voters to bring the era of "captured" politicians to an end [@culberson2019]. Many voters believe that corporate PAC contributions are corrupt and lessen the desire of elected officials to serve their constituents. "We desperately need to get the money out of the political system. Because I don’t think we have a Congress that’s representing the people anymore," a Minnesota resident complained during the 2018 midterm [@stockman2018]. When asked about rejecting corporate PAC money, Beto O’Rourke's communications director said, "It’s a major theme of the campaign. People want to know that you are going to respond to them and their interests, and not the most recent check you received" [@stockman2018]. Elections, however, are expensive and whether they refuse corporate PAC contributions or not, candidates still need to raise significant amounts of money to be competitive.
+
+Despite the intentions of anti-corporate PAC pledges, do they limit corporations' influence in elections? I argue that corporations pursue "backchannel" contributions for candidates who refuse corporate PAC contributions instead of ceasing their contribution activity altogether. I show that candidates who reject corporate PAC contributions tend to receive more individual contributions of less than $200, indicating that these pledges help candidates' get-out-the-small-dollar-donations efforts. In addition, while I show that candidates who make anti-corporate PAC pledges receive fewer business PAC contributions, I also find that these candidates receive more contributions from individuals affiliated with business interests. This suggests that candidates who pledge to reject corporate PAC contributions may substitute corporate PAC contributions with those from other sources. Although anti-corporate PAC pledges may reduce PAC activity, they do not prevent the possibility of corporations pursuing alternative ways to exert their influence in elections. 
+
+This study makes two contributions. First, this study is the first to examine the effects of candidate pledges to reject corporate PAC contributions. To continue advancing our understanding of how outside actors use money to influence politics, we must investigate evolving strategies of making and soliciting contributions. Corporate PACs are a highly regulated form of campaign giving and pressure on politicians to eschew their money may increase the prevalence of dark money and super PAC spending.   
+
+Second, this study contributes to the emerging literature on the motivations of small-dollar donors by showing how their donations change in relation to anti-corporate PAC pledges. Moreover, the findings suggest that candidates believe refusing corporate PAC contributions will increase the amount of small-dollar donations they receive. The benefits of this substitution are unclear, however. Corporate PAC contributions tend to be targeted towards more moderate candidates whereas individual donors prefer more ideologically extreme candidates [@barber2016]. If moderate donors are replaced with more ideologically extreme and less transparent donors, our politics may become even more polarized and obfuscated with money. 
+
+Refusing corporate PAC contributions could also result in less transparency about candidates' funding sources since corporate interests are unlikely to stop their involvement in politics. Bundled contributions made through corporate individuals require more extensive research to identify, and mounting pressure from voters to reject these contributions may increase outside spending and push corporations into the arena of "dark money" [@opensecrets.org2019, @massoglia2021]. If this happens, it will be far more difficult to monitor corporate electioneering.
+
+# References
+
+<div id="refs"></div>
+
+# (APPENDIX) Appendix {-} 
+
+# First appendix
+
+Some appendix text.

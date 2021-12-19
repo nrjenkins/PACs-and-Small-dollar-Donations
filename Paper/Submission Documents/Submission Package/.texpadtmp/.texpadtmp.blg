@@ -1,5 +1,0 @@
-[0] Config.pm:304> INFO - This is Biber 2.14
-[0] Config.pm:307> INFO - Logfile is '.texpadtmp.blg'
-[79] biber-darwin:322> INFO - === Tue Feb  2, 2021, 08:03:27
-[277] Utils.pm:320> ERROR - Cannot find '.texpadtmp.bcf'!
-[278] Biber.pm:132> INFO - ERRORS: 1

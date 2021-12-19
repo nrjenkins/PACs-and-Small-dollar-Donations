@@ -1,0 +1,724 @@
+---
+title: "Step I: Data Cleaning"
+subtitle: "PACs and Small-dollar Donations"
+author:
+  - name: Nicholas R. Jenkins 
+    affiliation: University of California, Riverside
+    affiliation_url: https://www.ucr.edu
+abstract: |
+  This document shows all the code used to clean the data for this project.  
+  Each step has been carefully documented and will replicate the data set used
+  in the study. All data cleaning was done using RStudio running R version 
+  `r R.version$major` .`r R.version$minor` "`r R.version$nickname`".
+  
+  For any questions about this code, please contact 
+  Nick Jenkins at [nicholas.jenkins@email.ucr.edu](mailto:nicholas.jenkins@email.ucr.edu). 
+date: "`r Sys.Date()`"
+output: 
+  html_notebook: 
+    highlight: pygments
+    theme: paper
+    toc: yes
+    code_folding: 
+    toc_float: true
+bibliography: /Users/nick/Documents/Research/References/BibTeX/biblatex.bib
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Environment Preperation
+
+This section clears the current working environment and loads the packages used to visualize the data. I also create the function `comma()` to format any in-line output values to have thousands separators and only two digits. 
+
+```{r setup, warning = FALSE, message = FALSE, echo = TRUE, results = "hide"}
+# Clear Environment -----------------------------------------------------------
+rm(list = ls())
+
+# Load Packages ---------------------------------------------------------------
+packages <- c("tidyverse", "stargazer", "foreign", "sqldf", "readxl", 
+              "openintro", "lubridate")
+lapply(packages, require, character.only = TRUE)
+
+# Inline Formatting -----------------------------------------------------------
+comma <- function(x) format(x, digits = 2, big.mark = ",")
+
+# Set Global Chunk Options ----------------------------------------------------
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "##",
+  R.options = list(width = 70)
+)
+```
+
+
+# Legislator Data
+
+```{r}
+leg.data <- read_csv("Data/Raw Data/house_roster.csv")
+
+leg.data <- 
+  leg.data %>%
+  filter(congress == 116) %>%
+  select(icpsr, opensecrets_id, freshman, cand_type)
+```
+
+## PAC Pledge Data
+
+Data on the 2018 Congressional candidates, whether or not they pledged to reject PAC money, and their contribution totals was compiled by OpenSecrets.org and is available on Google Drive [here](https://docs.google.com/spreadsheets/d/1T2yvwu9clk5eeETE90SgPeX0ouDXEeAEIDl_KTCtBhs/edit#gid=545136858).
+
+```{r}
+members.2018.data.raw <- read_xlsx("Data/Raw Data/OpenSecrets.org _ No Corp PAC Members.xlsx", 
+                                   skip = 1,
+                                   sheet = "All Cands 2018")
+members.2018.data <- 
+  members.2018.data.raw %>%
+  mutate(NoCorpPACs = as_factor(NoCorpPACs),
+         Party = as_factor(Party),
+         Party = relevel(Party, ref = "I")) %>%
+  rename(new_member = `New Member?`,
+         no_corp_pacs = NoCorpPACs,
+         opensecrets_id = `Candidate ID`,
+         candidae_name = CRPName,
+         party = Party,
+         district = District,
+         gen_election_result = `General Elec Result`,
+         vote_pct = VotePercent,
+         tot_pac_money = `Total PAC Money`,
+         num_pac_contribs = `Number of PAC Contributions`,
+         business_pacs = `Business PACs`,
+         labor_pacs = `Labor PACs`,
+         ideological_pacs = `Ideological PACs`,
+         leadership_pacs = `Lead PACs`,
+         other_pacs = `Other PACs`,
+         net_receipts = `Net Receipts`,
+         net_indiv_total = `Net Individual Total`,
+         candidate_contribs = `Candidate Contributions`,
+         large_indiv = `Large Indivs`,
+         small_indiv = `Small Indivs`,
+         net_spent = `Net Spent`) %>%
+  separate(candidae_name, into = c("first_name", "last_name"), extra = "drop") %>%
+  mutate(first_initial = str_sub(first_name, start = 1L, end = 1L),
+         last_stub = str_sub(last_name, start = 1L, end = 3L))
+
+members.data <- 
+  members.2018.data %>%
+  filter(party == "D") %>%
+  filter(!is.na(gen_election_result))
+```
+
+### Merge with Legislator Data
+
+```{r}
+members.data <- 
+  left_join(members.data, leg.data, by = c("opensecrets_id"))
+
+#write_csv(members.data, file = "Data/Raw Data/members_data.csv")
+
+# read in complete data set
+member.data <- read_csv("Data/Raw Data/members_data_working.csv")
+
+# identify chambers
+member.data <- 
+  member.data %>%
+  mutate(chamber = ifelse(str_detect(district, "S1") | 
+                            str_detect(district, "S2"), "Senate", "House"))
+```
+
+
+# Demographic Data
+
+The majority of demographic data used was compiled by [Daily Kos Elections](https://www.dailykos.com/stories/2017/1/3/1616470/-Check-out-our-comprehensive-115th-Congress-guide-with-election-data-demographics-and-member-stats) and is posted on Googe Drive [here](https://docs.google.com/spreadsheets/d/1oRl7vxEJUUDWJCyrjo62cELJD2ONIVl-D9TSUKiK9jk/edit#gid=1178631925). Data on the total voting age population was collected from the US Census using the R package `tidycensus`. 
+
+```{r results = "hide"}
+demo.data.raw <- read_excel("Data/Raw Data/Demographic Data/115th Congress Members Guide with Elections and Demographic Data by District.xlsx",
+                            sheet = "House - Working")
+
+demo.data <- 
+  demo.data.raw %>%
+  mutate(district_code = str_replace(district_code, pattern = "-", replacement = ""),
+         district_code = ifelse(district == "Alaska At-Large", "AK01", district_code),
+         district_code = ifelse(district == "Delaware At-Large", "DE01", district_code),
+         district_code = ifelse(district == "Montana At-Large", "MT01", district_code),
+         district_code = ifelse(district == "North Dakota At-Large", "ND01", district_code),
+         district_code = ifelse(district == "South Dakota At-Large", "SD01", district_code),
+         district_code = ifelse(district == "Vermont At-Large", "VT01", district_code),
+         district_code = ifelse(district == "Wyoming At-Large", "WY01", district_code)) %>%
+  rename(state_dist = district_code)
+
+# total voting age pop
+library(tidycensus)
+census_api_key("b52b951af88427dcca3cee53db4fb1f76da8009d", install = TRUE, overwrite = TRUE)
+
+v18 <- load_variables(year = 2017, dataset = "acs5/subject", cache = TRUE)
+	
+voting.age <- get_acs(geography = "congressional district", 
+                      variables = "S0101_C01_026",
+                      key = "b52b951af88427dcca3cee53db4fb1f76da8009d")
+voting_age <- 
+  voting.age %>%
+  rename(tot_voting_age = estimate) %>%
+  separate(NAME,
+           into = c("district", "state"),
+           sep = ",",
+           extra = "merge") %>%
+  mutate(district = str_replace(district, "\\(116th Congress\\)", ""),
+         district = str_replace(district, "Congressional District ", ""),
+         district = str_trim(district, side = "both"),
+         district = str_pad(district, width = 2, side = "left", pad = "0"),
+         state = str_trim(state, side = "both"),
+         state_dist = paste(state2abbr(state), district, sep = ""),
+         state_dist = str_replace(state_dist, pattern = "\\(at Large\\)", "01")) %>%
+  dplyr::select(-variable, -moe, -GEOID, -district, -state)
+
+demo.data <- left_join(demo.data, voting_age, by = c("state_dist"))
+```
+
+## Merge Legislator Data with Demographic Data
+
+```{r}
+sum(duplicated(members.2018.data[ , c("district")]))
+sum(duplicated(demo.data[ , c("district")]))
+
+member.data <- 
+  left_join(member.data, demo.data, by = c("district" = "state_dist"))
+```
+
+# Election Data
+
+Data on each candidates' total number of votes for the 2018 midterm election was collected from the [MIT Election Data + Science Lab](https://electionlab.mit.edu/data).
+
+```{r}
+# House Elections
+election.data.raw <- 
+  read_csv("Data/Raw Data/Election Data/1976-2018-house.csv") %>% 
+  filter(year == 2018) %>% 
+  filter(stage == "gen")
+
+election.data <- 
+  election.data.raw %>%
+  mutate(district = str_pad(district, width = 2, side = "left", pad = "0"),
+         vote_pct = candidatevotes / totalvotes,
+         first_initial = str_sub(candidate, start = 1L, end = 1L)) %>%
+  filter(!is.na(candidate)) %>%
+  separate(candidate, into = c("first_name", "last_name"), extra = "drop") %>%
+  mutate(last_stub = str_sub(last_name, start = 1L, end = 3L),
+         state_dist = paste(state_po, district, sep = ""),
+         party = case_when(party == "democrat" ~ "D",
+                           party == "republican" ~ "R")) %>%
+  filter(!is.na(party)) %>%
+  dplyr::select(state_dist, party, first_initial, first_name, last_name, last_stub,
+         candidatevotes, totalvotes, office)
+
+election.data <- 
+  election.data %>%
+  mutate(state_dist = ifelse(state_dist == "AK00", "AK01", state_dist),
+         state_dist = ifelse(state_dist == "DE00", "DE01", state_dist),
+         state_dist = ifelse(state_dist == "MT00", "MT01", state_dist),
+         state_dist = ifelse(state_dist == "ND00", "ND01", state_dist),
+         state_dist = ifelse(state_dist == "SD00", "SD01", state_dist),
+         state_dist = ifelse(state_dist == "VT00", "VT01", state_dist),
+         state_dist = ifelse(state_dist == "WY00", "WY01", state_dist))
+```
+
+## Merge Election Data with Contribution Data
+
+```{r}
+# house elections
+sum(duplicated(election.data[ , c("state_dist", "party", "first_initial", "last_stub")]))
+sum(duplicated(member.data[ , c("district", "party", "first_initial", "last_stub")]))
+
+member.data <- 
+  left_join(member.data, election.data,
+  by = c("district" = "state_dist", "party", "first_initial", "last_stub"))
+
+member.data <- 
+  member.data %>%
+  mutate(new_member = as_factor(new_member),
+         party = as_factor(party),
+         vap_turnout = candidatevotes / tot_voting_age) %>%
+  dplyr::select(opensecrets_id, first_name.x, last_name.x, district, party, 
+                new_member, no_corp_pacs, tot_pac_money, num_pac_contribs, 
+                business_pacs, labor_pacs, ideological_pacs, leadership_pacs, 
+                other_pacs, net_receipts, net_indiv_total, candidate_contribs, 
+                large_indiv, small_indiv, net_spent, vote_pct, vap_turnout, 
+                median_hh_income, pct_clinton_16, pct_obama_12, 
+                pct_dem_house_16,pct_dem_house_14, pct_asian, pct_white, 
+                pct_black, pct_latino, pct_bachelors, tot_voting_age, chamber,
+                last_stub, first_initial) %>%
+  rename(first_name = first_name.x,
+         last_name = last_name.x)
+```
+
+
+# Contribution Data
+
+This contribution data come from [OpenSecrets.org](https://www.opensecrets.org/resources/). 
+
+## Individual Contributions
+
+```{r}
+# Industry Categories
+industry.cats <- read_excel("/Users/nickjenkins/Documents/Research/Data Sets/Contribution Data/CRP_industry_codes.xlsx")
+
+industry.cats <- 
+  industry.cats %>%
+  filter(str_detect(Catcode, "0000")) %>%
+  mutate(industry_letter = str_sub(Catcode, start = 1L, end = 1L)) %>%
+  select(-Catcode, -Catorder)
+
+# Individual Contribution data
+indiv.contrib.data.raw <- 
+  read_delim("/Users/nickjenkins/Documents/Research/Data Sets/Contribution Data/CampaignFin18/indivs18.txt", 
+             delim = "|", 
+             col_names = FALSE, 
+             col_types = cols(.default = col_character())) %>%
+  rename(year = X2,
+         fec_trans_id = X4,
+         donor_id = X6,
+         contrib_name = X8,
+         receipt_id = X10,
+         donor_org_name = X12,
+         standard_org = X14,
+         industry_code = X16,
+         contrib_date = X17,
+         contrib_city = X20,
+         contrib_state = X22, 
+         contrib_zip = X24,
+         recipient_type = X26,
+         transaction_type = X28) %>%
+  mutate(contrib_type = "Individual",
+         contrib_date = str_replace(contrib_date, ",,", ","),
+         industry_code = str_to_upper(industry_code),
+         industry_letter = str_sub(industry_code, start = 1L, end = 1L)) %>%
+  filter(str_detect(industry_code, pattern = "^Z4", negate = TRUE)) %>%
+  filter(str_detect(industry_code, pattern = "^Z9", negate = TRUE)) %>%
+  filter(str_detect(industry_code, pattern = "^z4", negate = TRUE)) %>%
+  filter(str_detect(industry_code, pattern = "^z9", negate = TRUE)) %>%
+  filter(str_detect(receipt_id, "^N")) %>%
+  separate(contrib_date, into = c("drop", "contrib_date", "contrib_amount"), sep = ",") %>%
+  mutate(contrib_amount, as.numeric(contrib_amount),
+         contrib_data = mdy(contrib_date))
+
+# code transaction types
+indiv.contribs <- 
+  indiv.contrib.data.raw %>%
+  mutate(transaction_type = factor(transaction_type, 
+                                   levels = c("10", "11", "15 ", "15E", "15I", "15J", "15T",
+                                              "19J", "20Y", "22Y"),
+                                   labels = c("Contrib. to Indp. Exp. Cmte.",
+                                              "Native American Tribe Contribution",
+                                              "Contrib. to Political Cmte.",
+                                              "Earmarked Contrib. to Political Cmte.",
+                                              "Earmarked Contrib. Check",
+                                              "Pct. Recipient Contrib. to Joint Fund. Cmte.",
+                                              "Earmarked Contrib. Treasury",
+                                              "Pct. Recipient Contrib. Electioneering",
+                                              "Nonfederal Refund",
+                                              "Contrib. Refund"))) %>%
+  filter(str_detect(transaction_type, "Contrib. to Indp. Exp. Cmte.", negate = TRUE)) %>%
+  filter(str_detect(transaction_type, "Pct. Recipient Contrib. to Joint Fund. Cmte.", 
+                    negate = TRUE)) %>%
+  filter(str_detect(transaction_type, "Pct. Recipient Contrib. Electioneering", 
+                    negate = TRUE)) %>%
+  filter(str_detect(transaction_type, "Nonfederal Refund", negate = TRUE)) %>%
+  filter(str_detect(transaction_type, "Contrib. Refund", negate = TRUE))
+
+# filter out non-individual recipients
+indiv.contrib.data <- 
+  indiv.contrib.data.raw %>%
+  filter(str_detect(receipt_id, "^N"))
+
+# aggregate data to recepient-level
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
+  mutate(fec_trans_id = as.character(fec_trans_id),
+         contrib_amount = as.numeric(contrib_amount),
+         contrib_date = mdy(contrib_date)) %>%
+  group_by(receipt_id, industry_code) %>%
+  summarise(year = first(year),
+            contrib_amount = sum(contrib_amount)) %>%
+  mutate(contrib_type = "Individual") %>%
+  arrange(receipt_id, industry_code, year)
+
+# remove non-contributions
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
+  mutate(industry_code = str_to_upper(industry_code),
+         industry_letter = str_sub(industry_code, start = 1L, end = 1L)) %>%
+  filter(industry_code != "Z9100") %>%
+  filter(industry_code != "Z9500") %>%
+  filter(industry_code != "Z9600") %>%
+  filter(industry_code != "Z9700") %>%
+  filter(industry_code != "Z9800") %>%
+  filter(industry_code != "Z9999") %>%
+  mutate(industry_letter = ifelse(industry_code == "Z1000" | 
+                                    industry_code == "Z1100" | 
+                                    industry_code == "Z1200" |
+                                    industry_code == "Z1300" |
+                                    industry_code == "Z1400", "CC", industry_letter),
+         industry_letter = ifelse(industry_code == "Z4100" | 
+                                    industry_code == "Z4200" | 
+                                    industry_code == "Z4300" |
+                                    industry_code == "Z4400" |
+                                    industry_code == "Z4500", "JCC", industry_letter),
+         industry_letter = ifelse(industry_code == "Z5000" | 
+                                    industry_code == "Z5100" | 
+                                    industry_code == "Z5200" |
+                                    industry_code == "Z5300", "PC", industry_letter),
+         industry_letter = ifelse(industry_code == "Z9000", "Self-finance", industry_letter)) %>%
+  group_by(receipt_id, industry_letter) %>%
+  summarise(contrib_amount = sum(contrib_amount)) %>%
+  arrange(receipt_id, industry_letter)
+
+## Merge with contribution data
+indiv.contrib.data <- left_join(
+  indiv.contrib.data,
+  industry.cats,
+  by = c("industry_letter")
+)
+
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
+  mutate(Catname = ifelse(industry_letter == "Z", "Committees", Catname)) %>%
+  rename(industry_name = Catname,
+         industry = Industry,
+         sector = Sector,
+         sector_long = `Sector Long`)
+
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
+  mutate(industry_name = ifelse(industry_letter == "Self-finance", 
+                                "indiv_self_finance",
+                                industry_name),
+         industry_name = ifelse(industry_letter == "CC", 
+                                "indiv_cand_committee",
+                                industry_name),
+         industry_name = ifelse(industry_letter == "JCC", 
+                                "indiv_jnt_cand_committee",
+                                industry_name),
+         industry_name = ifelse(industry_letter == "PC", 
+                                "indiv_party_committee",
+                                industry_name))
+
+sum(duplicated(indiv.contrib.data[ , c("receipt_id", "industry_letter")]))
+
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
+  filter(!is.na(industry_name)) %>%
+  select(receipt_id, industry_name, contrib_amount) %>%
+  spread(key = industry_name, value = contrib_amount) %>%
+  rename(indiv_ag = Agriculture,
+         indiv_comms_electric = `Communications & Electronics`,
+         indiv_const_pub_wrks = `Construction & Public Works`,
+         indiv_defense = Defense,
+         indiv_engy_res_envrmt = `Energy, Natural Resources and Environment`,
+         indiv_fncs_ins_real = `Finance, Insurance & Real Estate`,
+         indiv_commerce = `General commerce`,
+         indiv_hlth_edu_human = `Health, Education & Human Resources`,
+         indiv_ideological = `Ideological & Single Issue PACs`,
+         indiv_labor = `Labor Unions`,
+         indiv_legal = `Legal Services`,
+         indiv_manu = Manufacturing,
+         indiv_other = Other,
+         indiv_trans = Transportation,
+         indiv_unknown = Unknown) %>%
+  mutate_at(vars(indiv_ag:indiv_unknown), funs(ifelse(is.na(.), 0, .))) %>%
+  arrange(receipt_id)
+
+indiv.contrib.data <- 
+  indiv.contrib.data %>%
+  mutate(indiv_biz = sum(indiv_ag, indiv_comms_electric, indiv_const_pub_wrks,
+                         indiv_defense, indiv_engy_res_envrmt, indiv_legal,
+                         indiv_fncs_ins_real, indiv_commerce, indiv_manu,
+                         indiv_hlth_edu_human, indiv_trans)) %>%
+  select(receipt_id, indiv_biz, indiv_labor, indiv_ideological, 
+         indiv_self_finance, indiv_cand_committee, indiv_party_committee)
+```
+
+## PAC Contributions
+
+```{r}
+## 2018 - Congress 116
+pac.contrib.data.raw <- 
+  read_delim("/Users/nick/Documents/Research/Data Sets/Contribution Data/CampaignFin18/pacs18.txt", 
+                       delim = "|, |",
+                       col_names = FALSE) %>%
+  rename(year = X2,
+         fec_trans_id = X4,
+         pac_id = X6,
+         receipt_id = X8,
+         industry_code = X10,
+         trans_type = X12,
+         direct_indirect = X14,
+         contrib_date = X9) %>%
+  select(year, fec_trans_id, pac_id, receipt_id, industry_code, trans_type, 
+         direct_indirect, contrib_date) %>%
+  separate(contrib_date, into = c("drop", "contrib_amount", "contrib_date"), sep = ",") %>%
+  mutate(fec_trans_id = as.character(fec_trans_id),
+         contrib_amount = as.numeric(contrib_amount),
+         contrib_date = mdy(contrib_date),
+         trans_type = factor(trans_type, 
+                             levels = c("24A", "24C", "24E", "24F", "24K", "24N", "24Z"),
+                             labels = c("independent expenditure against the candidate",
+                                        "coordinated expenditure",
+                                        "independent expenditure for the candidate",
+                                        "communication cost for the candidate",
+                                        "direct contribution",
+                                        "communication cost against the candidate",
+                                        "in kind contribution")),
+         direct_indirect = factor(direct_indirect,
+                                  levels = c("D", "I"),
+                                  labels = c("Direct", "Indirect"))) %>%
+  mutate(contrib_type = "PAC") %>%
+  filter(trans_type == "independent expenditure for the candidate" | 
+           trans_type == "direct contribution" | 
+           trans_type == "in kind contribution" |
+           trans_type == "coordinated expenditure") %>%
+  arrange(receipt_id, industry_code, year) 
+
+# filter out non-individual recipients
+pac.contrib.data <- 
+  pac.contrib.data.raw %>%
+  filter(str_detect(receipt_id, "^N"))
+
+pac.contrib.data <- 
+  pac.contrib.data.raw %>%
+  mutate(industry_code = str_to_upper(industry_code),
+         industry_letter = str_sub(industry_code, start = 1L, end = 1L)) %>%
+  filter(industry_code != "Z9100") %>%
+  filter(industry_code != "Z9500") %>%
+  filter(industry_code != "Z9600") %>%
+  filter(industry_code != "Z9700") %>%
+  filter(industry_code != "Z9800") %>%
+  filter(industry_code != "Z9999") %>%
+  mutate(industry_letter = ifelse(industry_code == "Z1000" | 
+                                    industry_code == "Z1100" | 
+                                    industry_code == "Z1200" |
+                                    industry_code == "Z1300" |
+                                    industry_code == "Z1400", "pac_cand_committee", industry_letter),
+         industry_letter = ifelse(industry_code == "Z4100" | 
+                                    industry_code == "Z4200" | 
+                                    industry_code == "Z4300" |
+                                    industry_code == "Z4400" |
+                                    industry_code == "Z4500", "pac_jnt_cand_committee", industry_letter),
+         industry_letter = ifelse(industry_code == "Z5000" | 
+                                    industry_code == "Z5100" | 
+                                    industry_code == "Z5200" |
+                                    industry_code == "Z5300", "pac_party_committee", industry_letter),
+         industry_letter = ifelse(industry_code == "Z9000", "Self-finance", industry_letter)) %>%
+  group_by(receipt_id, industry_letter, trans_type) %>%
+  summarise(contrib_amount = sum(contrib_amount)) %>%
+  arrange(receipt_id, industry_letter)
+
+## Merge with contribution data
+pac.contrib.data <- left_join(
+  pac.contrib.data,
+  industry.cats,
+  by = c("industry_letter")
+)
+
+pac.contrib.data <- 
+  pac.contrib.data %>%
+  rename(industry_name = Catname,
+         industry = Industry,
+         sector = Sector,
+         sector_long = `Sector Long`)
+
+sum(duplicated(pac.contrib.data[ , c("receipt_id", "industry_letter", "trans_type")]))
+
+pac.contrib.data <- 
+  pac.contrib.data %>%
+  filter(!is.na(industry_letter)) %>%
+  select(receipt_id, contrib_amount, industry_letter, trans_type) %>%
+  unite(col = "group", trans_type, industry_letter, sep = "-") %>%
+  spread(key = group, value = contrib_amount) %>%
+  rename(dir_pac_ag = `direct contribution-A`,
+         dir_pac_comms_electric = `direct contribution-C`,
+         dir_pac_const_pub_wrks = `direct contribution-B`,
+         dir_pac_defense = `direct contribution-D`,
+         dir_pac_engy_res_envrmt = `direct contribution-E`,
+         dir_pac_fncs_ins_real = `direct contribution-F`,
+         dir_pac_commerce = `direct contribution-G`,
+         dir_pac_hlth_edu_human = `direct contribution-H`,
+         dir_pac_ideological = `direct contribution-J`,
+         dir_pac_labor = `direct contribution-L`,
+         dir_pac_legal = `direct contribution-K`,
+         dir_pac_manu = `direct contribution-M`,
+         dir_pac_other = `direct contribution-X`,
+         dir_pac_trans = `direct contribution-T`,
+         dir_pac_unknown = `direct contribution-Y`,
+         dir_pac_cand_committee = `direct contribution-pac_cand_committee`,
+         dir_pac_party_committee = `direct contribution-pac_party_committee`,
+         ik_pac_ag = `in kind contribution-A`,
+         ik_pac_comms_electric = `in kind contribution-C`,
+         ik_pac_const_pub_wrks = `in kind contribution-B`,
+         ik_pac_defense = `in kind contribution-D`,
+         ik_pac_engy_res_envrmt = `in kind contribution-E`,
+         ik_pac_fncs_ins_real = `in kind contribution-F`,
+         ik_pac_commerce = `in kind contribution-G`,
+         ik_pac_hlth_edu_human = `in kind contribution-H`,
+         ik_pac_ideological = `in kind contribution-J`,
+         ik_pac_labor = `in kind contribution-L`,
+         ik_pac_legal = `in kind contribution-K`,
+         ik_pac_manu = `in kind contribution-M`,
+         ik_pac_other = `in kind contribution-X`,
+         ik_pac_trans = `in kind contribution-T`,
+         ik_pac_cand_committee = `in kind contribution-pac_cand_committee`,
+         ik_pac_party_committee = `in kind contribution-pac_party_committee`,
+         ind_pac_engy_res_envrmt = `independent expenditure for the candidate-E`,
+         ind_pac_fncs_ins_real = `independent expenditure for the candidate-F`,
+         ind_pac_commerce = `independent expenditure for the candidate-G`,
+         ind_pac_hlth_edu_human = `independent expenditure for the candidate-H`,
+         ind_pac_ideological = `independent expenditure for the candidate-J`,
+         ind_pac_labor = `independent expenditure for the candidate-L`,
+         ind_pac_manu = `independent expenditure for the candidate-M`,
+         ind_pac_unknown = `independent expenditure for the candidate-Y`,
+         ind_pac_party_committee = `independent expenditure for the candidate-pac_party_committee`,
+         ce_pac_ideological= `coordinated expenditure-J`,
+         ce_pac_legal = `coordinated expenditure-L`,
+         ce_pac_party_committee = `coordinated expenditure-pac_party_committee`) %>%
+  mutate_at(vars(ce_pac_ideological:ind_pac_unknown), funs(ifelse(is.na(.), 0, .))) %>%
+  arrange(receipt_id)
+
+pac.contrib.data <- 
+  pac.contrib.data %>%
+  mutate(dir_business_pacs = sum(dir_pac_ag, dir_pac_comms_electric, 
+                                 dir_pac_const_pub_wrks, dir_pac_defense,
+                                 dir_pac_engy_res_envrmt, dir_pac_fncs_ins_real,
+                                 dir_pac_commerce, dir_pac_hlth_edu_human,
+                                 dir_pac_legal, dir_pac_manu, dir_pac_other,
+                                 dir_pac_trans, dir_pac_unknown,
+                                 na.rm = TRUE),
+         in_kind_business_pacs = sum(ik_pac_ag, ik_pac_commerce, 
+                                     ik_pac_const_pub_wrks, ik_pac_defense,
+                                     ik_pac_engy_res_envrmt, 
+                                     ik_pac_fncs_ins_real, ik_pac_commerce, 
+                                     ik_pac_hlth_edu_human, ik_pac_legal,
+                                     ik_pac_manu, ik_pac_other, ik_pac_trans,
+                                     na.rm = TRUE),
+         ind_business_pacs = sum(ind_pac_engy_res_envrmt, ind_pac_fncs_ins_real,
+                                  ind_pac_commerce, ind_pac_hlth_edu_human, 
+                                  ind_pac_manu, ind_pac_unknown,
+                                  na.rm = TRUE)) %>%
+  select(receipt_id, dir_business_pacs, in_kind_business_pacs, 
+         ind_business_pacs, dir_pac_cand_committee, dir_pac_party_committee,
+         ik_pac_party_committee, ind_pac_party_committee, 
+         ce_pac_party_committee, dir_pac_labor, ik_pac_labor, ind_pac_labor,
+         dir_pac_ideological, ik_pac_ideological, ind_pac_ideological, 
+         ce_pac_ideological)
+```
+
+## Combine Contribution Data
+
+```{r}
+# Combine data
+contrib.data <- left_join(
+  indiv.contrib.data,
+  pac.contrib.data,
+  by = c("receipt_id")
+)
+
+save(contrib.data, file = "Data/Clean Data/contribution_data.Rda")
+```
+
+## Merge with Legislator Data
+
+```{r}
+# load clean contribution data
+load("Data/Raw Data/contrib_data.Rda")
+
+member.data <- 
+  left_join(member.data, contrib.data, by = c("opensecrets_id" = "receipt_id"))
+```
+
+
+# Select Final Data Set
+
+```{r}
+estimation.data <- 
+  member.data %>%
+  filter(party == "D") %>%
+  select(district, no_corp_pacs, new_member, tot_pac_money, num_pac_contribs, 
+         business_pacs, ideological_pacs, in_kind_business_pacs, ind_against_business_pacs,
+         ind_for_business_pacs, party_exp, leadership_pacs, net_indiv_total, 
+         large_indiv, small_indiv, indiv_ideological, indiv_cand_committee, 
+         indiv_party_committee, indiv_biz, indiv_labor, 
+         net_spent, net_receipts, vote_pct, vap_turnout, median_hh_income, 
+         pct_clinton_16, pct_dem_house_16, pct_asian, pct_white, pct_black, 
+         pct_latino, pct_bachelors, tot_voting_age, chamber) %>%
+  mutate(vote_pct = vote_pct * 100,
+         vap_turnout = vap_turnout * 100,
+         log_median_hh_income = log(median_hh_income),
+         log_tot_voting_age = log(tot_voting_age))
+
+save(estimation.data, file = "Data/Clean Data/estimation_data2.Rda")
+```
+
+
+# Final Data Set Summary Statistics 
+
+```{r Summary Statistics, echo = TRUE}
+psych::describeBy(estimation.data, group = estimation.data$no_corp_pacs)
+# no_pacs <- c("YES", "NO")
+# titles <- c("Summary Statistics for Candidates who Reject PACs",
+#             "Summary Statistics for States who do not Reject PACs")
+# 
+# for (i in 1:2) {
+#   estimation.data %>%
+#     filter(no_corp_pacs == no_pacs[i]) %>%
+#     fastDummies::dummy_cols(select_columns= c("party", "new_member")) %>%
+#   as.data.frame() %>%
+#   stargazer(., 
+#             type = "text", 
+#             style = "apsr", 
+#             title = titles[i],
+#             covariate.labels = c("Total PAC Money", 
+#                                  "Number of PAC Contributors",
+#                                  "Business PAC Contributions", 
+#                                  "Direct Business PAC Contributions",
+#                                  "In-kind Business PAC Contributions",
+#                                  "Independent Business PAC Expendatures",
+#                                  "Contributions from Candidates",
+#                                  "Direct Candidate Contributions",
+#                                  "Direct Party Contributions",
+#                                  "In-kind Party Contributions",
+#                                  "Independent Party Expendatures",
+#                                  "Coordinated Party Expendatures",
+#                                  "Labor PAC Contributions",
+#                                  "Direct Labor PAC Contributions",
+#                                  "In-kind Labor PAC Contributions",
+#                                  "Independent Labor PAC Expendatures",
+#                                  "Ideological PAC Contributions",
+#                                  "Direct Ideological PAC Contributions",
+#                                  "In-kind Ideological PAC Contributions",
+#                                  "Independent Ideological PAC Expendatures",
+#                                  "Coordinated Ideological PAC Expendautres",
+#                                  "Leadership PAC Contributions",
+#                                  "Total Individual Contributions",
+#                                  "Large Individual Contributions",
+#                                  "Small Individual Contributions",
+#                                  "Individual Ideological Contributions",
+#                                  "Individual Candidate Contributions",
+#                                  "Individual Party Contributions",
+#                                  "Self-financing", 
+#                                  "Individual Business Contributions",
+#                                  "Individual Labor Contributions",
+#                                  "Net Spent", "Net Receipts", "Vote Percentage",
+#                                  "Voting Age Pop. Turnout", 
+#                                  "Median Household Income",
+#                                  "% District Vote Share for Clinton in 2016",
+#                                  "% District Democratic Vote Share in 2016 Congressional Elections",
+#                                  "% Asian Pop. in District", 
+#                                  "% White Pop. in District",
+#                                  "% Black Pop. in District",
+#                                  "% Latino Pop. in District",
+#                                  "% District Pop. with Bachelors Degree",
+#                                  "Total Voting Age District Pop.",
+#                                  "Log(Median Household Income)",
+#                                  "Log(Total Voting Age District Pop.)",
+#                                  "New Member",
+#                                  "Incumbent"))
+# }
+```
